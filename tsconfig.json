@@ -1,26 +1,40 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
+    "jsx": "react-jsx",
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
     "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": false,
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "baseUrl": ".",
+    "paths": {
+      "@app/colors": ["src/@app/colors/index.ts"],
+      "@app/core": ["src/@app/core/index.ts"],
+      "@app/settings": ["src/@app/settings/index.ts"],
+      "@app/utils": ["src/@app/utils/index.ts"],
+      "@app/store": ["src/app/store/index.ts"],
+      "@app/configs": ["src/app/configs/index.ts"],
+      "@app/layout": ["src/app/theme-layouts/index.ts"],
+      "@app/hooks": ["src/@app/hooks/index.ts"],
+      "@mock-api": ["src/@mock-api/index.ts"],
+      "@app/shared": ["src/app/shared-components/index.ts"],
+      "@app/context": ["src/app/AppContext.tsx"],
+      "@history": ["src/@history/index.ts"],
+      "@lodash": ["src/@lodash/index.ts"]
+    }
   },
-  "include": [
-    "src"
-  ]
+  "exclude": ["node_modules", "tmp", "translate", "template"],
+  "include": ["src"]
 }

@@ -15,5 +15,5 @@ src/app/main/documentation/third-party-components/*/examples/*
 
 src/@fake-db/db/*
 
-template/*
+/template/*
 tailwind.config.js

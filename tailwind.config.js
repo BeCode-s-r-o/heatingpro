@@ -1462,7 +1462,7 @@ module.exports = {
   ],
   plugins: [
     // eslint-disable-next-line import/no-dynamic-require
-    require(path.resolve(__dirname, "src/@fuse/tailwind/plugins/icon-size")),
+    require(path.resolve(__dirname, "src/@app/tailwind/plugins/icon-size")),
     // Other third party and/or custom plugins
     require("@tailwindcss/typography")({ modifiers: ["sm", "lg"] }),
     require("@tailwindcss/aspect-ratio"),
