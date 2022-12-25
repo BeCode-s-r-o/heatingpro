@@ -1,26 +1,24 @@
 import { useTimeout } from '@fuse/hooks';
-import Typography from '@mui/material/Typography';
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import clsx from 'clsx';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import clsx from 'clsx';
+import { useState } from 'react';
 
-function FuseLoading(props) {
-  const [showLoading, setShowLoading] = useState(!props.delay);
+interface LoadingProps {
+  delay?: number;
+}
+
+const Loading = ({ delay }: LoadingProps) => {
+  const [showLoading, setShowLoading] = useState(!delay);
 
   useTimeout(() => {
     setShowLoading(true);
-  }, props.delay);
+  }, delay);
 
   return (
-    <div
-      className={clsx(
-        'flex flex-1 flex-col items-center justify-center p-24',
-        !showLoading && 'hidden'
-      )}
-    >
+    <div className={clsx('flex flex-1 flex-col items-center justify-center p-24', !showLoading && 'hidden')}>
       <Typography className="text-13 sm:text-20 font-medium -mb-16" color="text.secondary">
-        Loading
+        Načítavam...
       </Typography>
       <Box
         id="spinner"
@@ -36,14 +34,6 @@ function FuseLoading(props) {
       </Box>
     </div>
   );
-}
-
-FuseLoading.propTypes = {
-  delay: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
-FuseLoading.defaultProps = {
-  delay: false,
-};
-
-export default FuseLoading;
+export default Loading;

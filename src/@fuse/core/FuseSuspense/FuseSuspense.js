@@ -1,4 +1,4 @@
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import PropTypes from 'prop-types';
 import { Suspense } from 'react';
 
