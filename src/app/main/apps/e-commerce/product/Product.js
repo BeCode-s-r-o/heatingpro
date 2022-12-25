@@ -1,4 +1,4 @@
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDeepCompareEffect } from '@fuse/hooks';
 import Button from '@mui/material/Button';
@@ -28,10 +28,7 @@ import ShippingTab from './tabs/ShippingTab';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-  name: yup
-    .string()
-    .required('You must enter a product name')
-    .min(5, 'The product name must be at least 5 characters'),
+  name: yup.string().required('You must enter a product name').min(5, 'The product name must be at least 5 characters'),
 });
 
 function Product(props) {
@@ -117,13 +114,7 @@ function Product(props) {
         <Typography color="text.secondary" variant="h5">
           There is no such product!
         </Typography>
-        <Button
-          className="mt-24"
-          component={Link}
-          variant="outlined"
-          to="/apps/e-commerce/products"
-          color="inherit"
-        >
+        <Button className="mt-24" component={Link} variant="outlined" to="/apps/e-commerce/products" color="inherit">
           Go to Products Page
         </Button>
       </motion.div>
@@ -133,10 +124,7 @@ function Product(props) {
   /**
    * Wait while product data is loading and form is setted
    */
-  if (
-    _.isEmpty(form) ||
-    (product && routeParams.productId !== product.id && routeParams.productId !== 'new')
-  ) {
+  if (_.isEmpty(form) || (product && routeParams.productId !== product.id && routeParams.productId !== 'new')) {
     return <FuseLoading />;
   }
 

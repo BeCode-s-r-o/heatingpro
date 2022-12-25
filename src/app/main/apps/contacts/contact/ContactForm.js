@@ -3,7 +3,7 @@ import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import _ from '@lodash';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -17,14 +17,7 @@ import IconButton from '@mui/material/IconButton';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import Checkbox from '@mui/material/Checkbox/Checkbox';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import {
-  addContact,
-  getContact,
-  newContact,
-  removeContact,
-  selectContact,
-  updateContact,
-} from '../store/contactSlice';
+import { addContact, getContact, newContact, removeContact, selectContact, updateContact } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
 import ContactEmailSelector from './email-selector/ContactEmailSelector';
@@ -102,11 +95,7 @@ const ContactForm = (props) => {
         }}
       >
         {contact.background && (
-          <img
-            className="absolute inset-0 object-cover w-full h-full"
-            src={contact.background}
-            alt="user background"
-          />
+          <img className="absolute inset-0 object-cover w-full h-full" src={contact.background} alt="user background" />
         )}
       </Box>
 

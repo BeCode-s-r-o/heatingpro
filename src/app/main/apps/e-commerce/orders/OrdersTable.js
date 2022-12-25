@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import OrdersStatus from '../order/OrdersStatus';
 import { getOrders, selectOrders, selectOrdersSearchText } from '../store/ordersSlice';
 import OrdersTableHead from './OrdersTableHead';
@@ -86,10 +86,7 @@ function OrdersTable(props) {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
 
     setSelected(newSelected);

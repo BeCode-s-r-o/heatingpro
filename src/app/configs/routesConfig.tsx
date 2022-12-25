@@ -1,5 +1,5 @@
 import FuseUtils from '@fuse/utils';
-import FuseLoading from '@fuse/core/FuseLoading';
+import Loading from '@fuse/core/Loading';
 import { Navigate } from 'react-router-dom';
 import settingsConfig from 'app/configs/settingsConfig';
 import userInterfaceConfigs from '../main/user-interface/UserInterfaceConfigs';
@@ -36,7 +36,7 @@ const routes: TRoute[] = [
   },
   {
     path: 'loading',
-    element: <FuseLoading />,
+    element: <Loading />,
   },
   {
     path: '*',
