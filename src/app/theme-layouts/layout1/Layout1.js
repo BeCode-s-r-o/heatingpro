@@ -43,13 +43,13 @@ function Layout1(props) {
         {config.navbar.display && config.navbar.position === 'left' && <NavbarWrapperLayout1 />}
 
         <main id="fuse-main" className="flex flex-col flex-auto min-h-full min-w-0 relative z-10">
-          {config.toolbar.display && (
-            <ToolbarLayout1 className={config.toolbar.style === 'fixed' && 'sticky top-0'} />
-          )}
+          {config.toolbar.display && <ToolbarLayout1 className={config.toolbar.style === 'fixed' && 'sticky top-0'} />}
 
-          <div className="sticky top-0 z-99">
-            <SettingsPanel />
-          </div>
+          {process.env.NODE_ENV !== 'production' && (
+            <div className="sticky top-0 z-99">
+              <SettingsPanel />
+            </div>
+          )}
 
           <div className="flex flex-col flex-auto min-h-0 relative z-10">
             <FuseDialog />
@@ -59,9 +59,7 @@ function Layout1(props) {
             {props.children}
           </div>
 
-          {config.footer.display && (
-            <FooterLayout1 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />
-          )}
+          {config.footer.display && <FooterLayout1 className={config.footer.style === 'fixed' && 'sticky bottom-0'} />}
         </main>
 
         {config.navbar.display && config.navbar.position === 'right' && <NavbarWrapperLayout1 />}

@@ -12,8 +12,8 @@ function ThemeShemesDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        The Fuse React uses material-ui's theming by default. You can create theme color schemes
-        with defining theme configuration objects.
+        The Fuse React uses material-ui's theming by default. You can create theme color schemes with defining theme
+        configuration objects.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -31,7 +31,7 @@ function ThemeShemesDoc() {
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
-        {require('!raw-loader!app/configs/themesConfig.js')}
+        {require('!raw-loader!app/configs/themesConfig')}
       </FuseHighlight>
     </>
   );
