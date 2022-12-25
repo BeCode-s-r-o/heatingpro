@@ -3,7 +3,7 @@ import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
@@ -44,11 +44,7 @@ const ContactView = () => {
         }}
       >
         {contact.background && (
-          <img
-            className="absolute inset-0 object-cover w-full h-full"
-            src={contact.background}
-            alt="user background"
-          />
+          <img className="absolute inset-0 object-cover w-full h-full" src={contact.background} alt="user background" />
         )}
       </Box>
       <div className="relative flex flex-col flex-auto items-center p-24 pt-0 sm:p-48 sm:pt-0">
@@ -80,12 +76,7 @@ const ContactView = () => {
 
           <div className="flex flex-wrap items-center mt-8">
             {contact.tags.map((id) => (
-              <Chip
-                key={id}
-                label={_.find(tags, { id }).title}
-                className="mr-12 mb-12"
-                size="small"
-              />
+              <Chip key={id} label={_.find(tags, { id }).title} className="mr-12 mb-12" size="small" />
             ))}
           </div>
 
@@ -137,45 +128,41 @@ const ContactView = () => {
               </div>
             )}
 
-            {contact.phoneNumbers.length &&
-              contact.phoneNumbers.some((item) => item.phoneNumber.length > 0) && (
-                <div className="flex">
-                  <FuseSvgIcon>heroicons-outline:phone</FuseSvgIcon>
-                  <div className="min-w-0 ml-24 space-y-4">
-                    {contact.phoneNumbers.map(
-                      (item, index) =>
-                        item.phoneNumber !== '' && (
-                          <div className="flex items-center leading-6" key={index}>
-                            <Box
-                              className="hidden sm:flex w-24 h-16 overflow-hidden"
-                              sx={{
-                                background:
-                                  "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
-                                backgroundSize: '24px 3876px',
-                                backgroundPosition: getCountryByIso(item.country)?.flagImagePos,
-                              }}
-                            />
+            {contact.phoneNumbers.length && contact.phoneNumbers.some((item) => item.phoneNumber.length > 0) && (
+              <div className="flex">
+                <FuseSvgIcon>heroicons-outline:phone</FuseSvgIcon>
+                <div className="min-w-0 ml-24 space-y-4">
+                  {contact.phoneNumbers.map(
+                    (item, index) =>
+                      item.phoneNumber !== '' && (
+                        <div className="flex items-center leading-6" key={index}>
+                          <Box
+                            className="hidden sm:flex w-24 h-16 overflow-hidden"
+                            sx={{
+                              background: "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
+                              backgroundSize: '24px 3876px',
+                              backgroundPosition: getCountryByIso(item.country)?.flagImagePos,
+                            }}
+                          />
 
-                            <div className="sm:ml-12 font-mono">
-                              {getCountryByIso(item.country)?.code}
-                            </div>
+                          <div className="sm:ml-12 font-mono">{getCountryByIso(item.country)?.code}</div>
 
-                            <div className="ml-10 font-mono">{item.phoneNumber}</div>
+                          <div className="ml-10 font-mono">{item.phoneNumber}</div>
 
-                            {item.label && (
-                              <>
-                                <Typography className="text-md truncate" color="text.secondary">
-                                  <span className="mx-8">&bull;</span>
-                                  <span className="font-medium">{item.label}</span>
-                                </Typography>
-                              </>
-                            )}
-                          </div>
-                        )
-                    )}
-                  </div>
+                          {item.label && (
+                            <>
+                              <Typography className="text-md truncate" color="text.secondary">
+                                <span className="mx-8">&bull;</span>
+                                <span className="font-medium">{item.label}</span>
+                              </Typography>
+                            </>
+                          )}
+                        </div>
+                      )
+                  )}
                 </div>
-              )}
+              </div>
+            )}
 
             {contact.address && (
               <div className="flex items-center">
@@ -187,9 +174,7 @@ const ContactView = () => {
             {contact.birthday && (
               <div className="flex items-center">
                 <FuseSvgIcon>heroicons-outline:cake</FuseSvgIcon>
-                <div className="ml-24 leading-6">
-                  {format(new Date(contact.birthday), 'MMMM d, y')}
-                </div>
+                <div className="ml-24 leading-6">{format(new Date(contact.birthday), 'MMMM d, y')}</div>
               </div>
             )}
 

@@ -186,7 +186,8 @@ class FuseUtils {
     return false;
   }
 
-  static getFlatNavigation(navigationItems: TNavigationItem[], flatNavigation: TNavigationItem[]) {
+  static getFlatNavigation(navigationItems: TNavigationItem[]) {
+    let flatNavigation: TNavigationItem[] = [];
     for (let i = 0; i < navigationItems.length; i += 1) {
       const navItem = navigationItems[i];
 
@@ -203,7 +204,7 @@ class FuseUtils {
 
       if (navItem.type === 'collapse' || navItem.type === 'group') {
         if (navItem.children) {
-          this.getFlatNavigation(navItem.children, flatNavigation);
+          this.getFlatNavigation(navItem.children);
         }
       }
     }

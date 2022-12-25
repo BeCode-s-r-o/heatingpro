@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import FuseSplashScreen from '@fuse/core/FuseSplashScreen';
+import SplashScreen from '@fuse/core/SplashScreen';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { logoutUser, setUser } from 'app/store/userSlice';
 import jwtService from './services/jwtService';
@@ -77,7 +77,7 @@ function AuthProvider({ children }) {
   }, [dispatch]);
 
   return waitAuthCheck ? (
-    <FuseSplashScreen />
+    <SplashScreen />
   ) : (
     <AuthContext.Provider value={{ isAuthenticated }}>{children}</AuthContext.Provider>
   );
