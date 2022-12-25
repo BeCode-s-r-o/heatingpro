@@ -21,14 +21,14 @@ mock.onGet('/api/auth/sign-in').reply(async (config) => {
   if (!user) {
     error.push({
       type: 'email',
-      message: 'Check your email address',
+      message: 'Nesprávný email alebo heslo',
     });
   }
 
   if (user && user.password !== password) {
     error.push({
       type: 'password',
-      message: 'Check your password',
+      message: 'Nesprávný email alebo heslo',
     });
   }
 
