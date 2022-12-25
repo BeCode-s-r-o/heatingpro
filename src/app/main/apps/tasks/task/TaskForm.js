@@ -3,7 +3,7 @@ import NavLinkAdapter from '@fuse/core/NavLinkAdapter';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import _ from '@lodash';
 import * as yup from 'yup';
 import { Controller, useForm } from 'react-hook-form';
@@ -99,9 +99,7 @@ const TaskForm = (props) => {
                 <Box sx={{ color: value ? 'secondary.main' : 'text.disabled' }}>
                   <FuseSvgIcon>heroicons-outline:check-circle</FuseSvgIcon>
                 </Box>
-                <span className="mx-8">
-                  {task.completed ? 'MARK AS INCOMPLETE' : 'MARK AS COMPLETE'}
-                </span>
+                <span className="mx-8">{task.completed ? 'MARK AS INCOMPLETE' : 'MARK AS COMPLETE'}</span>
               </Button>
             )}
           />
@@ -161,11 +159,7 @@ const TaskForm = (props) => {
           )}
         />
         <div className="flex w-full space-x-16 mt-32 mb-16 items-center">
-          <Controller
-            control={control}
-            name="priority"
-            render={({ field }) => <TaskPrioritySelector {...field} />}
-          />
+          <Controller control={control} name="priority" render={({ field }) => <TaskPrioritySelector {...field} />} />
 
           <Controller
             control={control}

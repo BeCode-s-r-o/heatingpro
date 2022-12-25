@@ -13,7 +13,7 @@ import { useEffect, useState } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 import withRouter from '@fuse/core/withRouter';
-import FuseLoading from '@fuse/core/FuseLoading';
+import FuseLoading from '@fuse/core/Loading';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { getProducts, selectProducts, selectProductsSearchText } from '../store/productsSlice';
 import ProductsTableHead from './ProductsTableHead';
@@ -39,9 +39,7 @@ function ProductsTable(props) {
 
   useEffect(() => {
     if (searchText.length !== 0) {
-      setData(
-        _.filter(products, (item) => item.name.toLowerCase().includes(searchText.toLowerCase()))
-      );
+      setData(_.filter(products, (item) => item.name.toLowerCase().includes(searchText.toLowerCase())));
       setPage(0);
     } else {
       setData(products);
@@ -89,10 +87,7 @@ function ProductsTable(props) {
     } else if (selectedIndex === selected.length - 1) {
       newSelected = newSelected.concat(selected.slice(0, -1));
     } else if (selectedIndex > 0) {
-      newSelected = newSelected.concat(
-        selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1)
-      );
+      newSelected = newSelected.concat(selected.slice(0, selectedIndex), selected.slice(selectedIndex + 1));
     }
 
     setSelected(newSelected);
@@ -180,12 +175,7 @@ function ProductsTable(props) {
                       />
                     </TableCell>
 
-                    <TableCell
-                      className="w-52 px-4 md:px-0"
-                      component="th"
-                      scope="row"
-                      padding="none"
-                    >
+                    <TableCell className="w-52 px-4 md:px-0" component="th" scope="row" padding="none">
                       {n.images.length > 0 && n.featuredImageId ? (
                         <img
                           className="w-full block rounded"
