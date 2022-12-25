@@ -35,7 +35,7 @@ function AuthProvider({ children }) {
     });
 
     jwtService.on('onLogout', () => {
-      pass('Signed out');
+      pass('Boli ste odhlásený');
 
       dispatch(logoutUser());
     });
