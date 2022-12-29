@@ -2,7 +2,7 @@
 import _ from '@lodash';
 import * as colors from '@mui/material/colors';
 import { TNavigationItem } from 'src/app/types/TNavigation';
-import { TRoute, TRouteAuth, TRouteConfig } from 'src/app/types/TRoutes';
+import { IRoute, TRouteAuth, TRouteConfig } from 'src/app/types/TRoutes';
 
 class EventEmitter {
   events: any;
@@ -156,8 +156,8 @@ class FuseUtils {
     return [...routes];
   }
 
-  static generateRoutesFromConfigs(configs: TRouteConfig[], defaultAuth: TRouteAuth[]): TRoute[] {
-    let allRoutes: TRoute[] = [];
+  static generateRoutesFromConfigs(configs: TRouteConfig[], defaultAuth: TRouteAuth[]): IRoute[] {
+    let allRoutes: IRoute[] = [];
     configs.forEach((config) => {
       allRoutes = [...allRoutes, ...this.setRoutes(config, defaultAuth)];
     });

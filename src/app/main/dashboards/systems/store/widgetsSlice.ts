@@ -13,7 +13,7 @@ const widgetsSlice = createSlice({
   initialState: null,
   reducers: {},
   extraReducers: {
-    [getWidgets.fulfilled]: (state, action) => action.payload,
+    [getWidgets.fulfilled as any]: (state, action) => action.payload,
   },
 });
 
