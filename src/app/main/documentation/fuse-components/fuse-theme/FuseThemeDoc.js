@@ -13,8 +13,8 @@ function FuseThemeDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseTheme</code> is the theming component of the Fuse React. It allows us to change
-        predefined Material UI themes. It should wrap the <code>FuseLayout</code> component.
+        <code>FuseTheme</code> is the theming component of the Fuse React. It allows us to change predefined Material UI
+        themes. It should wrap the <code>FuseLayout</code> component.
       </Typography>
 
       <Typography className="mb-16" component="p">
@@ -22,7 +22,7 @@ function FuseThemeDoc() {
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
-        {require('!raw-loader!src/app/App.js')}
+        {require('!raw-loader!src/app/App.tsx')}
       </FuseHighlight>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
