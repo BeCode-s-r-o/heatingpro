@@ -1,18 +1,18 @@
 export interface TRouteConfig {
   settings: TRouteSettings;
   auth: TRouteAuth[];
-  routes: TRoute[];
+  routes: IRoute[];
 }
 
-export interface TRoute {
+export interface IRoute {
   path: string;
   element: JSX.Element;
   auth?: TRouteAuth[];
 }
 
-export interface TRouteAuth {
+export type TRouteAuth = {
   path: 'guest' | 'user' | 'admin' | '';
-}
+};
 
 interface TRouteSettings {
   layout: {
@@ -35,3 +35,16 @@ interface TRouteSettings {
     };
   };
 }
+
+type TSettings = {
+  layout: {
+    config: {};
+  };
+};
+
+export interface ISingleRouteConfig {
+  settings: TSettings;
+  routes: IRoute[];
+}
+
+export type TSingleRouteConfigArray = ISingleRouteConfig[];
