@@ -18,8 +18,8 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseAuthorization</code> is the authorization component of the Fuse React. It
-        restricts unauthorized user access by looking at <b>route configs</b> and <b>user.role</b>.
+        <code>FuseAuthorization</code> is the authorization component of the Fuse React. It restricts unauthorized user
+        access by looking at <b>route configs</b> and <b>user.role</b>.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -31,7 +31,7 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
-        {require('!raw-loader!src/app/App.js')}
+        {require('!raw-loader!src/app/App.tsx')}
       </FuseHighlight>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -43,8 +43,8 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You need to define authorization (auth) in the <b>route config files</b> to control the
-        access via permission roles.
+        You need to define authorization (auth) in the <b>route config files</b> to control the access via permission
+        roles.
       </Typography>
 
       <Typography className="mt-32 mb-8" variant="subtitle2">
@@ -60,17 +60,14 @@ function FuseAuthorizationDoc() {
       </FuseHighlight>
 
       <Typography className="my-16" component="p">
-        You can also give different auth values for individual routes with writing auth value inside
-        the route object.
+        You can also give different auth values for individual routes with writing auth value inside the route object.
       </Typography>
 
       <Paper className="max-w-md my-16">
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="font-semibold text-14">
-                Authorization Role (auth) options
-              </TableCell>
+              <TableCell className="font-semibold text-14">Authorization Role (auth) options</TableCell>
               <TableCell />
             </TableRow>
           </TableHead>
@@ -106,8 +103,8 @@ function FuseAuthorizationDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        After successful login user.role will be updated and the FuseAuthorization automatically
-        redirects the authorized user.
+        After successful login user.role will be updated and the FuseAuthorization automatically redirects the
+        authorized user.
       </Typography>
 
       <Typography className="inline-block mb-8 italic" component="code">
@@ -197,8 +194,7 @@ function FuseAuthorizationDoc() {
       <Typography className="" component="p">
         If you don't want to set auth on every page config;
         <br />
-        you can give defaultAuth role value in the file{' '}
-        <code>src/app/configs/settingsConfig.js</code>
+        you can give defaultAuth role value in the file <code>src/app/configs/settingsConfig.js</code>
         <br />
         <br />
         The individual route configs which has auth option won't be overridden.
@@ -262,13 +258,12 @@ function FuseAuthorizationDoc() {
         Uncaught Error: Maximum update depth exceeded: Infinite loops
       </Typography>
       <Typography className="mb-16" component="p">
-        If you are getting this error, make sure authenticated user has rights to access main route{' '}
-        <b>"/"</b>
+        If you are getting this error, make sure authenticated user has rights to access main route <b>"/"</b>
         or it's redirected route path.
       </Typography>
       <Typography className="mb-16" component="p">
-        After successful login, every authenticated user should be able to access to main route path{' '}
-        <b>"/"</b> or redirected route path.
+        After successful login, every authenticated user should be able to access to main route path <b>"/"</b> or
+        redirected route path.
       </Typography>
     </>
   );

@@ -25,7 +25,7 @@
       "app/store/*": ["./src/app/store/*"],
       "app/shared-components/*": ["./src/app/shared-components/*"],
       "app/configs/*": ["./src/app/configs/*"],
-      "app/theme-layouts/*": ["./src/app/theme-layouts/*"],
+      "app/theme-layouts/*": ["src/app/layout/*"],
       "app/AppContext": ["./src/app/AppContext"]
 }
   },
