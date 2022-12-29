@@ -1,4 +1,3 @@
-import { amber } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
@@ -21,9 +20,7 @@ function FuseShortcuts(props) {
   const [addMenu, setAddMenu] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [searchResults, setSearchResults] = useState(null);
-  const shortcutItems = shortcuts
-    ? shortcuts.map((id) => navigation.find((item) => item.id === id))
-    : [];
+  const shortcutItems = shortcuts ? shortcuts.map((id) => navigation.find((item) => item.id === id)) : [];
 
   function addMenuClick(event) {
     setAddMenu(event.currentTarget);
@@ -39,9 +36,7 @@ function FuseShortcuts(props) {
     setSearchText(newSearchText);
 
     if (newSearchText.length !== 0 && navigation) {
-      setSearchResults(
-        navigation.filter((item) => item.title.toLowerCase().includes(newSearchText.toLowerCase()))
-      );
+      setSearchResults(navigation.filter((item) => item.title.toLowerCase().includes(newSearchText.toLowerCase())));
       return;
     }
     setSearchResults(null);
@@ -49,9 +44,7 @@ function FuseShortcuts(props) {
 
   function toggleInShortcuts(id) {
     let newShortcuts = [...shortcuts];
-    newShortcuts = newShortcuts.includes(id)
-      ? newShortcuts.filter((_id) => id !== _id)
-      : [...newShortcuts, id];
+    newShortcuts = newShortcuts.includes(id) ? newShortcuts.filter((_id) => id !== _id) : [...newShortcuts, id];
     onChange(newShortcuts);
   }
 
@@ -89,13 +82,7 @@ function FuseShortcuts(props) {
   }
 
   return (
-    <div
-      className={clsx(
-        'flex flex-1',
-        props.variant === 'vertical' && 'flex-col grow-0 shrink',
-        props.className
-      )}
-    >
+    <div className={clsx('flex flex-1', props.variant === 'vertical' && 'flex-col grow-0 shrink', props.className)}>
       {useMemo(() => {
         const container = {
           show: {
@@ -119,16 +106,8 @@ function FuseShortcuts(props) {
               (_item) =>
                 _item && (
                   <Link to={_item.url} key={_item.id} role="button">
-                    <Tooltip
-                      title={_item.title}
-                      placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-                    >
-                      <IconButton
-                        className="w-40 h-40 p-0"
-                        component={motion.div}
-                        variants={item}
-                        size="large"
-                      >
+                    <Tooltip title={_item.title} placement={props.variant === 'horizontal' ? 'bottom' : 'left'}>
+                      <IconButton className="w-40 h-40 p-0" component={motion.div} variants={item} size="large">
                         {_item.icon ? (
                           <FuseSvgIcon>{_item.icon}</FuseSvgIcon>
                         ) : (
@@ -139,23 +118,6 @@ function FuseShortcuts(props) {
                   </Link>
                 )
             )}
-
-            <Tooltip
-              title="Click to add/remove shortcut"
-              placement={props.variant === 'horizontal' ? 'bottom' : 'left'}
-            >
-              <IconButton
-                component={motion.div}
-                variants={item}
-                className="w-40 h-40 p-0"
-                aria-owns={addMenu ? 'add-menu' : null}
-                aria-haspopup="true"
-                onClick={addMenuClick}
-                size="large"
-              >
-                <FuseSvgIcon sx={{ color: amber[600] }}>heroicons-solid:star</FuseSvgIcon>
-              </IconButton>
-            </Tooltip>
           </motion.div>
         );
       }, [addMenu, props.variant, shortcutItems])}
@@ -197,11 +159,7 @@ function FuseShortcuts(props) {
         {searchText.length !== 0 &&
           searchResults &&
           searchResults.map((_item) => (
-            <ShortcutMenuItem
-              key={_item.id}
-              item={_item}
-              onToggle={() => toggleInShortcuts(_item.id)}
-            />
+            <ShortcutMenuItem key={_item.id} item={_item} onToggle={() => toggleInShortcuts(_item.id)} />
           ))}
 
         {searchText.length !== 0 && searchResults.length === 0 && (
@@ -213,13 +171,7 @@ function FuseShortcuts(props) {
         {searchText.length === 0 &&
           shortcutItems.map(
             (_item) =>
-              _item && (
-                <ShortcutMenuItem
-                  key={_item.id}
-                  item={_item}
-                  onToggle={() => toggleInShortcuts(_item.id)}
-                />
-              )
+              _item && <ShortcutMenuItem key={_item.id} item={_item} onToggle={() => toggleInShortcuts(_item.id)} />
           )}
       </Menu>
     </div>
