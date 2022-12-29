@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
-import TeamMembersWidget from './widgets/TeamMembersWidget';
+import SystemsTable from './widgets/SystemsTable';
 
-function TeamTab() {
+function SystemsTab() {
   const container = {
     show: {
       transition: {
@@ -17,16 +17,16 @@ function TeamTab() {
 
   return (
     <motion.div
-      className="flex flex-wrap p-24"
+      className="grid grid-cols-1 sm:grid-cols-6 gap-24 w-full min-w-0 p-24"
       variants={container}
       initial="hidden"
       animate="show"
     >
-      <motion.div variants={item} className="widget flex w-full">
-        <TeamMembersWidget />
+      <motion.div variants={item} className="sm:col-span-6">
+        <SystemsTable />
       </motion.div>
     </motion.div>
   );
 }
 
-export default TeamTab;
+export default SystemsTab;

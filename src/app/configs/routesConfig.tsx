@@ -12,7 +12,7 @@ import appsConfigs from '../main/apps/appsConfigs';
 import pagesConfigs from '../main/pages/pagesConfigs';
 import authRoleExamplesConfigs from '../main/auth/authRoleExamplesConfigs';
 import DocumentationConfig from '../main/documentation/DocumentationConfig';
-import { TRoute, TRouteConfig } from '../types/TRoutes';
+import { IRoute, TRouteConfig } from '../types/TRoutes';
 
 const routeConfigs: TRouteConfig[] = [
   ...appsConfigs,
@@ -27,11 +27,11 @@ const routeConfigs: TRouteConfig[] = [
   ForgotPasswordConfig,
 ];
 
-const routes: TRoute[] = [
+const routes: IRoute[] = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
   {
     path: '/',
-    element: <Navigate to="dashboards/analytics" />,
+    element: <Navigate to="systemy" />,
     auth: settingsConfig.defaultAuth,
   },
   {
