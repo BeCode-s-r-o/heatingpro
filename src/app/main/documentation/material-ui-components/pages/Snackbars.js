@@ -33,13 +33,13 @@ function SnackbarsDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Snackbars inform users of a process that an app has performed or will perform. They appear
-        temporarily, towards the bottom of the screen. They shouldn&#39;t interrupt the user
-        experience, and they don&#39;t require user input to disappear.
+        Snackbars inform users of a process that an app has performed or will perform. They appear temporarily, towards
+        the bottom of the screen. They shouldn&#39;t interrupt the user experience, and they don&#39;t require user
+        input to disappear.
       </Typography>
       <Typography className="mb-40" component="div">
-        Snackbars contain a single line of text directly related to the operation performed. They
-        may contain a text action, but no icons. You can use them to display notifications.
+        Snackbars contain a single line of text directly related to the operation performed. They may contain a text
+        action, but no icons. You can use them to display notifications.
       </Typography>
       <Typography className="mb-40" component="div">
         <strong>Frequency</strong>: Only one snackbar may be displayed at a time.
@@ -79,10 +79,10 @@ function SnackbarsDoc(props) {
         Positioned snackbars
       </Typography>
       <Typography className="mb-40" component="div">
-        In wide layouts, snackbars can be left-aligned or center-aligned if they are consistently
-        placed on the same spot at the bottom of the screen, however there may be circumstances
-        where the placement of the snackbar needs to be more flexible. You can control the position
-        of the snackbar by specifying the <code>anchorOrigin</code> prop.
+        In wide layouts, snackbars can be left-aligned or center-aligned if they are consistently placed on the same
+        spot at the bottom of the screen, however there may be circumstances where the placement of the snackbar needs
+        to be more flexible. You can control the position of the snackbar by specifying the <code>anchorOrigin</code>{' '}
+        prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -145,8 +145,7 @@ function SnackbarsDoc(props) {
         Change transition
       </Typography>
       <Typography className="mb-40" component="div">
-        <a href="/material-ui/transitions/#grow">Grow</a> is the default transition but you can use
-        a different one.
+        <a href="/material-ui/transitions/#grow">Grow</a> is the default transition but you can use a different one.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -161,8 +160,7 @@ function SnackbarsDoc(props) {
         Control Slide direction
       </Typography>
       <Typography className="mb-40" component="div">
-        You can change the direction of the <a href="/material-ui/transitions/#slide">Slide</a>{' '}
-        transition.
+        You can change the direction of the <a href="/material-ui/transitions/#slide">Slide</a> transition.
       </Typography>
       <Typography className="mb-40" component="div">
         Example of making the slide transition to the left:
@@ -204,15 +202,14 @@ export default function MyComponent() {
       </Typography>
       <Typography className="mb-40" component="div">
         {' '}
-        src="https://img.shields.io/github/stars/iamhosseindhv/notistack.svg?style=social&label=Stars"
-        alt="stars/> src="https://img.shields.io/npm/dm/notistack.svg" alt="npm downloads/>
+        src="https://img.shields.io/github/stars/iamhosseindhv/notistack.svg?style=social&label=Stars" alt="stars/>
+        src="https://img.shields.io/npm/dm/notistack.svg" alt="npm downloads/>
       </Typography>
       <Typography className="mb-40" component="div">
-        This example demonstrates how to use{' '}
-        <a href="https://github.com/iamhosseindhv/notistack">notistack</a>. notistack has an{' '}
-        <strong>imperative API</strong> that makes it easy to display snackbars, without having to
-        handle their open/close state. It also enables you to <strong>stack</strong> them on top of
-        one another (although this is discouraged by the Material Design guidelines).
+        This example demonstrates how to use <a href="https://github.com/iamhosseindhv/notistack">notistack</a>.
+        notistack has an <strong>imperative API</strong> that makes it easy to display snackbars, without having to
+        handle their open/close state. It also enables you to <strong>stack</strong> them on top of one another
+        (although this is discouraged by the Material Design guidelines).
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -227,23 +224,17 @@ export default function MyComponent() {
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        (WAI-ARIA:{' '}
-        <a href="https://www.w3.org/TR/wai-aria-1.1/#alert">
-          https://www.w3.org/TR/wai-aria-1.1/#alert
-        </a>
-        )
+        (WAI-ARIA: <a href="https://www.w3.org/TR/wai-aria-1.1/#alert">https://www.w3.org/TR/wai-aria-1.1/#alert</a>)
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, the snackbar won&#39;t auto-hide. However, if you decide to use the{' '}
-        <code>autoHideDuration</code> prop, it&#39;s recommended to give the user{' '}
-        <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/time-limits.html">sufficient time</a> to
-        respond.
+        By default, the snackbar won&#39;t auto-hide. However, if you decide to use the <code>autoHideDuration</code>{' '}
+        prop, it&#39;s recommended to give the user{' '}
+        <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/time-limits.html">sufficient time</a> to respond.
       </Typography>
       <Typography className="mb-40" component="div">
-        When open, <strong>every</strong> <code>Snackbar</code> will be dismissed if{' '}
-        <kbd className="key">Escape</kbd> is pressed. Unless you don&#39;t handle{' '}
-        <code>onClose</code> with the <code>{`"escapeKeyDown"`}</code> reason. If you want to limit
-        this behavior to only dismiss the oldest currently open Snackbar call{' '}
+        When open, <strong>every</strong> <code>Snackbar</code> will be dismissed if <kbd className="key">Escape</kbd>{' '}
+        is pressed. Unless you don&#39;t handle <code>onClose</code> with the <code>{`"escapeKeyDown"`}</code> reason.
+        If you want to limit this behavior to only dismiss the oldest currently open Snackbar call{' '}
         <code>event.preventDefault</code> in <code>onClose</code>.
       </Typography>
 

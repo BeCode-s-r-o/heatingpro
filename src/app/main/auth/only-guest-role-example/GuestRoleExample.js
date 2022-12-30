@@ -15,8 +15,7 @@ function GuestRoleExample() {
       content={
         <div className="p-24">
           <Typography className="mb-24">
-            You can see this page because you have not logged in. Otherwise you should be redirected
-            to root page.
+            You can see this page because you have not logged in. Otherwise you should be redirected to root page.
           </Typography>
 
           <Typography className="mb-24">This is the page's config file:</Typography>
@@ -44,8 +43,7 @@ function GuestRoleExample() {
           </FuseHighlight>
 
           <Typography className="my-24">
-            You can also hide the navigation item/collapse/group with user roles by giving auth
-            property.
+            You can also hide the navigation item/collapse/group with user roles by giving auth property.
           </Typography>
 
           <FuseHighlight component="pre" className="language-json">

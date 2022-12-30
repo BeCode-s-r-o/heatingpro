@@ -27,8 +27,7 @@ function GoogleMapReactDoc() {
         </Button>
       </div>
       <Typography className="mb-16" component="p">
-        <code>google-map-react</code> is a component written over a small set of the Google Maps
-        API.
+        <code>google-map-react</code> is a component written over a small set of the Google Maps API.
       </Typography>
 
       <hr />

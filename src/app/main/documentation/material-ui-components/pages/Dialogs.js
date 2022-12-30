@@ -29,15 +29,14 @@ function DialogsDoc(props) {
         Dialog
       </Typography>
       <Typography className="description">
-        Dialogs inform users about a task and can contain critical information, require decisions,
-        or involve multiple tasks.
+        Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple
+        tasks.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        A Dialog is a type of <a href="/material-ui/react-modal/">modal</a> window that appears in
-        front of app content to provide critical information or ask for a decision. Dialogs disable
-        all app functionality when they appear, and remain on screen until confirmed, dismissed, or
-        a required action has been taken.
+        A Dialog is a type of <a href="/material-ui/react-modal/">modal</a> window that appears in front of app content
+        to provide critical information or ask for a decision. Dialogs disable all app functionality when they appear,
+        and remain on screen until confirmed, dismissed, or a required action has been taken.
       </Typography>
       <Typography className="mb-40" component="div">
         Dialogs are purposefully interruptive, so they should be used sparingly.
@@ -46,18 +45,15 @@ function DialogsDoc(props) {
         Basic dialog
       </Typography>
       <Typography className="mb-40" component="div">
-        Simple dialogs can provide additional details or actions about a list item. For example,
-        they can display avatars, icons, clarifying subtext, or orthogonal actions (such as adding
-        an account).
+        Simple dialogs can provide additional details or actions about a list item. For example, they can display
+        avatars, icons, clarifying subtext, or orthogonal actions (such as adding an account).
       </Typography>
       <Typography className="mb-40" component="div">
         Touch mechanics:
       </Typography>
       <ul>
         <li>Choosing an option immediately commits the option and closes the menu</li>
-        <li>
-          Touching outside of the dialog, or pressing Back, cancels the action and closes the dialog
-        </li>
+        <li>Touching outside of the dialog, or pressing Back, cancels the action and closes the dialog</li>
       </ul>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -72,8 +68,7 @@ function DialogsDoc(props) {
         Alerts
       </Typography>
       <Typography className="mb-40" component="div">
-        Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a
-        situation.
+        Alerts are urgent interruptions, requiring acknowledgement, that inform the user about a situation.
       </Typography>
       <Typography className="mb-40" component="div">
         Most alerts don&#39;t need titles. They summarize a decision in a sentence or two by either:
@@ -83,22 +78,18 @@ function DialogsDoc(props) {
         <li>Making a statement related to the action buttons</li>
       </ul>
       <Typography className="mb-40" component="div">
-        Use title bar alerts only for high-risk situations, such as the potential loss of
-        connectivity. Users should be able to understand the choices based on the title and button
-        text alone.
+        Use title bar alerts only for high-risk situations, such as the potential loss of connectivity. Users should be
+        able to understand the choices based on the title and button text alone.
       </Typography>
       <Typography className="mb-40" component="div">
         If a title is required:
       </Typography>
       <ul>
         <li>
-          Use a clear question or statement with an explanation in the content area, such as
-          &quot;Erase USB storage?&quot;.
+          Use a clear question or statement with an explanation in the content area, such as &quot;Erase USB
+          storage?&quot;.
         </li>
-        <li>
-          Avoid apologies, ambiguity, or questions, such as &quot;Warning!&quot; or &quot;Are you
-          sure?&quot;
-        </li>
+        <li>Avoid apologies, ambiguity, or questions, such as &quot;Warning!&quot; or &quot;Are you sure?&quot;</li>
       </ul>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -128,9 +119,9 @@ function DialogsDoc(props) {
         Form dialogs
       </Typography>
       <Typography className="mb-40" component="div">
-        Form dialogs allow users to fill out form fields within a dialog. For example, if your site
-        prompts for potential subscribers to fill in their email address, they can fill out the
-        email field and touch &#39;Submit&#39;.
+        Form dialogs allow users to fill out form fields within a dialog. For example, if your site prompts for
+        potential subscribers to fill in their email address, they can fill out the email field and touch
+        &#39;Submit&#39;.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -176,9 +167,9 @@ function DialogsDoc(props) {
         Optional sizes
       </Typography>
       <Typography className="mb-40" component="div">
-        You can set a dialog maximum width by using the <code>maxWidth</code> enumerable in
-        combination with the <code>fullWidth</code> boolean. When the <code>fullWidth</code> prop is
-        true, the dialog will adapt based on the <code>maxWidth</code> value.
+        You can set a dialog maximum width by using the <code>maxWidth</code> enumerable in combination with the{' '}
+        <code>fullWidth</code> boolean. When the <code>fullWidth</code> prop is true, the dialog will adapt based on the{' '}
+        <code>maxWidth</code> value.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -225,13 +216,12 @@ function MyComponent() {
         Confirmation dialogs
       </Typography>
       <Typography className="mb-40" component="div">
-        Confirmation dialogs require users to explicitly confirm their choice before an option is
-        committed. For example, users can listen to multiple ringtones but only make a final
-        selection upon touching &quot;OK&quot;.
+        Confirmation dialogs require users to explicitly confirm their choice before an option is committed. For
+        example, users can listen to multiple ringtones but only make a final selection upon touching &quot;OK&quot;.
       </Typography>
       <Typography className="mb-40" component="div">
-        Touching &quot;Cancel&quot; in a confirmation dialog, or pressing Back, cancels the action,
-        discards any changes, and closes the dialog.
+        Touching &quot;Cancel&quot; in a confirmation dialog, or pressing Back, cancels the action, discards any
+        changes, and closes the dialog.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -247,10 +237,9 @@ function MyComponent() {
       </Typography>
       <Typography className="mb-40" component="div">
         You can create a draggable dialog by using{' '}
-        <a href="https://github.com/react-grid-layout/react-draggable">react-draggable</a>. To do
-        so, you can pass the imported <code>Draggable</code> component as the{' '}
-        <code>PaperComponent</code> of the <code>Dialog</code> component. This will make the entire
-        dialog draggable.
+        <a href="https://github.com/react-grid-layout/react-draggable">react-draggable</a>. To do so, you can pass the
+        imported <code>Draggable</code> component as the <code>PaperComponent</code> of the <code>Dialog</code>{' '}
+        component. This will make the entire dialog draggable.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -317,8 +306,7 @@ function MyComponent() {
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        Follow the <a href="/material-ui/react-modal/#accessibility">Modal accessibility section</a>
-        .
+        Follow the <a href="/material-ui/react-modal/#accessibility">Modal accessibility section</a>.
       </Typography>
     </>
   );

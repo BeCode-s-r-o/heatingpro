@@ -87,24 +87,11 @@ function ProfileApp() {
                 className="-mx-4 min-h-40"
                 classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
                 TabIndicatorProps={{
-                  children: (
-                    <Box
-                      sx={{ bgcolor: 'text.disabled' }}
-                      className="w-full h-full rounded-full opacity-20"
-                    />
-                  ),
+                  children: <Box sx={{ bgcolor: 'text.disabled' }} className="w-full h-full rounded-full opacity-20" />,
                 }}
               >
-                <Tab
-                  className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "
-                  disableRipple
-                  label="Timeline"
-                />
-                <Tab
-                  className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "
-                  disableRipple
-                  label="About"
-                />
+                <Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 " disableRipple label="Timeline" />
+                <Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 " disableRipple label="About" />
                 <Tab
                   className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "
                   disableRipple

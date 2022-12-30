@@ -54,11 +54,7 @@ function NewNote(props) {
           </div>
         </ClickAwayListener>
       ) : (
-        <Typography
-          className="w-full px-16 py-12 text-16 w-full"
-          color="text.secondary"
-          onClick={handleFormOpen}
-        >
+        <Typography className="w-full px-16 py-12 text-16 w-full" color="text.secondary" onClick={handleFormOpen}>
           Take a note...
         </Typography>
       )}

@@ -50,9 +50,7 @@ function TimelineTab() {
         <div className="flex flex-col w-full md:w-320 md:ltr:mr-32 md:rtl:ml-32">
           <Card component={motion.div} variants={item} className="flex flex-col w-full px-32 pt-24">
             <div className="flex justify-between items-center pb-16">
-              <Typography className="text-2xl font-semibold leading-tight">
-                Latest Activity
-              </Typography>
+              <Typography className="text-2xl font-semibold leading-tight">Latest Activity</Typography>
               <Button color="inherit" size="small" className="font-medium -mx-8">
                 See All
               </Button>
@@ -67,11 +65,7 @@ function TimelineTab() {
                       className="flex-1"
                       primary={
                         <div className="flex">
-                          <Typography
-                            className="font-normal whitespace-nowrap"
-                            color="secondary"
-                            paragraph={false}
-                          >
+                          <Typography className="font-normal whitespace-nowrap" color="secondary" paragraph={false}>
                             {activity.user.name}
                           </Typography>
 
@@ -90,11 +84,7 @@ function TimelineTab() {
         </div>
 
         <div className="flex flex-col flex-1">
-          <Card
-            component={motion.div}
-            variants={item}
-            className="w-full overflow-hidden w-full mb-32"
-          >
+          <Card component={motion.div} variants={item} className="w-full overflow-hidden w-full mb-32">
             <Input
               className="p-24 w-full"
               classes={{ root: 'text-14' }}
@@ -170,11 +160,7 @@ function TimelineTab() {
 
                 {post.article && (
                   <div className="border-1 rounded-8 overflow-hidden">
-                    <img
-                      className="w-full border-b-1"
-                      src={post.article.media.preview}
-                      alt="article"
-                    />
+                    <img className="w-full border-b-1" src={post.article.media.preview} alt="article" />
                     <div className="p-16">
                       <Typography variant="subtitle1">{post.article.title}</Typography>
                       <Typography variant="caption">{post.article.subtitle}</Typography>
@@ -223,20 +209,12 @@ function TimelineTab() {
                       {post.comments.map((comment) => (
                         <div key={comment.id}>
                           <ListItem className="px-0 -mx-8">
-                            <Avatar
-                              alt={comment.user.name}
-                              src={comment.user.avatar}
-                              className="mx-8"
-                            />
+                            <Avatar alt={comment.user.name} src={comment.user.avatar} className="mx-8" />
                             <ListItemText
                               className="px-4"
                               primary={
                                 <div className="flex items-center space-x-8">
-                                  <Typography
-                                    className="font-normal"
-                                    color="secondary"
-                                    paragraph={false}
-                                  >
+                                  <Typography className="font-normal" color="secondary" paragraph={false}>
                                     {comment.user.name}
                                   </Typography>
                                   <Typography variant="caption">{comment.time}</Typography>
@@ -246,9 +224,7 @@ function TimelineTab() {
                             />
                           </ListItem>
                           <div className="flex items-center mx-52 mb-8">
-                            <Button
-                              endIcon={<FuseSvgIcon size={14}>heroicons-outline:reply</FuseSvgIcon>}
-                            >
+                            <Button endIcon={<FuseSvgIcon size={14}>heroicons-outline:reply</FuseSvgIcon>}>
                               Reply
                             </Button>
                           </div>

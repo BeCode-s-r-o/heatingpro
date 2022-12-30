@@ -29,14 +29,7 @@ function ShippingTab(props) {
           name="height"
           control={control}
           render={({ field }) => (
-            <TextField
-              {...field}
-              className="mt-8 mb-16 mx-4"
-              label="Height"
-              id="height"
-              variant="outlined"
-              fullWidth
-            />
+            <TextField {...field} className="mt-8 mb-16 mx-4" label="Height" id="height" variant="outlined" fullWidth />
           )}
         />
 
@@ -44,14 +37,7 @@ function ShippingTab(props) {
           name="depth"
           control={control}
           render={({ field }) => (
-            <TextField
-              {...field}
-              className="mt-8 mb-16 mx-4"
-              label="Depth"
-              id="depth"
-              variant="outlined"
-              fullWidth
-            />
+            <TextField {...field} className="mt-8 mb-16 mx-4" label="Depth" id="depth" variant="outlined" fullWidth />
           )}
         />
       </div>
@@ -60,14 +46,7 @@ function ShippingTab(props) {
         name="weight"
         control={control}
         render={({ field }) => (
-          <TextField
-            {...field}
-            className="mt-8 mb-16"
-            label="Weight"
-            id="weight"
-            variant="outlined"
-            fullWidth
-          />
+          <TextField {...field} className="mt-8 mb-16" label="Weight" id="weight" variant="outlined" fullWidth />
         )}
       />
       <Controller

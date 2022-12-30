@@ -45,9 +45,7 @@ function PhotosVideosTab() {
                 variants={item}
                 className="flex items-center px-0 mb-24 bg-transparent"
               >
-                <Typography className="text-2xl font-semibold leading-tight">
-                  {period.name}
-                </Typography>
+                <Typography className="text-2xl font-semibold leading-tight">{period.name}</Typography>
                 <Typography className="mx-12 font-medium leading-tight" color="text.secondary">
                   {period.info}
                 </Typography>

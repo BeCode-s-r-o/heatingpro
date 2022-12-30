@@ -25,12 +25,7 @@ function ContactListItem(props) {
           primary={contact.name}
           secondary={
             <>
-              <Typography
-                className="inline"
-                component="span"
-                variant="body2"
-                color="text.secondary"
-              >
+              <Typography className="inline" component="span" variant="body2" color="text.secondary">
                 {contact.title}
               </Typography>
             </>

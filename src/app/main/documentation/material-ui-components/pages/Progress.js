@@ -29,13 +29,13 @@ function ProgressDoc(props) {
         Progress
       </Typography>
       <Typography className="description">
-        Progress indicators commonly known as spinners, express an unspecified wait time or display
-        the length of a process.
+        Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a
+        process.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Progress indicators inform users about the status of ongoing processes, such as loading an
-        app, submitting a form, or saving updates.
+        Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a
+        form, or saving updates.
       </Typography>
       <ul>
         <li>
@@ -46,8 +46,7 @@ function ProgressDoc(props) {
         </li>
       </ul>
       <Typography className="mb-40" component="div">
-        The animations of the components rely on CSS as much as possible to work even before the
-        JavaScript is loaded.
+        The animations of the components rely on CSS as much as possible to work even before the JavaScript is loaded.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Circular
@@ -179,10 +178,10 @@ function ProgressDoc(props) {
         Non-standard ranges
       </Typography>
       <Typography className="mb-40" component="div">
-        The progress components accept a value in the range 0 - 100. This simplifies things for
-        screen-reader users, where these are the default min / max values. Sometimes, however, you
-        might be working with a data source where the values fall outside this range. Here&#39;s how
-        you can easily transform a value in any range to a scale of 0 - 100:
+        The progress components accept a value in the range 0 - 100. This simplifies things for screen-reader users,
+        where these are the default min / max values. Sometimes, however, you might be working with a data source where
+        the values fall outside this range. Here&#39;s how you can easily transform a value in any range to a scale of 0
+        - 100:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -223,14 +222,11 @@ function Progress(props) {
         Delaying appearance
       </Typography>
       <Typography className="mb-40" component="div">
-        There are{' '}
-        <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">
-          3 important limits
-        </a>{' '}
-        to know around response time. The ripple effect of the <code>ButtonBase</code> component
-        ensures that the user feels that the system is reacting instantaneously. Normally, no
-        special feedback is necessary during delays of more than 0.1 but less than 1.0 second. After
-        1.0 second, you can display a loader to keep user&#39;s flow of thought uninterrupted.
+        There are <a href="https://www.nngroup.com/articles/response-times-3-important-limits/">3 important limits</a>{' '}
+        to know around response time. The ripple effect of the <code>ButtonBase</code> component ensures that the user
+        feels that the system is reacting instantaneously. Normally, no special feedback is necessary during delays of
+        more than 0.1 but less than 1.0 second. After 1.0 second, you can display a loader to keep user&#39;s flow of
+        thought uninterrupted.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -248,17 +244,17 @@ function Progress(props) {
         High CPU load
       </Typography>
       <Typography className="mb-40" component="div">
-        Under heavy load, you might lose the stroke dash animation or see random{' '}
-        <code>CircularProgress</code> ring widths. You should run processor intensive operations in
-        a web worker or by batch in order not to block the main rendering thread.
+        Under heavy load, you might lose the stroke dash animation or see random <code>CircularProgress</code> ring
+        widths. You should run processor intensive operations in a web worker or by batch in order not to block the main
+        rendering thread.
       </Typography>
       <Typography className="mb-40" component="div">
         {' '}
         src="/material-ui-static/images/progress/heavy-load.gif" alt="heavy load/>
       </Typography>
       <Typography className="mb-40" component="div">
-        When it&#39;s not possible, you can leverage the <code>disableShrink</code> prop to mitigate
-        the issue. See <a href="https://github.com/mui/material-ui/issues/10327">this issue</a>.
+        When it&#39;s not possible, you can leverage the <code>disableShrink</code> prop to mitigate the issue. See{' '}
+        <a href="https://github.com/mui/material-ui/issues/10327">this issue</a>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -273,14 +269,13 @@ function Progress(props) {
         High frequency updates
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>LinearProgress</code> uses a transition on the CSS transform property to provide a
-        smooth update between different values. The default transition duration is 200ms. In the
-        event a parent component updates the <code>value</code> prop too quickly, you will at least
-        experience a 200ms delay between the re-render and the progress bar fully updated.
+        The <code>LinearProgress</code> uses a transition on the CSS transform property to provide a smooth update
+        between different values. The default transition duration is 200ms. In the event a parent component updates the{' '}
+        <code>value</code> prop too quickly, you will at least experience a 200ms delay between the re-render and the
+        progress bar fully updated.
       </Typography>
       <Typography className="mb-40" component="div">
-        If you need to perform 30 re-renders per second or more, we recommend disabling the
-        transition:
+        If you need to perform 30 re-renders per second or more, we recommend disabling the transition:
       </Typography>
 
       <FuseHighlight component="pre" className="language-css">
@@ -294,9 +289,8 @@ function Progress(props) {
         IE 11
       </Typography>
       <Typography className="mb-40" component="div">
-        The circular progress component animation on IE 11 is degraded. The stroke dash animation is
-        not working (equivalent to <code>disableShrink</code>) and the circular animation wobbles.
-        You can solve the latter with:
+        The circular progress component animation on IE 11 is degraded. The stroke dash animation is not working
+        (equivalent to <code>disableShrink</code>) and the circular animation wobbles. You can solve the latter with:
       </Typography>
 
       <FuseHighlight component="pre" className="language-css">

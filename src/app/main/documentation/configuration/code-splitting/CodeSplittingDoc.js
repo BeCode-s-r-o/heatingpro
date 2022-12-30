@@ -9,10 +9,10 @@ function CodeSplittingDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        Code-splitting your app can help you “lazy-load” just the things that are currently needed
-        by the user, which can dramatically improve the performance of your app. While you haven’t
-        reduced the overall amount of code in your app, you’ve avoided loading code that the user
-        may never need, and reduced the amount of code needed during the initial load.
+        Code-splitting your app can help you “lazy-load” just the things that are currently needed by the user, which
+        can dramatically improve the performance of your app. While you haven’t reduced the overall amount of code in
+        your app, you’ve avoided loading code that the user may never need, and reduced the amount of code needed during
+        the initial load.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -92,8 +92,7 @@ function CodeSplittingDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        We created Higher Order Component <code>withReducer</code> to load redux reducer before the
-        component render.
+        We created Higher Order Component <code>withReducer</code> to load redux reducer before the component render.
         <br />
         You just need to pass the <b>key</b> and the <b>reducer</b> to the component.
       </Typography>

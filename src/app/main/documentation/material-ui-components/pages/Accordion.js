@@ -29,18 +29,17 @@ function AccordionDoc(props) {
         Accordion
       </Typography>
       <Typography className="description">
-        The accordion component allows the user to show and hide sections of related content on a
-        page.
+        The accordion component allows the user to show and hide sections of related content on a page.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        An accordion is a lightweight container that may either be used standalone, or be connected
-        to a larger surface, such as a card.
+        An accordion is a lightweight container that may either be used standalone, or be connected to a larger surface,
+        such as a card.
       </Typography>
       <Typography className="mb-40" component="div">
         :::info Accordions are no longer documented in the{' '}
-        <a href="https://m2.material.io/">Material Design guidelines</a>, but MUI will continue to
-        support them. It was formerly known as the &quot;expansion panel&quot;. :::
+        <a href="https://m2.material.io/">Material Design guidelines</a>, but MUI will continue to support them. It was
+        formerly known as the &quot;expansion panel&quot;. :::
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic accordion
@@ -58,8 +57,7 @@ function AccordionDoc(props) {
         Controlled accordion
       </Typography>
       <Typography className="mb-40" component="div">
-        Extend the default behavior to create an accordion with the <code>Accordion</code>{' '}
-        component.
+        Extend the default behavior to create an accordion with the <code>Accordion</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -90,10 +88,9 @@ function AccordionDoc(props) {
         Performance
       </Typography>
       <Typography className="mb-40" component="div">
-        The content of Accordions is mounted by default even if the accordion is not expanded. This
-        default behavior has server-side rendering and SEO in mind. If you render expensive
-        component trees inside your accordion details or simply render many accordions it might be a
-        good idea to change this default behavior by enabling the
+        The content of Accordions is mounted by default even if the accordion is not expanded. This default behavior has
+        server-side rendering and SEO in mind. If you render expensive component trees inside your accordion details or
+        simply render many accordions it might be a good idea to change this default behavior by enabling the
         <code>unmountOnExit</code> in <code>TransitionProps</code>:
       </Typography>
 
@@ -103,8 +100,8 @@ function AccordionDoc(props) {
 `}
       </FuseHighlight>
       <Typography className="mb-40" component="div">
-        As with any performance optimization this is not a silver bullet. Be sure to identify
-        bottlenecks first and then try out these optimization strategies.
+        As with any performance optimization this is not a silver bullet. Be sure to identify bottlenecks first and then
+        try out these optimization strategies.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Accessibility
@@ -117,10 +114,8 @@ function AccordionDoc(props) {
         )
       </Typography>
       <Typography className="mb-40" component="div">
-        For optimal accessibility we recommend setting <code>id</code> and{' '}
-        <code>aria-controls</code> on the
-        <code>AccordionSummary</code>. The <code>Accordion</code> will derive the necessary{' '}
-        <code>aria-labelledby</code>
+        For optimal accessibility we recommend setting <code>id</code> and <code>aria-controls</code> on the
+        <code>AccordionSummary</code>. The <code>Accordion</code> will derive the necessary <code>aria-labelledby</code>
         and <code>id</code> for the content region of the accordion.
       </Typography>
     </>

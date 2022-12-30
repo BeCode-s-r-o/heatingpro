@@ -114,10 +114,7 @@ function NewLabelForm(props) {
                       name="color"
                       control={control}
                       render={({ field: { onChange: _onChange, value: _value } }) => (
-                        <FormLabel
-                          className="w-16 h-16 shrink-0 rounded-full"
-                          sx={{ backgroundColor: _value }}
-                        >
+                        <FormLabel className="w-16 h-16 shrink-0 rounded-full" sx={{ backgroundColor: _value }}>
                           <Input
                             value={_value}
                             onChange={(ev) => {
@@ -133,12 +130,7 @@ function NewLabelForm(props) {
                 ),
                 endAdornment: !isLast && (
                   <InputAdornment position="end">
-                    <IconButton
-                      onClick={handleOnRemove}
-                      className="w-32 h-32 p-0"
-                      aria-label="Delete"
-                      size="large"
-                    >
+                    <IconButton onClick={handleOnRemove} className="w-32 h-32 p-0" aria-label="Delete" size="large">
                       <FuseSvgIcon color="action" size={20}>
                         heroicons-outline:trash
                       </FuseSvgIcon>

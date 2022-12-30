@@ -14,9 +14,7 @@ function ChangingDefaultFontDoc() {
 
       <ul className="list-decimal ml-16">
         <li>
-          <Typography className="mb-24">
-            You can add the font link inside head of the public/index.html.
-          </Typography>
+          <Typography className="mb-24">You can add the font link inside head of the public/index.html.</Typography>
           <FuseHighlight component="pre" className="language-html mb-24">
             {`
                           <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=vietnamese" rel="stylesheet">

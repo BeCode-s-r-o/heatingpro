@@ -91,9 +91,7 @@ function EventDialog(props) {
    * Close Dialog
    */
   function closeComposeDialog() {
-    return eventDialog.type === 'edit'
-      ? dispatch(closeEditEventDialog())
-      : dispatch(closeNewEventDialog());
+    return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
   }
 
   /**
@@ -174,9 +172,7 @@ function EventDialog(props) {
                   <DateTimePicker
                     value={value}
                     onChange={onChange}
-                    renderInput={(_props) => (
-                      <TextField label="Start" className="mt-8 mb-16 w-full" {..._props} />
-                    )}
+                    renderInput={(_props) => <TextField label="Start" className="mt-8 mb-16 w-full" {..._props} />}
                     className="mt-8 mb-16 w-full"
                     maxDate={end}
                   />
@@ -191,9 +187,7 @@ function EventDialog(props) {
                   <DateTimePicker
                     value={value}
                     onChange={onChange}
-                    renderInput={(_props) => (
-                      <TextField label="End" className="mt-8 mb-16 w-full" {..._props} />
-                    )}
+                    renderInput={(_props) => <TextField label="End" className="mt-8 mb-16 w-full" {..._props} />}
                     minDate={start}
                   />
                 )}

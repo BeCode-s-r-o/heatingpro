@@ -81,23 +81,17 @@ function Courses(props) {
               </Typography>
             </motion.div>
             <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0 } }}>
-              <Typography
-                color="inherit"
-                className="text-center text-32 sm:text-48 font-extrabold tracking-tight mt-4"
-              >
+              <Typography color="inherit" className="text-center text-32 sm:text-48 font-extrabold tracking-tight mt-4">
                 What do you want to learn today?
               </Typography>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 0.3 } }}
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
               <Typography
                 color="inherit"
                 className="text-16 sm:text-20 mt-16 sm:mt-24 opacity-75 tracking-tight max-w-md text-center"
               >
-                Our courses will step you through the process of a building small applications, or
-                adding new features to existing applications.
+                Our courses will step you through the process of a building small applications, or adding new features
+                to existing applications.
               </Typography>
             </motion.div>
           </div>
@@ -110,12 +104,7 @@ function Courses(props) {
             preserveAspectRatio="xMidYMax slice"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              className="text-gray-700 opacity-25"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="100"
-            >
+            <g className="text-gray-700 opacity-25" fill="none" stroke="currentColor" strokeWidth="100">
               <circle r="234" cx="196" cy="23" />
               <circle r="234" cx="790" cy="491" />
             </g>

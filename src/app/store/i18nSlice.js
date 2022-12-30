@@ -47,11 +47,8 @@ export const selectCurrentLanguageDirection = createSelector([selectCurrentLangu
   return i18n.dir(id);
 });
 
-export const selectCurrentLanguage = createSelector(
-  [selectCurrentLanguageId, selectLanguages],
-  (id, languages) => {
-    return languages.find((lng) => lng.id === id);
-  }
-);
+export const selectCurrentLanguage = createSelector([selectCurrentLanguageId, selectLanguages], (id, languages) => {
+  return languages.find((lng) => lng.id === id);
+});
 
 export default i18nSlice.reducer;

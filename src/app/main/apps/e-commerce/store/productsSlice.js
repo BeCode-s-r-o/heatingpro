@@ -8,19 +8,17 @@ export const getProducts = createAsyncThunk('eCommerceApp/products/getProducts',
   return data;
 });
 
-export const removeProducts = createAsyncThunk(
-  'eCommerceApp/products',
-  async (productIds, { dispatch, getState }) => {
-    await axios.delete('/api/ecommerce/products', { data: productIds });
+export const removeProducts = createAsyncThunk('eCommerceApp/products', async (productIds, { dispatch, getState }) => {
+  await axios.delete('/api/ecommerce/products', { data: productIds });
 
-    return productIds;
-  }
-);
+  return productIds;
+});
 
 const productsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectProducts, selectById: selectProductById } =
-  productsAdapter.getSelectors((state) => state.eCommerceApp.products);
+export const { selectAll: selectProducts, selectById: selectProductById } = productsAdapter.getSelectors(
+  (state) => state.eCommerceApp.products
+);
 
 const productsSlice = createSlice({
   name: 'eCommerceApp/products',
@@ -37,8 +35,7 @@ const productsSlice = createSlice({
   },
   extraReducers: {
     [getProducts.fulfilled]: productsAdapter.setAll,
-    [removeProducts.fulfilled]: (state, action) =>
-      productsAdapter.removeMany(state, action.payload),
+    [removeProducts.fulfilled]: (state, action) => productsAdapter.removeMany(state, action.payload),
   },
 });
 

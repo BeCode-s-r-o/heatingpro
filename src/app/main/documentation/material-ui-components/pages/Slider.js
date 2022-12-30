@@ -28,13 +28,11 @@ function SliderDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Slider
       </Typography>
-      <Typography className="description">
-        Sliders allow users to make selections from a range of values.
-      </Typography>
+      <Typography className="description">Sliders allow users to make selections from a range of values.</Typography>
 
       <Typography className="mb-40" component="div">
-        Sliders reflect a range of values along a bar, from which users may select a single value.
-        They are ideal for adjusting settings such as volume, brightness, or applying image filters.
+        Sliders reflect a range of values along a bar, from which users may select a single value. They are ideal for
+        adjusting settings such as volume, brightness, or applying image filters.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Continuous sliders
@@ -70,8 +68,8 @@ function SliderDoc(props) {
         Discrete sliders
       </Typography>
       <Typography className="mb-40" component="div">
-        Discrete sliders can be adjusted to a specific value by referencing its value indicator. You
-        can generate a mark for each step with <code>{`marks={true}`}</code>.
+        Discrete sliders can be adjusted to a specific value by referencing its value indicator. You can generate a mark
+        for each step with <code>{`marks={true}`}</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -116,8 +114,8 @@ function SliderDoc(props) {
         Restricted values
       </Typography>
       <Typography className="mb-40" component="div">
-        You can restrict the selectable values to those provided with the <code>marks</code> prop
-        with <code>{`step={null}`}</code>.
+        You can restrict the selectable values to those provided with the <code>marks</code> prop with{' '}
+        <code>{`step={null}`}</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -132,8 +130,7 @@ function SliderDoc(props) {
         Label always visible
       </Typography>
       <Typography className="mb-40" component="div">
-        You can force the thumb label to be always visible with{' '}
-        <code>{`valueLabelDisplay="on"`}</code>.
+        You can force the thumb label to be always visible with <code>{`valueLabelDisplay="on"`}</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -148,8 +145,8 @@ function SliderDoc(props) {
         Range slider
       </Typography>
       <Typography className="mb-40" component="div">
-        The slider can be used to set the start and end of a range by supplying an array of values
-        to the <code>value</code> prop.
+        The slider can be used to set the start and end of a range by supplying an array of values to the{' '}
+        <code>value</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -164,11 +161,10 @@ function SliderDoc(props) {
         Minimum distance
       </Typography>
       <Typography className="mb-40" component="div">
-        You can enforce a minimum distance between values in the <code>onChange</code> event
-        handler. By default, when you move the pointer over a thumb while dragging another thumb,
-        the active thumb will swap to the hovered thumb. You can disable this behavior with the{' '}
-        <code>disableSwap</code> prop. If you want the range to shift when reaching minimum
-        distance, you can utilize the <code>activeThumb</code> parameter in <code>onChange</code>.
+        You can enforce a minimum distance between values in the <code>onChange</code> event handler. By default, when
+        you move the pointer over a thumb while dragging another thumb, the active thumb will swap to the hovered thumb.
+        You can disable this behavior with the <code>disableSwap</code> prop. If you want the range to shift when
+        reaching minimum distance, you can utilize the <code>activeThumb</code> parameter in <code>onChange</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -247,25 +243,18 @@ function SliderDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        <strong>WARNING</strong>: Chrome, Safari and newer Edge versions i.e. any browser based on
-        WebKit exposes <code>{`<Slider orientation="vertical" />`}</code> as horizontal (
-        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1158217">
-          chromium issue #1158217
-        </a>
-        ). By applying <code>-webkit-appearance: slider-vertical;</code> the slider is exposed as
-        vertical.
+        <strong>WARNING</strong>: Chrome, Safari and newer Edge versions i.e. any browser based on WebKit exposes{' '}
+        <code>{`<Slider orientation="vertical" />`}</code> as horizontal (
+        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1158217">chromium issue #1158217</a>
+        ). By applying <code>-webkit-appearance: slider-vertical;</code> the slider is exposed as vertical.
       </Typography>
       <Typography className="mb-40" component="div">
-        However, by applying <code>-webkit-appearance: slider-vertical;</code> keyboard navigation
-        for horizontal keys (<kbd className="key">Arrow Left</kbd>,{' '}
-        <kbd className="key">Arrow Right</kbd>) is reversed (
-        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1162640">
-          chromium issue #1162640
-        </a>
-        ). Usually, up and right should increase and left and down should decrease the value. If you
-        apply <code>-webkit-appearance</code> you could prevent keyboard navigation for horizontal
-        arrow keys for a truly vertical slider. This might be less confusing to users compared to a
-        change in direction.
+        However, by applying <code>-webkit-appearance: slider-vertical;</code> keyboard navigation for horizontal keys (
+        <kbd className="key">Arrow Left</kbd>, <kbd className="key">Arrow Right</kbd>) is reversed (
+        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=1162640">chromium issue #1162640</a>
+        ). Usually, up and right should increase and left and down should decrease the value. If you apply{' '}
+        <code>-webkit-appearance</code> you could prevent keyboard navigation for horizontal arrow keys for a truly
+        vertical slider. This might be less confusing to users compared to a change in direction.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -316,12 +305,11 @@ function SliderDoc(props) {
         Non-linear scale
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>scale</code> prop to represent the <code>value</code> on a different
-        scale.
+        You can use the <code>scale</code> prop to represent the <code>value</code> on a different scale.
       </Typography>
       <Typography className="mb-40" component="div">
-        In the following demo, the value <em>x</em> represents the value <em>2^x</em>. Increasing{' '}
-        <em>x</em> by one increases the represented value by factor <em>2</em>.
+        In the following demo, the value <em>x</em> represents the value <em>2^x</em>. Increasing <em>x</em> by one
+        increases the represented value by factor <em>2</em>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -343,18 +331,17 @@ function SliderDoc(props) {
         )
       </Typography>
       <Typography className="mb-40" component="div">
-        The component handles most of the work necessary to make it accessible. However, you need to
-        make sure that:
+        The component handles most of the work necessary to make it accessible. However, you need to make sure that:
       </Typography>
       <ul>
         <li>
-          Each thumb has a user-friendly label (<code>aria-label</code>,{' '}
-          <code>aria-labelledby</code> or <code>getAriaLabel</code> prop).
+          Each thumb has a user-friendly label (<code>aria-label</code>, <code>aria-labelledby</code> or{' '}
+          <code>getAriaLabel</code> prop).
         </li>
         <li>
-          Each thumb has a user-friendly text for its current value. This is not required if the
-          value matches the semantics of the label. You can change the name with the{' '}
-          <code>getAriaValueText</code> or <code>aria-valuetext</code> prop.
+          Each thumb has a user-friendly text for its current value. This is not required if the value matches the
+          semantics of the label. You can change the name with the <code>getAriaValueText</code> or{' '}
+          <code>aria-valuetext</code> prop.
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -364,8 +351,8 @@ function SliderDoc(props) {
         IE 11
       </Typography>
       <Typography className="mb-40" component="div">
-        The slider&#39;s value label is not centered in IE 11. The alignement is not handled to make
-        customizations easier with the lastest browsers. You can solve the issue with:
+        The slider&#39;s value label is not centered in IE 11. The alignement is not handled to make customizations
+        easier with the lastest browsers. You can solve the issue with:
       </Typography>
 
       <FuseHighlight component="pre" className="language-css">

@@ -13,14 +13,8 @@ function NoteListItem(props) {
   const dispatch = useDispatch();
 
   return (
-    <motion.div
-      initial={{ y: 20, opacity: 0 }}
-      animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}
-    >
-      <Card
-        className={clsx('cursor-pointer', props.className)}
-        onClick={() => dispatch(openNoteDialog(props.note.id))}
-      >
+    <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.1 } }}>
+      <Card className={clsx('cursor-pointer', props.className)} onClick={() => dispatch(openNoteDialog(props.note.id))}>
         {props.note.image && props.note.image !== '' && (
           <img src={props.note.image} className="w-full block" alt="note" />
         )}
@@ -34,9 +28,7 @@ function NoteListItem(props) {
             <div
               className={clsx('w-full break-words', props.variateDescSize ? 'font-500' : 'text-14')}
               ref={(el) => {
-                setTimeout(() =>
-                  setDescriptionStyle(props.note.content, el, props.variateDescSize)
-                );
+                setTimeout(() => setDescriptionStyle(props.note.content, el, props.variateDescSize));
               }}
             >
               {props.note.content}
@@ -64,9 +56,7 @@ function NoteListItem(props) {
 
         {(props.note.labels.length > 0 || props.note.reminder) && (
           <div className="px-20 my-16 flex flex-wrap w-full -mx-2">
-            {props.note.reminder && (
-              <NoteReminderLabel className="mt-4 mx-2 max-w-full" date={props.note.reminder} />
-            )}
+            {props.note.reminder && <NoteReminderLabel className="mt-4 mx-2 max-w-full" date={props.note.reminder} />}
             {props.note.labels.map((id) => (
               <NoteLabel id={id} key={id} className="mt-4 mx-2 max-w-full" linkable />
             ))}

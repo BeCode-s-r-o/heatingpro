@@ -45,12 +45,7 @@ function FaqList(props) {
 
   return (
     list.length > 0 && (
-      <motion.div
-        variants={container}
-        initial="hidden"
-        animate="show"
-        className={clsx('', className)}
-      >
+      <motion.div variants={container} initial="hidden" animate="show" className={clsx('', className)}>
         {list.map((faq) => (
           <StyledAccordion
             component={motion.div}
@@ -62,9 +57,7 @@ function FaqList(props) {
             expanded={expanded === faq.id}
             onChange={toggleAccordion(faq.id)}
           >
-            <AccordionSummary
-              expandIcon={<FuseSvgIcon>heroicons-outline:chevron-down</FuseSvgIcon>}
-            >
+            <AccordionSummary expandIcon={<FuseSvgIcon>heroicons-outline:chevron-down</FuseSvgIcon>}>
               <div className="flex items-center py-4">
                 <FuseSvgIcon color="action">heroicons-outline:question-mark-circle</FuseSvgIcon>
                 <Typography className="px-12 font-medium">{faq.question}</Typography>

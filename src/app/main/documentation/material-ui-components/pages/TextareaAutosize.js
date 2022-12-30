@@ -27,23 +27,21 @@ function TextareaAutosizeDoc(props) {
         Textarea Autosize
       </Typography>
       <Typography className="description">
-        The Textarea Autosize component gives you a textarea HTML element that automatically adjusts
-        its height to match the length of the content within.
+        The Textarea Autosize component gives you a textarea HTML element that automatically adjusts its height to match
+        the length of the content within.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         MUI Base
       </Typography>
       <Typography className="mb-40" component="div">
-        :::info Textarea Autosize is a part of the standalone{' '}
-        <a href="/base/getting-started/overview/">MUI Base</a> component library. It is currently
-        re-exported from <code>@mui/material</code> for your convenience, but it will be removed
-        from this package in a future major version, after <code>@mui/base</code> gets a stable
-        release.
+        :::info Textarea Autosize is a part of the standalone <a href="/base/getting-started/overview/">MUI Base</a>{' '}
+        component library. It is currently re-exported from <code>@mui/material</code> for your convenience, but it will
+        be removed from this package in a future major version, after <code>@mui/base</code> gets a stable release.
       </Typography>
       <Typography className="mb-40" component="div">
-        Please refer to the <a href="/base/react-textarea-autosize/">Textarea Autosize</a> component
-        page in the MUI Base docs for examples and details on usage. :::
+        Please refer to the <a href="/base/react-textarea-autosize/">Textarea Autosize</a> component page in the MUI
+        Base docs for examples and details on usage. :::
       </Typography>
     </>
   );

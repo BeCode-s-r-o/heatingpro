@@ -57,9 +57,7 @@ function NotificationCard(props) {
       <div className="flex flex-col flex-auto">
         {item.title && <Typography className="font-semibold line-clamp-1">{item.title}</Typography>}
 
-        {item.description && (
-          <div className="line-clamp-2" dangerouslySetInnerHTML={{ __html: item.description }} />
-        )}
+        {item.description && <div className="line-clamp-2" dangerouslySetInnerHTML={{ __html: item.description }} />}
 
         {item.item && (
           <Typography className="mt-8 text-sm leading-none " color="text.secondary">

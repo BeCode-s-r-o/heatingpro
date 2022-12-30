@@ -9,9 +9,8 @@ function FuseLayoutDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseLayout</code> is the main layout component of the Fuse React. It allows us to
-        switch theme layouts, set layout settings based on the default configuration, and route
-        configs.
+        <code>FuseLayout</code> is the main layout component of the Fuse React. It allows us to switch theme layouts,
+        set layout settings based on the default configuration, and route configs.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">

@@ -410,14 +410,8 @@ function replaceInExamples() {
       const fileSource = fs.readFileSync(file, 'utf8');
       const result = fileSource
         .replace(new RegExp('docs/src/modules/utils/compose', 'g'), '../../compose')
-        .replace(
-          new RegExp('docs/src/modules/components/MarkdownElement', 'g'),
-          '../../utils/MarkdownElement'
-        )
-        .replace(
-          new RegExp('docs/src/modules/components/HighlightedCode', 'g'),
-          '../../utils/HighlightedCode'
-        )
+        .replace(new RegExp('docs/src/modules/components/MarkdownElement', 'g'), '../../utils/MarkdownElement')
+        .replace(new RegExp('docs/src/modules/components/HighlightedCode', 'g'), '../../utils/HighlightedCode')
         .replace(new RegExp('/static/', 'g'), '/material-ui-static/');
       fs.writeFileSync(file, result, 'utf8', (_err) => {
         if (_err) {

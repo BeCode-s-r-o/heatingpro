@@ -72,10 +72,7 @@ function DocumentationPageLayout(props) {
       }
       leftSidebarContent={
         <div className="px-16 py-24">
-          <FuseNavigation
-            className={clsx('navigation')}
-            navigation={DocumentationNavigation.children}
-          />
+          <FuseNavigation className={clsx('navigation')} navigation={DocumentationNavigation.children} />
         </div>
       }
       leftSidebarOpen={leftSidebarOpen}

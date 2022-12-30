@@ -1,16 +1,13 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getTags = createAsyncThunk(
-  'contactsApp/tags/getTags',
-  async (params, { getState }) => {
-    const response = await axios.get('/api/contacts/tags');
+export const getTags = createAsyncThunk('contactsApp/tags/getTags', async (params, { getState }) => {
+  const response = await axios.get('/api/contacts/tags');
 
-    const data = await response.data;
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 const tagsAdapter = createEntityAdapter({});
 

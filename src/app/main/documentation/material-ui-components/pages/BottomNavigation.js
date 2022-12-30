@@ -32,17 +32,15 @@ function BottomNavigationDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Bottom navigation bars display three to five destinations at the bottom of a screen. Each
-        destination is represented by an icon and an optional text label. When a bottom navigation
-        icon is tapped, the user is taken to the top-level navigation destination associated with
-        that icon.
+        Bottom navigation bars display three to five destinations at the bottom of a screen. Each destination is
+        represented by an icon and an optional text label. When a bottom navigation icon is tapped, the user is taken to
+        the top-level navigation destination associated with that icon.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Bottom navigation
       </Typography>
       <Typography className="mb-40" component="div">
-        When there are only <strong>three</strong> actions, display both icons and text labels at
-        all times.
+        When there are only <strong>three</strong> actions, display both icons and text labels at all times.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -57,8 +55,7 @@ function BottomNavigationDoc(props) {
         Bottom navigation with no label
       </Typography>
       <Typography className="mb-40" component="div">
-        If there are <strong>four</strong> or <strong>five</strong> actions, display inactive views
-        as icons only.
+        If there are <strong>four</strong> or <strong>five</strong> actions, display inactive views as icons only.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -73,8 +70,7 @@ function BottomNavigationDoc(props) {
         Fixed positioning
       </Typography>
       <Typography className="mb-40" component="div">
-        This demo keeps bottom navigation fixed to the bottom, no matter the amount of content
-        on-screen.
+        This demo keeps bottom navigation fixed to the bottom, no matter the amount of content on-screen.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -89,10 +85,9 @@ function BottomNavigationDoc(props) {
         Third-party routing library
       </Typography>
       <Typography className="mb-40" component="div">
-        One frequent use case is to perform navigation on the client only, without an HTTP
-        round-trip to the server. The <code>BottomNavigationAction</code> component provides the{' '}
-        <code>component</code> prop to handle this use case. Here is a{' '}
-        <a href="/material-ui/guides/routing/">more detailed guide</a>.
+        One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server. The{' '}
+        <code>BottomNavigationAction</code> component provides the <code>component</code> prop to handle this use case.
+        Here is a <a href="/material-ui/guides/routing/">more detailed guide</a>.
       </Typography>
     </>
   );

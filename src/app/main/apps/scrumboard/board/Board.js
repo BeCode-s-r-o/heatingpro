@@ -78,12 +78,7 @@ function Board(props) {
                     {(provided) => (
                       <div ref={provided.innerRef} className="flex py-16 md:py-24 px-8 md:px-12">
                         {board?.lists.map((list, index) => (
-                          <BoardList
-                            key={list.id}
-                            listId={list.id}
-                            cardIds={list.cards}
-                            index={index}
-                          />
+                          <BoardList key={list.id} listId={list.id} cardIds={list.cards} index={index} />
                         ))}
 
                         {provided.placeholder}

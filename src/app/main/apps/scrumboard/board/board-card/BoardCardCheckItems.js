@@ -8,9 +8,7 @@ function BoardCardCheckItems({ card }) {
   const checkItems = getCheckItems(card);
 
   function getCheckItemsChecked(_card) {
-    return _.sum(
-      _card.checklists.map((list) => _.sum(list.checkItems.map((x) => (x.checked ? 1 : 0))))
-    );
+    return _.sum(_card.checklists.map((list) => _.sum(list.checkItems.map((x) => (x.checked ? 1 : 0)))));
   }
 
   function getCheckItems(_card) {

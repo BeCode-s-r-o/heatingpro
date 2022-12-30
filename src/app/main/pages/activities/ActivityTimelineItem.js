@@ -1,10 +1,4 @@
-import {
-  TimelineConnector,
-  TimelineContent,
-  TimelineDot,
-  TimelineItem,
-  TimelineSeparator,
-} from '@mui/lab';
+import { TimelineConnector, TimelineContent, TimelineDot, TimelineItem, TimelineSeparator } from '@mui/lab';
 import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
@@ -17,14 +11,9 @@ function ActivityTimelineItem({ item, last }) {
   return (
     <TimelineItem>
       <TimelineSeparator>
-        <TimelineDot
-          color="primary"
-          className="w-40 h-40 p-0  mt-0 flex items-center justify-center"
-        >
+        <TimelineDot color="primary" className="w-40 h-40 p-0  mt-0 flex items-center justify-center">
           {item.image && <Avatar src={item.image} />}
-          {!item.image && (
-            <FuseSvgIcon>{item.icon ? item.icon : 'heroicons-solid:star'}</FuseSvgIcon>
-          )}
+          {!item.image && <FuseSvgIcon>{item.icon ? item.icon : 'heroicons-solid:star'}</FuseSvgIcon>}
         </TimelineDot>
 
         {!last && <TimelineConnector />}

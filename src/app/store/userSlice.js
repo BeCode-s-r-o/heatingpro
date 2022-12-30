@@ -18,17 +18,14 @@ export const setUser = createAsyncThunk('user/setUser', async (user, { dispatch,
   return user;
 });
 
-export const updateUserSettings = createAsyncThunk(
-  'user/updateSettings',
-  async (settings, { dispatch, getState }) => {
-    const { user } = getState();
-    const newUser = _.merge({}, user, { data: { settings } });
+export const updateUserSettings = createAsyncThunk('user/updateSettings', async (settings, { dispatch, getState }) => {
+  const { user } = getState();
+  const newUser = _.merge({}, user, { data: { settings } });
 
-    dispatch(updateUserData(newUser));
+  dispatch(updateUserData(newUser));
 
-    return newUser;
-  }
-);
+  return newUser;
+});
 
 export const updateUserShortcuts = createAsyncThunk(
   'user/updateShortucts',

@@ -3,22 +3,19 @@ import axios from 'axios';
 import history from '@history';
 import ContactModel from '../model/ContactModel';
 
-export const getContact = createAsyncThunk(
-  'contactsApp/task/getContact',
-  async (id, { dispatch, getState }) => {
-    try {
-      const response = await axios.get(`/api/contacts/${id}`);
+export const getContact = createAsyncThunk('contactsApp/task/getContact', async (id, { dispatch, getState }) => {
+  try {
+    const response = await axios.get(`/api/contacts/${id}`);
 
-      const data = await response.data;
+    const data = await response.data;
 
-      return data;
-    } catch (error) {
-      history.push({ pathname: `/apps/contacts` });
+    return data;
+  } catch (error) {
+    history.push({ pathname: `/apps/contacts` });
 
-      return null;
-    }
+    return null;
   }
-);
+});
 
 export const addContact = createAsyncThunk(
   'contactsApp/contacts/addContact',

@@ -60,10 +60,7 @@ function BoardList(props) {
               >
                 <Droppable droppableId={listId} type="card" direction="vertical">
                   {(_provided) => (
-                    <div
-                      ref={_provided.innerRef}
-                      className="flex flex-col w-full h-full px-12 min-h-1"
-                    >
+                    <div ref={_provided.innerRef} className="flex flex-col w-full h-full px-12 min-h-1">
                       {cardIds.map((cardId, index) => (
                         <BoardCard key={cardId} cardId={cardId} index={index} list={list} />
                       ))}

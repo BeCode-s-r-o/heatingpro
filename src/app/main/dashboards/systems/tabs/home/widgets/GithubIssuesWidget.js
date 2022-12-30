@@ -102,9 +102,7 @@ function GithubIssuesWidget() {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <div className="flex flex-col sm:flex-row items-start justify-between">
-        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">
-          Github Issues Summary
-        </Typography>
+        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Github Issues Summary</Typography>
         <div className="mt-12 sm:mt-0 sm:ml-8">
           <Tabs
             value={tabValue}
@@ -116,12 +114,7 @@ function GithubIssuesWidget() {
             className="-mx-4 min-h-40"
             classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
             TabIndicatorProps={{
-              children: (
-                <Box
-                  sx={{ bgcolor: 'text.disabled' }}
-                  className="w-full h-full rounded-full opacity-20"
-                />
-              ),
+              children: <Box sx={{ bgcolor: 'text.disabled' }} className="w-full h-full rounded-full opacity-20" />,
             }}
           >
             {Object.entries(ranges).map(([key, label]) => (

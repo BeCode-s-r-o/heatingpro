@@ -25,21 +25,14 @@ function CardChecklistItem(props) {
         control={control}
         defaultValue={false}
         render={({ field: { onChange, value } }) => (
-          <Checkbox
-            tabIndex={-1}
-            checked={value}
-            onChange={(ev) => onChange(ev.target.checked)}
-            disableRipple
-          />
+          <Checkbox tabIndex={-1} checked={value} onChange={(ev) => onChange(ev.target.checked)} disableRipple />
         )}
       />
 
       <Controller
         name="name"
         control={control}
-        render={({ field }) => (
-          <TextField {...field} className="flex flex-1 mx-8" variant="outlined" />
-        )}
+        render={({ field }) => <TextField {...field} className="flex flex-1 mx-8" variant="outlined" />}
       />
 
       <IconButton aria-label="Delete" onClick={props.onListItemRemove} size="large">

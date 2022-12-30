@@ -36,36 +36,25 @@ function TailwindCssUI() {
         <div className="flex-auto p-24 sm:p-40">
           <div>
             <Typography className="mb-16">
-              As per the official page of Tailwind CSS, it is a highly customizable, low-level CSS
-              framework that gives you all of the building blocks you need to build bespoke designs
-              without any annoying opinionated styles you have to fight to override.
+              As per the official page of Tailwind CSS, it is a highly customizable, low-level CSS framework that gives
+              you all of the building blocks you need to build bespoke designs without any annoying opinionated styles
+              you have to fight to override.
             </Typography>
 
             <Typography className="mb-16">
-              To simply put, Tailwind provides helper classes for almost every CSS rule available.
-              Fuse includes and uses Tailwind by default and it can be used in any part of the
-              theme.
+              To simply put, Tailwind provides helper classes for almost every CSS rule available. Fuse includes and
+              uses Tailwind by default and it can be used in any part of the theme.
             </Typography>
 
             <Typography className="text-20 font-700 mt-32 mb-16">Styling in Material-UI</Typography>
 
             <Typography className="mb-16" component="p">
               Fuse React developed based on Material-UI as ui library.
-              <a
-                className="mx-4"
-                href="https://mui.com/system/basics/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="mx-4" href="https://mui.com/system/basics/" target="_blank" rel="noopener noreferrer">
                 Material-UI's styling solution
               </a>
               uses emotion at its core. Therefore the Fuse React supports
-              <a
-                className="mx-4"
-                href="http://cssinjs.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="mx-4" href="http://cssinjs.org/" target="_blank" rel="noopener noreferrer">
                 Emotion
               </a>{' '}
               (Emotion is a library designed for writing css styles with JavaScript)
@@ -78,23 +67,17 @@ function TailwindCssUI() {
             </Typography>
 
             <Typography className="mb-16" component="p">
-              We are accepting JSS advantages but we can't leave <b>helper classes</b> for fast
-              development, ease of use, globally access etc. So we have used both in components.
+              We are accepting JSS advantages but we can't leave <b>helper classes</b> for fast development, ease of
+              use, globally access etc. So we have used both in components.
             </Typography>
 
             <Typography className="mb-16" component="p">
               We are using
-              <a
-                className="mx-4"
-                href="https://tailwindcss.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a className="mx-4" href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">
                 TailwindCSS
               </a>
-              as an engine for generating helper classes. It's not an UI kit and it's customizable.
-              You can find the config file of Tailwind with named "<b>tailwind.js</b>" under the
-              root of Fuse React.
+              as an engine for generating helper classes. It's not an UI kit and it's customizable. You can find the
+              config file of Tailwind with named "<b>tailwind.js</b>" under the root of Fuse React.
             </Typography>
           </div>
 

@@ -13,8 +13,9 @@ export const getMembers = createAsyncThunk('scrumboardApp/members/getMembers', a
 
 const membersAdapter = createEntityAdapter({});
 
-export const { selectAll: selectMembers, selectById: selectMemberById } =
-  membersAdapter.getSelectors((state) => state.scrumboardApp.members);
+export const { selectAll: selectMembers, selectById: selectMemberById } = membersAdapter.getSelectors(
+  (state) => state.scrumboardApp.members
+);
 
 const membersSlice = createSlice({
   name: 'scrumboardApp/members',

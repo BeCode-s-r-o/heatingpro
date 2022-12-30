@@ -61,10 +61,7 @@ function NewLabelForm(props) {
                       name="color"
                       control={control}
                       render={({ field: { onChange: _onChange, value: _value } }) => (
-                        <FormLabel
-                          className="w-16 h-16 shrink-0 rounded-full"
-                          sx={{ backgroundColor: _value }}
-                        >
+                        <FormLabel className="w-16 h-16 shrink-0 rounded-full" sx={{ backgroundColor: _value }}>
                           <Input
                             value={_value}
                             onChange={(ev) => {

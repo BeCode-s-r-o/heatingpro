@@ -44,19 +44,11 @@ const Root = styled('div')(({ theme }) => ({
 
 function PageLayoutOverview(props) {
   const { data } = props;
-  const {
-    title,
-    description,
-    availableOptions,
-    selectedOption: defaultSelectedOption,
-    options,
-  } = data;
+  const { title, description, availableOptions, selectedOption: defaultSelectedOption, options } = data;
 
   const [selectedOption, setSelectedOption] = useState(defaultSelectedOption);
 
-  const SelectedComponent = options[selectedOption]?.component
-    ? options[selectedOption]?.component
-    : () => null;
+  const SelectedComponent = options[selectedOption]?.component ? options[selectedOption]?.component : () => null;
 
   function handleTabChange(ev, val) {
     setSelectedOption(availableOptions[val].value);
@@ -74,9 +66,7 @@ function PageLayoutOverview(props) {
       />
       <Root className={`scroll-${selectedOption}`}>
         <div className="flex flex-col p-24 sm:py-32 sm:px-40">
-          <Typography className="text-3xl md:text-4xl font-extrabold tracking-tight">
-            {title}
-          </Typography>
+          <Typography className="text-3xl md:text-4xl font-extrabold tracking-tight">{title}</Typography>
           <Typography className="text-lg md:text-xl" color="text.secondary">
             {description}
           </Typography>
@@ -92,12 +82,7 @@ function PageLayoutOverview(props) {
               className="-mx-4 min-h-40"
               classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
               TabIndicatorProps={{
-                children: (
-                  <Box
-                    sx={{ bgcolor: 'text.disabled' }}
-                    className="w-full h-full rounded-full opacity-20"
-                  />
-                ),
+                children: <Box sx={{ bgcolor: 'text.disabled' }} className="w-full h-full rounded-full opacity-20" />,
               }}
             >
               {availableOptions.map((option) => (

@@ -5,13 +5,9 @@ const ClassicUnlockSessionPage = lazy(() => import('./ClassicUnlockSessionPage')
 const ModernUnlockSessionPage = lazy(() => import('./ModernUnlockSessionPage'));
 const ModernReversedUnlockSessionPage = lazy(() => import('./ModernReversedUnlockSessionPage'));
 const SplitScreenUnlockSessionPage = lazy(() => import('./SplitScreenUnlockSessionPage'));
-const SplitScreenReversedUnlockSessionPage = lazy(() =>
-  import('./SplitScreenReversedUnlockSessionPage')
-);
+const SplitScreenReversedUnlockSessionPage = lazy(() => import('./SplitScreenReversedUnlockSessionPage'));
 const FullScreenUnlockSessionPage = lazy(() => import('./FullScreenUnlockSessionPage'));
-const FullScreenReversedUnlockSessionPage = lazy(() =>
-  import('./FullScreenReversedUnlockSessionPage')
-);
+const FullScreenReversedUnlockSessionPage = lazy(() => import('./FullScreenReversedUnlockSessionPage'));
 
 const unlockSessionPagesConfig = {
   settings: {

@@ -119,12 +119,7 @@ function MainSidebar(props) {
             };
 
             return (
-              <motion.div
-                className="flex flex-col shrink-0"
-                variants={container}
-                initial="hidden"
-                animate="show"
-              >
+              <motion.div className="flex flex-col shrink-0" variants={container} initial="hidden" animate="show">
                 {filteredChatList.length > 0 && (
                   <motion.div variants={item}>
                     <Typography className="font-medium text-20 px-32 py-24" color="secondary.main">
@@ -156,10 +151,7 @@ function MainSidebar(props) {
                 {filteredContacts.map((contact, index) => (
                   <motion.div variants={item} key={contact.id}>
                     <div className={clsx(filteredContacts.length !== index + 1 && 'border-b-1')}>
-                      <ContactListItem
-                        contact={contact}
-                        onContactClick={(contactId) => dispatch(getChat(contactId))}
-                      />
+                      <ContactListItem contact={contact} onContactClick={(contactId) => dispatch(getChat(contactId))} />
                     </div>
                   </motion.div>
                 ))}

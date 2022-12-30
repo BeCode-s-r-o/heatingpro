@@ -74,12 +74,7 @@ function MailCompose(props) {
         {t('COMPOSE')}
       </Button>
 
-      <Dialog
-        open={openDialog}
-        onClose={handleCloseDialog}
-        aria-labelledby="form-dialog-title"
-        scroll="body"
-      >
+      <Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="form-dialog-title" scroll="body">
         <AppBar position="static" color="secondary" elevation={0}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
@@ -129,14 +124,7 @@ function MailCompose(props) {
               name="cc"
               control={control}
               render={({ field }) => (
-                <TextField
-                  {...field}
-                  className="mt-8 mb-16"
-                  label="Cc"
-                  id="cc"
-                  variant="outlined"
-                  fullWidth
-                />
+                <TextField {...field} className="mt-8 mb-16" label="Cc" id="cc" variant="outlined" fullWidth />
               )}
             />
 

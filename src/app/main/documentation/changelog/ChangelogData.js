@@ -62,17 +62,14 @@ const changelogData = [
       'tailwindcss updated to v3.0.24',
       'All dependency packages updated.',
     ],
-    breakingChanges: [
-      'craco replaced with react-app-rewired.',
-      'firebase, auth0 service examples deprecated.',
-    ],
+    breakingChanges: ['craco replaced with react-app-rewired.', 'firebase, auth0 service examples deprecated.'],
     fixedChanges: [],
     notes: (
       <div className="text-14 p-24 border-2 border-red rounded-16 w-full max-w-lg mt-40 mb-24">
         <ul className="list-disc">
           <Typography component="li" className="leading-loose mb-16">
-            This is the new major version of the Fuse React and it's completely different from
-            previous versions with no upgrade path.
+            This is the new major version of the Fuse React and it's completely different from previous versions with no
+            upgrade path.
           </Typography>
           <Typography component="li" className="leading-loose">
             This version requires a clean installation.
@@ -132,11 +129,7 @@ const changelogData = [
   {
     version: '7.0.0',
     date: '2021-09-22',
-    newChanges: [
-      'material-ui migrated from v4 to v5',
-      'All dependency packages updated.',
-      'Codebase improved.',
-    ],
+    newChanges: ['material-ui migrated from v4 to v5', 'All dependency packages updated.', 'Codebase improved.'],
     breakingChanges: [
       'Switched yarn to npm.',
       'react-charjs2, Formsy libraries not support anymore.',
@@ -146,12 +139,11 @@ const changelogData = [
       <div className="text-14 p-24 border-2 rounded-16 w-full max-w-lg mt-40 mb-24">
         <ul className="list-disc">
           <Typography component="li" className="leading-loose mb-16">
-            Migrating to the new major version (v7.0.0) can be difficult because of latest
-            material-ui (v5) integration.
+            Migrating to the new major version (v7.0.0) can be difficult because of latest material-ui (v5) integration.
           </Typography>
           <Typography component="li" className="leading-loose">
-            You should migrate to material v5 to get the benefits of bug fixes and a lot of
-            improvements such as the new styling engine. Checkout material-ui migration guide at{' '}
+            You should migrate to material v5 to get the benefits of bug fixes and a lot of improvements such as the new
+            styling engine. Checkout material-ui migration guide at{' '}
             <a href="https://mui.com/guides/migration-v4" target="_blank" rel="noopener noreferrer">
               https://mui.com/guides/migration-v4/
             </a>
@@ -183,9 +175,7 @@ const changelogData = [
   {
     version: '6.1.3',
     date: '2021-06-03',
-    fixedChanges: [
-      "ChatPanel doesn't render correctly after changing the layout and reloading the page.",
-    ],
+    fixedChanges: ["ChatPanel doesn't render correctly after changing the layout and reloading the page."],
   },
   {
     version: '6.1.2',
@@ -204,11 +194,7 @@ const changelogData = [
     newChanges: [
       <>
         react-hook-form migrated v6 to v7, <br />- Checkout migration guide at:{' '}
-        <a
-          href="https://react-hook-form.com/migrate-v6-to-v7/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://react-hook-form.com/migrate-v6-to-v7/" target="_blank" rel="noopener noreferrer">
           https://react-hook-form.com/migrate-v6-to-v7
         </a>
       </>,
@@ -338,17 +324,10 @@ const changelogData = [
     ],
     notes: (
       <>
-        <Typography
-          className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16"
-          component="div"
-        >
-          Migrating to the new major version (v5.0.0) can be difficult because of redux-toolkit
-          integration.
+        <Typography className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16" component="div">
+          Migrating to the new major version (v5.0.0) can be difficult because of redux-toolkit integration.
         </Typography>
-        <Typography
-          className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16 leading-loose"
-          component="div"
-        >
+        <Typography className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16 leading-loose" component="div">
           Some of the benefits of the redux-toolkit,
           <ul className="list-disc ml-16">
             <li>redux-toolkit is an official redux library.</li>
@@ -363,28 +342,25 @@ const changelogData = [
               RTK resolves many of the arguments related to boilerplate and unnecessary code.
               <br />
               <ul className="ml-8">
-                As mentioned in its official docs, it helps to solve three major problems people had
-                with Redux:
+                As mentioned in its official docs, it helps to solve three major problems people had with Redux:
                 <li>“Configuring a Redux store is too complicated.”</li>
                 <li>“I have to add a lot of packages to get Redux to do anything useful.”</li>
                 <li>“Redux requires too much boilerplate code.”</li>
               </ul>
             </li>
             <li>
-              It makes writing redux easier with the best practices. - Includes popular middlewares
-              by default (redux-immutable-state-invariant, serializable-state-invariant-middleware
-              thunk)
+              It makes writing redux easier with the best practices. - Includes popular middlewares by default
+              (redux-immutable-state-invariant, serializable-state-invariant-middleware thunk)
             </li>
             <li>
-              Redux DevTools are supported by default and with a simple flag true or false - With
-              the CreateSlice function, you don't always have to define action type, action, and
-              reducer separately.
+              Redux DevTools are supported by default and with a simple flag true or false - With the CreateSlice
+              function, you don't always have to define action type, action, and reducer separately.
             </li>
             <li>It's possible to mutate state with included ImmerJS.</li>
             <li>
               With the help of another included library Reselect, the performance can be improved.
-              <br />- createEntityAdapter function generates a set of prebuilt reducers and
-              selectors for performing CRUD operations more easily.
+              <br />- createEntityAdapter function generates a set of prebuilt reducers and selectors for performing
+              CRUD operations more easily.
             </li>
           </ul>
           <br />
@@ -396,11 +372,7 @@ const changelogData = [
   {
     version: '4.1.6',
     date: '2020-05-28',
-    newChanges: [
-      'material-ui updated to v4.10',
-      'tailwindcss updated to v1.4.6',
-      'All dependency packages updated.',
-    ],
+    newChanges: ['material-ui updated to v4.10', 'tailwindcss updated to v1.4.6', 'All dependency packages updated.'],
     fixedChanges: ['Tooltip z-index issue.'],
   },
   {
@@ -436,9 +408,7 @@ const changelogData = [
   {
     version: '4.0.1',
     date: '2020-02-16',
-    fixedChanges: [
-      'react-scripts updated to v3.4.0 which is minor release and included mostly bug fixes.',
-    ],
+    fixedChanges: ['react-scripts updated to v3.4.0 which is minor release and included mostly bug fixes.'],
   },
   {
     version: '4.0.0',
@@ -495,11 +465,7 @@ const changelogData = [
   {
     version: '3.3.0',
     date: '2019-12-17',
-    newChanges: [
-      'material-ui updated to v4.8.0',
-      'Default theme scheme changed.',
-      'All dependency packages updated.',
-    ],
+    newChanges: ['material-ui updated to v4.8.0', 'Default theme scheme changed.', 'All dependency packages updated.'],
     fixedChanges: [
       'E-Commerce App: reset table page when listing search results.',
       "Project Dashboard: 'scales.[x/y]Axes.categoryPercentage' is deprecated changed with 'dataset.categoryPercentage'",
@@ -508,11 +474,7 @@ const changelogData = [
   {
     version: '3.2.5',
     date: '2019-11-20',
-    newChanges: [
-      'material-ui updated to v4.6.1',
-      'react updated to v16.12.0',
-      'All dependency packages updated.',
-    ],
+    newChanges: ['material-ui updated to v4.6.1', 'react updated to v16.12.0', 'All dependency packages updated.'],
     fixedChanges: ['FusePage layout components: Drawer closes whenever click on it.'],
   },
   {
@@ -546,11 +508,7 @@ const changelogData = [
       'Calendar App New Event, moment js deprecation warning - Not in a recognized ISO format',
       <span>
         Calendar App drag drop fix:
-        <a
-          href="https://github.com/JedWatson/react-select/issues/3632"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://github.com/JedWatson/react-select/issues/3632" target="_blank" rel="noopener noreferrer">
           the related issue
         </a>
       </span>,
@@ -566,10 +524,7 @@ const changelogData = [
       'FuseChipSelectFormsy Component added.',
       'Default FuseSuspense loading delay changed to 0.',
     ],
-    fixedChanges: [
-      'FuseHorizontalNav items minor theming issues.',
-      'Minor fixes for dependency updates.',
-    ],
+    fixedChanges: ['FuseHorizontalNav items minor theming issues.', 'Minor fixes for dependency updates.'],
   },
   {
     version: '3.2.2',
@@ -606,11 +561,7 @@ const changelogData = [
   {
     version: '3.2.0',
     date: '2019-07-31',
-    newChanges: [
-      'material-ui updated to v4.3.0',
-      'tailwind config updated.',
-      'All dependency packages updated.',
-    ],
+    newChanges: ['material-ui updated to v4.3.0', 'tailwind config updated.', 'All dependency packages updated.'],
     fixedChanges: [
       'Academy App is not scroll correctly when the theme footer is static.',
       'Scrumboard App list name form not works.',
@@ -646,11 +597,7 @@ const changelogData = [
     newChanges: [
       <span>
         All of the code migrated to
-        <a
-          href="https://reactjs.org/docs/hooks-intro.html"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
+        <a href="https://reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener noreferrer">
           the hooks
         </a>
         (New feature of react let you use state and other React features without writing a class.)
@@ -675,19 +622,14 @@ const changelogData = [
     ],
     fixedChanges: [
       <span>
-        <i>"createBrowserHistroy is not exported from history.js"</i> error on windows
-        environment(rare)
+        <i>"createBrowserHistroy is not exported from history.js"</i> error on windows environment(rare)
       </span>,
     ],
     breakingChanges: [
-      <span>
-        react-loadable changed with React.suspense, React.lazy. All route configs updated with
-        React.lazy
-      </span>,
+      <span>react-loadable changed with React.suspense, React.lazy. All route configs updated with React.lazy</span>,
       'classNames() replaced with clsx().',
       <span>
-        We have no longer support Internet Explorer by default. If you still need it, you can
-        install
+        We have no longer support Internet Explorer by default. If you still need it, you can install
         <a
           href="https://github.com/facebook/create-react-app/tree/master/packages/react-app-polyfill"
           target="_blank"
@@ -699,12 +641,9 @@ const changelogData = [
       </span>,
     ],
     notes: (
-      <Typography
-        className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16"
-        component="div"
-      >
-        Migrating to the new major version (<b>v3.0.0</b>) can be difficult because of the hooks
-        support and major dependency releases.
+      <Typography className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16" component="div">
+        Migrating to the new major version (<b>v3.0.0</b>) can be difficult because of the hooks support and major
+        dependency releases.
       </Typography>
     ),
   },
@@ -721,10 +660,7 @@ const changelogData = [
   {
     version: '2.2.4',
     date: '2019-03-06',
-    newChanges: [
-      'Dependency packages updated (react v16.8.4 etc).',
-      'setRef prop added to FuseAnimate.',
-    ],
+    newChanges: ['Dependency packages updated (react v16.8.4 etc).', 'setRef prop added to FuseAnimate.'],
     fixedChanges: [
       'Whitelist added to purgecss config for to prevent removing dynamically created navigation classes.',
       'Layout issues on safari <= v10',
@@ -748,10 +684,7 @@ const changelogData = [
   {
     version: '2.2.2',
     date: '2019-02-18',
-    newChanges: [
-      'Dependency packages updated (react v16.8.1, react-scripts etc).',
-      'PSD files updated.',
-    ],
+    newChanges: ['Dependency packages updated (react v16.8.1, react-scripts etc).', 'PSD files updated.'],
     fixedChanges: [
       'Rendering Dom in "window.onload" function to wait all files loaded (esp css files).',
       'Theming issues (FuseCountdown, tables of Invoice pages).',
@@ -821,12 +754,9 @@ const changelogData = [
       'Theme configuration state moved from FuseTheme to redux store (fuse.settings).',
     ],
     notes: (
-      <Typography
-        className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16"
-        component="div"
-      >
-        Migrating to the new major version (v2.0.0) can be difficult because of the project
-        structure and layout system changes.
+      <Typography className="text-14 p-12 border-2 rounded-16 w-full max-w-lg mt-16" component="div">
+        Migrating to the new major version (v2.0.0) can be difficult because of the project structure and layout system
+        changes.
       </Typography>
     ),
   },
@@ -885,13 +815,8 @@ const changelogData = [
   {
     version: '1.2.3',
     date: '2018-10-14',
-    newChanges: [
-      'Dependency packages updated (Redux etc).',
-      'Redux developer tools disabled on production.',
-    ],
-    fixedChanges: [
-      'Redux Developer Tools Extension fix: problem occurs if the extension is enabled on Firefox.',
-    ],
+    newChanges: ['Dependency packages updated (Redux etc).', 'Redux developer tools disabled on production.'],
+    fixedChanges: ['Redux Developer Tools Extension fix: problem occurs if the extension is enabled on Firefox.'],
   },
   {
     version: '1.2.2',
@@ -952,8 +877,8 @@ const changelogData = [
     newChanges: [
       'FuseSplashScreen added.',
       <span>
-        <b>firebaseService</b> and <b>auth0Service</b> created, <b>Auth</b> component added as entry
-        point for authentication.
+        <b>firebaseService</b> and <b>auth0Service</b> created, <b>Auth</b> component added as entry point for
+        authentication.
       </span>,
       'Login, register pages updated due to adding Auth0 authentication.',
       '404 page redirection added to the routes.',
@@ -965,11 +890,7 @@ const changelogData = [
   {
     version: '1.1.6',
     date: '2018-08-12',
-    newChanges: [
-      'Chat App added.',
-      'Material UI updated to v1.4.3',
-      'Dependency packages updated.',
-    ],
+    newChanges: ['Chat App added.', 'Material UI updated to v1.4.3', 'Dependency packages updated.'],
   },
   {
     version: '1.1.5',
@@ -985,11 +906,7 @@ const changelogData = [
   {
     version: '1.1.4',
     date: '2018-07-09',
-    newChanges: [
-      'Todo App added.',
-      'Material UI updated to v1.3.1',
-      'Other Dependency packages updated.',
-    ],
+    newChanges: ['Todo App added.', 'Material UI updated to v1.3.1', 'Other Dependency packages updated.'],
   },
   {
     version: '1.1.3',
@@ -1013,8 +930,8 @@ const changelogData = [
         <code>velocity-react</code> added as dependency, its used for fuseAnimation
       </span>,
       <span>
-        <code>FuseAnimation</code> <code>FuseAnimationGroup</code> created for easily animate
-        components and applied most of the pages.
+        <code>FuseAnimation</code> <code>FuseAnimationGroup</code> created for easily animate components and applied
+        most of the pages.
       </span>,
       <span>
         <code>exact</code> property option added to navigation item for matching location exactly.

@@ -141,14 +141,7 @@ function NoteForm(props) {
               name="content"
               control={control}
               render={({ field }) => (
-                <Input
-                  {...field}
-                  placeholder="Take a note..."
-                  multiline
-                  rows="4"
-                  disableUnderline
-                  fullWidth
-                />
+                <Input {...field} placeholder="Take a note..." multiline rows="4" disableUnderline fullWidth />
               )}
             />
           </div>
@@ -228,29 +221,20 @@ function NoteForm(props) {
           <Tooltip title="Add image" placement="bottom">
             <div>
               <NoteFormUploadImage
-                onChange={(val) =>
-                  setValue('image', val, { shouldDirty: true, shouldValidate: true })
-                }
+                onChange={(val) => setValue('image', val, { shouldDirty: true, shouldValidate: true })}
               />
             </div>
           </Tooltip>
 
           <Tooltip title="Add tasks" placement="bottom">
-            <IconButton
-              className="w-32 h-32 mx-4 p-0"
-              onClick={() => setShowList(!showList)}
-              size="large"
-            >
+            <IconButton className="w-32 h-32 mx-4 p-0" onClick={() => setShowList(!showList)} size="large">
               <FuseSvgIcon size={20}>heroicons-outline:pencil-alt</FuseSvgIcon>
             </IconButton>
           </Tooltip>
 
           <Tooltip title="Change labels" placement="bottom">
             <div>
-              <NoteFormLabelMenu
-                note={noteForm}
-                onChange={(labels) => setValue('labels', labels)}
-              />
+              <NoteFormLabelMenu note={noteForm} onChange={(labels) => setValue('labels', labels)} />
             </div>
           </Tooltip>
 

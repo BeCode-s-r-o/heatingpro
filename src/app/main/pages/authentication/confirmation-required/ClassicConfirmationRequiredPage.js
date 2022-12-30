@@ -13,8 +13,8 @@ function ClassicConfirmationRequiredPage() {
             Confirmation required
           </Typography>
           <Typography className="mt-16">
-            A confirmation mail with instructions has been sent to your email address. Follow those
-            instructions to confirm your email address and activate your account.
+            A confirmation mail with instructions has been sent to your email address. Follow those instructions to
+            confirm your email address and activate your account.
           </Typography>
 
           <Typography className="mt-32 text-md font-medium" color="text.secondary">

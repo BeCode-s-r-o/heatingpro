@@ -74,12 +74,7 @@ function CheckListMenu(props) {
               />
             )}
           />
-          <Button
-            color="secondary"
-            type="submit"
-            disabled={_.isEmpty(dirtyFields) || !isValid}
-            variant="contained"
-          >
+          <Button color="secondary" type="submit" disabled={_.isEmpty(dirtyFields) || !isValid} variant="contained">
             Add
           </Button>
         </form>

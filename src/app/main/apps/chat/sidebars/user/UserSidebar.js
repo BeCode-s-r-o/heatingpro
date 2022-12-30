@@ -150,10 +150,7 @@ function UserSidebar(props) {
                     control={<Radio />}
                     label={
                       <div className="flex items-center">
-                        <Box
-                          className="w-8 h-8 rounded-full"
-                          sx={{ backgroundColor: status.color }}
-                        />
+                        <Box className="w-8 h-8 rounded-full" sx={{ backgroundColor: status.color }} />
                         <span className="mx-8">{status.title}</span>
                       </div>
                     }

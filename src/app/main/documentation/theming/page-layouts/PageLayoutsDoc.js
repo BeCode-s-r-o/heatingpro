@@ -15,12 +15,11 @@ function PageLayoutsDoc() {
         Every single app, pre-built pages uses the Fuse React's page layout components.
       </Typography>
       <Typography className="mb-16" component="p">
-        Simply, page layout components are pre-built layouts which you can simply copy/paste and
-        start building your own page or app based on it.
+        Simply, page layout components are pre-built layouts which you can simply copy/paste and start building your own
+        page or app based on it.
       </Typography>
       <Typography className="mb-16" component="p">
-        Because page layout components, it's very easy to replicate any page style that you can find
-        in Fuse React.
+        Because page layout components, it's very easy to replicate any page style that you can find in Fuse React.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">

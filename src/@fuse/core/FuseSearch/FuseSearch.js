@@ -113,9 +113,7 @@ function renderSuggestion(suggestion, { query, isHighlighted }) {
         {suggestion.icon ? (
           <FuseSvgIcon>{suggestion.icon}</FuseSvgIcon>
         ) : (
-          <span className="text-20 w-24 font-semibold uppercase text-center">
-            {suggestion.title[0]}
-          </span>
+          <span className="text-20 w-24 font-semibold uppercase text-center">{suggestion.title[0]}</span>
         )}
       </ListItemIcon>
       <ListItemText
@@ -284,9 +282,7 @@ function FuseSearch(props) {
 
   function handleClickAway(event) {
     return (
-      state.opened &&
-      (!suggestionsNode.current || !suggestionsNode.current.contains(event.target)) &&
-      hideSearch()
+      state.opened && (!suggestionsNode.current || !suggestionsNode.current.contains(event.target)) && hideSearch()
     );
   }
 
@@ -337,9 +333,7 @@ function FuseSearch(props) {
                     style={{ width: popperNode.current ? popperNode.current.clientWidth : null }}
                   >
                     {options.children}
-                    {state.noSuggestions && (
-                      <Typography className="px-16 py-12">{props.noResults}</Typography>
-                    )}
+                    {state.noSuggestions && <Typography className="px-16 py-12">{props.noResults}</Typography>}
                   </Paper>
                 </div>
               </Popper>
@@ -352,13 +346,7 @@ function FuseSearch(props) {
       return (
         <Root className={clsx('flex', props.className)}>
           <Tooltip title="Click to search" placement="bottom">
-            <div
-              onClick={showSearch}
-              onKeyDown={showSearch}
-              role="button"
-              tabIndex={0}
-              ref={buttonNode}
-            >
+            <div onClick={showSearch} onKeyDown={showSearch} role="button" tabIndex={0} ref={buttonNode}>
               {props.trigger}
             </div>
           </Tooltip>
@@ -400,9 +388,7 @@ function FuseSearch(props) {
                             }}
                           >
                             {options.children}
-                            {state.noSuggestions && (
-                              <Typography className="px-16 py-12">{props.noResults}</Typography>
-                            )}
+                            {state.noSuggestions && <Typography className="px-16 py-12">{props.noResults}</Typography>}
                           </Paper>
                         </div>
                       </Popper>

@@ -10,8 +10,7 @@ const stateSlice = createSlice({
   },
 });
 
-export const { toggleNotificationPanel, openNotificationPanel, closeNotificationPanel } =
-  stateSlice.actions;
+export const { toggleNotificationPanel, openNotificationPanel, closeNotificationPanel } = stateSlice.actions;
 
 export const selectNotificationPanelState = ({ notificationPanel }) => notificationPanel.state;
 

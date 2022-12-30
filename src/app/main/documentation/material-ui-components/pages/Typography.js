@@ -34,16 +34,16 @@ function TypographyDoc(props) {
 
       <Typography className="mb-40" component="div">
         Too many type sizes and styles at once can spoil any layout. A{' '}
-        <a href="https://m2.material.io/design/typography/#type-scale">typographic scale</a> has a
-        limited set of type sizes that work well together along with the layout grid.
+        <a href="https://m2.material.io/design/typography/#type-scale">typographic scale</a> has a limited set of type
+        sizes that work well together along with the layout grid.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         General
       </Typography>
       <Typography className="mb-40" component="div">
-        The <em>Roboto</em> font will <strong>not</strong> be automatically loaded by MUI. You are
-        responsible for loading any fonts used in your application. Roboto Font has a few easy ways
-        to get started. For more advanced configuration, check out
+        The <em>Roboto</em> font will <strong>not</strong> be automatically loaded by MUI. You are responsible for
+        loading any fonts used in your application. Roboto Font has a few easy ways to get started. For more advanced
+        configuration, check out
         <a href="/material-ui/customization/typography/">the theme customization section</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -65,8 +65,8 @@ function TypographyDoc(props) {
         Install with npm
       </Typography>
       <Typography className="mb-40" component="div">
-        You can <a href="https://www.npmjs.com/package/@fontsource/roboto">install it</a> by running
-        one of the following commands in your terminal:
+        You can <a href="https://www.npmjs.com/package/@fontsource/roboto">install it</a> by running one of the
+        following commands in your terminal:
       </Typography>
       <Typography className="mb-40" component="div">
         With <strong>npm</strong>:
@@ -96,15 +96,14 @@ import '@fontsource/roboto/700.css';
         For more info check out <a href="https://github.com/fontsource/fontsource">Fontsource</a>.
       </Typography>
       <Typography className="mb-40" component="div">
-        Fontsource can be configured to load specific subsets, weights and styles. MUI default
-        typography configuration only relies on 300, 400, 500, and 700 font weights.
+        Fontsource can be configured to load specific subsets, weights and styles. MUI default typography configuration
+        only relies on 300, 400, 500, and 700 font weights.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Component
       </Typography>
       <Typography className="mb-40" component="div">
-        The Typography component makes it easy to apply a default set of font weights and sizes in
-        your application.
+        The Typography component makes it easy to apply a default set of font weights and sizes in your application.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -119,8 +118,8 @@ import '@fontsource/roboto/700.css';
         Theme
       </Typography>
       <Typography className="mb-40" component="div">
-        In some situations you might not be able to use the <code>Typography</code> component.
-        Hopefully, you might be able to take advantage of the{' '}
+        In some situations you might not be able to use the <code>Typography</code> component. Hopefully, you might be
+        able to take advantage of the{' '}
         <a href="/material-ui/customization/default-theme/?expand-path=$.typography">
           <code>typography</code>
         </a>{' '}
@@ -139,14 +138,13 @@ import '@fontsource/roboto/700.css';
         Changing the semantic element
       </Typography>
       <Typography className="mb-40" component="div">
-        The Typography component uses the <code>variantMapping</code> prop to associate a UI variant
-        with a semantic element. It&#39;s important to realize that the style of a typography
-        component is independent from the semantic underlying element.
+        The Typography component uses the <code>variantMapping</code> prop to associate a UI variant with a semantic
+        element. It&#39;s important to realize that the style of a typography component is independent from the semantic
+        underlying element.
       </Typography>
       <ul>
         <li>
-          You can change the underlying element for a one-off situation with the{' '}
-          <code>component</code> prop:
+          You can change the underlying element for a one-off situation with the <code>component</code> prop:
         </li>
       </ul>
 
@@ -163,10 +161,7 @@ import '@fontsource/roboto/700.css';
       <ul>
         <li>
           You can change the mapping{' '}
-          <a href="/material-ui/customization/theme-components/#default-props">
-            globally using the theme
-          </a>
-          :
+          <a href="/material-ui/customization/theme-components/#default-props">globally using the theme</a>:
         </li>
       </ul>
 
@@ -198,8 +193,8 @@ const theme = createTheme({
         Adding &amp; disabling variants
       </Typography>
       <Typography className="mb-40" component="div">
-        In addition to using the default typography variants, you can add custom ones, or disable
-        any you don&#39;t need. See the{' '}
+        In addition to using the default typography variants, you can add custom ones, or disable any you don&#39;t
+        need. See the{' '}
         <a href="/material-ui/customization/typography/#adding-amp-disabling-variants">
           Adding &amp; disabling variants
         </a>{' '}
@@ -229,8 +224,8 @@ const theme = createTheme({
       </Typography>
       <ul>
         <li>
-          <strong>Color</strong>. Provide enough contrast between text and its background, check out
-          the minimum recommended{' '}
+          <strong>Color</strong>. Provide enough contrast between text and its background, check out the minimum
+          recommended{' '}
           <a href="https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html">
             WCAG 2.0 color contrast ratio
           </a>{' '}
@@ -238,13 +233,13 @@ const theme = createTheme({
         </li>
         <li>
           <strong>Font size</strong>. Use{' '}
-          <a href="/material-ui/customization/typography/#font-size">relative units (rem)</a> to
-          accommodate the user&#39;s settings.
+          <a href="/material-ui/customization/typography/#font-size">relative units (rem)</a> to accommodate the
+          user&#39;s settings.
         </li>
         <li>
           <strong>Heading hierarchy</strong>.{' '}
-          <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/">Don&#39;t skip</a>{' '}
-          heading levels. In order to solve this problem, you need to{' '}
+          <a href="https://www.w3.org/WAI/tutorials/page-structure/headings/">Don&#39;t skip</a> heading levels. In
+          order to solve this problem, you need to{' '}
           <a href="#changing-the-semantic-element">separate the semantics from the style</a>.
         </li>
       </ul>

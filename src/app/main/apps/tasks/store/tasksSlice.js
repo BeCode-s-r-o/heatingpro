@@ -1,23 +1,15 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { addTask, removeTask, updateTask } from './taskSlice';
 
-export const getTasks = createAsyncThunk(
-  'tasksApp/tasks/getTasks',
-  async (params, { getState }) => {
-    const response = await axios.get('/api/tasks');
+export const getTasks = createAsyncThunk('tasksApp/tasks/getTasks', async (params, { getState }) => {
+  const response = await axios.get('/api/tasks');
 
-    const data = await response.data;
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 export const reorderList = createAsyncThunk(
   'tasksApp/tasks/reorder',

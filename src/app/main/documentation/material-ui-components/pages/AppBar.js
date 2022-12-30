@@ -33,8 +33,8 @@ function AppBarDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        The top App bar provides content and actions related to the current screen. It&#39;s used
-        for branding, screen titles, navigation, and actions.
+        The top App bar provides content and actions related to the current screen. It&#39;s used for branding, screen
+        titles, navigation, and actions.
       </Typography>
       <Typography className="mb-40" component="div">
         It can transform into a contextual action bar or be used as a navbar.
@@ -160,14 +160,13 @@ function AppBarDoc(props) {
         Fixed placement
       </Typography>
       <Typography className="mb-40" component="div">
-        When you render the app bar position fixed, the dimension of the element doesn&#39;t impact
-        the rest of the page. This can cause some part of your content to be invisible, behind the
-        app bar. Here are 3 possible solutions:
+        When you render the app bar position fixed, the dimension of the element doesn&#39;t impact the rest of the
+        page. This can cause some part of your content to be invisible, behind the app bar. Here are 3 possible
+        solutions:
       </Typography>
       <ol>
         <li>
-          You can use <code>{`position="sticky"`}</code> instead of fixed. ⚠️ sticky is not
-          supported by IE11.
+          You can use <code>{`position="sticky"`}</code> instead of fixed. ⚠️ sticky is not supported by IE11.
         </li>
         <li>
           You can render a second <code>{`<Toolbar />`}</code> component:
@@ -250,8 +249,7 @@ function App() {
         Back to top
       </Typography>
       <Typography className="mb-40" component="div">
-        A floating action button appears on scroll to make it easy to get back to the top of the
-        page.
+        A floating action button appears on scroll to make it easy to get back to the top of the page.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -275,18 +273,15 @@ function App() {
           </Typography>
           <ul>
             <li>
-              <code>options.disableHysteresis</code> (<em>bool</em> [optional]): Defaults to{' '}
-              <code>false</code>. Disable the hysteresis. Ignore the scroll direction when
-              determining the <code>trigger</code> value.
+              <code>options.disableHysteresis</code> (<em>bool</em> [optional]): Defaults to <code>false</code>. Disable
+              the hysteresis. Ignore the scroll direction when determining the <code>trigger</code> value.
             </li>
             <li>
-              <code>options.target</code> (<em>Node</em> [optional]): Defaults to{' '}
-              <code>window</code>.
+              <code>options.target</code> (<em>Node</em> [optional]): Defaults to <code>window</code>.
             </li>
             <li>
-              <code>options.threshold</code> (<em>number</em> [optional]): Defaults to{' '}
-              <code>100</code>. Change the <code>trigger</code> value when the vertical scroll
-              strictly crosses this threshold (exclusive).
+              <code>options.threshold</code> (<em>number</em> [optional]): Defaults to <code>100</code>. Change the{' '}
+              <code>trigger</code> value when the vertical scroll strictly crosses this threshold (exclusive).
             </li>
           </ul>
         </li>
@@ -319,11 +314,9 @@ function HideOnScroll(props) {
         Enable color on dark
       </Typography>
       <Typography className="mb-40" component="div">
-        Following the{' '}
-        <a href="https://m2.material.io/design/color/dark-theme.html">Material Design guidelines</a>
-        , the <code>color</code> prop has no effect on the appearance of the app bar in dark mode.
-        You can override this behavior by setting the <code>enableColorOnDark</code> prop to{' '}
-        <code>true</code>.
+        Following the <a href="https://m2.material.io/design/color/dark-theme.html">Material Design guidelines</a>, the{' '}
+        <code>color</code> prop has no effect on the appearance of the app bar in dark mode. You can override this
+        behavior by setting the <code>enableColorOnDark</code> prop to <code>true</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

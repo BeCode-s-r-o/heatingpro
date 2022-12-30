@@ -142,12 +142,7 @@ function VisitorsOverviewWidget() {
               className="-mx-4 min-h-40"
               classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
               TabIndicatorProps={{
-                children: (
-                  <Box
-                    sx={{ bgcolor: 'text.disabled' }}
-                    className="w-full h-full rounded-full opacity-20"
-                  />
-                ),
+                children: <Box sx={{ bgcolor: 'text.disabled' }} className="w-full h-full rounded-full opacity-20" />,
               }}
             >
               {Object.entries(ranges).map(([key, label]) => (

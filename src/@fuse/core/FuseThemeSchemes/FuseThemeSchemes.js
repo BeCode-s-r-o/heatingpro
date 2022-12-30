@@ -5,16 +5,10 @@ import clsx from 'clsx';
 
 function SchemePreview({ theme, className, id, onSelect }) {
   const _theme = useTheme();
-  const primaryColor = theme.palette.primary[500]
-    ? theme.palette.primary[500]
-    : theme.palette.primary.main;
-  const primaryColorContrast =
-    theme.palette.primary.contrastText || _theme.palette.getContrastText(primaryColor);
-  const secondaryColor = theme.palette.secondary[500]
-    ? theme.palette.secondary[500]
-    : theme.palette.secondary.main;
-  const secondaryColorContrast =
-    theme.palette.secondary.contrastText || _theme.palette.getContrastText(secondaryColor);
+  const primaryColor = theme.palette.primary[500] ? theme.palette.primary[500] : theme.palette.primary.main;
+  const primaryColorContrast = theme.palette.primary.contrastText || _theme.palette.getContrastText(primaryColor);
+  const secondaryColor = theme.palette.secondary[500] ? theme.palette.secondary[500] : theme.palette.secondary.main;
+  const secondaryColorContrast = theme.palette.secondary.contrastText || _theme.palette.getContrastText(secondaryColor);
   const backgroundColor = theme.palette.background.default;
   const backgroundColorContrast = _theme.palette.getContrastText(theme.palette.background.default);
   const paperColor = theme.palette.background.paper;

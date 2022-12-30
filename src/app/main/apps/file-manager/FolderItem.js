@@ -26,11 +26,7 @@ function FolderItem(props) {
       >
         <FuseSvgIcon size={20}>heroicons-solid:information-circle</FuseSvgIcon>
       </IconButton>
-      <NavLinkAdapter
-        className="flex flex-col h-full w-full"
-        to={`/apps/file-manager/${item.id}`}
-        role="button"
-      >
+      <NavLinkAdapter className="flex flex-col h-full w-full" to={`/apps/file-manager/${item.id}`} role="button">
         <div className="flex flex-auto w-full items-center justify-center">
           <ItemIcon className="" type={item.type} />
         </div>

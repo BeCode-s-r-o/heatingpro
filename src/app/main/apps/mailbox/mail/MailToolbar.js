@@ -28,9 +28,7 @@ function MailToolbar(props) {
     >
       <IconButton component={NavLink} className="lg:hidden md:-mx-8" to={-1}>
         <FuseSvgIcon>
-          {theme.direction === 'ltr'
-            ? 'heroicons-outline:arrow-narrow-left'
-            : 'heroicons-outline:arrow-narrow-right'}
+          {theme.direction === 'ltr' ? 'heroicons-outline:arrow-narrow-left' : 'heroicons-outline:arrow-narrow-right'}
         </FuseSvgIcon>
       </IconButton>
 
@@ -46,11 +44,7 @@ function MailToolbar(props) {
         <Tooltip title="Set important">
           <IconButton
             className="mx-4"
-            onClick={() =>
-              dispatch(
-                setActionToMails({ type: 'important', value: !mail.important, ids: [mail.id] })
-              )
-            }
+            onClick={() => dispatch(setActionToMails({ type: 'important', value: !mail.important, ids: [mail.id] }))}
           >
             <FuseSvgIcon className={clsx(mail.important && 'text-red-600 dark:text-red-500')}>
               heroicons-outline:exclamation-circle
@@ -61,9 +55,7 @@ function MailToolbar(props) {
         <Tooltip title="Set starred">
           <IconButton
             className="mx-4"
-            onClick={() =>
-              dispatch(setActionToMails({ type: 'starred', value: !mail.starred, ids: [mail.id] }))
-            }
+            onClick={() => dispatch(setActionToMails({ type: 'starred', value: !mail.starred, ids: [mail.id] }))}
           >
             <FuseSvgIcon className={clsx(mail.starred && 'text-orange-500 dark:text-red-400')}>
               heroicons-outline:star

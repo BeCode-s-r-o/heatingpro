@@ -56,18 +56,14 @@ function MailInfo(props) {
         {mail.cc && (
           <div className="flex">
             <Typography className="text-13 min-w-56 font-medium text-right">cc:</Typography>
-            <Typography className="text-13 pl-8 whitespace-pre-wrap">
-              {mail.cc.join(',\n')}
-            </Typography>
+            <Typography className="text-13 pl-8 whitespace-pre-wrap">{mail.cc.join(',\n')}</Typography>
           </div>
         )}
 
         {mail.bcc && (
           <div className="flex">
             <Typography className="text-13 min-w-56 font-medium text-right">bcc:</Typography>
-            <Typography className="text-13 pl-8 whitespace-pre-wrap">
-              {mail.bcc.join(',\n')}
-            </Typography>
+            <Typography className="text-13 pl-8 whitespace-pre-wrap">{mail.bcc.join(',\n')}</Typography>
           </div>
         )}
 

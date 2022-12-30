@@ -29,17 +29,16 @@ function StackDoc(props) {
         Stack
       </Typography>
       <Typography className="description">
-        The Stack component manages layout of immediate children along the vertical or horizontal
-        axis with optional spacing and/or dividers between each child.
+        The Stack component manages layout of immediate children along the vertical or horizontal axis with optional
+        spacing and/or dividers between each child.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Usage
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>Stack</code> is concerned with one-dimensional layouts, while{' '}
-        <a href="/material-ui/react-grid/">Grid</a> handles two-dimensional layouts. The default
-        direction is <code>column</code> which stacks children vertically.
+        <code>Stack</code> is concerned with one-dimensional layouts, while <a href="/material-ui/react-grid/">Grid</a>{' '}
+        handles two-dimensional layouts. The default direction is <code>column</code> which stacks children vertically.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -51,9 +50,8 @@ function StackDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        To control space between children, use the <code>spacing</code> prop. The spacing value can
-        be any number, including decimals and any string. The prop is converted into a CSS property
-        using the{' '}
+        To control space between children, use the <code>spacing</code> prop. The spacing value can be any number,
+        including decimals and any string. The prop is converted into a CSS property using the{' '}
         <a href="/material-ui/customization/spacing/">
           <code>theme.spacing()</code>
         </a>{' '}
@@ -63,9 +61,8 @@ function StackDoc(props) {
         Direction
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, <code>Stack</code> arranges items vertically in a <code>column</code>. However,
-        the <code>direction</code> prop can be used to position items horizontally in a{' '}
-        <code>row</code> as well.
+        By default, <code>Stack</code> arranges items vertically in a <code>column</code>. However, the{' '}
+        <code>direction</code> prop can be used to position items horizontally in a <code>row</code> as well.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -80,8 +77,8 @@ function StackDoc(props) {
         Dividers
       </Typography>
       <Typography className="mb-40" component="div">
-        Use the <code>divider</code> prop to insert an element between each child. This works
-        particularly well with the <a href="/material-ui/react-divider/">Divider</a> component.
+        Use the <code>divider</code> prop to insert an element between each child. This works particularly well with the{' '}
+        <a href="/material-ui/react-divider/">Divider</a> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -96,8 +93,7 @@ function StackDoc(props) {
         Responsive values
       </Typography>
       <Typography className="mb-40" component="div">
-        You can switch the <code>direction</code> or <code>spacing</code> values based on the active
-        breakpoint.
+        You can switch the <code>direction</code> or <code>spacing</code> values based on the active breakpoint.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -112,8 +108,7 @@ function StackDoc(props) {
         Interactive
       </Typography>
       <Typography className="mb-40" component="div">
-        Below is an interactive demo that lets you explore the visual results of the different
-        settings:
+        Below is an interactive demo that lets you explore the visual results of the different settings:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

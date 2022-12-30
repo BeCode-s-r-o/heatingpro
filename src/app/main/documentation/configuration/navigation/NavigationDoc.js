@@ -21,8 +21,7 @@ function NavigationDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        The navigation items can be updated, removed, added with redux actions from anywhere of the
-        app.
+        The navigation items can be updated, removed, added with redux actions from anywhere of the app.
       </Typography>
 
       <Typography className="mb-16" component="p">

@@ -28,17 +28,14 @@ function CheckboxesDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Checkbox
       </Typography>
-      <Typography className="description">
-        Checkboxes allow the user to select one or more items from a set.
-      </Typography>
+      <Typography className="description">Checkboxes allow the user to select one or more items from a set.</Typography>
 
       <Typography className="mb-40" component="div">
         Checkboxes can be used to turn an option on or off.
       </Typography>
       <Typography className="mb-40" component="div">
-        If you have multiple options appearing in a list, you can preserve space by using checkboxes
-        instead of on/off switches. If you have a single option, avoid using a checkbox and use an
-        on/off switch instead.
+        If you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off
+        switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic checkboxes
@@ -56,8 +53,7 @@ function CheckboxesDoc(props) {
         Label
       </Typography>
       <Typography className="mb-40" component="div">
-        You can provide a label to the <code>Checkbox</code> thanks to the{' '}
-        <code>FormControlLabel</code> component.
+        You can provide a label to the <code>Checkbox</code> thanks to the <code>FormControlLabel</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -72,8 +68,7 @@ function CheckboxesDoc(props) {
         Size
       </Typography>
       <Typography className="mb-40" component="div">
-        Use the <code>size</code> prop or customize the font size of the svg icons to change the
-        size of the checkboxes.
+        Use the <code>size</code> prop or customize the font size of the svg icons to change the size of the checkboxes.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -127,9 +122,9 @@ function CheckboxesDoc(props) {
         Indeterminate
       </Typography>
       <Typography className="mb-40" component="div">
-        A checkbox input can only have two states in a form: checked or unchecked. It either submits
-        its value or doesn&#39;t. Visually, there are <strong>three</strong> states a checkbox can
-        be in: checked, unchecked, or indeterminate.
+        A checkbox input can only have two states in a form: checked or unchecked. It either submits its value or
+        doesn&#39;t. Visually, there are <strong>three</strong> states a checkbox can be in: checked, unchecked, or
+        indeterminate.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -141,8 +136,8 @@ function CheckboxesDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        :::warning When indeterminate is set, the value of the <code>checked</code> prop only
-        impacts the form submitted values. It has no accessibility or UX implications. :::
+        :::warning When indeterminate is set, the value of the <code>checked</code> prop only impacts the form submitted
+        values. It has no accessibility or UX implications. :::
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         FormGroup
@@ -192,24 +187,17 @@ function CheckboxesDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/checkbox/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/checkbox/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         When to use
       </Typography>
       <ul>
         <li>
-          <a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">
-            Checkboxes vs. Radio Buttons
-          </a>
+          <a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">Checkboxes vs. Radio Buttons</a>
         </li>
         <li>
-          <a href="https://uxplanet.org/checkbox-vs-toggle-switch-7fc6e83f10b8">
-            Checkboxes vs. Switches
-          </a>
+          <a href="https://uxplanet.org/checkbox-vs-toggle-switch-7fc6e83f10b8">Checkboxes vs. Switches</a>
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -224,15 +212,14 @@ function CheckboxesDoc(props) {
       </Typography>
       <ul>
         <li>
-          All form controls should have labels, and this includes radio buttons, checkboxes, and
-          switches. In most cases, this is done by using the <code>{`<label>`}</code> element (
+          All form controls should have labels, and this includes radio buttons, checkboxes, and switches. In most
+          cases, this is done by using the <code>{`<label>`}</code> element (
           <a href="/material-ui/api/form-control-label/">FormControlLabel</a>).
         </li>
         <li>
-          When a label can&#39;t be used, it&#39;s necessary to add an attribute directly to the
-          input component. In this case, you can apply the additional attribute (e.g.{' '}
-          <code>aria-label</code>, <code>aria-labelledby</code>, <code>title</code>) via the{' '}
-          <code>inputProps</code> prop.
+          When a label can&#39;t be used, it&#39;s necessary to add an attribute directly to the input component. In
+          this case, you can apply the additional attribute (e.g. <code>aria-label</code>, <code>aria-labelledby</code>,{' '}
+          <code>title</code>) via the <code>inputProps</code> prop.
         </li>
       </ul>
 

@@ -11,8 +11,7 @@ import { selectWidgets } from '../store/widgetsSlice';
 function VisitorsVsPageViewsWidget(props) {
   const theme = useTheme();
   const widgets = useSelector(selectWidgets);
-  const { series, averageRatio, predictedRatio, overallScore, labels } =
-    widgets?.visitorsVsPageViews;
+  const { series, averageRatio, predictedRatio, overallScore, labels } = widgets?.visitorsVsPageViews;
 
   const chartOptions = {
     chart: {
@@ -150,9 +149,7 @@ function VisitorsVsPageViewsWidget(props) {
               </Tooltip>
             </div>
             <div className="flex items-start mt-8">
-              <div className="text-4xl font-bold tracking-tight leading-none">
-                {predictedRatio}%
-              </div>
+              <div className="text-4xl font-bold tracking-tight leading-none">{predictedRatio}%</div>
               <div className="flex items-center ml-8">
                 <FuseSvgIcon className="text-green-500" size={20}>
                   heroicons-solid:arrow-circle-up

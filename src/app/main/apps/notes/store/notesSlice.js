@@ -1,9 +1,4 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getNotes = createAsyncThunk('notesApp/notes/getNotes', async (routeParams) => {
@@ -47,17 +42,14 @@ export const updateNote = createAsyncThunk('notesApp/notes/updateNote', async (n
   return data;
 });
 
-export const removeNote = createAsyncThunk(
-  'notesApp/notes/removeNote',
-  async (id, { dispatch, getState }) => {
-    const response = await axios.delete(`/api/notes/${id}`);
-    const data = await response.data;
+export const removeNote = createAsyncThunk('notesApp/notes/removeNote', async (id, { dispatch, getState }) => {
+  const response = await axios.delete(`/api/notes/${id}`);
+  const data = await response.data;
 
-    dispatch(closeNoteDialog());
+  dispatch(closeNoteDialog());
 
-    return data;
-  }
-);
+  return data;
+});
 
 const notesAdapter = createEntityAdapter({});
 
@@ -102,13 +94,8 @@ const notesSlice = createSlice({
   },
 });
 
-export const {
-  setNotesSearchText,
-  resetNotesSearchText,
-  toggleVariateDescSize,
-  openNoteDialog,
-  closeNoteDialog,
-} = notesSlice.actions;
+export const { setNotesSearchText, resetNotesSearchText, toggleVariateDescSize, openNoteDialog, closeNoteDialog } =
+  notesSlice.actions;
 
 export const selectVariateDescSize = ({ notesApp }) => notesApp.notes.variateDescSize;
 
@@ -116,11 +103,8 @@ export const selectSearchText = ({ notesApp }) => notesApp.notes.searchText;
 
 export const selectDialogNoteId = ({ notesApp }) => notesApp.notes.noteDialogId;
 
-export const selectDialogNote = createSelector(
-  [selectDialogNoteId, selectNotesEntities],
-  (noteId, notesEntities) => {
-    return notesEntities[noteId];
-  }
-);
+export const selectDialogNote = createSelector([selectDialogNoteId, selectNotesEntities], (noteId, notesEntities) => {
+  return notesEntities[noteId];
+});
 
 export default notesSlice.reducer;

@@ -67,11 +67,7 @@ function MailToolbar(props) {
       >
         <div className="flex items-center">
           <Hidden lgUp>
-            <IconButton
-              onClick={(ev) => onToggleLeftSidebar()}
-              aria-label="open left sidebar"
-              size="small"
-            >
+            <IconButton onClick={(ev) => onToggleLeftSidebar()} aria-label="open left sidebar" size="small">
               <FuseSvgIcon>heroicons-outline:menu</FuseSvgIcon>
             </IconButton>
           </Hidden>
@@ -104,12 +100,8 @@ function MailToolbar(props) {
       >
         <Checkbox
           onChange={handleCheckChange}
-          checked={
-            selectedMailIds.length === Object.keys(mails).length && selectedMailIds.length > 0
-          }
-          indeterminate={
-            selectedMailIds.length !== Object.keys(mails).length && selectedMailIds.length > 0
-          }
+          checked={selectedMailIds.length === Object.keys(mails).length && selectedMailIds.length > 0}
+          indeterminate={selectedMailIds.length !== Object.keys(mails).length && selectedMailIds.length > 0}
           size="small"
         />
 
@@ -203,9 +195,7 @@ function MailToolbar(props) {
             <Tooltip title="Delete">
               <IconButton
                 onClick={(ev) => {
-                  dispatch(
-                    setActionToMails({ type: 'folder', value: trashFolderId, ids: selectedMailIds })
-                  );
+                  dispatch(setActionToMails({ type: 'folder', value: trashFolderId, ids: selectedMailIds }));
                 }}
                 aria-label="Delete"
                 size="small"
@@ -236,9 +226,7 @@ function MailToolbar(props) {
                 folders.map((folder) => (
                   <MenuItem
                     onClick={(ev) => {
-                      dispatch(
-                        setActionToMails({ type: 'folder', value: folder.id, ids: selectedMailIds })
-                      );
+                      dispatch(setActionToMails({ type: 'folder', value: folder.id, ids: selectedMailIds }));
                       handleMenuClose(ev, 'folders');
                     }}
                     key={folder.id}
@@ -270,9 +258,7 @@ function MailToolbar(props) {
                 labels.map((label) => (
                   <MenuItem
                     onClick={(ev) => {
-                      dispatch(
-                        setActionToMails({ type: 'label', value: label.id, ids: selectedMailIds })
-                      );
+                      dispatch(setActionToMails({ type: 'label', value: label.id, ids: selectedMailIds }));
 
                       handleMenuClose(ev, 'labels');
                     }}
@@ -298,9 +284,7 @@ function MailToolbar(props) {
             <Tooltip title="Set important">
               <IconButton
                 onClick={(ev) => {
-                  dispatch(
-                    setActionToMails({ type: 'important', value: true, ids: selectedMailIds })
-                  );
+                  dispatch(setActionToMails({ type: 'important', value: true, ids: selectedMailIds }));
                 }}
                 aria-label="important"
                 size="small"
@@ -314,16 +298,12 @@ function MailToolbar(props) {
             <Tooltip title="Set starred">
               <IconButton
                 onClick={(ev) => {
-                  dispatch(
-                    setActionToMails({ type: 'starred', value: true, ids: selectedMailIds })
-                  );
+                  dispatch(setActionToMails({ type: 'starred', value: true, ids: selectedMailIds }));
                 }}
                 aria-label="important"
                 size="small"
               >
-                <FuseSvgIcon className="text-orange-500 dark:text-red-400">
-                  heroicons-outline:star
-                </FuseSvgIcon>
+                <FuseSvgIcon className="text-orange-500 dark:text-red-400">heroicons-outline:star</FuseSvgIcon>
               </IconButton>
             </Tooltip>
           </>

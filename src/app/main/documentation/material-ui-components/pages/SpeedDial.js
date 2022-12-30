@@ -28,13 +28,11 @@ function SpeedDialDoc(props) {
         Speed Dial
       </Typography>
       <Typography className="description">
-        When pressed, a floating action button can display three to six related actions in the form
-        of a Speed Dial.
+        When pressed, a floating action button can display three to six related actions in the form of a Speed Dial.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        If more than six actions are needed, something other than a FAB should be used to present
-        them.
+        If more than six actions are needed, something other than a FAB should be used to present them.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic speed dial
@@ -67,8 +65,8 @@ function SpeedDialDoc(props) {
         Controlled speed dial
       </Typography>
       <Typography className="mb-40" component="div">
-        The open state of the component can be controlled with the <code>open</code>/
-        <code>onOpen</code>/<code>onClose</code> props.
+        The open state of the component can be controlled with the <code>open</code>/<code>onOpen</code>/
+        <code>onClose</code> props.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -83,8 +81,8 @@ function SpeedDialDoc(props) {
         Custom close icon
       </Typography>
       <Typography className="mb-40" component="div">
-        You can provide an alternate icon for the closed and open states using the <code>icon</code>{' '}
-        and <code>openIcon</code> props of the <code>SpeedDialIcon</code> component.
+        You can provide an alternate icon for the closed and open states using the <code>icon</code> and{' '}
+        <code>openIcon</code> props of the <code>SpeedDialIcon</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -99,12 +97,12 @@ function SpeedDialDoc(props) {
         Persistent action tooltips
       </Typography>
       <Typography className="mb-40" component="div">
-        The SpeedDialActions tooltips can be displayed persistently so that users don&#39;t have to
-        long-press to see the tooltip on touch devices.
+        The SpeedDialActions tooltips can be displayed persistently so that users don&#39;t have to long-press to see
+        the tooltip on touch devices.
       </Typography>
       <Typography className="mb-40" component="div">
-        It is enabled here across all devices for demo purposes, but in production it could use the{' '}
-        <code>isTouch</code> logic to conditionally set the prop.
+        It is enabled here across all devices for demo purposes, but in production it could use the <code>isTouch</code>{' '}
+        logic to conditionally set the prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -137,16 +135,15 @@ function SpeedDialDoc(props) {
       </Typography>
       <ul>
         <li>
-          The Fab has <code>aria-haspopup</code>, <code>aria-expanded</code> and{' '}
-          <code>aria-controls</code> attributes.
+          The Fab has <code>aria-haspopup</code>, <code>aria-expanded</code> and <code>aria-controls</code> attributes.
         </li>
         <li>
-          The speed dial actions container has <code>{`role="menu"`}</code> and{' '}
-          <code>aria-orientation</code> set according to the direction.
+          The speed dial actions container has <code>{`role="menu"`}</code> and <code>aria-orientation</code> set
+          according to the direction.
         </li>
         <li>
-          The speed dial actions have <code>{`role="menuitem"`}</code>, and an{' '}
-          <code>aria-describedby</code> attribute that references the associated tooltip.
+          The speed dial actions have <code>{`role="menuitem"`}</code>, and an <code>aria-describedby</code> attribute
+          that references the associated tooltip.
         </li>
       </ul>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
@@ -154,20 +151,14 @@ function SpeedDialDoc(props) {
       </Typography>
       <ul>
         <li>The speed dial opens on focus.</li>
+        <li>The Space and Enter keys trigger the selected speed dial action, and toggle the speed dial open state.</li>
         <li>
-          The Space and Enter keys trigger the selected speed dial action, and toggle the speed dial
-          open state.
+          The cursor keys move focus to the next or previous speed dial action. (Note that any cursor direction can be
+          used initially to open the speed dial. This enables the expected behavior for the actual or perceived
+          orientation of the speed dial, for example for a screen reader user who perceives the speed dial as a
+          drop-down menu.)
         </li>
-        <li>
-          The cursor keys move focus to the next or previous speed dial action. (Note that any
-          cursor direction can be used initially to open the speed dial. This enables the expected
-          behavior for the actual or perceived orientation of the speed dial, for example for a
-          screen reader user who perceives the speed dial as a drop-down menu.)
-        </li>
-        <li>
-          The Escape key closes the speed dial and, if a speed dial action was focused, returns
-          focus to the Fab.
-        </li>
+        <li>The Escape key closes the speed dial and, if a speed dial action was focused, returns focus to the Fab.</li>
       </ul>
     </>
   );

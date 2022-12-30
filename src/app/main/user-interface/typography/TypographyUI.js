@@ -174,8 +174,8 @@ function TypographyUI() {
           <div className="flex flex-wrap mb-16">
             <div className="flex w-full sm:w-1/2">
               <Typography gutterBottom noWrap>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-                incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua.
               </Typography>
             </div>
             <div className="flex w-full sm:w-1/2">

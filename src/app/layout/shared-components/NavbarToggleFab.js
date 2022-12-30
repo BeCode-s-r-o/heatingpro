@@ -19,13 +19,10 @@ const Root = styled(Tooltip)(({ theme, position }) => ({
     borderRadius: 38,
     padding: 8,
     backgroundColor: theme.palette.background.paper,
-    transition: theme.transitions.create(
-      ['background-color', 'border-radius', 'width', 'min-width', 'padding'],
-      {
-        easing: theme.transitions.easing.easeInOut,
-        duration: theme.transitions.duration.shorter,
-      }
-    ),
+    transition: theme.transitions.create(['background-color', 'border-radius', 'width', 'min-width', 'padding'], {
+      easing: theme.transitions.easing.easeInOut,
+      duration: theme.transitions.duration.shorter,
+    }),
     '&:hover': {
       width: 52,
       paddingLeft: 8,

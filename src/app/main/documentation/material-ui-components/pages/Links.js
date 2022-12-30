@@ -28,17 +28,15 @@ function LinksDoc(props) {
         Links
       </Typography>
       <Typography className="description">
-        The Link component allows you to easily customize anchor elements with your theme colors and
-        typography styles.
+        The Link component allows you to easily customize anchor elements with your theme colors and typography styles.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic links
       </Typography>
       <Typography className="mb-40" component="div">
-        The Link component is built on top of the{' '}
-        <a href="/material-ui/api/typography/">Typography</a> component, meaning that you can use
-        its props.
+        The Link component is built on top of the <a href="/material-ui/api/typography/">Typography</a> component,
+        meaning that you can use its props.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -57,16 +55,15 @@ function LinksDoc(props) {
           <code>{`color="primary"`}</code> as the link needs to stand out.
         </li>
         <li>
-          <code>{`variant="inherit"`}</code> as the link will, most of the time, be used as a child
-          of a Typography component.
+          <code>{`variant="inherit"`}</code> as the link will, most of the time, be used as a child of a Typography
+          component.
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Underline
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>underline</code> prop can be used to set the underline behavior. The default is{' '}
-        <code>always</code>.
+        The <code>underline</code> prop can be used to set the underline behavior. The default is <code>always</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -82,29 +79,26 @@ function LinksDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         When you use <code>{`target="_blank"`}</code> with Links, it is{' '}
-        <a href="https://developers.google.com/web/tools/lighthouse/audits/noopener">recommended</a>{' '}
-        to always set <code>{`rel="noopener"`}</code> or <code>{`rel="noreferrer"`}</code> when
-        linking to third party content.
+        <a href="https://developers.google.com/web/tools/lighthouse/audits/noopener">recommended</a> to always set{' '}
+        <code>{`rel="noopener"`}</code> or <code>{`rel="noreferrer"`}</code> when linking to third party content.
       </Typography>
       <ul>
         <li>
-          <code>{`rel="noopener"`}</code> prevents the new page from being able to access the{' '}
-          <code>window.opener</code> property and ensures it runs in a separate process. Without
-          this, the target page can potentially redirect your page to a malicious URL.
+          <code>{`rel="noopener"`}</code> prevents the new page from being able to access the <code>window.opener</code>{' '}
+          property and ensures it runs in a separate process. Without this, the target page can potentially redirect
+          your page to a malicious URL.
         </li>
         <li>
-          <code>{`rel="noreferrer"`}</code> has the same effect, but also prevents the{' '}
-          <em>Referer</em> header from being sent to the new page. ⚠️ Removing the referrer header
-          will affect analytics.
+          <code>{`rel="noreferrer"`}</code> has the same effect, but also prevents the <em>Referer</em> header from
+          being sent to the new page. ⚠️ Removing the referrer header will affect analytics.
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Third-party routing library
       </Typography>
       <Typography className="mb-40" component="div">
-        One frequent use case is to perform navigation on the client only, without an HTTP
-        round-trip to the server. The <code>Link</code> component provides the{' '}
-        <code>component</code> prop to handle this use case. Here is a{' '}
+        One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server. The{' '}
+        <code>Link</code> component provides the <code>component</code> prop to handle this use case. Here is a{' '}
         <a href="/material-ui/guides/routing/#link">more detailed guide</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -112,23 +106,20 @@ function LinksDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         (WAI-ARIA:{' '}
-        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">
-          https://www.w3.org/WAI/ARIA/apg/patterns/link/
-        </a>
-        )
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/link/">https://www.w3.org/WAI/ARIA/apg/patterns/link/</a>)
       </Typography>
       <ul>
         <li>
-          When providing the content for the link, avoid generic descriptions like &quot;click
-          here&quot; or &quot;go to&quot;. Instead, use{' '}
+          When providing the content for the link, avoid generic descriptions like &quot;click here&quot; or &quot;go
+          to&quot;. Instead, use{' '}
           <a href="https://developers.google.com/web/tools/lighthouse/audits/descriptive-link-text">
             specific descriptions
           </a>
           .
         </li>
         <li>
-          For the best user experience, links should stand out from the text on the page. For
-          instance, you can keep the default <code>{`underline="always"`}</code> behavior.
+          For the best user experience, links should stand out from the text on the page. For instance, you can keep the
+          default <code>{`underline="always"`}</code> behavior.
         </li>
         <li>
           If a link doesn&#39;t have a meaningful href,{' '}
@@ -164,8 +155,8 @@ function LinksDoc(props) {
       </Typography>
       <ul>
         <li>
-          When a link receives focus, screen readers should announce a descriptive link name. If the
-          link opens in a new window or browser tab, add an{' '}
+          When a link receives focus, screen readers should announce a descriptive link name. If the link opens in a new
+          window or browser tab, add an{' '}
           <a href="https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA8">
             <code>aria-label</code>
           </a>{' '}

@@ -9,11 +9,7 @@ function Orders() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   return (
-    <FusePageCarded
-      header={<OrdersHeader />}
-      content={<OrdersTable />}
-      scroll={isMobile ? 'normal' : 'content'}
-    />
+    <FusePageCarded header={<OrdersHeader />} content={<OrdersTable />} scroll={isMobile ? 'normal' : 'content'} />
   );
 }
 

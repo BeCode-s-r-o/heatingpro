@@ -28,16 +28,15 @@ function TransferListDoc(props) {
         Transfer List
       </Typography>
       <Typography className="description">
-        A Transfer List (or "shuttle") enables the user to move one or more list items between
-        lists.
+        A Transfer List (or "shuttle") enables the user to move one or more list items between lists.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic transfer list
       </Typography>
       <Typography className="mb-40" component="div">
-        For completeness, this example includes buttons for &quot;move all&quot;, but not every
-        transfer list needs these.
+        For completeness, this example includes buttons for &quot;move all&quot;, but not every transfer list needs
+        these.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -52,8 +51,8 @@ function TransferListDoc(props) {
         Enhanced transfer list
       </Typography>
       <Typography className="mb-40" component="div">
-        This example exchanges the &quot;move all&quot; buttons for a &quot;select all / select
-        none&quot; checkbox, and adds a counter.
+        This example exchanges the &quot;move all&quot; buttons for a &quot;select all / select none&quot; checkbox, and
+        adds a counter.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -73,14 +72,12 @@ function TransferListDoc(props) {
       <ul>
         <li>
           It only works on desktop. If you have a limited amount of options to select, prefer the{' '}
-          <a href="/material-ui/react-autocomplete/#multiple-values">Autocomplete</a> component. If
-          mobile support is important for you, have a look at{' '}
-          <a href="https://github.com/mui/material-ui/issues/27579">#27579</a>.
+          <a href="/material-ui/react-autocomplete/#multiple-values">Autocomplete</a> component. If mobile support is
+          important for you, have a look at <a href="https://github.com/mui/material-ui/issues/27579">#27579</a>.
         </li>
         <li>
-          There are no high-level components exported from npm. The demos are based on composition.
-          If this is important for you, have a look at{' '}
-          <a href="https://github.com/mui/material-ui/issues/27579">#27579</a>.
+          There are no high-level components exported from npm. The demos are based on composition. If this is important
+          for you, have a look at <a href="https://github.com/mui/material-ui/issues/27579">#27579</a>.
         </li>
       </ul>
     </>

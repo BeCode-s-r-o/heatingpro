@@ -22,13 +22,9 @@ function ApiCallsDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You can config global axios defaults as below. For example you can define baseUrl for the
-        api connection. Check out for more detils at:{' '}
-        <a
-          href="https://github.com/axios/axios#config-defaults"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        You can config global axios defaults as below. For example you can define baseUrl for the api connection. Check
+        out for more detils at:{' '}
+        <a href="https://github.com/axios/axios#config-defaults" target="_blank" rel="noreferrer noopener">
           Global axios defaults
         </a>
       </Typography>
@@ -47,31 +43,26 @@ function ApiCallsDoc() {
 
       <Typography className="mb-16" component="p">
         We are using{' '}
-        <a
-          href="https://github.com/ctimmerm/axios-mock-adapter"
-          target="_blank"
-          rel="noreferrer noopener"
-        >
+        <a href="https://github.com/ctimmerm/axios-mock-adapter" target="_blank" rel="noreferrer noopener">
           axios-mock-adapter
         </a>{' '}
         to demonstrate http requests, all of the example backend data is located at src/@mock-api.
       </Typography>
 
       <Typography className="mb-16" component="p">
-        @mock-api is developed specifically for Fuse React to mock API endpoints and provide data to
-        your app without having to create an actual backend application. This way, you can focus on
-        your frontend app and once you finish with the frontend, you can create your backend
-        application to provide real API endpoints with real data.
+        @mock-api is developed specifically for Fuse React to mock API endpoints and provide data to your app without
+        having to create an actual backend application. This way, you can focus on your frontend app and once you finish
+        with the frontend, you can create your backend application to provide real API endpoints with real data.
       </Typography>
 
       <Typography className="mb-16" component="p">
-        This not only makes you progress faster and put together your app very quickly but you will
-        also know exactly what you will be needing from your API.
+        This not only makes you progress faster and put together your app very quickly but you will also know exactly
+        what you will be needing from your API.
       </Typography>
 
       <Typography className="mb-16" component="p">
-        We have created open api definitions and followed this definitions while generating
-        @mock-api. You can use the definitions as an example while creating your api. Checkout
+        We have created open api definitions and followed this definitions while generating @mock-api. You can use the
+        definitions as an example while creating your api. Checkout
         <Link className="link mx-8" to="/documentation/mock-api">
           the Mock API documentation
         </Link>
