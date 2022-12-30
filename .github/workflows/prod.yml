@@ -24,6 +24,15 @@ jobs:
         with:
           node-version: "14"
 
+      - name: Set build date
+        run: |
+          BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          sed -i "s/\"buildDate\": \".*\"/\"buildDate\": \"${BUILD_DATE}\"/" package.json
+
+      - name: Add buildEnv string 
+        run: |
+          sed -i '$ a\,"buildEnv": "prod"' package.json
+
       - name: 🔨 NPM RUN BUILD
         run: |
           npm install
