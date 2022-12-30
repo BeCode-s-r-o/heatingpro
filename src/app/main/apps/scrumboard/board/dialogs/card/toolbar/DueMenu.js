@@ -11,9 +11,7 @@ import ToolbarMenu from './ToolbarMenu';
 
 function DueMenu(props) {
   const [anchorEl, setAnchorEl] = useState(null);
-  const dueDate = props.dueDate
-    ? format(fromUnixTime(props.dueDate), 'Pp')
-    : format(new Date(), 'Pp');
+  const dueDate = props.dueDate ? format(fromUnixTime(props.dueDate), 'Pp') : format(new Date(), 'Pp');
 
   function handleMenuOpen(event) {
     setAnchorEl(event.currentTarget);
@@ -49,12 +47,7 @@ function DueMenu(props) {
                   handleMenuClose(ev);
                 }}
                 renderInput={(_props) => (
-                  <TextField
-                    label="Due date"
-                    placeholder="Choose a due date"
-                    className="w-full"
-                    {..._props}
-                  />
+                  <TextField label="Due date" placeholder="Choose a due date" className="w-full" {..._props} />
                 )}
               />
             </>

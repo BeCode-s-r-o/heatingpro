@@ -17,7 +17,7 @@ const SystemsDashboard = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    //@ts-ignore
+    // @ts-ignore
     dispatch(getWidgets());
   }, [dispatch]);
 

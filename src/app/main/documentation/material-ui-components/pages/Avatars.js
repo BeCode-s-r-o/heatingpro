@@ -28,16 +28,15 @@ function AvatarsDoc(props) {
         Avatar
       </Typography>
       <Typography className="description">
-        Avatars are found throughout material design with uses in everything from tables to dialog
-        menus.
+        Avatars are found throughout material design with uses in everything from tables to dialog menus.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Image avatars
       </Typography>
       <Typography className="mb-40" component="div">
-        Image avatars can be created by passing standard <code>img</code> props <code>src</code> or{' '}
-        <code>srcSet</code> to the component.
+        Image avatars can be created by passing standard <code>img</code> props <code>src</code> or <code>srcSet</code>{' '}
+        to the component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -52,8 +51,7 @@ function AvatarsDoc(props) {
         Letter avatars
       </Typography>
       <Typography className="mb-40" component="div">
-        Avatars containing simple characters can be created by passing a string as{' '}
-        <code>children</code>.
+        Avatars containing simple characters can be created by passing a string as <code>children</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -65,8 +63,8 @@ function AvatarsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use different background colors for the avatar. The following demo generates the
-        color based on the name of the person.
+        You can use different background colors for the avatar. The following demo generates the color based on the name
+        of the person.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -81,8 +79,7 @@ function AvatarsDoc(props) {
         Sizes
       </Typography>
       <Typography className="mb-40" component="div">
-        You can change the size of the avatar with the <code>height</code> and <code>width</code>{' '}
-        CSS properties.
+        You can change the size of the avatar with the <code>height</code> and <code>width</code> CSS properties.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -127,8 +124,8 @@ function AvatarsDoc(props) {
         Fallbacks
       </Typography>
       <Typography className="mb-40" component="div">
-        If there is an error loading the avatar image, the component falls back to an alternative in
-        the following order:
+        If there is an error loading the avatar image, the component falls back to an alternative in the following
+        order:
       </Typography>
       <ul>
         <li>the provided children</li>
@@ -150,8 +147,8 @@ function AvatarsDoc(props) {
         Grouped
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>AvatarGroup</code> renders its children as a stack. Use the <code>max</code> prop to
-        limit the number of avatars.
+        <code>AvatarGroup</code> renders its children as a stack. Use the <code>max</code> prop to limit the number of
+        avatars.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -166,8 +163,7 @@ function AvatarsDoc(props) {
         Total avatars
       </Typography>
       <Typography className="mb-40" component="div">
-        If you need to control the total number of avatars not shown, you can use the{' '}
-        <code>total</code> prop.
+        If you need to control the total number of avatars not shown, you can use the <code>total</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

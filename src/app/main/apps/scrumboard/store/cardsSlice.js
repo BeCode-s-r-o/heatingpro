@@ -17,10 +17,7 @@ export const newCard = createAsyncThunk(
   async ({ listId, newData }, { dispatch, getState }) => {
     const { board } = getState().scrumboardApp;
 
-    const response = await axios.post(
-      `/api/scrumboard/boards/${board.id}/lists/${listId}/cards`,
-      CardModel(newData)
-    );
+    const response = await axios.post(`/api/scrumboard/boards/${board.id}/lists/${listId}/cards`, CardModel(newData));
     const data = await response.data;
 
     return data;

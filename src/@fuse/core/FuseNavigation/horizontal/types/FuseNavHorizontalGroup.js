@@ -102,10 +102,7 @@ function FuseNavHorizontalGroup(props) {
                 disabled={item.disabled}
               >
                 {item.icon && (
-                  <FuseSvgIcon
-                    color="action"
-                    className={clsx('fuse-list-item-icon shrink-0', item.iconClass)}
-                  >
+                  <FuseSvgIcon color="action" className={clsx('fuse-list-item-icon shrink-0', item.iconClass)}>
                     {item.icon}
                   </FuseSvgIcon>
                 )}
@@ -117,12 +114,7 @@ function FuseNavHorizontalGroup(props) {
                 />
 
                 {nestedLevel > 0 && (
-                  <IconButton
-                    disableRipple
-                    className="w-16 h-16 ltr:ml-4 rtl:mr-4 p-0"
-                    color="inherit"
-                    size="large"
-                  >
+                  <IconButton disableRipple className="w-16 h-16 ltr:ml-4 rtl:mr-4 p-0" color="inherit" size="large">
                     <FuseSvgIcon size={16} className="arrow-icon">
                       {theme.direction === 'ltr'
                         ? 'heroicons-outline:arrow-sm-right'

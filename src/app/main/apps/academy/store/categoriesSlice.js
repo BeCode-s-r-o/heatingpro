@@ -10,8 +10,9 @@ export const getCategories = createAsyncThunk('academyApp/categories/getCategori
 
 const categoriesAdapter = createEntityAdapter({});
 
-export const { selectAll: selectCategories, selectById: selectCategoryById } =
-  categoriesAdapter.getSelectors((state) => state.academyApp.categories);
+export const { selectAll: selectCategories, selectById: selectCategoryById } = categoriesAdapter.getSelectors(
+  (state) => state.academyApp.categories
+);
 
 const categorySlice = createSlice({
   name: 'academyApp/categories',

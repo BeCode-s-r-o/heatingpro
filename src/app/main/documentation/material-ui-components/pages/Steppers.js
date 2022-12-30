@@ -33,9 +33,8 @@ function SteppersDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Steppers display progress through a sequence of logical and numbered steps. They may also be
-        used for navigation. Steppers may display a transient feedback message after a step is
-        saved.
+        Steppers display progress through a sequence of logical and numbered steps. They may also be used for
+        navigation. Steppers may display a transient feedback message after a step is saved.
       </Typography>
       <ul>
         <li>
@@ -47,8 +46,8 @@ function SteppersDoc(props) {
       </ul>
       <Typography className="mb-40" component="div">
         :::warning Steppers are no longer documented in the{' '}
-        <a href="https://m2.material.io/">Material Design guidelines</a>, but Material UI will
-        continue to support them. :::
+        <a href="https://m2.material.io/">Material Design guidelines</a>, but Material UI will continue to support them.
+        :::
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Horizontal stepper
@@ -66,16 +65,14 @@ function SteppersDoc(props) {
         A linear stepper allows the user to complete the steps in sequence.
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>Stepper</code> can be controlled by passing the current step index (zero-based) as
-        the <code>activeStep</code> prop. <code>Stepper</code> orientation is set using the{' '}
-        <code>orientation</code> prop.
+        The <code>Stepper</code> can be controlled by passing the current step index (zero-based) as the{' '}
+        <code>activeStep</code> prop. <code>Stepper</code> orientation is set using the <code>orientation</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
-        This example also shows the use of an optional step by placing the <code>optional</code>{' '}
-        prop on the second <code>Step</code> component. Note that it&#39;s up to you to manage when
-        an optional step is skipped. Once you&#39;ve determined this for a particular step you must
-        set <code>{`completed={false}`}</code> to signify that even though the active step index has
-        gone beyond the optional step, it&#39;s not actually complete.
+        This example also shows the use of an optional step by placing the <code>optional</code> prop on the second{' '}
+        <code>Step</code> component. Note that it&#39;s up to you to manage when an optional step is skipped. Once
+        you&#39;ve determined this for a particular step you must set <code>{`completed={false}`}</code> to signify that
+        even though the active step index has gone beyond the optional step, it&#39;s not actually complete.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -93,16 +90,14 @@ function SteppersDoc(props) {
         Non-linear steppers allow the user to enter a multi-step flow at any point.
       </Typography>
       <Typography className="mb-40" component="div">
-        This example is similar to the regular horizontal stepper, except steps are no longer
-        automatically set to <code>{`disabled={true}`}</code> based on the <code>activeStep</code>{' '}
-        prop.
+        This example is similar to the regular horizontal stepper, except steps are no longer automatically set to{' '}
+        <code>{`disabled={true}`}</code> based on the <code>activeStep</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
-        The use of the <code>StepButton</code> here demonstrates clickable step labels, as well as
-        setting the <code>completed</code>
-        flag. However because steps can be accessed in a non-linear fashion, it&#39;s up to your own
-        implementation to determine when all steps are completed (or even if they need to be
-        completed).
+        The use of the <code>StepButton</code> here demonstrates clickable step labels, as well as setting the{' '}
+        <code>completed</code>
+        flag. However because steps can be accessed in a non-linear fashion, it&#39;s up to your own implementation to
+        determine when all steps are completed (or even if they need to be completed).
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -117,17 +112,15 @@ function SteppersDoc(props) {
         Alternative label
       </Typography>
       <Typography className="mb-40" component="div">
-        Labels can be placed below the step icon by setting the <code>alternativeLabel</code> prop
-        on the <code>Stepper</code> component.
+        Labels can be placed below the step icon by setting the <code>alternativeLabel</code> prop on the{' '}
+        <code>Stepper</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
           name="HorizontalLinearAlternativeLabelStepper.js"
           className="my-24"
           iframe={false}
-          component={
-            require('../components/steppers/HorizontalLinearAlternativeLabelStepper.js').default
-          }
+          component={require('../components/steppers/HorizontalLinearAlternativeLabelStepper.js').default}
           raw={require('!raw-loader!../components/steppers/HorizontalLinearAlternativeLabelStepper.js')}
         />
       </Typography>
@@ -163,8 +156,8 @@ function SteppersDoc(props) {
         Vertical stepper
       </Typography>
       <Typography className="mb-40" component="div">
-        Vertical steppers are designed for narrow screen sizes. They are ideal for mobile. All the
-        features of the horizontal stepper can be implemented.
+        Vertical steppers are designed for narrow screen sizes. They are ideal for mobile. All the features of the
+        horizontal stepper can be implemented.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -179,9 +172,9 @@ function SteppersDoc(props) {
         Performance
       </Typography>
       <Typography className="mb-40" component="div">
-        The content of a step is unmounted when closed. If you need to make the content available to
-        search engines or render expensive component trees inside your modal while optimizing for
-        interaction responsiveness it might be a good idea to keep the step mounted with:
+        The content of a step is unmounted when closed. If you need to make the content available to search engines or
+        render expensive component trees inside your modal while optimizing for interaction responsiveness it might be a
+        good idea to keep the step mounted with:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -193,16 +186,14 @@ function SteppersDoc(props) {
         Mobile stepper
       </Typography>
       <Typography className="mb-40" component="div">
-        This component implements a compact stepper suitable for a mobile device. It has more
-        limited functionality than the vertical stepper. See{' '}
-        <a href="https://m1.material.io/components/steppers.html#steppers-types-of-steps">
-          mobile steps
-        </a>{' '}
-        for its inspiration.
+        This component implements a compact stepper suitable for a mobile device. It has more limited functionality than
+        the vertical stepper. See{' '}
+        <a href="https://m1.material.io/components/steppers.html#steppers-types-of-steps">mobile steps</a> for its
+        inspiration.
       </Typography>
       <Typography className="mb-40" component="div">
-        The mobile stepper supports three variants to display progress through the available steps:
-        text, dots, and progress.
+        The mobile stepper supports three variants to display progress through the available steps: text, dots, and
+        progress.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Text
@@ -224,10 +215,8 @@ function SteppersDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         This demo uses
-        <a href="https://github.com/oliviertassinari/react-swipeable-views">
-          react-swipeable-views
-        </a>{' '}
-        to create a carousel.
+        <a href="https://github.com/oliviertassinari/react-swipeable-views">react-swipeable-views</a> to create a
+        carousel.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -257,8 +246,8 @@ function SteppersDoc(props) {
         Progress
       </Typography>
       <Typography className="mb-40" component="div">
-        Use a progress bar when there are many steps, or if there are steps that need to be inserted
-        during the process (based on responses to earlier steps).
+        Use a progress bar when there are many steps, or if there are steps that need to be inserted during the process
+        (based on responses to earlier steps).
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

@@ -42,10 +42,7 @@ function MailboxAppSidebarHeader(props) {
         </Typography>
       </div>
 
-      <motion.div
-        initial={{ y: 20, opacity: 0.8 }}
-        animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}
-      >
+      <motion.div initial={{ y: 20, opacity: 0.8 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.3 } }}>
         <TextField
           className="w-full"
           id="account-selection"

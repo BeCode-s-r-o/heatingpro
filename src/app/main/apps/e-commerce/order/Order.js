@@ -58,13 +58,7 @@ function Order(props) {
         <Typography color="text.secondary" variant="h5">
           There is no such order!
         </Typography>
-        <Button
-          className="mt-24"
-          component={Link}
-          variant="outlined"
-          to="/apps/e-commerce/orders"
-          color="inherit"
-        >
+        <Button className="mt-24" component={Link} variant="outlined" to="/apps/e-commerce/orders" color="inherit">
           Go to Orders Page
         </Button>
       </motion.div>
@@ -76,10 +70,7 @@ function Order(props) {
       header={
         order && (
           <div className="flex flex-1 flex-col items-center sm:items-start py-32 px-24 md:px-32">
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}
-            >
+            <motion.div initial={{ x: 20, opacity: 0 }} animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}>
               <Typography
                 className="flex items-center sm:mb-12"
                 component={Link}
@@ -88,9 +79,7 @@ function Order(props) {
                 color="inherit"
               >
                 <FuseSvgIcon size={20}>
-                  {theme.direction === 'ltr'
-                    ? 'heroicons-outline:arrow-sm-left'
-                    : 'heroicons-outline:arrow-sm-right'}
+                  {theme.direction === 'ltr' ? 'heroicons-outline:arrow-sm-left' : 'heroicons-outline:arrow-sm-right'}
                 </FuseSvgIcon>
                 <span className="mx-4 font-medium">Orders</span>
               </Typography>
@@ -101,9 +90,7 @@ function Order(props) {
               animate={{ x: 0, opacity: 1, transition: { delay: 0.3 } }}
               className="flex flex-col items-center sm:items-start min-w-0 items-center sm:items-start"
             >
-              <Typography className="text-20 truncate font-semibold">
-                {`Order ${order.reference}`}
-              </Typography>
+              <Typography className="text-20 truncate font-semibold">{`Order ${order.reference}`}</Typography>
               <Typography variant="caption" className="font-medium">
                 {`From ${order.customer.firstName} ${order.customer.lastName}`}
               </Typography>

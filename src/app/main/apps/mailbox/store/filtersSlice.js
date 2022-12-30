@@ -10,8 +10,9 @@ export const getFilters = createAsyncThunk('mailboxApp/filters/getFilters', asyn
 
 const filtersAdapter = createEntityAdapter({});
 
-export const { selectAll: selectFilters, selectById: selectFilterById } =
-  filtersAdapter.getSelectors((state) => state.mailboxApp.filters);
+export const { selectAll: selectFilters, selectById: selectFilterById } = filtersAdapter.getSelectors(
+  (state) => state.mailboxApp.filters
+);
 
 const filtersSlice = createSlice({
   name: 'mailboxApp/filters',

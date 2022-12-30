@@ -72,19 +72,13 @@ function TablePricingTable(props) {
       <Paper className="flex-col lg:flex-row w-full lg:max-w-7xl overflow-x-auto overflow-y-hidden">
         <div className="grid grid-flow-col lg:grid-flow-row min-w-max lg:min-w-0 divide-x lg:divide-x-0 lg:divide-y">
           <div className="sticky left-0 grid grid-flow-row auto-rows-fr lg:grid-flow-col lg:auto-cols-fr lg:max-w-none divide-y lg:divide-y-0 lg:divide-x shadow-lg lg:shadow-none border-r lg:border-r-0 rounded-l lg:rounded-l-none overflow-hidden">
-            <Box
-              className="py-32 px-16 overflow-hidden"
-              sx={{ backgroundColor: 'background.paper' }}
-            />
+            <Box className="py-32 px-16 overflow-hidden" sx={{ backgroundColor: 'background.paper' }} />
             {tableData.map((item, index) => (
               <TablePricingTableHead key={index} data={item} period={period} />
             ))}
           </div>
 
-          <Box
-            sx={{ backgroundColor: 'background.default' }}
-            className="hidden lg:block p-16 col-span-full"
-          >
+          <Box sx={{ backgroundColor: 'background.default' }} className="hidden lg:block p-16 col-span-full">
             <Typography className="text-md font-semibold">FEATURES</Typography>
           </Box>
 
@@ -136,10 +130,7 @@ function TablePricingTable(props) {
               ))}
           </div>
 
-          <Box
-            sx={{ backgroundColor: 'background.default' }}
-            className="hidden lg:block p-16 col-span-full"
-          >
+          <Box sx={{ backgroundColor: 'background.default' }} className="hidden lg:block p-16 col-span-full">
             <Typography className="text-md font-semibold">PAYMENTS</Typography>
           </Box>
 

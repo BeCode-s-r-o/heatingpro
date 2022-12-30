@@ -192,6 +192,4 @@ FuseScrollbars.defaultProps = {
   onXReachEnd: undefined,
 };
 
-export default connect(mapStateToProps, null, null, { forwardRef: true })(
-  withRouterAndRef(FuseScrollbars)
-);
+export default connect(mapStateToProps, null, null, { forwardRef: true })(withRouterAndRef(FuseScrollbars));

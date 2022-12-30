@@ -4,13 +4,7 @@ import Slide from '@mui/material/Slide';
 import { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import {
-  closeNoteDialog,
-  getNotes,
-  removeNote,
-  selectDialogNote,
-  updateNote,
-} from '../../store/notesSlice';
+import { closeNoteDialog, getNotes, removeNote, selectDialogNote, updateNote } from '../../store/notesSlice';
 import NoteForm from '../../note-form/NoteForm';
 
 const Transition = forwardRef(function Transition(props, ref) {

@@ -99,11 +99,7 @@ function BoardListHeader(props) {
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
-                            <IconButton
-                              type="submit"
-                              disabled={_.isEmpty(dirtyFields) || !isValid}
-                              size="large"
-                            >
+                            <IconButton type="submit" disabled={_.isEmpty(dirtyFields) || !isValid} size="large">
                               <FuseSvgIcon>heroicons-outline:check</FuseSvgIcon>
                             </IconButton>
                           </InputAdornment>
@@ -125,10 +121,7 @@ function BoardListHeader(props) {
             className="flex items-center justify-center min-w-24 h-24 mx-4 text-sm font-semibold leading-24 rounded-full"
             sx={{
               backgroundColor: (theme) =>
-                darken(
-                  theme.palette.background.default,
-                  theme.palette.mode === 'light' ? 0.1 : 0.3
-                ),
+                darken(theme.palette.background.default, theme.palette.mode === 'light' ? 0.1 : 0.3),
               color: 'text.secondary',
             }}
           >
@@ -143,12 +136,7 @@ function BoardListHeader(props) {
           >
             <FuseSvgIcon size={20}>heroicons-outline:dots-vertical</FuseSvgIcon>
           </IconButton>
-          <Menu
-            id="actions-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
+          <Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
             <MenuItem
               onClick={() => {
                 dispatch(removeList(list.id));

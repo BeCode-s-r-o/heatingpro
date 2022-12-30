@@ -32,9 +32,8 @@ function BackdropDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        The backdrop signals to the user of a state change within the application and can be used
-        for creating loaders, dialogs, and more. In its simplest form, the backdrop component will
-        add a dimmed layer over your application.
+        The backdrop signals to the user of a state change within the application and can be used for creating loaders,
+        dialogs, and more. In its simplest form, the backdrop component will add a dimmed layer over your application.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Example

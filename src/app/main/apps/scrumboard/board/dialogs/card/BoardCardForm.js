@@ -131,14 +131,7 @@ function BoardCardForm(props) {
               name="description"
               control={control}
               render={({ field }) => (
-                <TextField
-                  {...field}
-                  label="Description"
-                  multiline
-                  rows="4"
-                  variant="outlined"
-                  fullWidth
-                />
+                <TextField {...field} label="Description" multiline rows="4" variant="outlined" fullWidth />
               )}
             />
           </div>
@@ -166,9 +159,7 @@ function BoardCardForm(props) {
                 }}
                 renderTags={(value, getTagProps) =>
                   value.map((option, index) => {
-                    return (
-                      <Chip label={option.title} {...getTagProps({ index })} className="m-3" />
-                    );
+                    return <Chip label={option.title} {...getTagProps({ index })} className="m-3" />;
                   })
                 }
                 renderInput={(params) => (
@@ -286,11 +277,7 @@ function BoardCardForm(props) {
               <Typography className="font-semibold text-16 mx-8">Comment</Typography>
             </div>
             <div>
-              <CardComment
-                onCommentAdd={(comment) =>
-                  setValue('activities', [comment, ...cardForm.activities])
-                }
-              />
+              <CardComment onCommentAdd={(comment) => setValue('activities', [comment, ...cardForm.activities])} />
             </div>
           </div>
 
@@ -337,11 +324,7 @@ function BoardCardForm(props) {
                 control={control}
                 defaultValue={null}
                 render={({ field: { onChange, value } }) => (
-                  <DueMenu
-                    onDueChange={onChange}
-                    onRemoveDue={() => onChange(null)}
-                    dueDate={value}
-                  />
+                  <DueMenu onDueChange={onChange} onRemoveDue={() => onChange(null)} dueDate={value} />
                 )}
               />
 
@@ -350,10 +333,7 @@ function BoardCardForm(props) {
                 control={control}
                 defaultValue={[]}
                 render={({ field: { onChange, value } }) => (
-                  <LabelsMenu
-                    onToggleLabel={(labelId) => onChange(_.xor(value, [labelId]))}
-                    labels={value}
-                  />
+                  <LabelsMenu onToggleLabel={(labelId) => onChange(_.xor(value, [labelId]))} labels={value} />
                 )}
               />
 
@@ -362,10 +342,7 @@ function BoardCardForm(props) {
                 control={control}
                 defaultValue={[]}
                 render={({ field: { onChange, value } }) => (
-                  <MembersMenu
-                    onToggleMember={(memberId) => onChange(_.xor(value, [memberId]))}
-                    memberIds={value}
-                  />
+                  <MembersMenu onToggleMember={(memberId) => onChange(_.xor(value, [memberId]))} memberIds={value} />
                 )}
               />
 
@@ -385,9 +362,7 @@ function BoardCardForm(props) {
                 control={control}
                 defaultValue={[]}
                 render={({ field: { onChange, value } }) => (
-                  <CheckListMenu
-                    onAddCheckList={(newList) => onChange([...cardForm.checklists, newList])}
-                  />
+                  <CheckListMenu onAddCheckList={(newList) => onChange([...cardForm.checklists, newList])} />
                 )}
               />
 

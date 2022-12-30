@@ -6,12 +6,7 @@ import { red } from '@mui/material/colors';
 function SectionPreview(props) {
   const { section, className } = props;
   return (
-    <div
-      className={clsx(
-        'flex w-128 h-80 rounded-md overflow-hidden border-1 hover:opacity-80',
-        className
-      )}
-    >
+    <div className={clsx('flex w-128 h-80 rounded-md overflow-hidden border-1 hover:opacity-80', className)}>
       <Box
         sx={{
           backgroundColor:

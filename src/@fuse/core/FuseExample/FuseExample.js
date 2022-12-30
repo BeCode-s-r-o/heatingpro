@@ -33,8 +33,7 @@ function FuseExample(props) {
     <Card
       className={clsx(className, 'shadow')}
       sx={{
-        backgroundColor: (theme) =>
-          darken(theme.palette.background.paper, theme.palette.mode === 'light' ? 0.01 : 0.1),
+        backgroundColor: (theme) => darken(theme.palette.background.paper, theme.palette.mode === 'light' ? 0.01 : 0.1),
       }}
     >
       <Box
@@ -53,18 +52,8 @@ function FuseExample(props) {
           textColor="secondary"
           indicatorColor="secondary"
         >
-          {Component && (
-            <Tab
-              classes={{ root: 'min-w-64' }}
-              icon={<FuseSvgIcon>heroicons-outline:eye</FuseSvgIcon>}
-            />
-          )}
-          {raw && (
-            <Tab
-              classes={{ root: 'min-w-64' }}
-              icon={<FuseSvgIcon>heroicons-outline:code</FuseSvgIcon>}
-            />
-          )}
+          {Component && <Tab classes={{ root: 'min-w-64' }} icon={<FuseSvgIcon>heroicons-outline:eye</FuseSvgIcon>} />}
+          {raw && <Tab classes={{ root: 'min-w-64' }} icon={<FuseSvgIcon>heroicons-outline:code</FuseSvgIcon>} />}
         </Tabs>
       </Box>
       <div className="flex justify-center max-w-full relative">

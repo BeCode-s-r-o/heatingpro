@@ -60,9 +60,8 @@ function ContainerDoc(props) {
         Fixed
       </Typography>
       <Typography className="mb-40" component="div">
-        If you prefer to design for a fixed set of sizes instead of trying to accommodate a fully
-        fluid viewport, you can set the <code>fixed</code> prop. The max-width matches the min-width
-        of the current breakpoint.
+        If you prefer to design for a fixed set of sizes instead of trying to accommodate a fully fluid viewport, you
+        can set the <code>fixed</code> prop. The max-width matches the min-width of the current breakpoint.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

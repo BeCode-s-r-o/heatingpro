@@ -51,9 +51,7 @@ function ModernUnlockSessionPage() {
             <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">
               Unlock your session
             </Typography>
-            <Typography className="font-medium">
-              Your session is locked due to inactivity
-            </Typography>
+            <Typography className="font-medium">Your session is locked due to inactivity</Typography>
 
             <form
               name="registerForm"
@@ -174,8 +172,8 @@ function ModernUnlockSessionPage() {
               <div>our community</div>
             </div>
             <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-              Fuse helps developers to build organized and well coded dashboards full of beautiful
-              and rich modules. Join us and start building your application today.
+              Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules.
+              Join us and start building your application today.
             </div>
             <div className="flex items-center mt-32">
               <AvatarGroup

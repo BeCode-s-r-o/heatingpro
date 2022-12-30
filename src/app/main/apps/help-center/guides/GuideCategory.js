@@ -30,9 +30,7 @@ function GuideCategory() {
             Back to Guides & Resources
           </Button>
         </div>
-        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">
-          {category?.title}
-        </div>
+        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">{category?.title}</div>
         <div className="mt-32 sm:mt-48">
           <GuideListMenu list={guides} />
         </div>

@@ -74,9 +74,7 @@ function MailActionsMenu(props) {
 
         <MenuItem
           onClick={() => {
-            dispatch(
-              setActionToMails({ type: 'folder', value: trashFolderId, ids: [mail.id] })
-            ).then(() => {
+            dispatch(setActionToMails({ type: 'folder', value: trashFolderId, ids: [mail.id] })).then(() => {
               navigate(-1);
             });
             handleClose();

@@ -258,11 +258,7 @@ function MarkdownElement(props) {
   const { className, text, ...other } = props;
   /* eslint-disable react/no-danger */
   return (
-    <Root
-      className={clsx('markdown-body', className)}
-      dangerouslySetInnerHTML={{ __html: marked(text) }}
-      {...other}
-    />
+    <Root className={clsx('markdown-body', className)} dangerouslySetInnerHTML={{ __html: marked(text) }} {...other} />
   );
   /* eslint-enable */
 }

@@ -19,9 +19,7 @@ function JwtAuthDoc() {
         <li className="mb-12">
           You can <Link to="/sign-in">sign in</Link>.
         </li>
-        <li className="mb-12">
-          Also saves user data (user shortcuts, layout, and theme settings) to db.
-        </li>
+        <li className="mb-12">Also saves user data (user shortcuts, layout, and theme settings) to db.</li>
       </ul>
 
       <Typography className="mt-32 mb-16" component="p">

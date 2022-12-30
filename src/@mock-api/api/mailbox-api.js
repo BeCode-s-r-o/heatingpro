@@ -7,18 +7,16 @@ const labelsDB = mockApi.components.examples.mailbox_labels.value;
 const filtersDB = mockApi.components.examples.mailbox_filters.value;
 const foldersDB = mockApi.components.examples.mailbox_folders.value;
 
-mock
-  .onGet(/\/api\/mailbox\/mails\/filters\/(?<filterSlug>[^/]*)\/(?<mailId>[^/]*)/)
-  .reply(({ url, data }) => {
-    const { filterSlug, mailId } = url.match(
-      /\/api\/mailbox\/mails\/filters\/(?<filterSlug>[^/]*)\/(?<mailId>[^/]*)/
-    ).groups;
-    const response = _.find(mailsDB, { id: mailId });
-    if (!response) {
-      return [404, 'Requested mail do not exist.'];
-    }
-    return [200, response];
-  });
+mock.onGet(/\/api\/mailbox\/mails\/filters\/(?<filterSlug>[^/]*)\/(?<mailId>[^/]*)/).reply(({ url, data }) => {
+  const { filterSlug, mailId } = url.match(
+    /\/api\/mailbox\/mails\/filters\/(?<filterSlug>[^/]*)\/(?<mailId>[^/]*)/
+  ).groups;
+  const response = _.find(mailsDB, { id: mailId });
+  if (!response) {
+    return [404, 'Requested mail do not exist.'];
+  }
+  return [200, response];
+});
 
 mock.onGet(/\/api\/mailbox\/mails\/filters\/[^]+/).reply(({ url, data }) => {
   const { filterSlug } = url.match(/\/api\/mailbox\/mails\/filters\/(?<filterSlug>[^/]+)/).groups;
@@ -28,18 +26,16 @@ mock.onGet(/\/api\/mailbox\/mails\/filters\/[^]+/).reply(({ url, data }) => {
   return [200, response];
 });
 
-mock
-  .onGet(/\/api\/mailbox\/mails\/labels\/(?<labelSlug>[^/]*)\/(?<mailId>[^/]*)/)
-  .reply(({ url, data }) => {
-    const { labelSlug, mailId } = url.match(
-      /\/api\/mailbox\/mails\/labels\/(?<labelSlug>[^/]*)\/(?<mailId>[^/]*)/
-    ).groups;
-    const response = _.find(mailsDB, { id: mailId });
-    if (!response) {
-      return [404, 'Requested mail do not exist.'];
-    }
-    return [200, response];
-  });
+mock.onGet(/\/api\/mailbox\/mails\/labels\/(?<labelSlug>[^/]*)\/(?<mailId>[^/]*)/).reply(({ url, data }) => {
+  const { labelSlug, mailId } = url.match(
+    /\/api\/mailbox\/mails\/labels\/(?<labelSlug>[^/]*)\/(?<mailId>[^/]*)/
+  ).groups;
+  const response = _.find(mailsDB, { id: mailId });
+  if (!response) {
+    return [404, 'Requested mail do not exist.'];
+  }
+  return [200, response];
+});
 
 mock.onGet(/\/api\/mailbox\/mails\/labels\/[^]+/).reply(({ url, data }) => {
   const { labelSlug } = url.match(/\/api\/mailbox\/mails\/labels\/(?<labelSlug>[^/]+)/).groups;
@@ -51,18 +47,14 @@ mock.onGet(/\/api\/mailbox\/mails\/labels\/[^]+/).reply(({ url, data }) => {
   return [200, response];
 });
 
-mock
-  .onGet(/\/api\/mailbox\/mails\/(?<folderSlug>[^/]*)\/(?<mailId>[^/]*)/)
-  .reply(({ url, data }) => {
-    const { folderSlug, mailId } = url.match(
-      /\/api\/mailbox\/mails\/(?<folderSlug>[^/]+)\/(?<mailId>[^/]+)/
-    ).groups;
-    const response = _.find(mailsDB, { id: mailId });
-    if (!response) {
-      return [404, 'Requested mail do not exist.'];
-    }
-    return [200, response];
-  });
+mock.onGet(/\/api\/mailbox\/mails\/(?<folderSlug>[^/]*)\/(?<mailId>[^/]*)/).reply(({ url, data }) => {
+  const { folderSlug, mailId } = url.match(/\/api\/mailbox\/mails\/(?<folderSlug>[^/]+)\/(?<mailId>[^/]+)/).groups;
+  const response = _.find(mailsDB, { id: mailId });
+  if (!response) {
+    return [404, 'Requested mail do not exist.'];
+  }
+  return [200, response];
+});
 
 mock.onGet(/\/api\/mailbox\/mails\/[^]+/).reply(({ url, data }) => {
   const { folderSlug } = url.match(/\/api\/mailbox\/mails\/(?<folderSlug>[^/]+)/).groups;

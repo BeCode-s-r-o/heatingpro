@@ -42,10 +42,7 @@ mock.onPut(/\/api\/academy\/courses\/[^/]+/).reply(({ url, data: value }) => {
   _.assign(course, _.merge({}, course, newData));
 
   if (newData?.progress?.currentStep === course?.totalSteps) {
-    _.assign(
-      course,
-      _.merge({}, course, { progress: { completed: course.progress.completed + 1 } })
-    );
+    _.assign(course, _.merge({}, course, { progress: { completed: course.progress.completed + 1 } }));
   }
 
   return [200, course];

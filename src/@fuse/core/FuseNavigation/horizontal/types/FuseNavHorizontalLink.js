@@ -45,10 +45,7 @@ function FuseNavHorizontalLink(props) {
         disabled={item.disabled}
       >
         {item.icon && (
-          <FuseSvgIcon
-            className={clsx('fuse-list-item-icon shrink-0', item.iconClass)}
-            color="action"
-          >
+          <FuseSvgIcon className={clsx('fuse-list-item-icon shrink-0', item.iconClass)} color="action">
             {item.icon}
           </FuseSvgIcon>
         )}

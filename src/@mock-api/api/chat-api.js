@@ -20,9 +20,7 @@ mock.onGet('/api/chat/contacts').reply((config) => {
 });
 
 mock.onGet('/api/chat/chats').reply((config) => {
-  userChatListDB.sort(
-    (d1, d2) => new Date(d2.lastMessageAt).getTime() - new Date(d1.lastMessageAt).getTime()
-  );
+  userChatListDB.sort((d1, d2) => new Date(d2.lastMessageAt).getTime() - new Date(d1.lastMessageAt).getTime());
 
   return [200, userChatListDB];
 });

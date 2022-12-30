@@ -28,14 +28,11 @@ function TreeViewDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Tree view
       </Typography>
-      <Typography className="description">
-        A tree view widget presents a hierarchical list.
-      </Typography>
+      <Typography className="description">A tree view widget presents a hierarchical list.</Typography>
 
       <Typography className="mb-40" component="div">
-        Tree views can be used to represent a file system navigator displaying folders and files, an
-        item representing a folder can be expanded to reveal the contents of the folder, which may
-        be files, folders, or both.
+        Tree views can be used to represent a file system navigator displaying folders and files, an item representing a
+        folder can be expanded to reveal the contents of the folder, which may be files, folders, or both.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic tree view
@@ -83,12 +80,11 @@ function TreeViewDoc(props) {
         Rich object
       </Typography>
       <Typography className="mb-40" component="div">
-        While the <code>TreeView</code>/<code>TreeItem</code> component API maximizes flexibility,
-        an extra step is needed to handle a rich object.
+        While the <code>TreeView</code>/<code>TreeItem</code> component API maximizes flexibility, an extra step is
+        needed to handle a rich object.
       </Typography>
       <Typography className="mb-40" component="div">
-        Let&#39;s consider a data variable with the following shape, recursion can be used to handle
-        it.
+        Let&#39;s consider a data variable with the following shape, recursion can be used to handle it.
       </Typography>
 
       <FuseHighlight component="pre" className="language-js">
@@ -119,8 +115,8 @@ const data = {
         ContentComponent prop
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>ContentComponent</code> prop and the <code>useTreeItem</code> hook to
-        further customize the behavior of the TreeItem.
+        You can use the <code>ContentComponent</code> prop and the <code>useTreeItem</code> hook to further customize
+        the behavior of the TreeItem.
       </Typography>
       <Typography className="mb-40" component="div">
         Such as limiting expansion to clicking the icon:
@@ -192,16 +188,11 @@ const data = {
         If it is false:
       </Typography>
       <ul>
-        <li>
-          Arrow keys will not focus disabled items and, the next non-disabled item will be focused.
-        </li>
+        <li>Arrow keys will not focus disabled items and, the next non-disabled item will be focused.</li>
         <li>Typing the first character of a disabled item&#39;s label will not focus the item.</li>
         <li>Mouse or keyboard interaction will not expand/collapse disabled items.</li>
         <li>Mouse or keyboard interaction will not select disabled items.</li>
-        <li>
-          Shift + arrow keys will skip disabled items and, the next non-disabled item will be
-          selected.
-        </li>
+        <li>Shift + arrow keys will skip disabled items and, the next non-disabled item will be selected.</li>
         <li>Programmatic focus will not focus disabled items.</li>
       </ul>
       <Typography className="mb-40" component="div">
@@ -212,10 +203,7 @@ const data = {
         <li>Typing the first character of a disabled item&#39;s label will focus the item.</li>
         <li>Mouse or keyboard interaction will not expand/collapse disabled items.</li>
         <li>Mouse or keyboard interaction will not select disabled items.</li>
-        <li>
-          Shift + arrow keys will not skip disabled items but, the disabled item will not be
-          selected.
-        </li>
+        <li>Shift + arrow keys will not skip disabled items but, the disabled item will not be selected.</li>
         <li>Programmatic focus will focus disabled items.</li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -232,10 +220,9 @@ const data = {
         The component follows the WAI-ARIA authoring practices.
       </Typography>
       <Typography className="mb-40" component="div">
-        To have an accessible tree view you must use <code>aria-labelledby</code> or{' '}
-        <code>aria-label</code> to reference or provide a label on the TreeView, otherwise screen
-        readers will announce it as &quot;tree&quot;, making it hard to understand the context of a
-        specific tree item.
+        To have an accessible tree view you must use <code>aria-labelledby</code> or <code>aria-label</code> to
+        reference or provide a label on the TreeView, otherwise screen readers will announce it as &quot;tree&quot;,
+        making it hard to understand the context of a specific tree item.
       </Typography>
     </>
   );

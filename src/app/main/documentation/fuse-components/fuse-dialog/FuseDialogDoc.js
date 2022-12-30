@@ -18,8 +18,8 @@ function FuseDialogDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseDialog</code> is a simple dialog trigger for easily showing dialog messages via
-        redux action. It should be located in the theme layouts.
+        <code>FuseDialog</code> is a simple dialog trigger for easily showing dialog messages via redux action. It
+        should be located in the theme layouts.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -27,8 +27,8 @@ function FuseDialogDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You can show dialog anywhere with dispatching the action openDialog, it is using
-        Material-UI's dialog so you can pass the props in the object:
+        You can show dialog anywhere with dispatching the action openDialog, it is using Material-UI's dialog so you can
+        pass the props in the object:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -76,8 +76,8 @@ function FuseDialogDoc(props) {
                   <DialogTitle id="alert-dialog-title">Use Google's location service?</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                      Let Google help apps determine location. This means sending anonymous location
-                      data to Google, even when no apps are running.
+                      Let Google help apps determine location. This means sending anonymous location data to Google,
+                      even when no apps are running.
                     </DialogContentText>
                   </DialogContent>
                   <DialogActions>

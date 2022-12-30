@@ -98,10 +98,7 @@ function OrderDetailsTab() {
                     key: process.env.REACT_APP_MAP_KEY,
                   }}
                   defaultZoom={15}
-                  defaultCenter={[
-                    order.customer.shippingAddress.lat,
-                    order.customer.shippingAddress.lng,
-                  ]}
+                  defaultCenter={[order.customer.shippingAddress.lat, order.customer.shippingAddress.lng]}
                 >
                   <Marker
                     text={order.customer.shippingAddress.address}
@@ -134,10 +131,7 @@ function OrderDetailsTab() {
                     key: process.env.REACT_APP_MAP_KEY,
                   }}
                   defaultZoom={15}
-                  defaultCenter={[
-                    order.customer.invoiceAddress.lat,
-                    order.customer.invoiceAddress.lng,
-                  ]}
+                  defaultCenter={[order.customer.invoiceAddress.lat, order.customer.invoiceAddress.lng]}
                 >
                   <Marker
                     text={order.customer.invoiceAddress.address}

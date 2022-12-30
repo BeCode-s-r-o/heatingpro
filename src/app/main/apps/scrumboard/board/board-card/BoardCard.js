@@ -46,10 +46,7 @@ function BoardCard(props) {
       {(provided, snapshot) => (
         <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
           <StyledCard
-            className={clsx(
-              snapshot.isDragging ? 'shadow-lg' : 'shadow',
-              'w-full mb-12 rounded-lg cursor-pointer'
-            )}
+            className={clsx(snapshot.isDragging ? 'shadow-lg' : 'shadow', 'w-full mb-12 rounded-lg cursor-pointer')}
             onClick={(ev) => handleCardClick(ev, card)}
           >
             {board.settings.cardCoverImages && cardCoverImage && (

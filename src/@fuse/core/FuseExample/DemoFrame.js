@@ -30,10 +30,7 @@ function FramedDemo(props) {
   const getWindow = React.useCallback(() => document.defaultView, [document]);
 
   return (
-    <StyleSheetManager
-      target={document.head}
-      stylisPlugins={theme.direction === 'rtl' ? [rtlPlugin] : []}
-    >
+    <StyleSheetManager target={document.head} stylisPlugins={theme.direction === 'rtl' ? [rtlPlugin] : []}>
       <CacheProvider value={cache}>
         <GlobalStyles
           styles={() => ({
@@ -93,10 +90,7 @@ function DemoFrame(props) {
     <>
       <Frame onLoad={onLoad} ref={frameRef} title={title} {...other} />
       {iframeLoaded !== false
-        ? ReactDOM.createPortal(
-            <FramedDemo document={document}>{children}</FramedDemo>,
-            document.body
-          )
+        ? ReactDOM.createPortal(<FramedDemo document={document}>{children}</FramedDemo>, document.body)
         : null}
     </>
   );

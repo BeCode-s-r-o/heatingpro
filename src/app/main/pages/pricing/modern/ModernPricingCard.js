@@ -6,8 +6,7 @@ import clsx from 'clsx';
 import Chip from '@mui/material/Chip';
 
 function ModernPricingCard(props) {
-  const { period, title, subtitle, yearlyPrice, monthlyPrice, buttonTitle, isPopular, details } =
-    props;
+  const { period, title, subtitle, yearlyPrice, monthlyPrice, buttonTitle, isPopular, details } = props;
 
   return (
     <Paper

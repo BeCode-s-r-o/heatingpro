@@ -27,9 +27,7 @@ const PhoneNumberSelector = forwardRef(({ value, onChange, className }, ref) => 
       >
         <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
 
-        <span className="ml-8 font-medium text-secondary group-hover:underline">
-          Add a phone number
-        </span>
+        <span className="ml-8 font-medium text-secondary group-hover:underline">Add a phone number</span>
       </Button>
     </div>
   );

@@ -45,10 +45,7 @@ function ProductsHeader(props) {
             onChange={(ev) => dispatch(setProductsSearchText(ev))}
           />
         </Paper>
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-        >
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}>
           <Button
             className=""
             component={Link}

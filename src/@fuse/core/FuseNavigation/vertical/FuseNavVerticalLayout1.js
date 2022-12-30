@@ -7,12 +7,10 @@ import FuseNavItem from '../FuseNavItem';
 const StyledList = styled(List)(({ theme }) => ({
   '& .fuse-list-item': {
     '&:hover': {
-      backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)',
+      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)',
     },
     '&:focus:not(.active)': {
-      backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0,0,0,.05)',
+      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0,0,0,.05)',
     },
   },
   '& .fuse-list-item-text': {
@@ -46,12 +44,7 @@ function FuseNavVerticalLayout1(props) {
 
   return (
     <StyledList
-      className={clsx(
-        'navigation whitespace-nowrap px-12 py-0',
-        `active-${active}-list`,
-        dense && 'dense',
-        className
-      )}
+      className={clsx('navigation whitespace-nowrap px-12 py-0', `active-${active}-list`, dense && 'dense', className)}
     >
       {navigation.map((_item) => (
         <FuseNavItem

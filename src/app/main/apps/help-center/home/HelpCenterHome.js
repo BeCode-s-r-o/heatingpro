@@ -43,16 +43,9 @@ function HelpCenterHome() {
                 How can we help you today?
               </Typography>
             </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, transition: { delay: 0.3 } }}
-            >
-              <Typography
-                color="text.secondary"
-                className="mt-12 sm:text-20 text-center tracking-tight"
-              >
-                Search for a topic or question, check out our FAQs and guides, contact us for
-                detailed support
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, transition: { delay: 0.3 } }}>
+              <Typography color="text.secondary" className="mt-12 sm:text-20 text-center tracking-tight">
+                Search for a topic or question, check out our FAQs and guides, contact us for detailed support
               </Typography>
             </motion.div>
             <OutlinedInput
@@ -82,12 +75,7 @@ function HelpCenterHome() {
             preserveAspectRatio="xMidYMax slice"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g
-              className="text-gray-700 opacity-25"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="100"
-            >
+            <g className="text-gray-700 opacity-25" fill="none" stroke="currentColor" strokeWidth="100">
               <circle r="234" cx="196" cy="23" />
               <circle r="234" cx="790" cy="491" />
             </g>

@@ -14,8 +14,8 @@ function FuseMessageDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseMessage</code> is a simple snackbar trigger for easily showing messages via redux
-        action. It should be located in the theme layouts.
+        <code>FuseMessage</code> is a simple snackbar trigger for easily showing messages via redux action. It should be
+        located in the theme layouts.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -23,8 +23,8 @@ function FuseMessageDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You can show messages anywhere with dispatching the action showMessage, it is using
-        Material-UI's snackbar so you can pass the props in the object:
+        You can show messages anywhere with dispatching the action showMessage, it is using Material-UI's snackbar so
+        you can pass the props in the object:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">

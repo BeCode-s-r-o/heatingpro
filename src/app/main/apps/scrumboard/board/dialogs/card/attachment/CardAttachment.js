@@ -30,9 +30,7 @@ function CardAttachment(props) {
           </div>
           <div className="flex flex-auto flex-col justify-center items-start min-w-0 px-16">
             <div className="flex items-center w-full">
-              <Typography className="text-16 font-semibold truncate shrink">
-                {props.item.name}
-              </Typography>
+              <Typography className="text-16 font-semibold truncate shrink">{props.item.name}</Typography>
               {props.card.attachmentCoverId === props.item.id && (
                 <FuseSvgIcon className="text-orange-300 mx-4" size={20}>
                   heroicons-outline:start
@@ -52,12 +50,7 @@ function CardAttachment(props) {
             >
               Actions
             </Button>
-            <Menu
-              id="actions-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
+            <Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
               {props.card.attachmentCoverId !== props.item.id ? (
                 <MenuItem
                   onClick={() => {
@@ -97,9 +90,7 @@ function CardAttachment(props) {
             <Typography className="font-semibold">LINK</Typography>
           </Paper>
           <div className="flex flex-auto flex-col justify-center items-start min-w-0 px-16">
-            <Typography className="text-16 font-semibold truncate w-full">
-              {props.item.url}
-            </Typography>
+            <Typography className="text-16 font-semibold truncate w-full">{props.item.url}</Typography>
             <Typography className="truncate w-full mb-12" color="text.secondary">
               {props.item.time}
             </Typography>
@@ -113,12 +104,7 @@ function CardAttachment(props) {
             >
               Actions
             </Button>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleMenuClose}
-            >
+            <Menu id="simple-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
               <MenuItem
                 onClick={() => {
                   handleMenuClose();

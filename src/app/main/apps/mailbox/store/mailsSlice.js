@@ -1,38 +1,30 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import _ from '@lodash';
 import { selectFolders } from './foldersSlice';
 import { selectLabels } from './labelsSlice';
 import { selectFilters } from './filtersSlice';
 
-export const getMails = createAsyncThunk(
-  'mailboxApp/mails/getMails',
-  async (routeParams, { getState }) => {
-    routeParams = routeParams || getState().mailboxApp.mails.routeParams;
+export const getMails = createAsyncThunk('mailboxApp/mails/getMails', async (routeParams, { getState }) => {
+  routeParams = routeParams || getState().mailboxApp.mails.routeParams;
 
-    let url = '/api/mailbox/mails/';
-    if (routeParams.folderHandle) {
-      url += routeParams.folderHandle;
-    }
-
-    if (routeParams.labelHandle) {
-      url += `labels/${routeParams.labelHandle}`;
-    }
-
-    if (routeParams.filterHandle) {
-      url += `filters/${routeParams.filterHandle}`;
-    }
-    const response = await axios.get(url);
-    const data = await response.data;
-
-    return { data, routeParams };
+  let url = '/api/mailbox/mails/';
+  if (routeParams.folderHandle) {
+    url += routeParams.folderHandle;
   }
-);
+
+  if (routeParams.labelHandle) {
+    url += `labels/${routeParams.labelHandle}`;
+  }
+
+  if (routeParams.filterHandle) {
+    url += `filters/${routeParams.filterHandle}`;
+  }
+  const response = await axios.get(url);
+  const data = await response.data;
+
+  return { data, routeParams };
+});
 
 export const setActionToMails = createAsyncThunk(
   'mailboxApp/mails/setActionToMails',
@@ -101,13 +93,8 @@ const mailsSlice = createSlice({
   },
 });
 
-export const {
-  setMailsSearchText,
-  selectAllMails,
-  deselectAllMails,
-  selectMailsByParameter,
-  toggleInSelectedMails,
-} = mailsSlice.actions;
+export const { setMailsSearchText, selectAllMails, deselectAllMails, selectMailsByParameter, toggleInSelectedMails } =
+  mailsSlice.actions;
 
 export const selectMailsTitle = (routeParams) =>
   createSelector([selectFolders, selectLabels, selectFilters], (folders, labels, filters) => {

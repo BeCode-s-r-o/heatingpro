@@ -60,8 +60,7 @@ export const overviews = {
     },
     withSidebars: {
       title: 'Carded Page Layout With Sidebars',
-      description:
-        'Layout with left and right sidebars, a dedicated header and 3 different scroll modes.',
+      description: 'Layout with left and right sidebars, a dedicated header and 3 different scroll modes.',
       availableOptions: [
         {
           value: 'normalScroll',
@@ -140,8 +139,7 @@ export const overviews = {
     },
     withSidebars: {
       title: 'Simple Page Layout With Sidebars',
-      description:
-        'Layout with left and right sidebars, a dedicated header and 3 different scroll modes.',
+      description: 'Layout with left and right sidebars, a dedicated header and 3 different scroll modes.',
       availableOptions: [
         {
           value: 'normalScroll',

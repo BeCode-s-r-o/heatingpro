@@ -37,9 +37,8 @@ function TextFieldsDoc(props) {
         Basic TextField
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>TextField</code> wrapper component is a complete form control including a label,
-        input, and help text. It comes with three variants: outlined (default), filled, and
-        standard.
+        The <code>TextField</code> wrapper component is a complete form control including a label, input, and help text.
+        It comes with three variants: outlined (default), filled, and standard.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -51,8 +50,8 @@ function TextFieldsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        <strong>Note:</strong> The standard variant of the <code>TextField</code> is no longer
-        documented in the <a href="https://m2.material.io/">Material Design guidelines</a>(
+        <strong>Note:</strong> The standard variant of the <code>TextField</code> is no longer documented in the{' '}
+        <a href="https://m2.material.io/">Material Design guidelines</a>(
         <a href="https://medium.com/google-design/the-evolution-of-material-designs-text-fields-603688b3fe03">
           here&#39;s why
         </a>
@@ -62,9 +61,9 @@ function TextFieldsDoc(props) {
         Form props
       </Typography>
       <Typography className="mb-40" component="div">
-        Standard form attributes are supported e.g. <code>required</code>, <code>disabled</code>,{' '}
-        <code>type</code>, etc. as well as a <code>helperText</code> which is used to give context
-        about a field&#39;s input, such as how the input will be used.
+        Standard form attributes are supported e.g. <code>required</code>, <code>disabled</code>, <code>type</code>,
+        etc. as well as a <code>helperText</code> which is used to give context about a field&#39;s input, such as how
+        the input will be used.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -79,8 +78,8 @@ function TextFieldsDoc(props) {
         Validation
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>error</code> prop toggles the error state. The <code>helperText</code> prop can
-        then be used to provide feedback to the user about the error.
+        The <code>error</code> prop toggles the error state. The <code>helperText</code> prop can then be used to
+        provide feedback to the user about the error.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -96,10 +95,10 @@ function TextFieldsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         The <code>multiline</code> prop transforms the text field into a{' '}
-        <a href="/material-ui/react-textarea-autosize/">TextareaAutosize</a> element. Unless the{' '}
-        <code>rows</code> prop is set, the height of the text field dynamically matches its content
-        (using <a href="/material-ui/react-textarea-autosize/">TextareaAutosize</a>). You can use
-        the <code>minRows</code> and <code>maxRows</code> props to bound it.
+        <a href="/material-ui/react-textarea-autosize/">TextareaAutosize</a> element. Unless the <code>rows</code> prop
+        is set, the height of the text field dynamically matches its content (using{' '}
+        <a href="/material-ui/react-textarea-autosize/">TextareaAutosize</a>). You can use the <code>minRows</code> and{' '}
+        <code>maxRows</code> props to bound it.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -114,8 +113,8 @@ function TextFieldsDoc(props) {
         Select
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>select</code> prop makes the text field use the{' '}
-        <a href="/material-ui/react-select/">Select</a> component internally.
+        The <code>select</code> prop makes the text field use the <a href="/material-ui/react-select/">Select</a>{' '}
+        component internally.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -145,9 +144,8 @@ function TextFieldsDoc(props) {
         Input Adornments
       </Typography>
       <Typography className="mb-40" component="div">
-        The main way is with an <code>InputAdornment</code>. This can be used to add a prefix, a
-        suffix, or an action to an input. For instance, you can use an icon button to hide or reveal
-        the password.
+        The main way is with an <code>InputAdornment</code>. This can be used to add a prefix, a suffix, or an action to
+        an input. For instance, you can use an icon button to hide or reveal the password.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -174,8 +172,7 @@ function TextFieldsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>filled</code> variant input height can be further reduced by rendering the label
-        outside of it.
+        The <code>filled</code> variant input height can be further reduced by rendering the label outside of it.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -190,9 +187,9 @@ function TextFieldsDoc(props) {
         Margin
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>margin</code> prop can be used to alter the vertical spacing of the text field.
-        Using <code>none</code> (default) doesn&#39;t apply margins to the <code>FormControl</code>{' '}
-        whereas <code>dense</code> and <code>normal</code> do.
+        The <code>margin</code> prop can be used to alter the vertical spacing of the text field. Using{' '}
+        <code>none</code> (default) doesn&#39;t apply margins to the <code>FormControl</code> whereas <code>dense</code>{' '}
+        and <code>normal</code> do.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -207,8 +204,7 @@ function TextFieldsDoc(props) {
         Full width
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>fullWidth</code> can be used to make the input take up the full width of its
-        container.
+        <code>fullWidth</code> can be used to make the input take up the full width of its container.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -265,11 +261,10 @@ function TextFieldsDoc(props) {
         ) that you can leverage directly to significantly customize your form inputs.
       </Typography>
       <Typography className="mb-40" component="div">
-        You might also have noticed that some native HTML input properties are missing from the{' '}
-        <code>TextField</code> component. This is on purpose. The component takes care of the most
-        used properties. Then, it&#39;s up to the user to use the underlying component shown in the
-        following demo. Still, you can use <code>inputProps</code> (and <code>InputProps</code>,{' '}
-        <code>InputLabelProps</code> properties) if you want to avoid some boilerplate.
+        You might also have noticed that some native HTML input properties are missing from the <code>TextField</code>{' '}
+        component. This is on purpose. The component takes care of the most used properties. Then, it&#39;s up to the
+        user to use the underlying component shown in the following demo. Still, you can use <code>inputProps</code>{' '}
+        (and <code>InputProps</code>, <code>InputLabelProps</code> properties) if you want to avoid some boilerplate.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -324,8 +319,8 @@ function TextFieldsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        Customization does not stop at CSS. You can use composition to build custom components and
-        give your app a unique feel. Below is an example using the{' '}
+        Customization does not stop at CSS. You can use composition to build custom components and give your app a
+        unique feel. Below is an example using the{' '}
         <a href="/material-ui/api/input-base/">
           <code>InputBase</code>
         </a>{' '}
@@ -342,17 +337,14 @@ function TextFieldsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/text-field/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/text-field/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         <code>useFormControl</code>
       </Typography>
       <Typography className="mb-40" component="div">
-        For advanced customization use cases, a <code>useFormControl()</code> hook is exposed. This
-        hook returns the context value of the parent <code>FormControl</code> component.
+        For advanced customization use cases, a <code>useFormControl()</code> hook is exposed. This hook returns the
+        context value of the parent <code>FormControl</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <strong>API</strong>
@@ -371,56 +363,50 @@ import { useFormControl } from '@mui/material/FormControl';
       </Typography>
       <ul>
         <li>
-          <code>value.adornedStart</code> (<em>bool</em>): Indicate whether the child{' '}
-          <code>Input</code> or <code>Select</code> component has a start adornment.
+          <code>value.adornedStart</code> (<em>bool</em>): Indicate whether the child <code>Input</code> or{' '}
+          <code>Select</code> component has a start adornment.
         </li>
         <li>
-          <code>value.setAdornedStart</code> (<em>func</em>): Setter function for{' '}
-          <code>adornedStart</code> state value.
+          <code>value.setAdornedStart</code> (<em>func</em>): Setter function for <code>adornedStart</code> state value.
         </li>
         <li>
           <code>value.color</code> (<em>string</em>): The theme color is being used, inherited from{' '}
           <code>FormControl</code> <code>color</code> prop .
         </li>
         <li>
-          <code>value.disabled</code> (<em>bool</em>): Indicate whether the component is being
-          displayed in a disabled state, inherited from <code>FormControl</code>{' '}
-          <code>disabled</code> prop.
+          <code>value.disabled</code> (<em>bool</em>): Indicate whether the component is being displayed in a disabled
+          state, inherited from <code>FormControl</code> <code>disabled</code> prop.
         </li>
         <li>
-          <code>value.error</code> (<em>bool</em>): Indicate whether the component is being
-          displayed in an error state, inherited from <code>FormControl</code> <code>error</code>{' '}
-          prop
+          <code>value.error</code> (<em>bool</em>): Indicate whether the component is being displayed in an error state,
+          inherited from <code>FormControl</code> <code>error</code> prop
         </li>
         <li>
           <code>value.filled</code> (<em>bool</em>): Indicate whether input is filled
         </li>
         <li>
-          <code>value.focused</code> (<em>bool</em>): Indicate whether the component and its
-          children are being displayed in a focused state
+          <code>value.focused</code> (<em>bool</em>): Indicate whether the component and its children are being
+          displayed in a focused state
         </li>
         <li>
-          <code>value.fullWidth</code> (<em>bool</em>): Indicate whether the component is taking up
-          the full width of its container, inherited from <code>FormControl</code>{' '}
-          <code>fullWidth</code> prop
+          <code>value.fullWidth</code> (<em>bool</em>): Indicate whether the component is taking up the full width of
+          its container, inherited from <code>FormControl</code> <code>fullWidth</code> prop
         </li>
         <li>
-          <code>value.hiddenLabel</code> (<em>bool</em>): Indicate whether the label is being
-          hidden, inherited from <code>FormControl</code> <code>hiddenLabel</code> prop
+          <code>value.hiddenLabel</code> (<em>bool</em>): Indicate whether the label is being hidden, inherited from{' '}
+          <code>FormControl</code> <code>hiddenLabel</code> prop
         </li>
         <li>
-          <code>value.required</code> (<em>bool</em>): Indicate whether the label is indicating that
-          the input is required input, inherited from the <code>FormControl</code>{' '}
-          <code>required</code> prop
+          <code>value.required</code> (<em>bool</em>): Indicate whether the label is indicating that the input is
+          required input, inherited from the <code>FormControl</code> <code>required</code> prop
         </li>
         <li>
           <code>value.size</code> (<em>string</em>): The size of the component, inherited from the{' '}
           <code>FormControl</code> <code>size</code> prop
         </li>
         <li>
-          <code>value.variant</code> (<em>string</em>): The variant is being used by the{' '}
-          <code>FormControl</code> component and its children, inherited from{' '}
-          <code>FormControl</code> <code>variant</code> prop
+          <code>value.variant</code> (<em>string</em>): The variant is being used by the <code>FormControl</code>{' '}
+          component and its children, inherited from <code>FormControl</code> <code>variant</code> prop
         </li>
         <li>
           <code>value.onBlur</code> (<em>func</em>): Should be called when the input is blurred
@@ -454,10 +440,9 @@ import { useFormControl } from '@mui/material/FormControl';
         Shrink
       </Typography>
       <Typography className="mb-40" component="div">
-        The input label &quot;shrink&quot; state isn&#39;t always correct. The input label is
-        supposed to shrink as soon as the input is displaying something. In some circumstances, we
-        can&#39;t determine the &quot;shrink&quot; state (number input, datetime input, Stripe
-        input). You might notice an overlap.
+        The input label &quot;shrink&quot; state isn&#39;t always correct. The input label is supposed to shrink as soon
+        as the input is displaying something. In some circumstances, we can&#39;t determine the &quot;shrink&quot; state
+        (number input, datetime input, Stripe input). You might notice an overlap.
       </Typography>
       <Typography className="mb-40" component="div">
         {' '}
@@ -485,8 +470,8 @@ import { useFormControl } from '@mui/material/FormControl';
         Floating label
       </Typography>
       <Typography className="mb-40" component="div">
-        The floating label is absolutely positioned. It won&#39;t impact the layout of the page.
-        Make sure that the input is larger than the label to display correctly.
+        The floating label is absolutely positioned. It won&#39;t impact the layout of the page. Make sure that the
+        input is larger than the label to display correctly.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         type=&quot;number&quot;
@@ -496,12 +481,12 @@ import { useFormControl } from '@mui/material/FormControl';
       </Typography>
       <ul>
         <li>
-          Allowing certain non-numeric characters (&#39;e&#39;, &#39;+&#39;, &#39;-&#39;,
-          &#39;.&#39;) and silently discarding others
+          Allowing certain non-numeric characters (&#39;e&#39;, &#39;+&#39;, &#39;-&#39;, &#39;.&#39;) and silently
+          discarding others
         </li>
         <li>
-          The functionality of scrolling to increment/decrement the number can cause accidental and
-          hard-to-notice changes
+          The functionality of scrolling to increment/decrement the number can cause accidental and hard-to-notice
+          changes
         </li>
       </ul>
       <Typography className="mb-40" component="div">
@@ -512,8 +497,8 @@ import { useFormControl } from '@mui/material/FormControl';
         by the GOV.UK Design System team for a more detailed explanation.
       </Typography>
       <Typography className="mb-40" component="div">
-        For number validation, one viable alternative is to use the default input
-        type=&quot;text&quot; with the <em>pattern</em> attribute, for example:
+        For number validation, one viable alternative is to use the default input type=&quot;text&quot; with the{' '}
+        <em>pattern</em> attribute, for example:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -529,9 +514,8 @@ import { useFormControl } from '@mui/material/FormControl';
         Helper text
       </Typography>
       <Typography className="mb-40" component="div">
-        The helper text prop affects the height of the text field. If two text fields are placed
-        side by side, one with a helper text and one without, they will have different heights. For
-        example:
+        The helper text prop affects the height of the text field. If two text fields are placed side by side, one with
+        a helper text and one without, they will have different heights. For example:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -558,15 +542,13 @@ import { useFormControl } from '@mui/material/FormControl';
         Integration with 3rd party input libraries
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use third-party libraries to format an input. You have to provide a custom
-        implementation of the <code>{`<input>`}</code> element with the <code>inputComponent</code>{' '}
-        property.
+        You can use third-party libraries to format an input. You have to provide a custom implementation of the{' '}
+        <code>{`<input>`}</code> element with the <code>inputComponent</code> property.
       </Typography>
       <Typography className="mb-40" component="div">
-        The following demo uses the <a href="https://github.com/uNmAnNeR/imaskjs">react-imask</a>{' '}
-        and <a href="https://github.com/s-yadav/react-number-format">react-number-format</a>{' '}
-        libraries. The same concept could be applied to{' '}
-        <a href="https://github.com/mui/material-ui/issues/16037">e.g. react-stripe-element</a>.
+        The following demo uses the <a href="https://github.com/uNmAnNeR/imaskjs">react-imask</a> and{' '}
+        <a href="https://github.com/s-yadav/react-number-format">react-number-format</a> libraries. The same concept
+        could be applied to <a href="https://github.com/mui/material-ui/issues/16037">e.g. react-stripe-element</a>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -578,8 +560,7 @@ import { useFormControl } from '@mui/material/FormControl';
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The provided input component should expose a ref with a value that implements the following
-        interface:
+        The provided input component should expose a ref with a value that implements the following interface:
       </Typography>
 
       <FuseHighlight component="pre" className="language-ts">
@@ -624,8 +605,8 @@ const MyInputComponent = React.forwardRef((props, ref) => {
       </Typography>
       <Typography className="mb-40" component="div">
         In order for the text field to be accessible,{' '}
-        <strong>the input should be linked to the label and the helper text</strong>. The underlying
-        DOM nodes should have this structure:
+        <strong>the input should be linked to the label and the helper text</strong>. The underlying DOM nodes should
+        have this structure:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -639,10 +620,9 @@ const MyInputComponent = React.forwardRef((props, ref) => {
       </FuseHighlight>
       <ul>
         <li>
-          If you are using the <code>TextField</code> component, you just have to provide a unique{' '}
-          <code>id</code> unless you&#39;re using the <code>TextField</code> only client side. Until
-          the UI is hydrated <code>TextField</code> without an explicit <code>id</code> will not
-          have associated labels.
+          If you are using the <code>TextField</code> component, you just have to provide a unique <code>id</code>{' '}
+          unless you&#39;re using the <code>TextField</code> only client side. Until the UI is hydrated{' '}
+          <code>TextField</code> without an explicit <code>id</code> will not have associated labels.
         </li>
         <li>If you are composing the component:</li>
       </ul>
@@ -664,29 +644,27 @@ const MyInputComponent = React.forwardRef((props, ref) => {
       </Typography>
       <ul>
         <li>
-          <a href="https://react-hook-form.com/">react-hook-form</a>: React hook for form
-          validation.
+          <a href="https://react-hook-form.com/">react-hook-form</a>: React hook for form validation.
         </li>
         <li>
-          <a href="https://github.com/dohomi/react-hook-form-mui">react-hook-form-mui</a>: MUI and
-          react-hook-form combined.
+          <a href="https://github.com/dohomi/react-hook-form-mui">react-hook-form-mui</a>: MUI and react-hook-form
+          combined.
         </li>
         <li>
-          <a href="https://github.com/stackworx/formik-mui">formik-material-ui</a>: Bindings for
-          using MUI with <a href="https://formik.org/">formik</a>.
+          <a href="https://github.com/stackworx/formik-mui">formik-material-ui</a>: Bindings for using MUI with{' '}
+          <a href="https://formik.org/">formik</a>.
         </li>
         <li>
-          <a href="https://github.com/erikras/redux-form-material-ui">redux-form-material-ui</a>:
-          Bindings for using MUI with <a href="https://redux-form.com/">Redux Form</a>.
+          <a href="https://github.com/erikras/redux-form-material-ui">redux-form-material-ui</a>: Bindings for using MUI
+          with <a href="https://redux-form.com/">Redux Form</a>.
         </li>
         <li>
           <a href="https://github.com/lookfirst/mui-rff">mui-rff</a>: Bindings for using MUI with{' '}
           <a href="https://final-form.org/react">React Final Form</a>.
         </li>
         <li>
-          <a href="https://www.npmjs.com/package/@ui-schema/ds-material">@ui-schema/ds-material</a>{' '}
-          Bindings for using Material UI with{' '}
-          <a href="https://github.com/ui-schema/ui-schema">UI Schema</a>. JSON Schema compatible.
+          <a href="https://www.npmjs.com/package/@ui-schema/ds-material">@ui-schema/ds-material</a> Bindings for using
+          Material UI with <a href="https://github.com/ui-schema/ui-schema">UI Schema</a>. JSON Schema compatible.
         </li>
         <li>
           <a href="https://data-driven-forms.org/provided-mappers/mui-component-mapper">

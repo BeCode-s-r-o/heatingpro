@@ -29,12 +29,7 @@ const MainSidebarMoreMenu = (props) => {
       >
         <FuseSvgIcon>heroicons-outline:dots-vertical</FuseSvgIcon>
       </IconButton>
-      <Menu
-        id="chats-more-menu"
-        anchorEl={moreMenuEl}
-        open={Boolean(moreMenuEl)}
-        onClose={handleMoreMenuClose}
-      >
+      <Menu id="chats-more-menu" anchorEl={moreMenuEl} open={Boolean(moreMenuEl)} onClose={handleMoreMenuClose}>
         <MenuItem
           onClick={() => {
             setContactSidebarOpen(true);

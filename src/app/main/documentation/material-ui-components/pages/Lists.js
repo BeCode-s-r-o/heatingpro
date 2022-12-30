@@ -28,13 +28,11 @@ function ListsDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Lists
       </Typography>
-      <Typography className="description">
-        Lists are continuous, vertical indexes of text or images.
-      </Typography>
+      <Typography className="description">Lists are continuous, vertical indexes of text or images.</Typography>
 
       <Typography className="mb-40" component="div">
-        Lists are a continuous group of text or images. They are composed of items containing
-        primary and supplemental actions, which are represented by icons and text.
+        Lists are a continuous group of text or images. They are composed of items containing primary and supplemental
+        actions, which are represented by icons and text.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic List
@@ -60,11 +58,8 @@ function ListsDoc(props) {
 `}
       </FuseHighlight>
       <Typography className="mb-40" component="div">
-        You can find a{' '}
-        <a href="/material-ui/guides/routing/#list">
-          demo with React Router following this section
-        </a>{' '}
-        of the documentation.
+        You can find a <a href="/material-ui/guides/routing/#list">demo with React Router following this section</a> of
+        the documentation.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Nested List
@@ -94,8 +89,7 @@ function ListsDoc(props) {
         Interactive
       </Typography>
       <Typography className="mb-40" component="div">
-        Below is an interactive demo that lets you explore the visual results of the different
-        settings:
+        Below is an interactive demo that lets you explore the visual results of the different settings:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -122,9 +116,9 @@ function ListsDoc(props) {
         Align list items
       </Typography>
       <Typography className="mb-40" component="div">
-        When displaying three lines or more, the avatar is not aligned at the top. You should set
-        the <code>{`alignItems="flex-start"`}</code> prop to align the avatar at the top, following
-        the Material Design guidelines:
+        When displaying three lines or more, the avatar is not aligned at the top. You should set the{' '}
+        <code>{`alignItems="flex-start"`}</code> prop to align the avatar at the top, following the Material Design
+        guidelines:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -145,8 +139,8 @@ function ListsDoc(props) {
         A checkbox can either be a primary action or a secondary action.
       </Typography>
       <Typography className="mb-40" component="div">
-        The checkbox is the primary action and the state indicator for the list item. The comment
-        button is a secondary action and a separate target.
+        The checkbox is the primary action and the state indicator for the list item. The comment button is a secondary
+        action and a separate target.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -188,8 +182,8 @@ function ListsDoc(props) {
         Sticky subheader
       </Typography>
       <Typography className="mb-40" component="div">
-        Upon scrolling, subheaders remain pinned to the top of the screen until pushed off screen by
-        the next subheader. This feature relies on CSS sticky positioning. (⚠️ no IE 11 support)
+        Upon scrolling, subheaders remain pinned to the top of the screen until pushed off screen by the next subheader.
+        This feature relies on CSS sticky positioning. (⚠️ no IE 11 support)
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -204,8 +198,8 @@ function ListsDoc(props) {
         Inset List Item
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>inset</code> prop enables a list item that does not have a leading icon or avatar
-        to align correctly with items that do.
+        The <code>inset</code> prop enables a list item that does not have a leading icon or avatar to align correctly
+        with items that do.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -220,8 +214,8 @@ function ListsDoc(props) {
         Gutterless list
       </Typography>
       <Typography className="mb-40" component="div">
-        When rendering a list within a component that defines its own gutters, <code>ListItem</code>{' '}
-        gutters can be disabled with <code>disableGutters</code>.
+        When rendering a list within a component that defines its own gutters, <code>ListItem</code> gutters can be
+        disabled with <code>disableGutters</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -237,9 +231,8 @@ function ListsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         In the following example, we demonstrate how to use{' '}
-        <a href="https://github.com/bvaughn/react-window">react-window</a> with the{' '}
-        <code>List</code> component. It renders 200 rows and can easily handle more. Virtualization
-        helps with performance issues.
+        <a href="https://github.com/bvaughn/react-window">react-window</a> with the <code>List</code> component. It
+        renders 200 rows and can easily handle more. Virtualization helps with performance issues.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -251,10 +244,10 @@ function ListsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The use of <a href="https://github.com/bvaughn/react-window">react-window</a> when possible
-        is encouraged. If this library doesn&#39;t cover your use case, you should consider using{' '}
-        <a href="https://github.com/bvaughn/react-virtualized">react-virtualized</a>, then
-        alternatives like <a href="https://github.com/petyosi/react-virtuoso">react-virtuoso</a>.
+        The use of <a href="https://github.com/bvaughn/react-window">react-window</a> when possible is encouraged. If
+        this library doesn&#39;t cover your use case, you should consider using{' '}
+        <a href="https://github.com/bvaughn/react-virtualized">react-virtualized</a>, then alternatives like{' '}
+        <a href="https://github.com/petyosi/react-virtuoso">react-virtuoso</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Customization
@@ -274,10 +267,7 @@ function ListsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/list-item/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/list-item/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
     </>
   );

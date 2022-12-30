@@ -49,16 +49,11 @@
                 "endOfLine": "auto"
             }
         ],
-        "react/jsx-filename-extension": [
-            "warn",
-            {
-                "extensions": [
-                    ".js",
-                    ".jsx"
-                ]
-            }
-        ],
+        "react/jsx-filename-extension": "off",
+        "import/prefer-default-export":"warn",
+        "import/no-cycle":"warn",
         "import/no-extraneous-dependencies": ["warn", {"devDependencies": true}],
+        "import/no-named-as-default":"warn",
         "no-unused-vars": "off",
         "no-console": "off",
         "no-use-before-define": "off",

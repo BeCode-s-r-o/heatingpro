@@ -32,10 +32,7 @@ function FuseNavVerticalGroup(props) {
         <Root
           component={item.url ? NavLinkAdapter : 'li'}
           itempadding={itempadding}
-          className={clsx(
-            'fuse-list-subheader flex items-center  py-10',
-            !item.url && 'cursor-default'
-          )}
+          className={clsx('fuse-list-subheader flex items-center  py-10', !item.url && 'cursor-default')}
           onClick={() => onItemClick && onItemClick(item)}
           to={item.url}
           end={item.end}

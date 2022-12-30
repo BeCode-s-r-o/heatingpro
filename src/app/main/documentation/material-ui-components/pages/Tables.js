@@ -28,14 +28,11 @@ function TablesDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Table
       </Typography>
-      <Typography className="description">
-        Tables display sets of data. They can be fully customized.
-      </Typography>
+      <Typography className="description">Tables display sets of data. They can be fully customized.</Typography>
 
       <Typography className="mb-40" component="div">
-        Tables display information in a way that&#39;s easy to scan, so that users can look for
-        patterns and insights. They can be embedded in primary content, such as cards. They can
-        include:
+        Tables display information in a way that&#39;s easy to scan, so that users can look for patterns and insights.
+        They can be embedded in primary content, such as cards. They can include:
       </Typography>
       <ul>
         <li>A corresponding visualization</li>
@@ -61,16 +58,16 @@ function TablesDoc(props) {
         Data table
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>Table</code> component has a close mapping to the native <code>{`<table>`}</code>{' '}
-        elements. This constraint makes building rich data tables challenging.
+        The <code>Table</code> component has a close mapping to the native <code>{`<table>`}</code> elements. This
+        constraint makes building rich data tables challenging.
       </Typography>
       <Typography className="mb-40" component="div">
         The{' '}
         <a href="/x/react-data-grid/">
           <code>DataGrid</code> component
         </a>{' '}
-        is designed for use-cases that are focused on handling large amounts of tabular data. While
-        it comes with a more rigid structure, in exchange, you gain more powerful features.
+        is designed for use-cases that are focused on handling large amounts of tabular data. While it comes with a more
+        rigid structure, in exchange, you gain more powerful features.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -100,16 +97,14 @@ function TablesDoc(props) {
         Sorting &amp; selecting
       </Typography>
       <Typography className="mb-40" component="div">
-        This example demonstrates the use of <code>Checkbox</code> and clickable rows for selection,
-        with a custom <code>Toolbar</code>. It uses the <code>TableSortLabel</code> component to
-        help style column headings.
+        This example demonstrates the use of <code>Checkbox</code> and clickable rows for selection, with a custom{' '}
+        <code>Toolbar</code>. It uses the <code>TableSortLabel</code> component to help style column headings.
       </Typography>
       <Typography className="mb-40" component="div">
-        The Table has been given a fixed width to demonstrate horizontal scrolling. In order to
-        prevent the pagination controls from scrolling, the TablePagination component is used
-        outside of the Table. (The{' '}
-        <a href="#custom-pagination-actions">&#39;Custom Table Pagination Action&#39; example</a>{' '}
-        below shows the pagination within the TableFooter.)
+        The Table has been given a fixed width to demonstrate horizontal scrolling. In order to prevent the pagination
+        controls from scrolling, the TablePagination component is used outside of the Table. (The{' '}
+        <a href="#custom-pagination-actions">&#39;Custom Table Pagination Action&#39; example</a> below shows the
+        pagination within the TableFooter.)
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -140,8 +135,8 @@ function TablesDoc(props) {
         Custom pagination options
       </Typography>
       <Typography className="mb-40" component="div">
-        It&#39;s possible to customize the options shown in the &quot;Rows per page&quot; select
-        using the <code>rowsPerPageOptions</code> prop. You should either provide an array of:
+        It&#39;s possible to customize the options shown in the &quot;Rows per page&quot; select using the{' '}
+        <code>rowsPerPageOptions</code> prop. You should either provide an array of:
       </Typography>
       <ul>
         <li>
@@ -157,9 +152,8 @@ function TablesDoc(props) {
         </li>
         <li>
           <Typography className="mb-40" component="div">
-            <strong>objects</strong>, the <code>value</code> and <code>label</code> keys will be
-            used respectively for the value and label of the option (useful for language strings
-            such as &#39;All&#39;).
+            <strong>objects</strong>, the <code>value</code> and <code>label</code> keys will be used respectively for
+            the value and label of the option (useful for language strings such as &#39;All&#39;).
           </Typography>
 
           <FuseHighlight component="pre" className="language-jsx">
@@ -173,8 +167,8 @@ function TablesDoc(props) {
         Custom pagination actions
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>ActionsComponent</code> prop of the <code>TablePagination</code> component allows
-        the implementation of custom actions.
+        The <code>ActionsComponent</code> prop of the <code>TablePagination</code> component allows the implementation
+        of custom actions.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -189,8 +183,8 @@ function TablesDoc(props) {
         Sticky header
       </Typography>
       <Typography className="mb-40" component="div">
-        Here is an example of a table with scrollable rows and fixed column headers. It leverages
-        the <code>stickyHeader</code> prop. (⚠️ no IE 11 support)
+        Here is an example of a table with scrollable rows and fixed column headers. It leverages the{' '}
+        <code>stickyHeader</code> prop. (⚠️ no IE 11 support)
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -264,9 +258,8 @@ function TablesDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         In the following example, we demonstrate how to use{' '}
-        <a href="https://github.com/bvaughn/react-virtualized">react-virtualized</a> with the{' '}
-        <code>Table</code> component. It renders 200 rows and can easily handle more. Virtualization
-        helps with performance issues.
+        <a href="https://github.com/bvaughn/react-virtualized">react-virtualized</a> with the <code>Table</code>{' '}
+        component. It renders 200 rows and can easily handle more. Virtualization helps with performance issues.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -281,19 +274,14 @@ function TablesDoc(props) {
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        (WAI tutorial:{' '}
-        <a href="https://www.w3.org/WAI/tutorials/tables/">
-          https://www.w3.org/WAI/tutorials/tables/
-        </a>
-        )
+        (WAI tutorial: <a href="https://www.w3.org/WAI/tutorials/tables/">https://www.w3.org/WAI/tutorials/tables/</a>)
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Caption
       </Typography>
       <Typography className="mb-40" component="div">
-        A caption functions like a heading for a table. Most screen readers announce the content of
-        captions. Captions help users to find a table and understand what it&#39;s about and decide
-        if they want to read it.
+        A caption functions like a heading for a table. Most screen readers announce the content of captions. Captions
+        help users to find a table and understand what it&#39;s about and decide if they want to read it.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -308,8 +296,8 @@ function TablesDoc(props) {
         Unstyled
       </Typography>
       <Typography className="mb-40" component="div">
-        If you would like to use an unstyled Table, you can use the primitive HTML elements and
-        enhance the table with the TablePaginationUnstyled component. See the demos in the{' '}
+        If you would like to use an unstyled Table, you can use the primitive HTML elements and enhance the table with
+        the TablePaginationUnstyled component. See the demos in the{' '}
         <a href="/base/react-table-pagination/">unstyled table pagination docs</a>
       </Typography>
     </>

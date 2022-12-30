@@ -27,16 +27,13 @@ function BadgesDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Badge
       </Typography>
-      <Typography className="description">
-        Badge generates a small badge to the top-right of its child(ren).
-      </Typography>
+      <Typography className="description">Badge generates a small badge to the top-right of its child(ren).</Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic badge
       </Typography>
       <Typography className="mb-40" component="div">
-        Examples of badges containing text, using primary and secondary colors. The badge is applied
-        to its children.
+        Examples of badges containing text, using primary and secondary colors. The badge is applied to its children.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -94,8 +91,8 @@ function BadgesDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The badge hides automatically when <code>badgeContent</code> is zero. You can override this
-        with the <code>showZero</code> prop.
+        The badge hides automatically when <code>badgeContent</code> is zero. You can override this with the{' '}
+        <code>showZero</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -125,8 +122,8 @@ function BadgesDoc(props) {
         Dot badge
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>dot</code> prop changes a badge into a small dot. This can be used as a
-        notification that something has changed without giving a count.
+        The <code>dot</code> prop changes a badge into a small dot. This can be used as a notification that something
+        has changed without giving a count.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -141,8 +138,7 @@ function BadgesDoc(props) {
         Badge overlap
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>overlap</code> prop to place the badge relative to the corner of the
-        wrapped element.
+        You can use the <code>overlap</code> prop to place the badge relative to the corner of the wrapped element.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -157,8 +153,7 @@ function BadgesDoc(props) {
         Badge alignment
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>anchorOrigin</code> prop to move the badge to any corner of the
-        wrapped element.
+        You can use the <code>anchorOrigin</code> prop to move the badge to any corner of the wrapped element.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -173,8 +168,8 @@ function BadgesDoc(props) {
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        You can&#39;t rely on the content of the badge to be announced correctly. You should provide
-        a full description, for instance, with <code>aria-label</code>:
+        You can&#39;t rely on the content of the badge to be announced correctly. You should provide a full description,
+        for instance, with <code>aria-label</code>:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

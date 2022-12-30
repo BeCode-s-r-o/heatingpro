@@ -12,9 +12,7 @@ import ItemIcon from './ItemIcon';
 function DetailSidebarContent(props) {
   const dispatch = useDispatch();
 
-  const item = useSelector((state) =>
-    selectItemById(state, state.fileManagerApp.items.selectedItemId)
-  );
+  const item = useSelector((state) => selectItemById(state, state.fileManagerApp.items.selectedItemId));
 
   if (!item) {
     return null;

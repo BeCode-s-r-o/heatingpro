@@ -28,13 +28,11 @@ function TabsDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Tabs
       </Typography>
-      <Typography className="description">
-        Tabs make it easy to explore and switch between different views.
-      </Typography>
+      <Typography className="description">Tabs make it easy to explore and switch between different views.</Typography>
 
       <Typography className="mb-40" component="div">
-        Tabs organize and allow navigation between groups of content that are related and at the
-        same level of hierarchy.
+        Tabs organize and allow navigation between groups of content that are related and at the same level of
+        hierarchy.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic tabs
@@ -55,12 +53,8 @@ function TabsDoc(props) {
         Experimental API
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>@mui/lab</code> offers utility components that inject props to implement accessible
-        tabs following{' '}
-        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/">
-          WAI-ARIA authoring practices
-        </a>
-        .
+        <code>@mui/lab</code> offers utility components that inject props to implement accessible tabs following{' '}
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/tabpanel/">WAI-ARIA authoring practices</a>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -75,8 +69,8 @@ function TabsDoc(props) {
         Wrapped labels
       </Typography>
       <Typography className="mb-40" component="div">
-        Long labels will automatically wrap on tabs. If the label is too long for the tab, it will
-        overflow, and the text will not be visible.
+        Long labels will automatically wrap on tabs. If the label is too long for the tab, it will overflow, and the
+        text will not be visible.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -118,19 +112,15 @@ function TabsDoc(props) {
         Fixed tabs
       </Typography>
       <Typography className="mb-40" component="div">
-        Fixed tabs should be used with a limited number of tabs, and when a consistent placement
-        will aid muscle memory.
+        Fixed tabs should be used with a limited number of tabs, and when a consistent placement will aid muscle memory.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Full width
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>{`variant="fullWidth"`}</code> prop should be used for smaller views. This demo
-        also uses{' '}
-        <a href="https://github.com/oliviertassinari/react-swipeable-views">
-          react-swipeable-views
-        </a>{' '}
-        to animate the Tab transition, and allowing tabs to be swiped on touch devices.
+        The <code>{`variant="fullWidth"`}</code> prop should be used for smaller views. This demo also uses{' '}
+        <a href="https://github.com/oliviertassinari/react-swipeable-views">react-swipeable-views</a> to animate the Tab
+        transition, and allowing tabs to be swiped on touch devices.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -163,8 +153,8 @@ function TabsDoc(props) {
         Automatic scroll buttons
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, left and right scroll buttons are automatically presented on desktop and hidden
-        on mobile. (based on viewport width)
+        By default, left and right scroll buttons are automatically presented on desktop and hidden on mobile. (based on
+        viewport width)
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -179,8 +169,8 @@ function TabsDoc(props) {
         Forced scroll buttons
       </Typography>
       <Typography className="mb-40" component="div">
-        Left and right scroll buttons be presented (reserve space) regardless of the viewport width
-        with <code>{`scrollButtons={true}`}</code> <code>allowScrollButtonsMobile</code>:
+        Left and right scroll buttons be presented (reserve space) regardless of the viewport width with{' '}
+        <code>{`scrollButtons={true}`}</code> <code>allowScrollButtonsMobile</code>:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -215,9 +205,8 @@ function TabsDoc(props) {
         Prevent scroll buttons
       </Typography>
       <Typography className="mb-40" component="div">
-        Left and right scroll buttons are never be presented with{' '}
-        <code>{`scrollButtons={false}`}</code>. All scrolling must be initiated through user agent
-        scrolling mechanisms (e.g. left/right swipe, shift mouse wheel, etc.)
+        Left and right scroll buttons are never be presented with <code>{`scrollButtons={false}`}</code>. All scrolling
+        must be initiated through user agent scrolling mechanisms (e.g. left/right swipe, shift mouse wheel, etc.)
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -246,17 +235,13 @@ function TabsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/tabs/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/tabs/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Vertical tabs
       </Typography>
       <Typography className="mb-40" component="div">
-        To make vertical tabs instead of default horizontal ones, there is{' '}
-        <code>{`orientation="vertical"`}</code>:
+        To make vertical tabs instead of default horizontal ones, there is <code>{`orientation="vertical"`}</code>:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -274,8 +259,8 @@ function TabsDoc(props) {
         Nav tabs
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, tabs use a <code>button</code> element, but you can provide your custom tag or
-        component. Here&#39;s an example of implementing tabbed navigation:
+        By default, tabs use a <code>button</code> element, but you can provide your custom tag or component. Here&#39;s
+        an example of implementing tabbed navigation:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -312,8 +297,8 @@ function TabsDoc(props) {
         Icon position
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, the icon is positioned at the <code>top</code> of a tab. Other supported
-        positions are <code>start</code>, <code>end</code>, <code>bottom</code>.
+        By default, the icon is positioned at the <code>top</code> of a tab. Other supported positions are{' '}
+        <code>start</code>, <code>end</code>, <code>bottom</code>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -328,9 +313,8 @@ function TabsDoc(props) {
         Third-party routing library
       </Typography>
       <Typography className="mb-40" component="div">
-        One frequent use case is to perform navigation on the client only, without an HTTP
-        round-trip to the server. The <code>Tab</code> component provides the <code>component</code>{' '}
-        prop to handle this use case. Here is a{' '}
+        One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server. The{' '}
+        <code>Tab</code> component provides the <code>component</code> prop to handle this use case. Here is a{' '}
         <a href="/material-ui/guides/routing/#tabs">more detailed guide</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -344,32 +328,29 @@ function TabsDoc(props) {
         )
       </Typography>
       <Typography className="mb-40" component="div">
-        The following steps are needed in order to provide necessary information for assistive
-        technologies:
+        The following steps are needed in order to provide necessary information for assistive technologies:
       </Typography>
       <ol>
         <li>
           Label <code>Tabs</code> via <code>aria-label</code> or <code>aria-labelledby</code>.
         </li>
         <li>
-          <code>Tab</code>s need to be connected to their corresponding{' '}
-          <code>{`[role="tabpanel"]`}</code> by setting the correct <code>id</code>,{' '}
-          <code>aria-controls</code> and <code>aria-labelledby</code>.
+          <code>Tab</code>s need to be connected to their corresponding <code>{`[role="tabpanel"]`}</code> by setting
+          the correct <code>id</code>, <code>aria-controls</code> and <code>aria-labelledby</code>.
         </li>
       </ol>
       <Typography className="mb-40" component="div">
-        An example for the current implementation can be found in the demos on this page. We&#39;ve
-        also published <a href="#experimental-api">an experimental API</a> in <code>@mui/lab</code>{' '}
-        that does not require extra work.
+        An example for the current implementation can be found in the demos on this page. We&#39;ve also published{' '}
+        <a href="#experimental-api">an experimental API</a> in <code>@mui/lab</code> that does not require extra work.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Keyboard navigation
       </Typography>
       <Typography className="mb-40" component="div">
-        The components implement keyboard navigation using the &quot;manual activation&quot;
-        behavior. If you want to switch to the &quot;selection automatically follows focus&quot;
-        behavior you have pass <code>selectionFollowsFocus</code> to the <code>Tabs</code>{' '}
-        component. The WAI-ARIA authoring practices have a detailed guide on{' '}
+        The components implement keyboard navigation using the &quot;manual activation&quot; behavior. If you want to
+        switch to the &quot;selection automatically follows focus&quot; behavior you have pass{' '}
+        <code>selectionFollowsFocus</code> to the <code>Tabs</code> component. The WAI-ARIA authoring practices have a
+        detailed guide on{' '}
         <a href="https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#x6-4-deciding-when-to-make-selection-automatically-follow-focus">
           how to decide when to make selection automatically follow focus
         </a>
@@ -379,9 +360,8 @@ function TabsDoc(props) {
         Demo
       </Typography>
       <Typography className="mb-40" component="div">
-        The following two demos only differ in their keyboard navigation behavior. Focus a tab and
-        navigate with arrow keys to notice the difference, e.g.{' '}
-        <kbd className="key">Arrow Left</kbd>.
+        The following two demos only differ in their keyboard navigation behavior. Focus a tab and navigate with arrow
+        keys to notice the difference, e.g. <kbd className="key">Arrow Left</kbd>.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">

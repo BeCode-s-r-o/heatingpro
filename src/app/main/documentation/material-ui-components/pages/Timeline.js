@@ -27,9 +27,7 @@ function TimelineDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Timeline
       </Typography>
-      <Typography className="description">
-        The timeline displays a list of events in chronological order.
-      </Typography>
+      <Typography className="description">The timeline displays a list of events in chronological order.</Typography>
 
       <Typography className="mb-40" component="div">
         <strong>Note:</strong> This component is not documented in the{' '}
@@ -54,8 +52,7 @@ function TimelineDoc(props) {
         Left-positioned timeline
       </Typography>
       <Typography className="mb-40" component="div">
-        The main content of the timeline can be positioned on the left side relative to the time
-        axis.
+        The main content of the timeline can be positioned on the left side relative to the time axis.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -152,8 +149,7 @@ function TimelineDoc(props) {
         A Timeline centers itself in the container by default.
       </Typography>
       <Typography className="mb-40" component="div">
-        The demos below show how to adjust the relative width of the left and right sides of a
-        Timeline:
+        The demos below show how to adjust the relative width of the left and right sides of a Timeline:
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Left-aligned

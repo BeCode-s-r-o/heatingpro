@@ -16,18 +16,15 @@ export const getLists = createAsyncThunk('scrumboardApp/lists/get', async (board
 /**
  * Create List
  */
-export const newList = createAsyncThunk(
-  'scrumboardApp/lists/new',
-  async (list, { dispatch, getState }) => {
-    const { board } = getState().scrumboardApp;
+export const newList = createAsyncThunk('scrumboardApp/lists/new', async (list, { dispatch, getState }) => {
+  const { board } = getState().scrumboardApp;
 
-    const response = await axios.post(`/api/scrumboard/boards/${board.id}/lists`, ListModel(list));
+  const response = await axios.post(`/api/scrumboard/boards/${board.id}/lists`, ListModel(list));
 
-    const data = await response.data;
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 /**
  * Update list
@@ -48,18 +45,15 @@ export const updateList = createAsyncThunk(
 /**
  * Remove list
  */
-export const removeList = createAsyncThunk(
-  'scrumboardApp/lists/remove',
-  async (id, { dispatch, getState }) => {
-    const { board } = getState().scrumboardApp;
+export const removeList = createAsyncThunk('scrumboardApp/lists/remove', async (id, { dispatch, getState }) => {
+  const { board } = getState().scrumboardApp;
 
-    const response = await axios.delete(`/api/scrumboard/boards/${board.id}/lists/${id}`);
+  const response = await axios.delete(`/api/scrumboard/boards/${board.id}/lists/${id}`);
 
-    await response.data;
+  await response.data;
 
-    return id;
-  }
-);
+  return id;
+});
 const listsAdapter = createEntityAdapter({});
 
 export const { selectAll: selectLists, selectById: selectListById } = listsAdapter.getSelectors(

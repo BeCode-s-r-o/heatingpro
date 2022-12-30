@@ -84,8 +84,7 @@ function PaginationDoc(props) {
         Buttons
       </Typography>
       <Typography className="mb-40" component="div">
-        You can optionally enable first-page and last-page buttons, or disable the previous-page and
-        next-page buttons.
+        You can optionally enable first-page and last-page buttons, or disable the previous-page and next-page buttons.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -115,9 +114,8 @@ function PaginationDoc(props) {
         Pagination ranges
       </Typography>
       <Typography className="mb-40" component="div">
-        You can specify how many digits to display either side of current page with the{' '}
-        <code>siblingRange</code> prop, and adjacent to the start and end page number with the{' '}
-        <code>boundaryRange</code> prop.
+        You can specify how many digits to display either side of current page with the <code>siblingRange</code> prop,
+        and adjacent to the start and end page number with the <code>boundaryRange</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -140,7 +138,7 @@ function PaginationDoc(props) {
           raw={require('!raw-loader!../components/pagination/PaginationControlled.js')}
         />
       </Typography>
-     {/*  <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
+      {/*  <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Router integration
       </Typography>
       <Typography className="mb-40" component="div">
@@ -156,9 +154,9 @@ function PaginationDoc(props) {
         <code>usePagination</code>
       </Typography>
       <Typography className="mb-40" component="div">
-        For advanced customization use cases, a headless <code>usePagination()</code> hook is
-        exposed. It accepts almost the same options as the Pagination component minus all the props
-        related to the rendering of JSX. The Pagination component is built on this hook.
+        For advanced customization use cases, a headless <code>usePagination()</code> hook is exposed. It accepts almost
+        the same options as the Pagination component minus all the props related to the rendering of JSX. The Pagination
+        component is built on this hook.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -179,13 +177,11 @@ import usePagination from '@mui/material/usePagination';
         Table pagination
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>Pagination</code> component was designed to paginate a list of arbitrary items
-        when infinite loading isn&#39;t used. It&#39;s preferred in contexts where SEO is important,
-        for instance, a blog.
+        The <code>Pagination</code> component was designed to paginate a list of arbitrary items when infinite loading
+        isn&#39;t used. It&#39;s preferred in contexts where SEO is important, for instance, a blog.
       </Typography>
       <Typography className="mb-40" component="div">
-        For the pagination of a large set of tabular data, you should use the{' '}
-        <code>TablePagination</code> component.
+        For the pagination of a large set of tabular data, you should use the <code>TablePagination</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -197,15 +193,13 @@ import usePagination from '@mui/material/usePagination';
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        :::warning Note that the <code>Pagination</code> page prop starts at 1 to match the
-        requirement of including the value in the URL, while the <code>TablePagination</code> page
-        prop starts at 0 to match the requirement of zero-based JavaScript arrays that comes with
-        rendering a lot of tabular data. :::
+        :::warning Note that the <code>Pagination</code> page prop starts at 1 to match the requirement of including the
+        value in the URL, while the <code>TablePagination</code> page prop starts at 0 to match the requirement of
+        zero-based JavaScript arrays that comes with rendering a lot of tabular data. :::
       </Typography>
       <Typography className="mb-40" component="div">
         You can learn more about this use case in the{' '}
-        <a href="/material-ui/react-table/#custom-pagination-options">table section</a> of the
-        documentation.
+        <a href="/material-ui/react-table/#custom-pagination-options">table section</a> of the documentation.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Accessibility
@@ -214,10 +208,10 @@ import usePagination from '@mui/material/usePagination';
         ARIA
       </Typography>
       <Typography className="mb-40" component="div">
-        The root node has a role of &quot;navigation&quot; and aria-label &quot;pagination
-        navigation&quot; by default. The page items have an aria-label that identifies the purpose
-        of the item (&quot;go to first page&quot;, &quot;go to previous page&quot;, &quot;go to page
-        1&quot; etc.). You can override these using the <code>getItemAriaLabel</code> prop.
+        The root node has a role of &quot;navigation&quot; and aria-label &quot;pagination navigation&quot; by default.
+        The page items have an aria-label that identifies the purpose of the item (&quot;go to first page&quot;,
+        &quot;go to previous page&quot;, &quot;go to page 1&quot; etc.). You can override these using the{' '}
+        <code>getItemAriaLabel</code> prop.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Keyboard

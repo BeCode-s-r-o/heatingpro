@@ -16,14 +16,7 @@ function DemoHeader(props) {
           separator={<FuseSvgIcon size={20}>heroicons-solid:chevron-right</FuseSvgIcon>}
           aria-label="breadcrumb"
         >
-          <Link
-            className="font-medium"
-            underline="hover"
-            key="1"
-            color="inherit"
-            to="/"
-            onClick={handleClick}
-          >
+          <Link className="font-medium" underline="hover" key="1" color="inherit" to="/" onClick={handleClick}>
             Projects
           </Link>
           <Link

@@ -11,8 +11,9 @@ export const getCourses = createAsyncThunk('academyApp/courses/getCourses', asyn
 
 const coursesAdapter = createEntityAdapter({});
 
-export const { selectAll: selectCourses, selectById: selectCourseById } =
-  coursesAdapter.getSelectors((state) => state.academyApp.courses);
+export const { selectAll: selectCourses, selectById: selectCourseById } = coursesAdapter.getSelectors(
+  (state) => state.academyApp.courses
+);
 
 const coursesSlice = createSlice({
   name: 'academyApp/courses',

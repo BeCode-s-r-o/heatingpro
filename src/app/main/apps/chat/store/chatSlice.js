@@ -2,16 +2,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getChats } from './chatsSlice';
 
-export const getChat = createAsyncThunk(
-  'chatApp/chat/getChat',
-  async (contactId, { dispatch, getState }) => {
-    const response = await axios.get(`/api/chat/chats/${contactId}`);
+export const getChat = createAsyncThunk('chatApp/chat/getChat', async (contactId, { dispatch, getState }) => {
+  const response = await axios.get(`/api/chat/chats/${contactId}`);
 
-    const data = await response.data;
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 export const sendMessage = createAsyncThunk(
   'chatApp/chat/sendMessage',

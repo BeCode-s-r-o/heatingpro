@@ -6,9 +6,7 @@ import deepEqual from 'lodash/isEqual';
  */
 function checkDeps(deps) {
   if (!deps || !deps.length) {
-    throw new Error(
-      'useDeepCompareEffect should not be used with no dependencies. Use React.useEffect instead.'
-    );
+    throw new Error('useDeepCompareEffect should not be used with no dependencies. Use React.useEffect instead.');
   }
   if (deps.every(isPrimitive)) {
     throw new Error(

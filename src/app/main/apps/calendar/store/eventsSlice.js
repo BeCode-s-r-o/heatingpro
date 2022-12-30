@@ -1,9 +1,4 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import formatISO from 'date-fns/formatISO';
 import { selectSelectedLabels } from './labelsSlice';
@@ -17,35 +12,26 @@ export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async 
   return data;
 });
 
-export const addEvent = createAsyncThunk(
-  'calendarApp/events/addEvent',
-  async (newEvent, { dispatch }) => {
-    const response = await axios.post('/api/calendar/events', newEvent);
-    const data = await response.data;
+export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (newEvent, { dispatch }) => {
+  const response = await axios.post('/api/calendar/events', newEvent);
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
-export const updateEvent = createAsyncThunk(
-  'calendarApp/events/updateEvent',
-  async (event, { dispatch }) => {
-    const response = await axios.put(`/api/calendar/events/${event.id}`, event);
-    const data = await response.data;
+export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', async (event, { dispatch }) => {
+  const response = await axios.put(`/api/calendar/events/${event.id}`, event);
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
-export const removeEvent = createAsyncThunk(
-  'calendarApp/events/removeEvent',
-  async (eventId, { dispatch }) => {
-    const response = await axios.delete(`/api/calendar/events/${eventId}`);
-    const data = await response.data;
+export const removeEvent = createAsyncThunk('calendarApp/events/removeEvent', async (eventId, { dispatch }) => {
+  const response = await axios.delete(`/api/calendar/events/${eventId}`);
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 const eventsAdapter = createEntityAdapter({});
 
@@ -143,19 +129,12 @@ const eventsSlice = createSlice({
   },
 });
 
-export const {
-  openNewEventDialog,
-  closeNewEventDialog,
-  openEditEventDialog,
-  closeEditEventDialog,
-} = eventsSlice.actions;
+export const { openNewEventDialog, closeNewEventDialog, openEditEventDialog, closeEditEventDialog } =
+  eventsSlice.actions;
 
-export const selectFilteredEvents = createSelector(
-  [selectSelectedLabels, selectEvents],
-  (selectedLabels, events) => {
-    return events.filter((item) => selectedLabels.includes(item.extendedProps.label));
-  }
-);
+export const selectFilteredEvents = createSelector([selectSelectedLabels, selectEvents], (selectedLabels, events) => {
+  return events.filter((item) => selectedLabels.includes(item.extendedProps.label));
+});
 
 export const selectEventDialog = ({ calendarApp }) => calendarApp.events.eventDialog;
 

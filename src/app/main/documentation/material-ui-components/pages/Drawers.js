@@ -29,29 +29,28 @@ function DrawersDoc(props) {
         Drawer
       </Typography>
       <Typography className="description">
-        Navigation drawers provide access to destinations in your app. Side sheets are surfaces
-        containing supplementary content that are anchored to the left or right edge of the screen.
+        Navigation drawers provide access to destinations in your app. Side sheets are surfaces containing supplementary
+        content that are anchored to the left or right edge of the screen.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Navigation drawers (or &quot;sidebars&quot;) provide access to destinations and app
-        functionality, such as switching accounts. They can either be permanently on-screen or
-        controlled by a navigation menu icon.
+        Navigation drawers (or &quot;sidebars&quot;) provide access to destinations and app functionality, such as
+        switching accounts. They can either be permanently on-screen or controlled by a navigation menu icon.
       </Typography>
       <Typography className="mb-40" component="div">
-        <a href="https://m2.material.io/components/sheets-side">Side sheets</a> are supplementary
-        surfaces primarily used on tablet and desktop.
+        <a href="https://m2.material.io/components/sheets-side">Side sheets</a> are supplementary surfaces primarily
+        used on tablet and desktop.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Temporary drawer
       </Typography>
       <Typography className="mb-40" component="div">
-        Temporary navigation drawers can toggle open or closed. Closed by default, the drawer opens
-        temporarily above all other content until a section is selected.
+        Temporary navigation drawers can toggle open or closed. Closed by default, the drawer opens temporarily above
+        all other content until a section is selected.
       </Typography>
       <Typography className="mb-40" component="div">
-        The Drawer can be cancelled by clicking the overlay or pressing the Esc key. It closes when
-        an item is selected, handled by controlling the <code>open</code> prop.
+        The Drawer can be cancelled by clicking the overlay or pressing the Esc key. It closes when an item is selected,
+        handled by controlling the <code>open</code> prop.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -69,9 +68,8 @@ function DrawersDoc(props) {
         You can make the drawer swipeable with the <code>SwipeableDrawer</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
-        This component comes with a 2 kB gzipped payload overhead. Some low-end mobile devices
-        won&#39;t be able to follow the fingers at 60 FPS. You can use the{' '}
-        <code>disableBackdropTransition</code> prop to help.
+        This component comes with a 2 kB gzipped payload overhead. Some low-end mobile devices won&#39;t be able to
+        follow the fingers at 60 FPS. You can use the <code>disableBackdropTransition</code> prop to help.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -83,17 +81,16 @@ function DrawersDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The following properties are used in this documentation website for optimal usability of the
-        component:
+        The following properties are used in this documentation website for optimal usability of the component:
       </Typography>
       <ul>
         <li>
-          iOS is hosted on high-end devices. The backdrop transition can be enabled without dropping
-          frames. The performance will be good enough.
+          iOS is hosted on high-end devices. The backdrop transition can be enabled without dropping frames. The
+          performance will be good enough.
         </li>
         <li>
-          iOS has a &quot;swipe to go back&quot; feature that interferes with the discovery feature,
-          so discovery has to be disabled.
+          iOS has a &quot;swipe to go back&quot; feature that interferes with the discovery feature, so discovery has to
+          be disabled.
         </li>
       </ul>
 
@@ -112,8 +109,8 @@ const iOS =
         You can configure the <code>SwipeableDrawer</code> to have a visible edge when closed.
       </Typography>
       <Typography className="mb-40" component="div">
-        If you are on a desktop, you can toggle the drawer with the &quot;OPEN&quot; button. If you
-        are on mobile, you can open the demo in CodeSandbox (&quot;edit&quot; icon) and swipe.
+        If you are on a desktop, you can toggle the drawer with the &quot;OPEN&quot; button. If you are on mobile, you
+        can open the demo in CodeSandbox (&quot;edit&quot; icon) and swipe.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -128,12 +125,12 @@ const iOS =
         Keep mounted
       </Typography>
       <Typography className="mb-40" component="div">
-        The Modal used internally by the Swipeable Drawer has the <code>keepMounted</code> prop set
-        by default. This means that the contents of the drawer are always present in the DOM.
+        The Modal used internally by the Swipeable Drawer has the <code>keepMounted</code> prop set by default. This
+        means that the contents of the drawer are always present in the DOM.
       </Typography>
       <Typography className="mb-40" component="div">
-        You can change this default behavior with the <code>ModalProps</code> prop, but you may
-        encounter issues with <code>keepMounted: false</code> in React 18.
+        You can change this default behavior with the <code>ModalProps</code> prop, but you may encounter issues with{' '}
+        <code>keepMounted: false</code> in React 18.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -150,8 +147,8 @@ const iOS =
         Responsive drawer
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>temporary</code> variant to display a drawer for small screens and{' '}
-        <code>permanent</code> for a drawer for wider screens.
+        You can use the <code>temporary</code> variant to display a drawer for small screens and <code>permanent</code>{' '}
+        for a drawer for wider screens.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -166,19 +163,17 @@ const iOS =
         Persistent drawer
       </Typography>
       <Typography className="mb-40" component="div">
-        Persistent navigation drawers can toggle open or closed. The drawer sits on the same surface
-        elevation as the content. It is closed by default and opens by selecting the menu icon, and
-        stays open until closed by the user. The state of the drawer is remembered from action to
-        action and session to session.
+        Persistent navigation drawers can toggle open or closed. The drawer sits on the same surface elevation as the
+        content. It is closed by default and opens by selecting the menu icon, and stays open until closed by the user.
+        The state of the drawer is remembered from action to action and session to session.
       </Typography>
       <Typography className="mb-40" component="div">
-        When the drawer is outside of the page grid and opens, the drawer forces other content to
-        change size and adapt to the smaller viewport.
+        When the drawer is outside of the page grid and opens, the drawer forces other content to change size and adapt
+        to the smaller viewport.
       </Typography>
       <Typography className="mb-40" component="div">
-        Persistent navigation drawers are acceptable for all sizes larger than mobile. They are not
-        recommended for apps with multiple levels of hierarchy that require using an up arrow for
-        navigation.
+        Persistent navigation drawers are acceptable for all sizes larger than mobile. They are not recommended for apps
+        with multiple levels of hierarchy that require using an up arrow for navigation.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -200,13 +195,12 @@ const iOS =
         Mini variant drawer
       </Typography>
       <Typography className="mb-40" component="div">
-        In this variation, the persistent navigation drawer changes its width. Its resting state is
-        as a mini-drawer at the same elevation as the content, clipped by the app bar. When
-        expanded, it appears as the standard persistent navigation drawer.
+        In this variation, the persistent navigation drawer changes its width. Its resting state is as a mini-drawer at
+        the same elevation as the content, clipped by the app bar. When expanded, it appears as the standard persistent
+        navigation drawer.
       </Typography>
       <Typography className="mb-40" component="div">
-        The mini variant is recommended for apps sections that need quick selection access alongside
-        content.
+        The mini variant is recommended for apps sections that need quick selection access alongside content.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -221,8 +215,8 @@ const iOS =
         Permanent drawer
       </Typography>
       <Typography className="mb-40" component="div">
-        Permanent navigation drawers are always visible and pinned to the left edge, at the same
-        elevation as the content or background. They cannot be closed.
+        Permanent navigation drawers are always visible and pinned to the left edge, at the same elevation as the
+        content or background. They cannot be closed.
       </Typography>
       <Typography className="mb-40" component="div">
         Permanent navigation drawers are the <strong>recommended default for desktop</strong>.

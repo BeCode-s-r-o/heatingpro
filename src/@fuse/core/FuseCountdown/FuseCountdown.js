@@ -6,9 +6,7 @@ import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 function FuseCountdown(props) {
   const { onComplete } = props;
-  const [endDate] = useState(
-    moment.isMoment(props.endDate) ? props.endDate : moment(props.endDate)
-  );
+  const [endDate] = useState(moment.isMoment(props.endDate) ? props.endDate : moment(props.endDate));
   const [countdown, setCountdown] = useState({
     days: 0,
     hours: 0,

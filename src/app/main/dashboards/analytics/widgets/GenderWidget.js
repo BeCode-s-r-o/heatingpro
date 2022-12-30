@@ -80,9 +80,7 @@ function GenderWidget(props) {
   return (
     <Paper className="flex flex-col flex-auto shadow rounded-2xl overflow-hidden p-24">
       <div className="flex flex-col sm:flex-row items-start justify-between">
-        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">
-          Gender
-        </Typography>
+        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Gender</Typography>
         <div className="ml-8">
           <Chip size="small" className="font-medium text-sm" label=" 30 days" />
         </div>
@@ -102,10 +100,7 @@ function GenderWidget(props) {
           {series.map((dataset, i) => (
             <div className="grid grid-cols-3 py-12" key={i}>
               <div className="flex items-center">
-                <Box
-                  className="flex-0 w-8 h-8 rounded-full"
-                  sx={{ backgroundColor: chartOptions.colors[i] }}
-                />
+                <Box className="flex-0 w-8 h-8 rounded-full" sx={{ backgroundColor: chartOptions.colors[i] }} />
                 <Typography className="ml-12 truncate">{labels[i]}</Typography>
               </div>
               <Typography className="font-medium text-right">

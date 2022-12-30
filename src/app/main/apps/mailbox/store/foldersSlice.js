@@ -1,9 +1,4 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import _ from '@lodash';
 
@@ -16,8 +11,9 @@ export const getFolders = createAsyncThunk('mailboxApp/folders/getFolders', asyn
 
 const foldersAdapter = createEntityAdapter({});
 
-export const { selectAll: selectFolders, selectById: selectFolderById } =
-  foldersAdapter.getSelectors((state) => state.mailboxApp.folders);
+export const { selectAll: selectFolders, selectById: selectFolderById } = foldersAdapter.getSelectors(
+  (state) => state.mailboxApp.folders
+);
 
 const foldersSlice = createSlice({
   name: 'mailboxApp/folders',

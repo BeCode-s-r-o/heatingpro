@@ -16,19 +16,16 @@ export const getBoards = createAsyncThunk('scrumboardApp/boards/getBoards', asyn
 /**
  * Create New Board
  */
-export const newBoard = createAsyncThunk(
-  'scrumboardApp/boards/newBoard',
-  async (board, { dispatch }) => {
-    const response = await axios.post('/api/scrumboard/boards', BoardModel(board));
-    const data = await response.data;
+export const newBoard = createAsyncThunk('scrumboardApp/boards/newBoard', async (board, { dispatch }) => {
+  const response = await axios.post('/api/scrumboard/boards', BoardModel(board));
+  const data = await response.data;
 
-    history.push({
-      pathname: `/apps/scrumboard/boards/${data.id}`,
-    });
+  history.push({
+    pathname: `/apps/scrumboard/boards/${data.id}`,
+  });
 
-    return data;
-  }
-);
+  return data;
+});
 
 const boardsAdapter = createEntityAdapter({});
 

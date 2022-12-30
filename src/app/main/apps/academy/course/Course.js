@@ -90,30 +90,20 @@ function Course(props) {
           </Hidden>
 
           <Hidden lgUp>
-            <Paper
-              className="flex sticky top-0 z-10 items-center w-full px-16 py-8 border-b-1 shadow-0"
-              square
-            >
+            <Paper className="flex sticky top-0 z-10 items-center w-full px-16 py-8 border-b-1 shadow-0" square>
               <IconButton to="/apps/academy/courses" component={Link} className="">
                 <FuseSvgIcon>
-                  {theme.direction === 'ltr'
-                    ? 'heroicons-outline:arrow-sm-left'
-                    : 'heroicons-outline:arrow-sm-right'}
+                  {theme.direction === 'ltr' ? 'heroicons-outline:arrow-sm-left' : 'heroicons-outline:arrow-sm-right'}
                 </FuseSvgIcon>
               </IconButton>
 
-              <Typography className="text-13 font-medium tracking-tight mx-10">
-                {course.title}
-              </Typography>
+              <Typography className="text-13 font-medium tracking-tight mx-10">{course.title}</Typography>
             </Paper>
           </Hidden>
 
           <SwipeableViews index={activeStep - 1} enableMouseEvents onChangeIndex={handleStepChange}>
             {course.steps.map((step, index) => (
-              <div
-                className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64"
-                key={index}
-              >
+              <div className="flex justify-center p-16 pb-64 sm:p-24 sm:pb-64 md:p-48 md:pb-64" key={index}>
                 <Paper className="w-full max-w-lg mx-auto sm:my-8 lg:mt-16 p-24 sm:p-40 sm:py-48 rounded-16 shadow overflow-hidden">
                   <div
                     className="prose prose-sm dark:prose-invert w-full max-w-full"
@@ -127,12 +117,7 @@ function Course(props) {
 
           <Hidden lgDown>
             <div className="flex justify-center w-full sticky bottom-0 p-16 pb-32 z-10">
-              <ButtonGroup
-                variant="contained"
-                aria-label=""
-                className="rounded-full"
-                color="secondary"
-              >
+              <ButtonGroup variant="contained" aria-label="" className="rounded-full" color="secondary">
                 <Button
                   className="min-h-56 rounded-full"
                   size="large"
@@ -162,11 +147,7 @@ function Course(props) {
               sx={{ backgroundColor: 'background.paper' }}
               className="flex sticky bottom-0 z-10 items-center w-full p-16 border-t-1"
             >
-              <IconButton
-                onClick={(ev) => setLeftSidebarOpen(true)}
-                aria-label="open left sidebar"
-                size="large"
-              >
+              <IconButton onClick={(ev) => setLeftSidebarOpen(true)} aria-label="open left sidebar" size="large">
                 <FuseSvgIcon>heroicons-outline:view-list</FuseSvgIcon>
               </IconButton>
 
@@ -201,9 +182,7 @@ function Course(props) {
               variant="text"
               startIcon={
                 <FuseSvgIcon size={20}>
-                  {theme.direction === 'ltr'
-                    ? 'heroicons-outline:arrow-sm-left'
-                    : 'heroicons-outline:arrow-sm-right'}
+                  {theme.direction === 'ltr' ? 'heroicons-outline:arrow-sm-left' : 'heroicons-outline:arrow-sm-right'}
                 </FuseSvgIcon>
               }
             >
