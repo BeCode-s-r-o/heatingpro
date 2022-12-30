@@ -1,24 +1,47 @@
 /* eslint import/no-extraneous-dependencies: off */
+import { TContact } from '@app/types/TContact';
+import { TUserData } from '@app/types/TUserData';
 import history from '@history';
 import _ from '@lodash';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import settingsConfig from 'app/config/settingsConfig';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import { setInitialSettings } from 'app/store/fuse/settingsSlice';
 import jwtService from '../auth/services/jwtService';
+interface IUserState {
+  role: string[];
+  data: {
+    displayName: string;
+    photoURL: string;
+    email: string;
+    shortcuts: string[];
+    settings?: any;
+  };
+}
 
-export const setUser = createAsyncThunk('user/setUser', async (user, { dispatch, getState }) => {
+export const setUser = createAsyncThunk('user/setUser', async (user: TContact) => {
   /*
     You can redirect the logged-in user to a specific route depending on his role
     */
-  if (user.loginRedirectUrl) {
-    settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example 'apps/academy'
-  }
 
-  return user;
+  /*   if (user.loginRedirectUrl) {
+    settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example 'apps/academy'
+  } */
+
+  const userData: TUserData = {
+    role: ['admin'], // guest
+    data: {
+      ...user,
+      displayName: user.name,
+      photoURL: 'assets/images/avatars/brian-hughes.jpg',
+      shortcuts: ['apps.calendar', 'apps.mailbox', 'apps.contacts', 'apps.tasks'],
+    },
+  };
+  return userData;
 });
 
 export const updateUserSettings = createAsyncThunk('user/updateSettings', async (settings, { dispatch, getState }) => {
+  //@ts-ignore
   const { user } = getState();
   const newUser = _.merge({}, user, { data: { settings } });
 
@@ -30,6 +53,7 @@ export const updateUserSettings = createAsyncThunk('user/updateSettings', async 
 export const updateUserShortcuts = createAsyncThunk(
   'user/updateShortucts',
   async (shortcuts, { dispatch, getState }) => {
+    //@ts-ignore
     const { user } = getState();
     const newUser = {
       ...user,
@@ -78,7 +102,7 @@ export const updateUserData = (user) => async (dispatch, getState) => {
     });
 };
 
-const initialState = {
+const initialState: IUserState = {
   role: [], // guest
   data: {
     displayName: 'John Doe',
@@ -92,12 +116,19 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userLoggedOut: (state, action) => initialState,
+    userLoggedOut: () => initialState,
   },
-  extraReducers: {
-    [updateUserSettings.fulfilled]: (state, action) => action.payload,
-    [updateUserShortcuts.fulfilled]: (state, action) => action.payload,
-    [setUser.fulfilled]: (state, action) => action.payload,
+  extraReducers: (builder) => {
+    builder
+      .addCase(updateUserSettings.fulfilled, (state, action: PayloadAction<IUserState>) => {
+        return action.payload;
+      })
+      .addCase(updateUserShortcuts.fulfilled, (state, action: PayloadAction<IUserState>) => {
+        return action.payload;
+      })
+      .addCase(setUser.fulfilled, (state, action: PayloadAction<IUserState>) => {
+        return action.payload;
+      });
   },
 });
 

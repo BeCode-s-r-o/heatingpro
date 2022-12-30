@@ -23,7 +23,7 @@ function ContactsHeader(props) {
           delay={300}
           className="text-24 md:text-32 font-extrabold tracking-tight leading-none"
         >
-          Contacts
+          Používatelia
         </Typography>
         <Typography
           component={motion.span}
@@ -33,7 +33,7 @@ function ContactsHeader(props) {
           className="text-14 font-medium ml-2"
           color="text.secondary"
         >
-          {`${filteredData.length} contacts`}
+          {`${filteredData.length} používateľov`}
         </Typography>
       </div>
       <div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center mt-16 -mx-8">
@@ -61,7 +61,7 @@ function ContactsHeader(props) {
         </Box>
         <Button className="mx-8" variant="contained" color="secondary" component={NavLinkAdapter} to="new/edit">
           <FuseSvgIcon size={20}>heroicons-outline:plus</FuseSvgIcon>
-          <span className="mx-8">Add</span>
+          <span className="mx-8">Pridať</span>
         </Button>
       </div>
     </div>

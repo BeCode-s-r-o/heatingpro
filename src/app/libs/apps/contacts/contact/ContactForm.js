@@ -3,25 +3,25 @@ import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
-import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { addContact, getContact, newContact, removeContact, selectContact, updateContact } from '../store/contactSlice';
-import { selectCountries } from '../store/countriesSlice';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { selectTags } from '../store/tagsSlice';
-import ContactEmailSelector from './email-selector/ContactEmailSelector';
-import PhoneNumberSelector from './phone-number-selector/PhoneNumberSelector';
+import { selectCountries } from '../store/countriesSlice';
+import { addContact, getContact, newContact, removeContact, selectContact, updateContact } from '../store/contactSlice';
 
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
@@ -65,8 +65,8 @@ const ContactForm = (props) => {
    */
   function onSubmit(data) {
     if (routeParams.id === 'new') {
-      dispatch(addContact(data)).then(({ payload }) => {
-        navigate(`/apps/contacts/${payload.id}`);
+      dispatch(addContact(data)).then(() => {
+        navigate(`/apps/contacts`);
       });
     } else {
       dispatch(updateContact(data));
@@ -173,7 +173,17 @@ const ContactForm = (props) => {
             />
           </div>
         </div>
-
+        <Controller
+          control={control}
+          name="role"
+          render={({ field }) => (
+            <RadioGroup row {...field} name="role">
+              <FormControlLabel value="Zákazník" control={<Radio />} label="Zákazník" />
+              <FormControlLabel value="Hosť" control={<Radio />} label="Hosť" />
+              <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+            </RadioGroup>
+          )}
+        />
         <Controller
           control={control}
           name="name"
@@ -181,8 +191,8 @@ const ContactForm = (props) => {
             <TextField
               className="mt-32"
               {...field}
-              label="Name"
-              placeholder="Name"
+              label="Meno"
+              placeholder="Meno"
               id="name"
               error={!!errors.name}
               helperText={errors?.name?.message}
@@ -202,49 +212,23 @@ const ContactForm = (props) => {
 
         <Controller
           control={control}
-          name="tags"
-          render={({ field: { onChange, value } }) => (
-            <Autocomplete
-              multiple
-              id="tags"
-              className="mt-32"
-              options={tags}
-              disableCloseOnSelect
-              getOptionLabel={(option) => option.title}
-              renderOption={(_props, option, { selected }) => (
-                <li {..._props}>
-                  <Checkbox style={{ marginRight: 8 }} checked={selected} />
-                  {option.title}
-                </li>
-              )}
-              value={value ? value.map((id) => _.find(tags, { id })) : []}
-              onChange={(event, newValue) => {
-                onChange(newValue.map((item) => item.id));
-              }}
-              fullWidth
-              renderInput={(params) => <TextField {...params} label="Tags" placeholder="Tags" />}
-            />
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="title"
+          name="email"
           render={({ field }) => (
             <TextField
               className="mt-32"
               {...field}
-              label="Title"
-              placeholder="Job title"
+              label="Email"
+              placeholder="Email"
               id="title"
               error={!!errors.title}
               helperText={errors?.title?.message}
               variant="outlined"
+              required
               fullWidth
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:briefcase</FuseSvgIcon>
+                    <FuseSvgIcon size={20}>heroicons-solid:mail</FuseSvgIcon>
                   </InputAdornment>
                 ),
               }}
@@ -254,14 +238,15 @@ const ContactForm = (props) => {
 
         <Controller
           control={control}
-          name="company"
+          name="phone"
           render={({ field }) => (
             <TextField
               className="mt-32"
               {...field}
-              label="Company"
-              placeholder="Company"
-              id="company"
+              label="Tel. číslo"
+              placeholder="Tel. číslo"
+              id="phone"
+              required
               error={!!errors.company}
               helperText={errors?.company?.message}
               variant="outlined"
@@ -269,25 +254,18 @@ const ContactForm = (props) => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:office-building</FuseSvgIcon>
+                    <PermDeviceInformationIcon />
                   </InputAdornment>
                 ),
               }}
             />
           )}
         />
-        <Controller
+        {/*         <Controller
           control={control}
           name="emails"
           render={({ field }) => <ContactEmailSelector className="mt-32" {...field} />}
-        />
-
-        <Controller
-          control={control}
-          name="phoneNumbers"
-          render={({ field }) => <PhoneNumberSelector className="mt-32" {...field} />}
-        />
-
+        /> */}
         <Controller
           control={control}
           name="address"
@@ -295,9 +273,10 @@ const ContactForm = (props) => {
             <TextField
               className="mt-32"
               {...field}
-              label="Address"
-              placeholder="Address"
+              label="Adresa"
+              placeholder="Adresa"
               id="address"
+              required
               error={!!errors.address}
               helperText={errors?.address?.message}
               variant="outlined"
@@ -312,39 +291,18 @@ const ContactForm = (props) => {
             />
           )}
         />
+
         <Controller
           control={control}
-          name="birthday"
-          render={({ field }) => (
-            <DateTimePicker
-              {...field}
-              className="mt-8 mb-16 w-full"
-              clearable
-              showTodayButton
-              renderInput={(_props) => (
-                <TextField
-                  {..._props}
-                  className="mt-32"
-                  id="birthday"
-                  label="Birthday"
-                  type="date"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  variant="outlined"
-                  fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <FuseSvgIcon size={20}>heroicons-solid:cake</FuseSvgIcon>
-                      </InputAdornment>
-                    ),
-                  }}
-                />
-              )}
-            />
-          )}
+          name="heaters"
+          render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
         />
+        {/*         <Controller
+          control={control}
+          name="phoneNumbers"
+          render={({ field }) => <PhoneNumberSelector className="mt-32" {...field} />}
+        /> */}
+
         <Controller
           control={control}
           name="notes"
@@ -385,7 +343,7 @@ const ContactForm = (props) => {
           </Button>
         )}
         <Button className="ml-auto" component={NavLinkAdapter} to={-1}>
-          Cancel
+          Zrušiť
         </Button>
         <Button
           className="ml-8"
@@ -394,7 +352,7 @@ const ContactForm = (props) => {
           disabled={_.isEmpty(dirtyFields) || !isValid}
           onClick={handleSubmit(onSubmit)}
         >
-          Save
+          Pridať
         </Button>
       </Box>
     </>

@@ -91,7 +91,7 @@ const settingsSlice = createSlice({
       };
     },
 
-    setInitialSettings: (state, action) => {
+    setInitialSettings: () => {
       return _.merge({}, initialState);
     },
     resetSettings: (state, action) => {
