@@ -1,12 +1,12 @@
 import FuseUtils from '@app/utils';
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../../../../../firebase-config';
 import { addContact, removeContact, updateContact } from './contactSlice';
 
 export const getContacts = createAsyncThunk('contactsApp/contacts/getContacts', async (params, { getState }) => {
-  const response = await axios.get('/api/contacts');
-
-  const data = await response.data;
+  const users = await getDocs(collection(db, 'users'));
+  const data = users.docs.map((user) => user.data());
 
   return { data };
 });

@@ -3,14 +3,14 @@ import Button from '@mui/material/Button';
 import clsx from 'clsx';
 import { forwardRef } from 'react';
 import ContactModel from '../../model/ContactModel';
-import EmailInput from './EmailInput';
+import HeaterInput from './HeaterInput';
 
-const ContactEmailSelector = forwardRef(({ value, onChange, className }, ref) => {
+const ContactHeaterSelector = forwardRef(({ value, onChange, className }, ref) => {
   console.log(value);
   return (
     <div className={clsx('w-full', className)} ref={ref}>
       {value.map((item, index) => (
-        <EmailInput
+        <HeaterInput
           value={item}
           key={index}
           onChange={(val) => {
@@ -24,14 +24,14 @@ const ContactEmailSelector = forwardRef(({ value, onChange, className }, ref) =>
       ))}
       <Button
         className="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-        onClick={() => onChange([...value, ContactModel().emails[0]])}
+        onClick={() => onChange([...value, ContactModel().heaters[0]])}
       >
         <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
 
-        <span className="ml-8 font-medium text-secondary group-hover:underline">Add an email address</span>
+        <span className="ml-8 font-medium text-secondary group-hover:underline">Pridať kotol</span>
       </Button>
     </div>
   );
 });
 
-export default ContactEmailSelector;
+export default ContactHeaterSelector;

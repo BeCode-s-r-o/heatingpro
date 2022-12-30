@@ -15,21 +15,25 @@ import { useParams } from 'react-router-dom';
 import { getContact, selectContact } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
+import { TContact } from '@app/types/TContact';
 
 const ContactView = () => {
-  const contact = useSelector(selectContact);
+  const contact: TContact = useSelector(selectContact);
   const countries = useSelector(selectCountries);
   const tags = useSelector(selectTags);
   const routeParams = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
+    //@ts-ignore
     dispatch(getContact(routeParams.id));
   }, [dispatch, routeParams]);
 
-  function getCountryByIso(iso) {
+  /*   function getCountryByIso(iso) {
     return countries.find((country) => country.iso === iso);
-  }
+  } */
 
   if (!contact) {
     return <FuseLoading />;
@@ -42,11 +46,7 @@ const ContactView = () => {
         sx={{
           backgroundColor: 'background.default',
         }}
-      >
-        {contact.background && (
-          <img className="absolute inset-0 object-cover w-full h-full" src={contact.background} alt="user background" />
-        )}
-      </Box>
+      ></Box>
       <div className="relative flex flex-col flex-auto items-center p-24 pt-0 sm:p-48 sm:pt-0">
         <div className="w-full max-w-3xl">
           <div className="flex flex-auto items-end -mt-64">
@@ -59,7 +59,6 @@ const ContactView = () => {
                 color: 'text.secondary',
               }}
               className="w-128 h-128 text-64 font-bold"
-              src={contact.avatar}
               alt={contact.name}
             >
               {contact.name.charAt(0)}
@@ -67,7 +66,7 @@ const ContactView = () => {
             <div className="flex items-center ml-auto mb-4">
               <Button variant="contained" color="secondary" component={NavLinkAdapter} to="edit">
                 <FuseSvgIcon size={20}>heroicons-outline:pencil-alt</FuseSvgIcon>
-                <span className="mx-8">Edit</span>
+                <span className="mx-8">Upraviť</span>
               </Button>
             </div>
           </div>
@@ -75,44 +74,36 @@ const ContactView = () => {
           <Typography className="mt-12 text-4xl font-bold truncate">{contact.name}</Typography>
 
           <div className="flex flex-wrap items-center mt-8">
-            {contact.tags.map((id) => (
-              <Chip key={id} label={_.find(tags, { id }).title} className="mr-12 mb-12" size="small" />
-            ))}
+            <Chip label={contact.role} className="mr-12 mb-12" size="small" />
           </div>
 
           <Divider className="mt-16 mb-24" />
 
           <div className="flex flex-col space-y-32">
-            {contact.title && (
+            {contact.email && (
               <div className="flex items-center">
-                <FuseSvgIcon>heroicons-outline:briefcase</FuseSvgIcon>
-                <div className="ml-24 leading-6">{contact.title}</div>
+                <FuseSvgIcon size={20}>heroicons-solid:mail</FuseSvgIcon>
+                <div className="ml-24 leading-6">{contact.email}</div>
               </div>
             )}
 
-            {contact.company && (
+            {contact.phone && (
               <div className="flex items-center">
-                <FuseSvgIcon>heroicons-outline:office-building</FuseSvgIcon>
-                <div className="ml-24 leading-6">{contact.company}</div>
+                <PermDeviceInformationIcon />
+                <div className="ml-24 leading-6">{contact.phone}</div>
               </div>
             )}
 
-            {contact.emails.length && contact.emails.some((item) => item.email.length > 0) && (
+            {contact.heaters.length && contact.heaters.some((item) => item.heater.length > 0) && (
               <div className="flex">
-                <FuseSvgIcon>heroicons-outline:mail</FuseSvgIcon>
+                <WhatshotIcon />
                 <div className="min-w-0 ml-24 space-y-4">
-                  {contact.emails.map(
+                  {contact.heaters.map(
                     (item) =>
-                      item.email !== '' && (
-                        <div className="flex items-center leading-6" key={item.email}>
-                          <a
-                            className="hover:underline text-primary-500"
-                            href={`mailto: ${item.email}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {item.email}
-                          </a>
+                      item.heater !== '' && (
+                        <div className="flex items-center leading-6" key={item.heater}>
+                          {item.heater}
+
                           {item.label && (
                             <>
                               <Typography className="text-md truncate" color="text.secondary">
@@ -121,39 +112,11 @@ const ContactView = () => {
                               </Typography>
                             </>
                           )}
-                        </div>
-                      )
-                  )}
-                </div>
-              </div>
-            )}
-
-            {contact.phoneNumbers.length && contact.phoneNumbers.some((item) => item.phoneNumber.length > 0) && (
-              <div className="flex">
-                <FuseSvgIcon>heroicons-outline:phone</FuseSvgIcon>
-                <div className="min-w-0 ml-24 space-y-4">
-                  {contact.phoneNumbers.map(
-                    (item, index) =>
-                      item.phoneNumber !== '' && (
-                        <div className="flex items-center leading-6" key={index}>
-                          <Box
-                            className="hidden sm:flex w-24 h-16 overflow-hidden"
-                            sx={{
-                              background: "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
-                              backgroundSize: '24px 3876px',
-                              backgroundPosition: getCountryByIso(item.country)?.flagImagePos,
-                            }}
-                          />
-
-                          <div className="sm:ml-12 font-mono">{getCountryByIso(item.country)?.code}</div>
-
-                          <div className="ml-10 font-mono">{item.phoneNumber}</div>
-
-                          {item.label && (
+                          {item.phone && (
                             <>
                               <Typography className="text-md truncate" color="text.secondary">
                                 <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{item.label}</span>
+                                <span className="font-medium">{item.phone}</span>
                               </Typography>
                             </>
                           )}
@@ -171,10 +134,10 @@ const ContactView = () => {
               </div>
             )}
 
-            {contact.birthday && (
+            {contact.birthNumber && (
               <div className="flex items-center">
                 <FuseSvgIcon>heroicons-outline:cake</FuseSvgIcon>
-                <div className="ml-24 leading-6">{format(new Date(contact.birthday), 'MMMM d, y')}</div>
+                <div className="ml-24 leading-6">{contact.birthNumber}</div>
               </div>
             )}
 

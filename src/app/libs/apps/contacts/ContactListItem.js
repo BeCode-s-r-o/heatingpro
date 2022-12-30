@@ -18,7 +18,7 @@ function ContactListItem(props) {
         to={`/apps/contacts/${contact.id}`}
       >
         <ListItemAvatar>
-          <Avatar alt={contact.name} src={contact.avatar} />
+          <Avatar alt={contact.name} />
         </ListItemAvatar>
         <ListItemText
           classes={{ root: 'm-0', primary: 'font-medium leading-5 truncate' }}
@@ -26,7 +26,7 @@ function ContactListItem(props) {
           secondary={
             <>
               <Typography className="inline" component="span" variant="body2" color="text.secondary">
-                {contact.title}
+                {contact.role === 'customer' ? 'Zákazník' : contact.role}
               </Typography>
             </>
           }
