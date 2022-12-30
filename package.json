@@ -23,7 +23,7 @@
         "@mui/system": "5.11.0",
         "@mui/utils": "5.11.0",
         "@mui/x-data-grid": "5.17.14",
-        "@reduxjs/toolkit": "1.8.6",
+        "@reduxjs/toolkit": "1.9.1",
         "apexcharts": "3.36.3",
         "autosuggest-highlight": "3.3.4",
         "axios": "1.2.1",
