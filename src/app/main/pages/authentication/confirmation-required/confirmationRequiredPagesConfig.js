@@ -3,21 +3,11 @@ import { Navigate } from 'react-router-dom';
 
 const ClassicConfirmationRequiredPage = lazy(() => import('./ClassicConfirmationRequiredPage'));
 const ModernConfirmationRequiredPage = lazy(() => import('./ModernConfirmationRequiredPage'));
-const ModernReversedConfirmationRequiredPage = lazy(() =>
-  import('./ModernReversedConfirmationRequiredPage')
-);
-const SplitScreenConfirmationRequiredPage = lazy(() =>
-  import('./SplitScreenConfirmationRequiredPage')
-);
-const SplitScreenReversedConfirmationRequiredPage = lazy(() =>
-  import('./SplitScreenReversedConfirmationRequiredPage')
-);
-const FullScreenConfirmationRequiredPage = lazy(() =>
-  import('./FullScreenConfirmationRequiredPage')
-);
-const FullScreenReversedConfirmationRequiredPage = lazy(() =>
-  import('./FullScreenReversedConfirmationRequiredPage')
-);
+const ModernReversedConfirmationRequiredPage = lazy(() => import('./ModernReversedConfirmationRequiredPage'));
+const SplitScreenConfirmationRequiredPage = lazy(() => import('./SplitScreenConfirmationRequiredPage'));
+const SplitScreenReversedConfirmationRequiredPage = lazy(() => import('./SplitScreenReversedConfirmationRequiredPage'));
+const FullScreenConfirmationRequiredPage = lazy(() => import('./FullScreenConfirmationRequiredPage'));
+const FullScreenReversedConfirmationRequiredPage = lazy(() => import('./FullScreenReversedConfirmationRequiredPage'));
 
 const confirmationRequiredPagesConfig = {
   settings: {

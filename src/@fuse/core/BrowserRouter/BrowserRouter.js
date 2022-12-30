@@ -11,12 +11,7 @@ function BrowserRouter({ basename, children, window }) {
   useLayoutEffect(() => history.listen(setState), [history]);
 
   return (
-    <Router
-      basename={basename}
-      location={state.location}
-      navigationType={state.action}
-      navigator={history}
-    >
+    <Router basename={basename} location={state.location} navigationType={state.action} navigator={history}>
       {children}
     </Router>
   );

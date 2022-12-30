@@ -34,9 +34,7 @@ const Root = styled(Box)(({ theme }) => ({
       minHeight: 2,
       margin: '12px 0',
       backgroundColor:
-        theme.palette.mode === 'light'
-          ? 'rgba(0, 0, 0, .05)!important'
-          : 'rgba(255, 255, 255, .1)!important',
+        theme.palette.mode === 'light' ? 'rgba(0, 0, 0, .05)!important' : 'rgba(255, 255, 255, .1)!important',
       pointerEvents: 'none',
     },
     '&:hover': {
@@ -45,9 +43,7 @@ const Root = styled(Box)(({ theme }) => ({
     '&.active': {
       color: theme.palette.text.primary,
       backgroundColor:
-        theme.palette.mode === 'light'
-          ? 'rgba(0, 0, 0, .05)!important'
-          : 'rgba(255, 255, 255, .1)!important',
+        theme.palette.mode === 'light' ? 'rgba(0, 0, 0, .05)!important' : 'rgba(255, 255, 255, .1)!important',
       // pointerEvents: 'none',
       transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
       '& .fuse-list-item-text-primary': {
@@ -92,10 +88,7 @@ function FuseNavVerticalTab(props) {
             <Tooltip title={item.title || ''} placement="right">
               <div className="w-32 h-32 min-h-32 flex items-center justify-center relative">
                 {item.icon ? (
-                  <FuseSvgIcon
-                    className={clsx('fuse-list-item-icon', item.iconClass)}
-                    color="action"
-                  >
+                  <FuseSvgIcon className={clsx('fuse-list-item-icon', item.iconClass)} color="action">
                     {item.icon}
                   </FuseSvgIcon>
                 ) : (
@@ -113,11 +106,7 @@ function FuseNavVerticalTab(props) {
             <>
               <div className="w-32 h-32 min-h-32 flex items-center justify-center relative mb-8">
                 {item.icon ? (
-                  <FuseSvgIcon
-                    size={32}
-                    className={clsx('fuse-list-item-icon', item.iconClass)}
-                    color="action"
-                  >
+                  <FuseSvgIcon size={32} className={clsx('fuse-list-item-icon', item.iconClass)} color="action">
                     {item.icon}
                   </FuseSvgIcon>
                 ) : (
@@ -135,8 +124,7 @@ function FuseNavVerticalTab(props) {
                 className="fuse-list-item-text grow-0 w-full"
                 primary={item.title}
                 classes={{
-                  primary:
-                    'text-12 font-medium fuse-list-item-text-primary truncate text-center truncate',
+                  primary: 'text-12 font-medium fuse-list-item-text-primary truncate text-center truncate',
                 }}
               />
             </>

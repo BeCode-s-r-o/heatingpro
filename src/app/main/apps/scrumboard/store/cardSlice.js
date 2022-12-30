@@ -5,50 +5,41 @@ import { showMessage } from 'app/store/fuse/messageSlice';
 /**
  * Update Card
  */
-export const updateCard = createAsyncThunk(
-  'scrumboardApp/card/update',
-  async (newData, { dispatch, getState }) => {
-    const { board, card } = getState().scrumboardApp;
+export const updateCard = createAsyncThunk('scrumboardApp/card/update', async (newData, { dispatch, getState }) => {
+  const { board, card } = getState().scrumboardApp;
 
-    const response = await axios.put(
-      `/api/scrumboard/boards/${board.id}/cards/${card.data.id}`,
-      newData
-    );
+  const response = await axios.put(`/api/scrumboard/boards/${board.id}/cards/${card.data.id}`, newData);
 
-    const data = await response.data;
+  const data = await response.data;
 
-    dispatch(
-      showMessage({
-        message: 'Card Saved',
-        autoHideDuration: 2000,
-        anchorOrigin: {
-          vertical: 'top',
-          horizontal: 'right',
-        },
-      })
-    );
+  dispatch(
+    showMessage({
+      message: 'Card Saved',
+      autoHideDuration: 2000,
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'right',
+      },
+    })
+  );
 
-    return data;
-  }
-);
+  return data;
+});
 
 /**
  * Remove Card
  */
-export const removeCard = createAsyncThunk(
-  'scrumboardApp/card/removeCard',
-  async (params, { dispatch, getState }) => {
-    const { board, card } = getState().scrumboardApp;
+export const removeCard = createAsyncThunk('scrumboardApp/card/removeCard', async (params, { dispatch, getState }) => {
+  const { board, card } = getState().scrumboardApp;
 
-    const response = await axios.delete(`/api/scrumboard/boards/${board.id}/cards/${card.data.id}`);
+  const response = await axios.delete(`/api/scrumboard/boards/${board.id}/cards/${card.data.id}`);
 
-    const data = await response.data;
+  const data = await response.data;
 
-    dispatch(closeCardDialog());
+  dispatch(closeCardDialog());
 
-    return data;
-  }
-);
+  return data;
+});
 
 const cardSlice = createSlice({
   name: 'scrumboardApp/card',

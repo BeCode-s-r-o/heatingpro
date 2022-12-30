@@ -35,8 +35,8 @@ function ChipsDoc(props) {
         Chips allow users to enter information, make selections, filter content, or trigger actions.
       </Typography>
       <Typography className="mb-40" component="div">
-        While included here as a standalone component, the most common use will be in some form of
-        input, so some of the behavior demonstrated here is not shown in context.
+        While included here as a standalone component, the most common use will be in some form of input, so some of the
+        behavior demonstrated here is not shown in context.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic chip
@@ -61,12 +61,11 @@ function ChipsDoc(props) {
       </Typography>
       <ul>
         <li>
-          Chips with the <code>onClick</code> prop defined change appearance on focus, hover, and
-          click.
+          Chips with the <code>onClick</code> prop defined change appearance on focus, hover, and click.
         </li>
         <li>
-          Chips with the <code>onDelete</code> prop defined will display a delete icon which changes
-          appearance on hover.
+          Chips with the <code>onDelete</code> prop defined will display a delete icon which changes appearance on
+          hover.
         </li>
       </ul>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
@@ -136,8 +135,7 @@ function ChipsDoc(props) {
         You can add ornaments to the beginning of the component.
       </Typography>
       <Typography className="mb-40" component="div">
-        Use the <code>avatar</code> prop to add an avatar or use the <code>icon</code> prop to add
-        an icon.
+        Use the <code>avatar</code> prop to add an avatar or use the <code>icon</code> prop to add an icon.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Avatar chip
@@ -197,10 +195,10 @@ function ChipsDoc(props) {
         Chip array
       </Typography>
       <Typography className="mb-40" component="div">
-        An example of rendering multiple chips from an array of values. Deleting a chip removes it
-        from the array. Note that since no
-        <code>onClick</code> prop is defined, the <code>Chip</code> can be focused, but does not
-        gain depth while clicked or touched.
+        An example of rendering multiple chips from an array of values. Deleting a chip removes it from the array. Note
+        that since no
+        <code>onClick</code> prop is defined, the <code>Chip</code> can be focused, but does not gain depth while
+        clicked or touched.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -227,10 +225,9 @@ function ChipsDoc(props) {
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        If the Chip is deletable or clickable then it is a button in tab order. When the Chip is
-        focused (e.g. when tabbing) releasing (<code>keyup</code> event) <code>Backspace</code> or{' '}
-        <code>Delete</code> will call the <code>onDelete</code> handler while releasing{' '}
-        <code>Escape</code> will blur the Chip.
+        If the Chip is deletable or clickable then it is a button in tab order. When the Chip is focused (e.g. when
+        tabbing) releasing (<code>keyup</code> event) <code>Backspace</code> or <code>Delete</code> will call the{' '}
+        <code>onDelete</code> handler while releasing <code>Escape</code> will blur the Chip.
       </Typography>
     </>
   );

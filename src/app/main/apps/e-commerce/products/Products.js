@@ -9,11 +9,7 @@ function Products() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
 
   return (
-    <FusePageCarded
-      header={<ProductsHeader />}
-      content={<ProductsTable />}
-      scroll={isMobile ? 'normal' : 'content'}
-    />
+    <FusePageCarded header={<ProductsHeader />} content={<ProductsTable />} scroll={isMobile ? 'normal' : 'content'} />
   );
 }
 

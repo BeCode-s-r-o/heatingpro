@@ -28,8 +28,7 @@ function PopperDoc(props) {
         Popper
       </Typography>
       <Typography className="description">
-        A Popper can be used to display some content on top of another. It's an alternative to
-        react-popper.
+        A Popper can be used to display some content on top of another. It's an alternative to react-popper.
       </Typography>
 
       <Typography className="mb-40" component="div">
@@ -37,8 +36,8 @@ function PopperDoc(props) {
       </Typography>
       <ul>
         <li>
-          🕷 Popper relies on the 3rd party library (<a href="https://popper.js.org/">Popper.js</a>)
-          for perfect positioning.
+          🕷 Popper relies on the 3rd party library (<a href="https://popper.js.org/">Popper.js</a>) for perfect
+          positioning.
         </li>
         <li>💄 It&#39;s an alternative API to react-popper. It aims for simplicity.</li>
         <li>
@@ -49,8 +48,8 @@ function PopperDoc(props) {
           <a href="/material-ui/react-portal/">
             <code>Portal</code>
           </a>{' '}
-          to the body of the document to avoid rendering problems. You can disable this behavior
-          with <code>disablePortal</code>.
+          to the body of the document to avoid rendering problems. You can disable this behavior with{' '}
+          <code>disablePortal</code>.
         </li>
         <li>
           The scroll isn&#39;t blocked like with the{' '}
@@ -60,8 +59,7 @@ function PopperDoc(props) {
           component. The placement of the popper updates with the available area in the viewport.
         </li>
         <li>
-          Clicking away does not hide the <code>Popper</code> component. If you need this behavior,
-          you can use{' '}
+          Clicking away does not hide the <code>Popper</code> component. If you need this behavior, you can use{' '}
           <a href="/material-ui/react-click-away-listener/">
             <code>ClickAwayListener</code>
           </a>{' '}
@@ -69,8 +67,7 @@ function PopperDoc(props) {
           <a href="/material-ui/react-menu/#menulist-composition">menu documentation section</a>.
         </li>
         <li>
-          The <code>anchorEl</code> is passed as the reference object to create a new{' '}
-          <code>Popper.js</code> instance.
+          The <code>anchorEl</code> is passed as the reference object to create a new <code>Popper.js</code> instance.
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -89,8 +86,8 @@ function PopperDoc(props) {
         Transitions
       </Typography>
       <Typography className="mb-40" component="div">
-        The open/close state of the popper can be animated with a render prop child and a transition
-        component. This component should respect the following conditions:
+        The open/close state of the popper can be animated with a render prop child and a transition component. This
+        component should respect the following conditions:
       </Typography>
       <ul>
         <li>Be a direct child descendent of the popper.</li>
@@ -98,9 +95,8 @@ function PopperDoc(props) {
           Call the <code>onEnter</code> callback prop when the enter transition starts.
         </li>
         <li>
-          Call the <code>onExited</code> callback prop when the exit transition is completed. These
-          two callbacks allow the popper to unmount the child content when closed and fully
-          transitioned.
+          Call the <code>onExited</code> callback prop when the exit transition is completed. These two callbacks allow
+          the popper to unmount the child content when closed and fully transitioned.
         </li>
       </ul>
       <Typography className="mb-40" component="div">
@@ -117,8 +113,7 @@ function PopperDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        Alternatively, you can use <a href="https://github.com/pmndrs/react-spring">react-spring</a>
-        .
+        Alternatively, you can use <a href="https://github.com/pmndrs/react-spring">react-spring</a>.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -157,8 +152,8 @@ function PopperDoc(props) {
         Virtual element
       </Typography>
       <Typography className="mb-40" component="div">
-        The value of the <code>anchorEl</code> prop can be a reference to a fake DOM element. You
-        need to create an object shaped like the{' '}
+        The value of the <code>anchorEl</code> prop can be a reference to a fake DOM element. You need to create an
+        object shaped like the{' '}
         <a href="https://popper.js.org/docs/v2/virtual-elements/">
           <code>VirtualElement</code>
         </a>

@@ -87,9 +87,7 @@ function TaskDistributionWidget(props) {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden h-full">
       <div className="flex flex-col sm:flex-row items-start justify-between">
-        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">
-          Task Distribution
-        </Typography>
+        <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Task Distribution</Typography>
         <div className="mt-3 sm:mt-0 sm:ml-2">
           <Tabs
             value={tabValue}
@@ -101,12 +99,7 @@ function TaskDistributionWidget(props) {
             className="-mx-4 min-h-40"
             classes={{ indicator: 'flex justify-center bg-transparent w-full h-full' }}
             TabIndicatorProps={{
-              children: (
-                <Box
-                  sx={{ bgcolor: 'text.disabled' }}
-                  className="w-full h-full rounded-full opacity-20"
-                />
-              ),
+              children: <Box sx={{ bgcolor: 'text.disabled' }} className="w-full h-full rounded-full opacity-20" />,
             }}
           >
             {Object.entries(ranges).map(([key, label]) => (
@@ -138,15 +131,11 @@ function TaskDistributionWidget(props) {
         className="grid grid-cols-2 border-t divide-x -m-24 mt-16"
       >
         <div className="flex flex-col items-center justify-center p-24 sm:p-32">
-          <div className="text-5xl font-semibold leading-none tracking-tighter">
-            {overview[currentRange].new}
-          </div>
+          <div className="text-5xl font-semibold leading-none tracking-tighter">{overview[currentRange].new}</div>
           <Typography className="mt-4 text-center text-secondary">New tasks</Typography>
         </div>
         <div className="flex flex-col items-center justify-center p-6 sm:p-8">
-          <div className="text-5xl font-semibold leading-none tracking-tighter">
-            {overview[currentRange].completed}
-          </div>
+          <div className="text-5xl font-semibold leading-none tracking-tighter">{overview[currentRange].completed}</div>
           <Typography className="mt-4 text-center text-secondary">Completed tasks</Typography>
         </div>
       </Box>

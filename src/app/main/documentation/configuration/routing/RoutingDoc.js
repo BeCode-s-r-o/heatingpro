@@ -25,13 +25,13 @@ function RoutingDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        For the modular approach and route based Fuse settings, we are using config files and
-        generate routes from those files.
+        For the modular approach and route based Fuse settings, we are using config files and generate routes from those
+        files.
       </Typography>
 
       <Typography className="mb-16" component="p">
-        For example, have a look at the code below <code>MailboxAppConfig.js</code>. You can
-        override all settings for a particular route.
+        For example, have a look at the code below <code>MailboxAppConfig.js</code>. You can override all settings for a
+        particular route.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">

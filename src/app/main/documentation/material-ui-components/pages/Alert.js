@@ -28,8 +28,8 @@ function AlertDoc(props) {
         Alert
       </Typography>
       <Typography className="description">
-        An alert displays a short, important message in a way that attracts the user's attention
-        without interrupting the user's task.
+        An alert displays a short, important message in a way that attracts the user's attention without interrupting
+        the user's task.
       </Typography>
 
       <Typography className="mb-40" component="div">
@@ -55,8 +55,7 @@ function AlertDoc(props) {
         Description
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the <code>AlertTitle</code> component to display a formatted title above the
-        content.
+        You can use the <code>AlertTitle</code> component to display a formatted title above the content.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -71,13 +70,13 @@ function AlertDoc(props) {
         Actions
       </Typography>
       <Typography className="mb-40" component="div">
-        An alert can have an action, such as a close or undo button. It is rendered after the
-        message, at the end of the alert.
+        An alert can have an action, such as a close or undo button. It is rendered after the message, at the end of the
+        alert.
       </Typography>
       <Typography className="mb-40" component="div">
-        If an <code>onClose</code> callback is provided and no <code>action</code> prop is set, a
-        close icon is displayed. The <code>action</code> prop can be used to provide an alternative
-        action, for example using a Button or IconButton.
+        If an <code>onClose</code> callback is provided and no <code>action</code> prop is set, a close icon is
+        displayed. The <code>action</code> prop can be used to provide an alternative action, for example using a Button
+        or IconButton.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -92,8 +91,8 @@ function AlertDoc(props) {
         Transition
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use a <a href="/material-ui/transitions/">transition component</a> such as{' '}
-        <code>Collapse</code> to transition the appearance of the alert.
+        You can use a <a href="/material-ui/transitions/">transition component</a> such as <code>Collapse</code> to
+        transition the appearance of the alert.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -108,14 +107,12 @@ function AlertDoc(props) {
         Icons
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>icon</code> prop allows you to add an icon to the beginning of the alert
-        component. This will override the default icon for the specified severity.
+        The <code>icon</code> prop allows you to add an icon to the beginning of the alert component. This will override
+        the default icon for the specified severity.
       </Typography>
       <Typography className="mb-40" component="div">
-        You can change the default severity to icon mapping with the <code>iconMapping</code> prop.
-        This can be defined globally using{' '}
-        <a href="/material-ui/customization/theme-components/#default-props">theme customization</a>
-        .
+        You can change the default severity to icon mapping with the <code>iconMapping</code> prop. This can be defined
+        globally using <a href="/material-ui/customization/theme-components/#default-props">theme customization</a>.
       </Typography>
       <Typography className="mb-40" component="div">
         Setting the icon prop to <code>false</code> will remove the icon altogether.
@@ -152,8 +149,8 @@ function AlertDoc(props) {
         <a href="/material-ui/react-snackbar/#customization">
           <code>Snackbar</code> component
         </a>
-        , background content will be visible and bleed through the alert by default. You can prevent
-        this by adding <code>{`bgcolor: 'background.paper'`}</code> to the
+        , background content will be visible and bleed through the alert by default. You can prevent this by adding{' '}
+        <code>{`bgcolor: 'background.paper'`}</code> to the
         <a href="/material-ui/customization/how-to-customize/#the-sx-prop">
           <code>sx</code> prop
         </a>{' '}
@@ -175,8 +172,8 @@ function AlertDoc(props) {
         Toast
       </Typography>
       <Typography className="mb-40" component="div">
-        You can use the Snackbar to{' '}
-        <a href="/material-ui/react-snackbar/#customization">display a toast</a> with the Alert.
+        You can use the Snackbar to <a href="/material-ui/react-snackbar/#customization">display a toast</a> with the
+        Alert.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Color
@@ -198,21 +195,17 @@ function AlertDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         (WAI-ARIA:{' '}
-        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">
-          https://www.w3.org/WAI/ARIA/apg/patterns/alert/
-        </a>
-        )
+        <a href="https://www.w3.org/WAI/ARIA/apg/patterns/alert/">https://www.w3.org/WAI/ARIA/apg/patterns/alert/</a>)
       </Typography>
       <Typography className="mb-40" component="div">
-        When the component is dynamically displayed, the content is automatically announced by most
-        screen readers. At this time, screen readers do not inform users of alerts that are present
-        when the page loads.
+        When the component is dynamically displayed, the content is automatically announced by most screen readers. At
+        this time, screen readers do not inform users of alerts that are present when the page loads.
       </Typography>
       <Typography className="mb-40" component="div">
-        Using color to add meaning only provides a visual indication, which will not be conveyed to
-        users of assistive technologies such as screen readers. Ensure that information denoted by
-        the color is either obvious from the content itself (for example the visible text), or is
-        included through alternative means, such as additional hidden text.
+        Using color to add meaning only provides a visual indication, which will not be conveyed to users of assistive
+        technologies such as screen readers. Ensure that information denoted by the color is either obvious from the
+        content itself (for example the visible text), or is included through alternative means, such as additional
+        hidden text.
       </Typography>
       <Typography className="mb-40" component="div">
         Actions must have a tab index of 0 so that they can be reached by keyboard-only users.

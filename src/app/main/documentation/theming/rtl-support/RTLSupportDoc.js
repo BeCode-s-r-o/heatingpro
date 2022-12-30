@@ -40,9 +40,9 @@ function RTLSupportDoc() {
         <a href="https://github.com/alitaheri/jss-rtl" target="_blank" rel="noopener noreferrer">
           <code>jss-rtl</code>
         </a>{' '}
-        enables right-to-left support by flipping every rule of the jss styles on the x-axis. You
-        can write the application left-to-right and then turn it into right-to-left using this
-        plugin. Or you can start right-to-left and turn it into left-to-right.
+        enables right-to-left support by flipping every rule of the jss styles on the x-axis. You can write the
+        application left-to-right and then turn it into right-to-left using this plugin. Or you can start right-to-left
+        and turn it into left-to-right.
       </Typography>
 
       <Typography className="mb-16" component="p">
@@ -53,8 +53,8 @@ function RTLSupportDoc() {
         >
           <code>TailwindCss's rtl and ltr modifiers</code>
         </a>{' '}
-        are a custom direction variant to your tailwind project, letting you have custom CSS rules
-        for LTR and RTL layouts. For example:
+        are a custom direction variant to your tailwind project, letting you have custom CSS rules for LTR and RTL
+        layouts. For example:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">
@@ -70,8 +70,8 @@ function RTLSupportDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        The theme's language direction depends on the theme language. So There is no need to define
-        direction value. Checkout{' '}
+        The theme's language direction depends on the theme language. So There is no need to define direction value.
+        Checkout{' '}
         <Link className="link mx-8" to="/documentation/mock-api">
           Multi Language configuration
         </Link>

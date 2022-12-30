@@ -47,19 +47,14 @@ function HelpCenterSupport() {
             Back to Help Center
           </Button>
         </div>
-        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">
-          Contact support
-        </div>
+        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">Contact support</div>
 
         <Paper className="mt-32 sm:mt-48 p-24 pb-28 sm:p-40 sm:pb-28 rounded-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="px-0 sm:px-24">
             <div className="mb-24">
-              <Typography className="text-2xl font-bold tracking-tight">
-                Submit your request
-              </Typography>
+              <Typography className="text-2xl font-bold tracking-tight">Submit your request</Typography>
               <Typography color="text.secondary">
-                Your request will be processed and our support staff will get back to you in 24
-                hours.
+                Your request will be processed and our support staff will get back to you in 24 hours.
               </Typography>
             </div>
             <div className="space-y-32">

@@ -22,8 +22,8 @@ function FuseNavigationDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseNavigation</code> is a custom-built Fuse component that allows you to create a
-        multi-level collapsable navigation.
+        <code>FuseNavigation</code> is a custom-built Fuse component that allows you to create a multi-level collapsable
+        navigation.
       </Typography>
 
       <Typography className="text-16 mt-16 mb-10 font-700" variant="h6">
@@ -31,9 +31,9 @@ function FuseNavigationDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseNavigation</code> uses an array to populate the entire navigation. It supports
-        four different navigation items; Group, Collapse, Item. and Divider. These items can be
-        mixed and matched to create unique and complex navigation layouts.
+        <code>FuseNavigation</code> uses an array to populate the entire navigation. It supports four different
+        navigation items; Group, Collapse, Item. and Divider. These items can be mixed and matched to create unique and
+        complex navigation layouts.
       </Typography>
 
       <Typography className="text-16 mt-16 mb-10 font-700" variant="h6">
@@ -49,8 +49,8 @@ function FuseNavigationDoc(props) {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You can set <b>active</b> to "square" to use square active item style instead of
-        rounded/circle for <b>vertical layout</b>.
+        You can set <b>active</b> to "square" to use square active item style instead of rounded/circle for{' '}
+        <b>vertical layout</b>.
       </Typography>
 
       <Typography className="text-16 mt-16 mb-10 font-700" variant="h6">
@@ -455,8 +455,7 @@ function FuseNavigationDoc(props) {
 
       <div className="border-1 rounded-16 p-16 my-16">
         <Typography className="text-16 mb-24" component="h2">
-          With the button below, "fusetheme.com" navigation item is added at the top of the
-          navigation array.
+          With the button below, "fusetheme.com" navigation item is added at the top of the navigation array.
         </Typography>
 
         <Button
@@ -504,8 +503,7 @@ function FuseNavigationDoc(props) {
 
       <div className="border-1 rounded-16 p-16 my-16">
         <Typography className="text-16 mb-24" component="h2">
-          With the button below, "fusetheme.com" navigation item is added into the top of the
-          "Dashboards" children.
+          With the button below, "fusetheme.com" navigation item is added into the top of the "Dashboards" children.
         </Typography>
 
         <Button
@@ -567,8 +565,7 @@ function FuseNavigationDoc(props) {
 
       <div className="border-1 rounded-16 p-16 my-16">
         <Typography className="text-16 mb-24" component="h2">
-          With the button below, "fusetheme.com" navigation item is added at the bottom of the
-          array.
+          With the button below, "fusetheme.com" navigation item is added at the bottom of the array.
         </Typography>
 
         <Button
@@ -615,8 +612,7 @@ function FuseNavigationDoc(props) {
 
       <div className="border-1 rounded-16 p-16 my-16">
         <Typography className="text-16 mb-24" component="h2">
-          With the button below, "fusetheme.com" navigation item is added into the bottom of the
-          "Dashboards" children.
+          With the button below, "fusetheme.com" navigation item is added into the bottom of the "Dashboards" children.
         </Typography>
 
         <Button

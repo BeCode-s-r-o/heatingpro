@@ -112,12 +112,7 @@ function PaletteSelector(props) {
                 name="palette.mode"
                 control={control}
                 render={({ field: { onChange: _onChange, value: _value } }) => (
-                  <ButtonGroup
-                    disableElevation
-                    variant="contained"
-                    color="secondary"
-                    className="mb-32"
-                  >
+                  <ButtonGroup disableElevation variant="contained" color="secondary" className="mb-32">
                     <Button
                       onClick={async () => {
                         _onChange('light');
@@ -155,11 +150,9 @@ function PaletteSelector(props) {
                       setValue('palette.primary.dark', darken(ev.target.value, 0.2), {
                         shouldDirty: true,
                       });
-                      setValue(
-                        'palette.primary.contrastText',
-                        theme.palette.getContrastText(ev.target.value),
-                        { shouldDirty: true }
-                      );
+                      setValue('palette.primary.contrastText', theme.palette.getContrastText(ev.target.value), {
+                        shouldDirty: true,
+                      });
                     }}
                     type="color"
                     variant="outlined"
@@ -184,11 +177,9 @@ function PaletteSelector(props) {
                       setValue('palette.secondary.dark', darken(ev.target.value, 0.2), {
                         shouldDirty: true,
                       });
-                      setValue(
-                        'palette.secondary.contrastText',
-                        theme.palette.getContrastText(ev.target.value),
-                        { shouldDirty: true }
-                      );
+                      setValue('palette.secondary.contrastText', theme.palette.getContrastText(ev.target.value), {
+                        shouldDirty: true,
+                      });
                     }}
                     type="color"
                     variant="outlined"

@@ -22,15 +22,12 @@ export const dismissItem = createAsyncThunk('notificationPanel/dismissItem', asy
   return id;
 });
 
-export const addNotification = createAsyncThunk(
-  'notificationPanel/addNotification',
-  async (item) => {
-    const response = await axios.post(`/api/notifications`, { ...item });
-    const data = await response.data;
+export const addNotification = createAsyncThunk('notificationPanel/addNotification', async (item) => {
+  const response = await axios.post(`/api/notifications`, { ...item });
+  const data = await response.data;
 
-    return data;
-  }
-);
+  return data;
+});
 
 const notificationsAdapter = createEntityAdapter({});
 
@@ -44,13 +41,10 @@ const dataSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [dismissItem.fulfilled]: (state, action) =>
-      notificationsAdapter.removeOne(state, action.payload),
+    [dismissItem.fulfilled]: (state, action) => notificationsAdapter.removeOne(state, action.payload),
     [dismissAll.fulfilled]: (state, action) => notificationsAdapter.removeAll(state),
-    [getNotifications.fulfilled]: (state, action) =>
-      notificationsAdapter.addMany(state, action.payload),
-    [addNotification.fulfilled]: (state, action) =>
-      notificationsAdapter.addOne(state, action.payload),
+    [getNotifications.fulfilled]: (state, action) => notificationsAdapter.addMany(state, action.payload),
+    [addNotification.fulfilled]: (state, action) => notificationsAdapter.addOne(state, action.payload),
   },
 });
 

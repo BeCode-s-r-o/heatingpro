@@ -212,11 +212,7 @@ const FusePageSimple = forwardRef((props, ref) => {
         })}
       />
       <Root
-        className={clsx(
-          'FusePageSimple-root',
-          `FusePageSimple-scroll-${props.scroll}`,
-          props.className
-        )}
+        className={clsx('FusePageSimple-root', `FusePageSimple-scroll-${props.scroll}`, props.className)}
         ref={rootRef}
         scroll={props.scroll}
         leftsidebarwidth={props.leftSidebarWidth}

@@ -33,8 +33,7 @@ function ButtonsDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        Buttons communicate actions that users can take. They are typically placed throughout your
-        UI, in places like:
+        Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:
       </Typography>
       <ul>
         <li>Modal windows</li>
@@ -62,8 +61,8 @@ function ButtonsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         <a href="https://m2.material.io/components/buttons#text-button">Text buttons</a>
-        are typically used for less-pronounced actions, including those located: in dialogs, in
-        cards. In cards, text buttons help maintain an emphasis on card content.
+        are typically used for less-pronounced actions, including those located: in dialogs, in cards. In cards, text
+        buttons help maintain an emphasis on card content.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -79,8 +78,8 @@ function ButtonsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         <a href="https://m2.material.io/components/buttons#contained-button">Contained buttons</a>
-        are high-emphasis, distinguished by their use of elevation and fill. They contain actions
-        that are primary to your app.
+        are high-emphasis, distinguished by their use of elevation and fill. They contain actions that are primary to
+        your app.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -107,13 +106,12 @@ function ButtonsDoc(props) {
         Outlined button
       </Typography>
       <Typography className="mb-40" component="div">
-        <a href="https://m2.material.io/components/buttons#outlined-button">Outlined buttons</a> are
-        medium-emphasis buttons. They contain actions that are important but aren&#39;t the primary
-        action in an app.
+        <a href="https://m2.material.io/components/buttons#outlined-button">Outlined buttons</a> are medium-emphasis
+        buttons. They contain actions that are important but aren&#39;t the primary action in an app.
       </Typography>
       <Typography className="mb-40" component="div">
-        Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher
-        emphasis alternative to text buttons.
+        Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher emphasis alternative to
+        text buttons.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -128,8 +126,7 @@ function ButtonsDoc(props) {
         Handling clicks
       </Typography>
       <Typography className="mb-40" component="div">
-        All components accept an <code>onClick</code> handler that is applied to the root DOM
-        element.
+        All components accept an <code>onClick</code> handler that is applied to the root DOM element.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -144,8 +141,8 @@ function ButtonsDoc(props) {
 `}
       </FuseHighlight>
       <Typography className="mb-40" component="div">
-        Note that the documentation <a href="/material-ui/guides/api/#native-properties">avoids</a>{' '}
-        mentioning native props (there are a lot) in the API section of the components.
+        Note that the documentation <a href="/material-ui/guides/api/#native-properties">avoids</a> mentioning native
+        props (there are a lot) in the API section of the components.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Color
@@ -160,10 +157,8 @@ function ButtonsDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        In addition to using the default button colors, you can add custom ones, or disable any you
-        don&#39;t need. See the{' '}
-        <a href="/material-ui/customization/palette/#adding-new-colors">Adding new colors</a>{' '}
-        example for more info.
+        In addition to using the default button colors, you can add custom ones, or disable any you don&#39;t need. See
+        the <a href="/material-ui/customization/palette/#adding-new-colors">Adding new colors</a> example for more info.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Sizes
@@ -196,9 +191,9 @@ function ButtonsDoc(props) {
         Buttons with icons and label
       </Typography>
       <Typography className="mb-40" component="div">
-        Sometimes you might want to have icons for certain buttons to enhance the UX of the
-        application as we recognize logos more easily than plain text. For example, if you have a
-        delete button you can label it with a dustbin icon.
+        Sometimes you might want to have icons for certain buttons to enhance the UX of the application as we recognize
+        logos more easily than plain text. For example, if you have a delete button you can label it with a dustbin
+        icon.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -216,8 +211,8 @@ function ButtonsDoc(props) {
         Icon buttons are commonly found in app bars and toolbars.
       </Typography>
       <Typography className="mb-40" component="div">
-        Icons are also appropriate for toggle buttons that allow a single choice to be selected or
-        deselected, such as adding or removing a star to an item.
+        Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as
+        adding or removing a star to an item.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -276,10 +271,7 @@ function ButtonsDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/button/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/button/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Loading button
@@ -312,9 +304,9 @@ function ButtonsDoc(props) {
         Complex button
       </Typography>
       <Typography className="mb-40" component="div">
-        The Text Buttons, Contained Buttons, Floating Action Buttons and Icon Buttons are built on
-        top of the same component: the <code>ButtonBase</code>. You can take advantage of this
-        lower-level component to build custom interactions.
+        The Text Buttons, Contained Buttons, Floating Action Buttons and Icon Buttons are built on top of the same
+        component: the <code>ButtonBase</code>. You can take advantage of this lower-level component to build custom
+        interactions.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -329,9 +321,8 @@ function ButtonsDoc(props) {
         Third-party routing library
       </Typography>
       <Typography className="mb-40" component="div">
-        One frequent use case is to perform navigation on the client only, without an HTTP
-        round-trip to the server. The <code>ButtonBase</code> component provides the{' '}
-        <code>component</code> prop to handle this use case. Here is a{' '}
+        One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server. The{' '}
+        <code>ButtonBase</code> component provides the <code>component</code> prop to handle this use case. Here is a{' '}
         <a href="/material-ui/guides/routing/#button">more detailed guide</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -341,16 +332,16 @@ function ButtonsDoc(props) {
         Cursor not-allowed
       </Typography>
       <Typography className="mb-40" component="div">
-        The ButtonBase component sets <code>pointer-events: none;</code> on disabled buttons, which
-        prevents the appearance of a disabled cursor.
+        The ButtonBase component sets <code>pointer-events: none;</code> on disabled buttons, which prevents the
+        appearance of a disabled cursor.
       </Typography>
       <Typography className="mb-40" component="div">
         If you wish to use <code>not-allowed</code>, you have two options:
       </Typography>
       <ol>
         <li>
-          <strong>CSS only</strong>. You can remove the pointer-events style on the disabled state
-          of the <code>{`<button>`}</code> element:
+          <strong>CSS only</strong>. You can remove the pointer-events style on the disabled state of the{' '}
+          <code>{`<button>`}</code> element:
         </li>
       </ol>
 
@@ -371,8 +362,8 @@ function ButtonsDoc(props) {
           <a href="/material-ui/react-tooltip/#disabled-elements">tooltips on disabled elements</a>.
         </li>
         <li>
-          The cursor won&#39;t change if you render something other than a button element, for
-          instance, a link <code>{`<a>`}</code> element.
+          The cursor won&#39;t change if you render something other than a button element, for instance, a link{' '}
+          <code>{`<a>`}</code> element.
         </li>
       </ul>
       <ol start="2">
@@ -391,8 +382,7 @@ function ButtonsDoc(props) {
 `}
       </FuseHighlight>
       <Typography className="mb-40" component="div">
-        This has the advantage of supporting any element, for instance, a link <code>{`<a>`}</code>{' '}
-        element.
+        This has the advantage of supporting any element, for instance, a link <code>{`<a>`}</code> element.
       </Typography>
     </>
   );

@@ -27,31 +27,28 @@ function MenusDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Menu
       </Typography>
-      <Typography className="description">
-        Menus display a list of choices on temporary surfaces.
-      </Typography>
+      <Typography className="description">Menus display a list of choices on temporary surfaces.</Typography>
 
       <Typography className="mb-40" component="div">
-        A menu displays a list of choices on a temporary surface. It appears when the user interacts
-        with a button, or other control.
+        A menu displays a list of choices on a temporary surface. It appears when the user interacts with a button, or
+        other control.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic menu
       </Typography>
       <Typography className="mb-40" component="div">
         A basic menu opens over the anchor element by default (this option can be{' '}
-        <a href="#menu-positioning">changed</a> via props). When close to a screen edge, a basic
-        menu vertically realigns to make sure that all menu items are completely visible.
+        <a href="#menu-positioning">changed</a> via props). When close to a screen edge, a basic menu vertically
+        realigns to make sure that all menu items are completely visible.
       </Typography>
       <Typography className="mb-40" component="div">
         Choosing an option should immediately ideally commit the option and close the menu.
       </Typography>
       <Typography className="mb-40" component="div">
-        <strong>Disambiguation</strong>: In contrast to simple menus, simple dialogs can present
-        additional detail related to the options available for a list item or provide navigational
-        or orthogonal actions related to the primary task. Although they can display the same
-        content, simple menus are preferred over simple dialogs because simple menus are less
-        disruptive to the user&#39;s current context.
+        <strong>Disambiguation</strong>: In contrast to simple menus, simple dialogs can present additional detail
+        related to the options available for a list item or provide navigational or orthogonal actions related to the
+        primary task. Although they can display the same content, simple menus are preferred over simple dialogs because
+        simple menus are less disruptive to the user&#39;s current context.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -81,8 +78,8 @@ function MenusDoc(props) {
         Dense menu
       </Typography>
       <Typography className="mb-40" component="div">
-        For the menu that has long list and long text, you can use the <code>dense</code> prop to
-        reduce the padding and text size.
+        For the menu that has long list and long text, you can use the <code>dense</code> prop to reduce the padding and
+        text size.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -97,10 +94,10 @@ function MenusDoc(props) {
         Selected menu
       </Typography>
       <Typography className="mb-40" component="div">
-        If used for item selection, when opened, simple menus places the initial focus on the
-        selected menu item. The currently selected menu item is set using the <code>selected</code>{' '}
-        prop (from <a href="/material-ui/api/list-item/">ListItem</a>). To use a selected menu item
-        without impacting the initial focus, set the <code>variant</code> prop to &quot;menu&quot;.
+        If used for item selection, when opened, simple menus places the initial focus on the selected menu item. The
+        currently selected menu item is set using the <code>selected</code> prop (from{' '}
+        <a href="/material-ui/api/list-item/">ListItem</a>). To use a selected menu item without impacting the initial
+        focus, set the <code>variant</code> prop to &quot;menu&quot;.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -115,10 +112,9 @@ function MenusDoc(props) {
         Positioned menu
       </Typography>
       <Typography className="mb-40" component="div">
-        Because the <code>Menu</code> component uses the <code>Popover</code> component to position
-        itself, you can use the same{' '}
-        <a href="/material-ui/react-popover/#anchor-playground">positioning props</a> to position
-        it. For instance, you can display the menu on top of the anchor:
+        Because the <code>Menu</code> component uses the <code>Popover</code> component to position itself, you can use
+        the same <a href="/material-ui/react-popover/#anchor-playground">positioning props</a> to position it. For
+        instance, you can display the menu on top of the anchor:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -133,10 +129,9 @@ function MenusDoc(props) {
         MenuList composition
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>Menu</code> component uses the <code>Popover</code> component internally. However,
-        you might want to use a different positioning strategy, or not blocking the scroll. For
-        answering those needs, we expose a <code>MenuList</code> component that you can compose,
-        with <code>Popper</code> in this example.
+        The <code>Menu</code> component uses the <code>Popover</code> component internally. However, you might want to
+        use a different positioning strategy, or not blocking the scroll. For answering those needs, we expose a{' '}
+        <code>MenuList</code> component that you can compose, with <code>Popper</code> in this example.
       </Typography>
       <Typography className="mb-40" component="div">
         The primary responsibility of the <code>MenuList</code> component is to handle the focus.
@@ -182,23 +177,18 @@ function MenusDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>MenuItem</code> is a wrapper around <code>ListItem</code> with some additional
-        styles. You can use the same list composition features with the <code>MenuItem</code>{' '}
-        component:
+        The <code>MenuItem</code> is a wrapper around <code>ListItem</code> with some additional styles. You can use the
+        same list composition features with the <code>MenuItem</code> component:
       </Typography>
       <Typography className="mb-40" component="div">
         🎨 If you are looking for inspiration, you can check{' '}
-        <a href="https://mui-treasury.com/styles/menu/">
-          MUI Treasury&#39;s customization examples
-        </a>
-        .
+        <a href="https://mui-treasury.com/styles/menu/">MUI Treasury&#39;s customization examples</a>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Max height menu
       </Typography>
       <Typography className="mb-40" component="div">
-        If the height of a menu prevents all menu items from being displayed, the menu can scroll
-        internally.
+        If the height of a menu prevents all menu items from being displayed, the menu can scroll internally.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -213,10 +203,9 @@ function MenusDoc(props) {
         Limitations
       </Typography>
       <Typography className="mb-40" component="div">
-        There is{' '}
-        <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=327437">a flexbox bug</a>{' '}
-        that prevents <code>text-overflow: ellipsis</code> from working in a flexbox layout. You can
-        use the <code>Typography</code> component with <code>noWrap</code> to workaround this issue:
+        There is <a href="https://bugs.chromium.org/p/chromium/issues/detail?id=327437">a flexbox bug</a> that prevents{' '}
+        <code>text-overflow: ellipsis</code> from working in a flexbox layout. You can use the <code>Typography</code>{' '}
+        component with <code>noWrap</code> to workaround this issue:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

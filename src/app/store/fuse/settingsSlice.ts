@@ -1,4 +1,4 @@
-//@ts-nocheck
+// @ts-nocheck
 /* eslint-disable import/no-named-as-default */
 import { createTheme, getContrastRatio } from '@mui/material/styles';
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';

@@ -57,11 +57,7 @@ function CardChecklist(props) {
             control={control}
             defaultValue=""
             render={({ field: { onChange, value } }) => (
-              <CardChecklistName
-                name={value}
-                onNameChange={(val) => onChange(val)}
-                ref={checkListNameRef}
-              />
+              <CardChecklistName name={value} onNameChange={(val) => onChange(val)} ref={checkListNameRef} />
             )}
           />
         </div>
@@ -75,12 +71,7 @@ function CardChecklist(props) {
           >
             <FuseSvgIcon size={20}>heroicons-outline:dots-vertical</FuseSvgIcon>
           </IconButton>
-          <Menu
-            id="actions-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-          >
+          <Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
             <MenuItem onClick={props.onRemoveCheckList}>
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:trash</FuseSvgIcon>

@@ -1,9 +1,4 @@
-import {
-  createAsyncThunk,
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import _ from '@lodash';
 import { selectFaqCategories } from './faqCategoriesSlice';
@@ -30,14 +25,11 @@ const faqsSlice = createSlice({
   },
 });
 
-export const selectGroupedFaqs = createSelector(
-  [selectFaqs, selectFaqCategories],
-  (faqs, categories) => {
-    return categories.map((category) => ({
-      ...category,
-      faqs: _.filter(faqs, { categoryId: category.id }),
-    }));
-  }
-);
+export const selectGroupedFaqs = createSelector([selectFaqs, selectFaqCategories], (faqs, categories) => {
+  return categories.map((category) => ({
+    ...category,
+    faqs: _.filter(faqs, { categoryId: category.id }),
+  }));
+});
 
 export default faqsSlice.reducer;

@@ -9,8 +9,7 @@ function HerokuNotesDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You may encounter some issues if you want to deploy fuse-react to heroku, here is the
-        solution:
+        You may encounter some issues if you want to deploy fuse-react to heroku, here is the solution:
       </Typography>
 
       <Typography className="text-16 mt-16 mb-10 font-700" variant="h6">

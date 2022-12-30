@@ -36,12 +36,7 @@ function DocumentationPageBreadcrumb({ className }) {
   return (
     <div className={clsx('', className)}>
       <Breadcrumbs aria-label="breadcrumb">
-        <Link
-          className="font-semibold hover:underline"
-          color="secondary"
-          to="/documentation"
-          role="button"
-        >
+        <Link className="font-semibold hover:underline" color="secondary" to="/documentation" role="button">
           Documentation
         </Link>
         {pathArr.map((item) => (

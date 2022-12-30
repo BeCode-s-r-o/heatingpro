@@ -8,8 +8,7 @@ function DeploymentDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You may have issues when refreshing the app URL. If so, you need to configure server
-        settings.
+        You may have issues when refreshing the app URL. If so, you need to configure server settings.
       </Typography>
 
       <Typography className="mb-16" component="p">

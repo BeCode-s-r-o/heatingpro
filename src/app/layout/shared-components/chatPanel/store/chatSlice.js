@@ -4,18 +4,15 @@ import { setSelectedContactId } from './contactsSlice';
 import { closeChatPanel } from './stateSlice';
 import { getChats } from './chatsSlice';
 
-export const getChat = createAsyncThunk(
-  'chatPanel/chat/getChat',
-  async (contactId, { dispatch, getState }) => {
-    const response = await axios.get(`/api/chat/chats/${contactId}`);
+export const getChat = createAsyncThunk('chatPanel/chat/getChat', async (contactId, { dispatch, getState }) => {
+  const response = await axios.get(`/api/chat/chats/${contactId}`);
 
-    const data = await response.data;
+  const data = await response.data;
 
-    dispatch(setSelectedContactId(contactId));
+  dispatch(setSelectedContactId(contactId));
 
-    return data;
-  }
-);
+  return data;
+});
 
 export const sendMessage = createAsyncThunk(
   'chatPanel/chat/sendMessage',

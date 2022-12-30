@@ -28,10 +28,7 @@ function SectionListItem(props) {
                 heroicons-solid:menu
               </FuseSvgIcon>
             </div>
-            <ListItemText
-              classes={{ root: 'm-0', primary: 'font-semibold text-16 truncate' }}
-              primary={data.title}
-            />
+            <ListItemText classes={{ root: 'm-0', primary: 'font-semibold text-16 truncate' }} primary={data.title} />
           </ListItem>
           <Divider />
         </>

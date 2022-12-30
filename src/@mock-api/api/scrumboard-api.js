@@ -42,89 +42,79 @@ mock.onGet(/\/api\/scrumboard\/boards\/(?<id>[^/]+)\/labels/).reply((config) => 
  * CREATE CARD
  * PUT api/scrumboard/boards/{boardId}/lists/{listId}/cards
  */
-mock
-  .onPost(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)\/cards/)
-  .reply(({ url, data }) => {
-    const { boardId, listId } = url.match(
-      /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)\/cards/
-    ).groups;
+mock.onPost(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)\/cards/).reply(({ url, data }) => {
+  const { boardId, listId } = url.match(
+    /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)\/cards/
+  ).groups;
 
-    const newCard = {
-      title: '',
-      description: '',
-      labels: [],
-      dueDate: '',
-      attachmentCoverId: '',
-      memberIds: [],
-      attachments: [],
-      subscribed: true,
-      checklists: [],
-      activities: [],
-      ...JSON.parse(data),
-      id: FuseUtils.generateGUID(),
-      boardId,
-      listId,
-    };
+  const newCard = {
+    title: '',
+    description: '',
+    labels: [],
+    dueDate: '',
+    attachmentCoverId: '',
+    memberIds: [],
+    attachments: [],
+    subscribed: true,
+    checklists: [],
+    activities: [],
+    ...JSON.parse(data),
+    id: FuseUtils.generateGUID(),
+    boardId,
+    listId,
+  };
 
-    cardsDB.push(newCard);
+  cardsDB.push(newCard);
 
-    const board = _.find(boardsDB, { id: boardId });
+  const board = _.find(boardsDB, { id: boardId });
 
-    // Add card into board
-    _.assign(board, {
-      ...board,
-      lists: board.lists.map((list) =>
-        list.id === listId ? { ...list, cards: [...list.cards, newCard.id] } : list
-      ),
-    });
-
-    return [200, newCard];
+  // Add card into board
+  _.assign(board, {
+    ...board,
+    lists: board.lists.map((list) => (list.id === listId ? { ...list, cards: [...list.cards, newCard.id] } : list)),
   });
+
+  return [200, newCard];
+});
 
 /**
  * UPDATE CARD
  * PUT api/scrumboard/boards/{boardId}/cards/{cardId}
  */
-mock
-  .onPut(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/)
-  .reply(({ url, data }) => {
-    const { boardId, cardId } = url.match(
-      /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/
-    ).groups;
+mock.onPut(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/).reply(({ url, data }) => {
+  const { boardId, cardId } = url.match(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/).groups;
 
-    const card = _.find(cardsDB, { id: cardId });
+  const card = _.find(cardsDB, { id: cardId });
 
-    _.assign(card, JSON.parse(data));
-    return [200, card];
-  });
+  _.assign(card, JSON.parse(data));
+  return [200, card];
+});
 
 /**
  * DELETE CARD
  * api/scrumboard/boards/{boardId}/cards/{cardId}
  */
-mock
-  .onDelete(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/)
-  .reply((config) => {
-    const { boardId, cardId } = config.url.match(
-      /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/
-    ).groups;
+mock.onDelete(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/).reply((config) => {
+  const { boardId, cardId } = config.url.match(
+    /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/cards\/(?<cardId>[^/]+)/
+  ).groups;
 
-    const board = _.find(boardsDB, { id: boardId });
+  const board = _.find(boardsDB, { id: boardId });
 
-    // Remove cards from board
-    _.assign(board, {
-      ...board,
-      lists: board.lists.map((list) => ({
-        ...list,
-        cards: _.reject(list.cards, (id) => id === cardId),
-      })),
-    });
-
-    // Remove card
-    _.remove(cardsDB, { id: cardId });
-
-    return [200, cardId];
+  // Remove cards from board
+  _.assign(board, {
+    ...board,
+    lists: board.lists.map((list) => ({
+      ...list,
+      cards: _.reject(list.cards, (id) => id === cardId),
+    })),
   });
+
+  // Remove card
+  _.remove(cardsDB, { id: cardId });
+
+  return [200, cardId];
+});
 
 /** GET LISTS BY BOARD ID
  * GET /api/scrumboard/boards/{boardId}/lists
@@ -139,19 +129,15 @@ mock.onGet(/\/api\/scrumboard\/boards\/(?<id>[^/]+)\/lists/).reply((config) => {
  * UPDATE LIST
  * PUT api/scrumboard/boards/{boardId}/lists/{listId}
  */
-mock
-  .onPut(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/)
-  .reply(({ url, data }) => {
-    const { boardId, listId } = url.match(
-      /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/
-    ).groups;
+mock.onPut(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/).reply(({ url, data }) => {
+  const { boardId, listId } = url.match(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/).groups;
 
-    const list = _.find(listsDB, { id: listId });
+  const list = _.find(listsDB, { id: listId });
 
-    _.assign(list, JSON.parse(data));
+  _.assign(list, JSON.parse(data));
 
-    return [200, list];
-  });
+  return [200, list];
+});
 
 /**
  * CREATE LIST
@@ -180,26 +166,24 @@ mock.onPost(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists/).reply(({ url,
  * DELETE LIST
  * DELETE api/scrumboard/boards/{boardId}/lists/{listId}
  */
-mock
-  .onDelete(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/)
-  .reply((config) => {
-    const { boardId, listId } = config.url.match(
-      /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/
-    ).groups;
+mock.onDelete(/\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/).reply((config) => {
+  const { boardId, listId } = config.url.match(
+    /\/api\/scrumboard\/boards\/(?<boardId>[^/]+)\/lists\/(?<listId>[^/]+)/
+  ).groups;
 
-    const board = _.find(boardsDB, { id: boardId });
+  const board = _.find(boardsDB, { id: boardId });
 
-    // Remove cards of the list
-    _.remove(cardsDB, { listId });
+  // Remove cards of the list
+  _.remove(cardsDB, { listId });
 
-    // Remove list from board
-    _.assign(board, { ...board, lists: _.reject(board.lists, { id: listId }) });
+  // Remove list from board
+  _.assign(board, { ...board, lists: _.reject(board.lists, { id: listId }) });
 
-    // Remove list
-    _.remove(listsDB, { id: listId });
+  // Remove list
+  _.remove(listsDB, { id: listId });
 
-    return [200, listId];
-  });
+  return [200, listId];
+});
 
 /**
  * GET BOARD CARDS

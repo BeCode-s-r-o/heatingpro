@@ -32,9 +32,9 @@ function PaperDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        The background of an application resembles the flat, opaque texture of a sheet of paper, and
-        an application&#39;s behavior mimics paper&#39;s ability to be re-sized, shuffled, and bound
-        together in multiple sheets.
+        The background of an application resembles the flat, opaque texture of a sheet of paper, and an
+        application&#39;s behavior mimics paper&#39;s ability to be re-sized, shuffled, and bound together in multiple
+        sheets.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic paper
@@ -67,9 +67,9 @@ function PaperDoc(props) {
         Elevation
       </Typography>
       <Typography className="mb-40" component="div">
-        The elevation can be used to establish a hierarchy between other content. In practical
-        terms, the elevation controls the size of the shadow applied to the surface. In dark mode,
-        raising the elevation also makes the surface lighter.
+        The elevation can be used to establish a hierarchy between other content. In practical terms, the elevation
+        controls the size of the shadow applied to the surface. In dark mode, raising the elevation also makes the
+        surface lighter.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -82,11 +82,11 @@ function PaperDoc(props) {
       </Typography>
       <Typography className="mb-40" component="div">
         The change of shade in dark mode is done by applying a semi-transparent gradient to the{' '}
-        <code>background-image</code> property. This can lead to confusion when overriding the
-        styles of <code>Paper</code>, as setting just the <code>background-color</code> property
-        will not affect the elevation-related shading. To ignore the shading and set the background
-        color that is not affected by elevation in dark mode, override the <code>background</code>{' '}
-        property (or both <code>background-color</code> and <code>background-image</code>).
+        <code>background-image</code> property. This can lead to confusion when overriding the styles of{' '}
+        <code>Paper</code>, as setting just the <code>background-color</code> property will not affect the
+        elevation-related shading. To ignore the shading and set the background color that is not affected by elevation
+        in dark mode, override the <code>background</code> property (or both <code>background-color</code> and{' '}
+        <code>background-image</code>).
       </Typography>
     </>
   );

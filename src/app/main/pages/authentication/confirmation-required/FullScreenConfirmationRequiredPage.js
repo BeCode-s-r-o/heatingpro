@@ -16,8 +16,8 @@ function FullScreenConfirmationRequiredPage() {
             Confirmation required
           </Typography>
           <Typography className="mt-16">
-            A confirmation mail with instructions has been sent to your email address. Follow those
-            instructions to confirm your email address and activate your account.
+            A confirmation mail with instructions has been sent to your email address. Follow those instructions to
+            confirm your email address and activate your account.
           </Typography>
 
           <Typography className="mt-32 text-md font-medium" color="text.secondary">
@@ -83,8 +83,8 @@ function FullScreenConfirmationRequiredPage() {
             <div>our community</div>
           </div>
           <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-            Fuse helps developers to build organized and well coded dashboards full of beautiful and
-            rich modules. Join us and start building your application today.
+            Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules. Join
+            us and start building your application today.
           </div>
           <div className="flex items-center mt-32">
             <AvatarGroup

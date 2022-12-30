@@ -78,9 +78,7 @@ const InvoiceTab = (props) => {
                 </Typography>
 
                 {props.order.customer.invoiceAddress.address && (
-                  <Typography color="text.secondary">
-                    {props.order.customer.invoiceAddress.address}
-                  </Typography>
+                  <Typography color="text.secondary">{props.order.customer.invoiceAddress.address}</Typography>
                 )}
                 {props.order.customer.phone && (
                   <Typography color="text.secondary">{props.order.customer.phone}</Typography>
@@ -124,9 +122,7 @@ const InvoiceTab = (props) => {
                       </TableCell>
                       <TableCell align="right">{formatter.format(product.price)}</TableCell>
                       <TableCell align="right">{product.quantity}</TableCell>
-                      <TableCell align="right">
-                        {formatter.format(product.price * product.quantity)}
-                      </TableCell>
+                      <TableCell align="right">{formatter.format(product.price * product.quantity)}</TableCell>
                     </TableRow>
                   ))}
                 </TableBody>
@@ -136,60 +132,36 @@ const InvoiceTab = (props) => {
                 <TableBody>
                   <TableRow>
                     <TableCell>
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         SUBTOTAL
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         {formatter.format(props.order.subtotal)}
                       </Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         TAX
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         {formatter.format(props.order.tax)}
                       </Typography>
                     </TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell>
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         DISCOUNT
                       </Typography>
                     </TableCell>
                     <TableCell align="right">
-                      <Typography
-                        className="font-normal"
-                        variant="subtitle1"
-                        color="text.secondary"
-                      >
+                      <Typography className="font-normal" variant="subtitle1" color="text.secondary">
                         {formatter.format(props.order.discount)}
                       </Typography>
                     </TableCell>
@@ -220,16 +192,12 @@ const InvoiceTab = (props) => {
                   <img className="w-32" src="assets/images/logo/logo.svg" alt="logo" />
                 </div>
 
-                <Typography
-                  className="font-normal mb-64 px-24"
-                  variant="caption"
-                  color="text.secondary"
-                >
-                  In condimentum malesuada efficitur. Mauris volutpat placerat auctor. Ut ac congue
-                  dolor. Quisque scelerisque lacus sed feugiat fermentum. Cras aliquet facilisis
-                  pellentesque. Nunc hendrerit quam at leo commodo, a suscipit tellus dapibus. Etiam
-                  at felis volutpat est mollis lacinia. Mauris placerat sem sit amet velit mollis,
-                  in porttitor ex finibus. Proin eu nibh id libero tincidunt lacinia et eget eros.
+                <Typography className="font-normal mb-64 px-24" variant="caption" color="text.secondary">
+                  In condimentum malesuada efficitur. Mauris volutpat placerat auctor. Ut ac congue dolor. Quisque
+                  scelerisque lacus sed feugiat fermentum. Cras aliquet facilisis pellentesque. Nunc hendrerit quam at
+                  leo commodo, a suscipit tellus dapibus. Etiam at felis volutpat est mollis lacinia. Mauris placerat
+                  sem sit amet velit mollis, in porttitor ex finibus. Proin eu nibh id libero tincidunt lacinia et eget
+                  eros.
                 </Typography>
               </div>
             </div>

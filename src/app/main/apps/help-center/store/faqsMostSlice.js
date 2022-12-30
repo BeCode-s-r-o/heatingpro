@@ -10,8 +10,9 @@ export const getFaqsMost = createAsyncThunk('helpCenterApp/faqsMost/get', async 
 
 const faqsMostAdapter = createEntityAdapter({});
 
-export const { selectAll: selectFaqsMost, selectById: selectFaqsMostById } =
-  faqsMostAdapter.getSelectors((state) => state.helpCenterApp.faqsMost);
+export const { selectAll: selectFaqsMost, selectById: selectFaqsMostById } = faqsMostAdapter.getSelectors(
+  (state) => state.helpCenterApp.faqsMost
+);
 
 const faqsMostSlice = createSlice({
   name: 'helpCenterApp/faqsMost',

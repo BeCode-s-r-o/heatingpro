@@ -21,16 +21,15 @@ function DevelopmentServerDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You can check out your console application to get further information about the server. By
-        default, it will run on <b>http://localhost:3000</b> but it might change depending on your
-        setup.
+        You can check out your console application to get further information about the server. By default, it will run
+        on <b>http://localhost:3000</b> but it might change depending on your setup.
       </Typography>
 
       <div className="my-24 px-24 py-16 border-1 border-red rounded-16">
         <Typography className="mb-8 font-500 text-16 text-red">Important:</Typography>
         <Typography className="" component="div">
-          If you have runtime errors on first run, make sure you are using at least LTS release of
-          Node.js. Remove node_modules and try again.
+          If you have runtime errors on first run, make sure you are using at least LTS release of Node.js. Remove
+          node_modules and try again.
         </Typography>
       </div>
     </>

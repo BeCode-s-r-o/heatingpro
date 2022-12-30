@@ -27,16 +27,14 @@ function ButtonGroupDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Button Group
       </Typography>
-      <Typography className="description">
-        The ButtonGroup component can be used to group related buttons.
-      </Typography>
+      <Typography className="description">The ButtonGroup component can be used to group related buttons.</Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Basic button group
       </Typography>
       <Typography className="mb-40" component="div">
-        The buttons can be grouped by wrapping them with the <code>ButtonGroup</code> component.
-        They need to be immediate children.
+        The buttons can be grouped by wrapping them with the <code>ButtonGroup</code> component. They need to be
+        immediate children.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -66,8 +64,7 @@ function ButtonGroupDoc(props) {
         Sizes and colors
       </Typography>
       <Typography className="mb-40" component="div">
-        The <code>size</code> and <code>color</code> props can be used to control the appearance of
-        the button group.
+        The <code>size</code> and <code>color</code> props can be used to control the appearance of the button group.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -97,8 +94,8 @@ function ButtonGroupDoc(props) {
         Split button
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>ButtonGroup</code> can also be used to create a split button. The dropdown can change
-        the button action (as in this example) or be used to immediately trigger a related action.
+        <code>ButtonGroup</code> can also be used to create a split button. The dropdown can change the button action
+        (as in this example) or be used to immediately trigger a related action.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

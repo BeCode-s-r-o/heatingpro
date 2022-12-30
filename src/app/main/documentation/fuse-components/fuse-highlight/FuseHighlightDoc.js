@@ -9,8 +9,7 @@ function FuseHighlightDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        <code>FuseHighlight</code> is a custom-built Fuse component allows us to show syntax
-        highlighted codes with
+        <code>FuseHighlight</code> is a custom-built Fuse component allows us to show syntax highlighted codes with
         <a href="http://prismjs.com/" target="_blank" rel="noopener noreferrer" className="ml-8">
           PrismJS
         </a>

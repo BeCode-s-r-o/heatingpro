@@ -62,9 +62,7 @@ function ChatApp(props) {
   }, [location, isMobile]);
 
   return (
-    <ChatAppContext.Provider
-      value={{ setMainSidebarOpen, setContactSidebarOpen, setUserSidebarOpen }}
-    >
+    <ChatAppContext.Provider value={{ setMainSidebarOpen, setContactSidebarOpen, setUserSidebarOpen }}>
       <Root
         content={<Outlet />}
         leftSidebarContent={<MainSidebar />}

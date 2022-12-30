@@ -13,8 +13,9 @@ export const getContacts = createAsyncThunk('chatPanel/contacts/getContacts', as
 
 const contactsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectContacts, selectById: selectContactById } =
-  contactsAdapter.getSelectors((state) => state.chatPanel.contacts);
+export const { selectAll: selectContacts, selectById: selectContactById } = contactsAdapter.getSelectors(
+  (state) => state.chatPanel.contacts
+);
 
 const contactsSlice = createSlice({
   name: 'chatPanel/contacts',

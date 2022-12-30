@@ -6,12 +6,10 @@ import FuseNavItem from '../FuseNavItem';
 const StyledList = styled(List)(({ theme }) => ({
   '& .fuse-list-item': {
     '&:hover': {
-      backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)',
+      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0,0,0,.04)',
     },
     '&:focus:not(.active)': {
-      backgroundColor:
-        theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0,0,0,.05)',
+      backgroundColor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.06)' : 'rgba(0,0,0,.05)',
     },
     padding: '8px 12px 8px 12px',
     height: 40,
@@ -36,21 +34,10 @@ function FuseNavHorizontalLayout1(props) {
 
   return (
     <StyledList
-      className={clsx(
-        'navigation whitespace-nowrap flex p-0',
-        `active-${active}-list`,
-        dense && 'dense',
-        className
-      )}
+      className={clsx('navigation whitespace-nowrap flex p-0', `active-${active}-list`, dense && 'dense', className)}
     >
       {navigation.map((_item) => (
-        <FuseNavItem
-          key={_item.id}
-          type={`horizontal-${_item.type}`}
-          item={_item}
-          nestedLevel={0}
-          dense={dense}
-        />
+        <FuseNavItem key={_item.id} type={`horizontal-${_item.type}`} item={_item} nestedLevel={0} dense={dense} />
       ))}
     </StyledList>
   );

@@ -39,8 +39,8 @@ function DividersDoc(props) {
         List dividers
       </Typography>
       <Typography className="mb-40" component="div">
-        The divider renders as an <code>{`<hr>`}</code> by default. You can save rendering this DOM
-        element by using the <code>divider</code> prop on the <code>ListItem</code> component.
+        The divider renders as an <code>{`<hr>`}</code> by default. You can save rendering this DOM element by using the{' '}
+        <code>divider</code> prop on the <code>ListItem</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -55,9 +55,8 @@ function DividersDoc(props) {
         HTML5 specification
       </Typography>
       <Typography className="mb-40" component="div">
-        In a list, you should ensure the <code>Divider</code> is rendered as an{' '}
-        <code>{`<li>`}</code> to match the HTML5 specification. The examples below show two ways of
-        achieving this.
+        In a list, you should ensure the <code>Divider</code> is rendered as an <code>{`<li>`}</code> to match the HTML5
+        specification. The examples below show two ways of achieving this.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Inset dividers
@@ -111,9 +110,9 @@ function DividersDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        :::warning When using the <code>Divider</code> component for visual decoration, such as in a
-        heading, explicitly specify <code>{`role="presentation"`}</code> to the divider to make sure
-        screen readers can announce its content:
+        :::warning When using the <code>Divider</code> component for visual decoration, such as in a heading, explicitly
+        specify <code>{`role="presentation"`}</code> to the divider to make sure screen readers can announce its
+        content:
       </Typography>
 
       <FuseHighlight component="pre" className="language-js">
@@ -143,8 +142,7 @@ function DividersDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        :::info Note the use of the <code>flexItem</code> prop to accommodate for the flex
-        container. :::
+        :::info Note the use of the <code>flexItem</code> prop to accommodate for the flex container. :::
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         Vertical with variant middle

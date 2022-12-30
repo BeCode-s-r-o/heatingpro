@@ -25,13 +25,7 @@ function NoteFormUploadImage(props) {
   return (
     <>
       <label htmlFor="button-file">
-        <input
-          accept="image/*"
-          className="hidden"
-          id="button-file"
-          type="file"
-          onChange={handleChange}
-        />
+        <input accept="image/*" className="hidden" id="button-file" type="file" onChange={handleChange} />
         <IconButton className="w-32 h-32 mx-4 p-0" component="span" size="large">
           <FuseSvgIcon size={20}>heroicons-outline:photograph</FuseSvgIcon>
         </IconButton>

@@ -37,8 +37,7 @@ const MailListItem = (props) => {
   const dispatch = useDispatch();
   const selectedMailIds = useSelector(selectSelectedMailIds);
   const { mail } = props;
-  const checked =
-    selectedMailIds.length > 0 && selectedMailIds.find((id) => id === props.mail.id) !== undefined;
+  const checked = selectedMailIds.length > 0 && selectedMailIds.find((id) => id === props.mail.id) !== undefined;
 
   return (
     <StyledListItem
@@ -73,9 +72,7 @@ const MailListItem = (props) => {
           </Avatar>
           <div className="flex flex-col w-full min-w-0">
             <div className="flex items-center w-full">
-              <Typography className="mr-8 font-semibold truncate">
-                {mail.from.contact.split('<')[0].trim()}
-              </Typography>
+              <Typography className="mr-8 font-semibold truncate">{mail.from.contact.split('<')[0].trim()}</Typography>
 
               {mail.important && (
                 <FuseSvgIcon className="mr-12 text-red-500 dark:text-red-600" size={16}>
@@ -83,10 +80,7 @@ const MailListItem = (props) => {
                 </FuseSvgIcon>
               )}
 
-              <Typography
-                className="ml-auto text-md text-right whitespace-nowrap"
-                color="text.secondary"
-              >
+              <Typography className="ml-auto text-md text-right whitespace-nowrap" color="text.secondary">
                 {format(new Date(mail.date), 'LLL dd')}
               </Typography>
             </div>
@@ -99,10 +93,7 @@ const MailListItem = (props) => {
                   </FuseSvgIcon>
 
                   {mail.starred && (
-                    <FuseSvgIcon
-                      className="flex justify-center ml-4 text-orange-500 dark:text-orange-400"
-                      size={16}
-                    >
+                    <FuseSvgIcon className="flex justify-center ml-4 text-orange-500 dark:text-orange-400" size={16}>
                       heroicons-solid:star
                     </FuseSvgIcon>
                   )}

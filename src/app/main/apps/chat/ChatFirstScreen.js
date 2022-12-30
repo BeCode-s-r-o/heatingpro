@@ -12,18 +12,10 @@ const ChatFirstScreen = () => {
       <FuseSvgIcon className="icon-size-128 mb-16" color="disabled">
         heroicons-outline:chat
       </FuseSvgIcon>
-      <Typography
-        className="hidden md:flex text-20 font-semibold tracking-tight text-secondary"
-        color="text.secondary"
-      >
+      <Typography className="hidden md:flex text-20 font-semibold tracking-tight text-secondary" color="text.secondary">
         Select a conversation or start a new chat
       </Typography>
-      <Button
-        variant="contained"
-        color="secondary"
-        className="flex md:hidden"
-        onClick={() => setMainSidebarOpen(true)}
-      >
+      <Button variant="contained" color="secondary" className="flex md:hidden" onClick={() => setMainSidebarOpen(true)}>
         Select a conversation or start a new chat
       </Button>
     </div>

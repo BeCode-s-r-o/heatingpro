@@ -71,9 +71,7 @@ function HelpCenterGuide() {
         <Card className="mt-32 flex items-center justify-between p-24 sm:px-40 rounded-2xl shadow hover:shadow-lg transition-shadow ease-in-out duration-150">
           <div>
             <Typography color="text.secondary">Next</Typography>
-            <Typography className="text-lg font-semibold">
-              Removing a media from a project
-            </Typography>
+            <Typography className="text-lg font-semibold">Removing a media from a project</Typography>
           </div>
           <FuseSvgIcon className="ml-12">heroicons-outline:arrow-right</FuseSvgIcon>
         </Card>

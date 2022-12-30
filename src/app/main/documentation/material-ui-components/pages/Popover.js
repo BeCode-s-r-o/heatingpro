@@ -27,9 +27,7 @@ function PopoverDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Popover
       </Typography>
-      <Typography className="description">
-        A Popover can be used to display some content on top of another.
-      </Typography>
+      <Typography className="description">A Popover can be used to display some content on top of another.</Typography>
 
       <Typography className="mb-40" component="div">
         Things to know when using the <code>Popover</code> component:
@@ -66,10 +64,9 @@ function PopoverDoc(props) {
         Anchor playground
       </Typography>
       <Typography className="mb-40" component="div">
-        Use the radio buttons to adjust the <code>anchorOrigin</code> and{' '}
-        <code>transformOrigin</code> positions. You can also set the <code>anchorReference</code> to{' '}
-        <code>anchorPosition</code> or <code>anchorEl</code>. When it is <code>anchorPosition</code>
-        , the component will, instead of <code>anchorEl</code>, refer to the{' '}
+        Use the radio buttons to adjust the <code>anchorOrigin</code> and <code>transformOrigin</code> positions. You
+        can also set the <code>anchorReference</code> to <code>anchorPosition</code> or <code>anchorEl</code>. When it
+        is <code>anchorPosition</code>, the component will, instead of <code>anchorEl</code>, refer to the{' '}
         <code>anchorPosition</code> prop which you can adjust to set the position of the popover.
       </Typography>
       <Typography className="mb-40" component="div">
@@ -85,8 +82,8 @@ function PopoverDoc(props) {
         Mouse over interaction
       </Typography>
       <Typography className="mb-40" component="div">
-        This demo demonstrates how to use the <code>Popover</code> component and the mouseover event
-        to achieve popover behavior.
+        This demo demonstrates how to use the <code>Popover</code> component and the mouseover event to achieve popover
+        behavior.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample

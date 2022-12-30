@@ -27,23 +27,20 @@ function NoSsrDoc(props) {
         No SSR
       </Typography>
       <Typography className="description">
-        The No-SSR component defers the rendering of children components from the server to the
-        client.
+        The No-SSR component defers the rendering of children components from the server to the client.
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         MUI Base
       </Typography>
       <Typography className="mb-40" component="div">
-        :::info No-SSR is a part of the standalone{' '}
-        <a href="/base/getting-started/overview/">MUI Base</a> component library. It is currently
-        re-exported from <code>@mui/material</code> for your convenience, but it will be removed
-        from this package in a future major version, after <code>@mui/base</code> gets a stable
-        release.
+        :::info No-SSR is a part of the standalone <a href="/base/getting-started/overview/">MUI Base</a> component
+        library. It is currently re-exported from <code>@mui/material</code> for your convenience, but it will be
+        removed from this package in a future major version, after <code>@mui/base</code> gets a stable release.
       </Typography>
       <Typography className="mb-40" component="div">
-        Please refer to the <a href="/base/react-no-ssr/">No-SSR</a> component page in the MUI Base
-        docs for examples and details on usage. :::
+        Please refer to the <a href="/base/react-no-ssr/">No-SSR</a> component page in the MUI Base docs for examples
+        and details on usage. :::
       </Typography>
     </>
   );

@@ -19,11 +19,7 @@ function CalendarHeader(props) {
     <div className="flex flex-col md:flex-row w-full p-12 justify-between z-10 container">
       <div className="flex flex-col sm:flex-row items-center">
         <div className="flex items-center">
-          <IconButton
-            onClick={(ev) => onToggleLeftSidebar()}
-            aria-label="open left sidebar"
-            size="small"
-          >
+          <IconButton onClick={(ev) => onToggleLeftSidebar()} aria-label="open left sidebar" size="small">
             <FuseSvgIcon>heroicons-outline:menu</FuseSvgIcon>
           </IconButton>
 
@@ -36,18 +32,14 @@ function CalendarHeader(props) {
           <Tooltip title="Previous">
             <IconButton aria-label="Previous" onClick={() => calendarApi().prev()}>
               <FuseSvgIcon size={20}>
-                {mainTheme.direction === 'ltr'
-                  ? 'heroicons-solid:chevron-left'
-                  : 'heroicons-solid:chevron-right'}
+                {mainTheme.direction === 'ltr' ? 'heroicons-solid:chevron-left' : 'heroicons-solid:chevron-right'}
               </FuseSvgIcon>
             </IconButton>
           </Tooltip>
           <Tooltip title="Next">
             <IconButton aria-label="Next" onClick={() => calendarApi().next()}>
               <FuseSvgIcon size={20}>
-                {mainTheme.direction === 'ltr'
-                  ? 'heroicons-solid:chevron-right'
-                  : 'heroicons-solid:chevron-left'}
+                {mainTheme.direction === 'ltr' ? 'heroicons-solid:chevron-right' : 'heroicons-solid:chevron-left'}
               </FuseSvgIcon>
             </IconButton>
           </Tooltip>

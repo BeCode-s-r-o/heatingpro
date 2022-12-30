@@ -5,13 +5,9 @@ const ClassicResetPasswordPage = lazy(() => import('./ClassicResetPasswordPage')
 const ModernResetPasswordPage = lazy(() => import('./ModernResetPasswordPage'));
 const ModernReversedResetPasswordPage = lazy(() => import('./ModernReversedResetPasswordPage'));
 const SplitScreenResetPasswordPage = lazy(() => import('./SplitScreenResetPasswordPage'));
-const SplitScreenReversedResetPasswordPage = lazy(() =>
-  import('./SplitScreenReversedResetPasswordPage')
-);
+const SplitScreenReversedResetPasswordPage = lazy(() => import('./SplitScreenReversedResetPasswordPage'));
 const FullScreenResetPasswordPage = lazy(() => import('./FullScreenResetPasswordPage'));
-const FullScreenReversedResetPasswordPage = lazy(() =>
-  import('./FullScreenReversedResetPasswordPage')
-);
+const FullScreenReversedResetPasswordPage = lazy(() => import('./FullScreenReversedResetPasswordPage'));
 
 const resetPasswordPagesConfig = {
   settings: {

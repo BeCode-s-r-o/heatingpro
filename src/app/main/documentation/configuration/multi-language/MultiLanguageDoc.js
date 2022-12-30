@@ -19,14 +19,11 @@ function MultiLanguageDoc() {
         for to support multiple languages.
       </Typography>
 
-      <Typography
-        className="mb-16 p-16 border-1 bg-yellow-50 rounded-16 text-gray-800"
-        component="p"
-      >
-        Since not everybody need multi-language setup for their apps, we decided NOT to put
-        translations everywhere. If you want to see the translations in action, visit the Mail app,
-        and then change the language from the Toolbar. Mail app is the only app that has
-        translations for demonstration purposes. You can look at its source code to see the usage.
+      <Typography className="mb-16 p-16 border-1 bg-yellow-50 rounded-16 text-gray-800" component="p">
+        Since not everybody need multi-language setup for their apps, we decided NOT to put translations everywhere. If
+        you want to see the translations in action, visit the Mail app, and then change the language from the Toolbar.
+        Mail app is the only app that has translations for demonstration purposes. You can look at its source code to
+        see the usage.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -34,9 +31,8 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        In order to use the translations, create your translation file within the folder you want to
-        use the translations. For example, for the Mail app, create <code>i18n/en.js</code> file
-        inside the
+        In order to use the translations, create your translation file within the folder you want to use the
+        translations. For example, for the Mail app, create <code>i18n/en.js</code> file inside the
         <code>apps/mail</code> folder.
       </Typography>
 
@@ -81,8 +77,8 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        To change the default language of the Fuse React, you need to change <code>lng</code>{' '}
-        setting in the file <code>src/i18n.js</code>
+        To change the default language of the Fuse React, you need to change <code>lng</code> setting in the file{' '}
+        <code>src/i18n.js</code>
       </Typography>
 
       <Typography className="mb-16" component="p">

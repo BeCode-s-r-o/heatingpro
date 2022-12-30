@@ -61,9 +61,7 @@ function MailLabelsMenu(props) {
                 <Checkbox checked={selectedLabels.includes(label.id)} />
                 <ListItemText className="mx-8">{label.title}</ListItemText>
                 <ListItemIcon className="min-w-24">
-                  <FuseSvgIcon className={labelColorDefs[label.color].text}>
-                    heroicons-outline:tag
-                  </FuseSvgIcon>
+                  <FuseSvgIcon className={labelColorDefs[label.color].text}>heroicons-outline:tag</FuseSvgIcon>
                 </ListItemIcon>
               </MenuItem>
             );

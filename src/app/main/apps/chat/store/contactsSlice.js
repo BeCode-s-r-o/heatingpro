@@ -11,8 +11,9 @@ export const getContacts = createAsyncThunk('chatApp/contacts/getContacts', asyn
 
 const contactsAdapter = createEntityAdapter({});
 
-export const { selectAll: selectContacts, selectById: selectContactById } =
-  contactsAdapter.getSelectors((state) => state.chatApp.contacts);
+export const { selectAll: selectContacts, selectById: selectContactById } = contactsAdapter.getSelectors(
+  (state) => state.chatApp.contacts
+);
 
 const contactsSlice = createSlice({
   name: 'chatApp/contacts',

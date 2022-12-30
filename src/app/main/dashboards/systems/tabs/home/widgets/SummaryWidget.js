@@ -48,16 +48,10 @@ function SummaryWidget() {
         <Typography className="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">
           {data.count[currentRange]}
         </Typography>
-        <Typography className="text-lg font-medium text-blue-600 dark:text-blue-500">
-          {data.name}
-        </Typography>
+        <Typography className="text-lg font-medium text-blue-600 dark:text-blue-500">{data.name}</Typography>
       </div>
-      <Typography
-        className="flex items-baseline justify-center w-full mt-20 mb-24"
-        color="text.secondary"
-      >
-        <span className="truncate">{data.extra.name}</span>:
-        <b className="px-8">{data.extra.count[currentRange]}</b>
+      <Typography className="flex items-baseline justify-center w-full mt-20 mb-24" color="text.secondary">
+        <span className="truncate">{data.extra.name}</span>:<b className="px-8">{data.extra.count[currentRange]}</b>
       </Typography>
     </Paper>
   );

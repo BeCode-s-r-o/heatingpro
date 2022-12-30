@@ -74,9 +74,7 @@ function AnalyticsDashboardApp() {
                   </motion.div>
 
                   <div className="w-full mt-16 sm:col-span-3">
-                    <Typography className="text-2xl font-semibold tracking-tight leading-6">
-                      Your Audience
-                    </Typography>
+                    <Typography className="text-2xl font-semibold tracking-tight leading-6">Your Audience</Typography>
                     <Typography className="font-medium tracking-tight" color="text.secondary">
                       Demographic properties of your users
                     </Typography>

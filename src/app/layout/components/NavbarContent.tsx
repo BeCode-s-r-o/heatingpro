@@ -2,13 +2,13 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { memo } from 'react';
+import { Typography } from '@mui/material';
 import Logo from '../shared-components/Logo';
 import NavbarToggleButton from '../shared-components/NavbarToggleButton';
 import UserNavbarHeader from '../shared-components/UserNavbarHeader';
 import Navigation from '../shared-components/Navigation';
-//@ts-ignore
+// @ts-ignore
 import packagejson from '../../../../package.json';
-import { Typography } from '@mui/material';
 
 const Root = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
@@ -39,13 +39,14 @@ const NavbarContent = (props) => {
   const getEnv = () => {
     if (packagejson.version.includes('alpha')) {
       return 'alpha';
-    } else if (packagejson.version.includes('beta')) {
-      return 'beta';
-    } else if (packagejson.version.includes('rc')) {
-      return 'rc';
-    } else {
-      return 'stable';
     }
+    if (packagejson.version.includes('beta')) {
+      return 'beta';
+    }
+    if (packagejson.version.includes('rc')) {
+      return 'rc';
+    }
+    return 'stable';
   };
 
   const getBuildDate = () => {
@@ -58,7 +59,9 @@ const NavbarContent = (props) => {
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    return `${day}.${month}.${year} ${hours < 10 ? `0${hours}` : hours}:${minutes < 10 ? `0${minutes}` : minutes}:${
+      seconds < 10 ? `0${seconds}` : seconds
+    }`;
   };
 
   return (

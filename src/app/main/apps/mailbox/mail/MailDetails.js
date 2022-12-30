@@ -59,9 +59,7 @@ function MailDetails(props) {
               <Avatar src={mail.from.avatar} />
 
               <div className="ml-16 min-w-0">
-                <Typography className="font-semibold truncate">
-                  {mail.from.contact.split('<')[0].trim()}
-                </Typography>
+                <Typography className="font-semibold truncate">{mail.from.contact.split('<')[0].trim()}</Typography>
 
                 <div className="flex items-center mt-8 leading-5">
                   <div>to</div>
@@ -124,9 +122,7 @@ function MailDetails(props) {
               <Button
                 className="m-8"
                 color="secondary"
-                startIcon={
-                  <FuseSvgIcon size={20}>heroicons-solid:chevron-double-right</FuseSvgIcon>
-                }
+                startIcon={<FuseSvgIcon size={20}>heroicons-solid:chevron-double-right</FuseSvgIcon>}
                 variant="outlined"
               >
                 Forward

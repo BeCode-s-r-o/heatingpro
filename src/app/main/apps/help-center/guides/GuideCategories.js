@@ -28,9 +28,7 @@ function GuideCategories() {
             Back to Help Center
           </Button>
         </div>
-        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">
-          Guides & Resources
-        </div>
+        <div className="mt-8 text-4xl sm:text-7xl font-extrabold tracking-tight leading-tight">Guides & Resources</div>
         <div className="grid grid-cols-1 sm:grid-cols-2 grid-flow-row gap-y-48 sm:gap-x-16 mt-32 sm:mt-48">
           {groupedGuides.map((category) => (
             <div key={category.id}>

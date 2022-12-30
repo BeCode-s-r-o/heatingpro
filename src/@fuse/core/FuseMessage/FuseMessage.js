@@ -6,11 +6,7 @@ import SnackbarContent from '@mui/material/SnackbarContent';
 import Typography from '@mui/material/Typography';
 import { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  hideMessage,
-  selectFuseMessageOptions,
-  selectFuseMessageState,
-} from 'app/store/fuse/messageSlice';
+import { hideMessage, selectFuseMessageOptions, selectFuseMessageState } from 'app/store/fuse/messageSlice';
 import FuseSvgIcon from '../FuseSvgIcon';
 
 const StyledSnackbar = styled(Snackbar)(({ theme, variant }) => ({
@@ -66,9 +62,7 @@ function FuseMessage(props) {
         className="FuseMessage-content"
         message={
           <div className="flex items-center">
-            {variantIcon[options.variant] && (
-              <FuseSvgIcon color="inherit">{variantIcon[options.variant]}</FuseSvgIcon>
-            )}
+            {variantIcon[options.variant] && <FuseSvgIcon color="inherit">{variantIcon[options.variant]}</FuseSvgIcon>}
             <Typography className="mx-8">{options.message}</Typography>
           </div>
         }

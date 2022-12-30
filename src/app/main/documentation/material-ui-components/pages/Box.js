@@ -33,8 +33,8 @@ function BoxDoc(props) {
       </Typography>
 
       <Typography className="mb-40" component="div">
-        The Box component packages <a href="/system/properties/">all the style functions</a> that
-        are exposed in <code>@mui/system</code>.
+        The Box component packages <a href="/system/properties/">all the style functions</a> that are exposed in{' '}
+        <code>@mui/system</code>.
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Example
@@ -50,8 +50,8 @@ function BoxDoc(props) {
         <a href="/system/getting-started/the-sx-prop/">
           <code>sx</code> prop
         </a>
-        . In addition, the <code>sx</code> prop allows you to specify any other CSS rules you may
-        need. Here&#39;s an example of how you can use it:
+        . In addition, the <code>sx</code> prop allows you to specify any other CSS rules you may need. Here&#39;s an
+        example of how you can use it:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -66,9 +66,9 @@ function BoxDoc(props) {
         Overriding MUI components
       </Typography>
       <Typography className="mb-40" component="div">
-        The Box component wraps your component. It creates a new DOM element, a{' '}
-        <code>{`<div>`}</code> that by default can be changed with the <code>component</code> prop.
-        Let&#39;s say you want to use a <code>{`<span>`}</code> instead:
+        The Box component wraps your component. It creates a new DOM element, a <code>{`<div>`}</code> that by default
+        can be changed with the <code>component</code> prop. Let&#39;s say you want to use a <code>{`<span>`}</code>{' '}
+        instead:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -80,13 +80,13 @@ function BoxDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        This works great when the changes can be isolated to a new DOM element. For instance, you
-        can change the margin this way.
+        This works great when the changes can be isolated to a new DOM element. For instance, you can change the margin
+        this way.
       </Typography>
       <Typography className="mb-40" component="div">
-        However, sometimes you have to target the underlying DOM element. As an example, you may
-        want to change the border of the Button. The Button component defines its own styles. CSS
-        inheritance doesn&#39;t help. To workaround the problem, you can use the{' '}
+        However, sometimes you have to target the underlying DOM element. As an example, you may want to change the
+        border of the Button. The Button component defines its own styles. CSS inheritance doesn&#39;t help. To
+        workaround the problem, you can use the{' '}
         <a href="/system/getting-started/the-sx-prop/">
           <code>sx</code>
         </a>{' '}

@@ -31,11 +31,7 @@ function FileManagerHeader(props) {
             File Manager
           </Typography>
           {path.length > 0 && (
-            <Breadcrumbs
-              aria-label="breadcrumb"
-              className="mx-12"
-              separator={<NavigateNextIcon fontSize="small" />}
-            >
+            <Breadcrumbs aria-label="breadcrumb" className="mx-12" separator={<NavigateNextIcon fontSize="small" />}>
               <div />
               {path.map((item, index) =>
                 index + 1 === path.length ? (

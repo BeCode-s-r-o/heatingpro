@@ -30,10 +30,7 @@ const EventLabelSelect = forwardRef((props, ref) => {
       >
         {labels.map((label) => (
           <MenuItem value={label.id} key={label.id} className="space-x-12">
-            <Box
-              className="w-12 h-12 shrink-0 rounded-full"
-              sx={{ backgroundColor: label.color }}
-            />
+            <Box className="w-12 h-12 shrink-0 rounded-full" sx={{ backgroundColor: label.color }} />
             <span>{label.title}</span>
           </MenuItem>
         ))}

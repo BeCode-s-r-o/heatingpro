@@ -28,8 +28,8 @@ function BreadcrumbsDoc(props) {
         Breadcrumbs
       </Typography>
       <Typography className="description">
-        Breadcrumbs consist of a list of links that help a user visualize a page's location within
-        the hierarchical structure of a website, and allow navigation up to any of its "ancestors".
+        Breadcrumbs consist of a list of links that help a user visualize a page's location within the hierarchical
+        structure of a website, and allow navigation up to any of its "ancestors".
       </Typography>
 
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -137,8 +137,7 @@ function BreadcrumbsDoc(props) {
         )
       </Typography>
       <Typography className="mb-40" component="div">
-        Be sure to add a <code>aria-label</code> description on the <code>Breadcrumbs</code>{' '}
-        component.
+        Be sure to add a <code>aria-label</code> description on the <code>Breadcrumbs</code> component.
       </Typography>
       <Typography className="mb-40" component="div">
         The accessibility of this component relies on:
@@ -148,12 +147,12 @@ function BreadcrumbsDoc(props) {
           The set of links is structured using an ordered list (<code>{`<ol>`}</code> element).
         </li>
         <li>
-          To prevent screen reader announcement of the visual separators between links, they are
-          hidden with <code>aria-hidden</code>.
+          To prevent screen reader announcement of the visual separators between links, they are hidden with{' '}
+          <code>aria-hidden</code>.
         </li>
         <li>
-          A nav element labeled with <code>aria-label</code> identifies the structure as a
-          breadcrumb trail and makes it a navigation landmark so that it is easy to locate.
+          A nav element labeled with <code>aria-label</code> identifies the structure as a breadcrumb trail and makes it
+          a navigation landmark so that it is easy to locate.
         </li>
       </ul>
     </>

@@ -29,22 +29,20 @@ function SkeletonDoc(props) {
         Skeleton
       </Typography>
       <Typography className="description">
-        Display a placeholder preview of your content before the data gets loaded to reduce
-        load-time frustration.
+        Display a placeholder preview of your content before the data gets loaded to reduce load-time frustration.
       </Typography>
 
       <Typography className="mb-40" component="div">
-        The data for your components might not be immediately available. You can improve the
-        perceived responsiveness of the page by using skeletons. It feels like things are happening
-        immediately, then the information is incrementally displayed on the screen (Cf.{' '}
+        The data for your components might not be immediately available. You can improve the perceived responsiveness of
+        the page by using skeletons. It feels like things are happening immediately, then the information is
+        incrementally displayed on the screen (Cf.{' '}
         <a href="https://www.lukew.com/ff/entry.asp?1797">Avoid The Spinner</a>).
       </Typography>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
         Usage
       </Typography>
       <Typography className="mb-40" component="div">
-        The component is designed to be used <strong>directly in your components</strong>. For
-        instance:
+        The component is designed to be used <strong>directly in your components</strong>. For instance:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -73,12 +71,11 @@ function SkeletonDoc(props) {
       </Typography>
       <ul>
         <li>
-          <code>text</code> (default): represents a single line of text (you can adjust the height
-          via font size).
+          <code>text</code> (default): represents a single line of text (you can adjust the height via font size).
         </li>
         <li>
-          <code>circular</code>, <code>rectangular</code>, and <code>rounded</code>: come with
-          different border radius to let you take control of the size.
+          <code>circular</code>, <code>rectangular</code>, and <code>rounded</code>: come with different border radius
+          to let you take control of the size.
         </li>
       </ul>
       <Typography className="mb-40" component="div">
@@ -94,8 +91,7 @@ function SkeletonDoc(props) {
         Animations
       </Typography>
       <Typography className="mb-40" component="div">
-        By default, the skeleton pulsates, but you can change the animation to a wave or disable it
-        entirely.
+        By default, the skeleton pulsates, but you can change the animation to a wave or disable it entirely.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -134,8 +130,8 @@ function SkeletonDoc(props) {
         Inferring dimensions
       </Typography>
       <Typography className="mb-40" component="div">
-        In addition to accepting <code>width</code> and <code>height</code> props, the component can
-        also infer the dimensions.
+        In addition to accepting <code>width</code> and <code>height</code> props, the component can also infer the
+        dimensions.
       </Typography>
       <Typography className="mb-40" component="div">
         It works well when it comes to typography as its height is set using <code>em</code> units.
@@ -156,9 +152,8 @@ function SkeletonDoc(props) {
         />
       </Typography>
       <Typography className="mb-40" component="div">
-        But when it comes to other components, you may not want to repeat the width and height. In
-        these instances, you can pass <code>children</code> and it will infer its width and height
-        from them.
+        But when it comes to other components, you may not want to repeat the width and height. In these instances, you
+        can pass <code>children</code> and it will infer its width and height from them.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx">
@@ -185,9 +180,8 @@ loading ? (
         Color
       </Typography>
       <Typography className="mb-40" component="div">
-        The color of the component can be customized by changing its <code>background-color</code>{' '}
-        CSS property. This is especially useful when on a black background (as the skeleton will
-        otherwise be invisible).
+        The color of the component can be customized by changing its <code>background-color</code> CSS property. This is
+        especially useful when on a black background (as the skeleton will otherwise be invisible).
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -202,13 +196,12 @@ loading ? (
         Accessibility
       </Typography>
       <Typography className="mb-40" component="div">
-        Skeleton screens provide an alternative to the traditional spinner method. Rather than
-        showing an abstract widget, skeleton screens create anticipation of what is to come and
-        reduce cognitive load.
+        Skeleton screens provide an alternative to the traditional spinner method. Rather than showing an abstract
+        widget, skeleton screens create anticipation of what is to come and reduce cognitive load.
       </Typography>
       <Typography className="mb-40" component="div">
-        The background color of the skeleton uses the least amount of luminance to be visible in
-        good conditions (good ambient light, good screen, no visual impairments).
+        The background color of the skeleton uses the least amount of luminance to be visible in good conditions (good
+        ambient light, good screen, no visual impairments).
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         ARIA

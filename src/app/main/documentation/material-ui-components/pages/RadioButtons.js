@@ -28,14 +28,11 @@ function RadioButtonsDoc(props) {
       <Typography className="text-40 my-16 font-700" component="h1">
         Radio Group
       </Typography>
-      <Typography className="description">
-        The Radio Group allows the user to select one option from a set.
-      </Typography>
+      <Typography className="description">The Radio Group allows the user to select one option from a set.</Typography>
 
       <Typography className="mb-40" component="div">
-        Use radio buttons when the user needs to see all available options. If available options can
-        be collapsed, consider using a <a href="/material-ui/react-select/">Select component</a>{' '}
-        because it uses less space.
+        Use radio buttons when the user needs to see all available options. If available options can be collapsed,
+        consider using a <a href="/material-ui/react-select/">Select component</a> because it uses less space.
       </Typography>
       <Typography className="mb-40" component="div">
         Radio buttons should have the most commonly used option selected by default.
@@ -44,8 +41,8 @@ function RadioButtonsDoc(props) {
         Radio group
       </Typography>
       <Typography className="mb-40" component="div">
-        <code>RadioGroup</code> is a helpful wrapper used to group <code>Radio</code> components
-        that provides an easier API, and proper keyboard accessibility to the group.
+        <code>RadioGroup</code> is a helpful wrapper used to group <code>Radio</code> components that provides an easier
+        API, and proper keyboard accessibility to the group.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -105,8 +102,7 @@ function RadioButtonsDoc(props) {
         Size
       </Typography>
       <Typography className="mb-40" component="div">
-        Use the <code>size</code> prop or customize the font size of the svg icons to change the
-        size of the radios.
+        Use the <code>size</code> prop or customize the font size of the svg icons to change the size of the radios.
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -133,8 +129,8 @@ function RadioButtonsDoc(props) {
         Label placement
       </Typography>
       <Typography className="mb-40" component="div">
-        You can change the placement of the label with the <code>FormControlLabel</code>{' '}
-        component&#39;s <code>labelPlacement</code> prop:
+        You can change the placement of the label with the <code>FormControlLabel</code> component&#39;s{' '}
+        <code>labelPlacement</code> prop:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -149,8 +145,8 @@ function RadioButtonsDoc(props) {
         Show error
       </Typography>
       <Typography className="mb-40" component="div">
-        In general, radio buttons should have a value selected by default. If this is not the case,
-        you can display an error if no value is selected when the form is submitted:
+        In general, radio buttons should have a value selected by default. If this is not the case, you can display an
+        error if no value is selected when the form is submitted:
       </Typography>
       <Typography className="mb-40" component="div">
         <FuseExample
@@ -181,9 +177,8 @@ function RadioButtonsDoc(props) {
         <code>useRadioGroup</code>
       </Typography>
       <Typography className="mb-40" component="div">
-        For advanced customization use cases, a <code>useRadioGroup()</code> hook is exposed. It
-        returns the context value of the parent radio group. The Radio component uses this hook
-        internally.
+        For advanced customization use cases, a <code>useRadioGroup()</code> hook is exposed. It returns the context
+        value of the parent radio group. The Radio component uses this hook internally.
       </Typography>
       <Typography className="text-20 mt-20 mb-10 font-700" component="h3">
         API
@@ -202,12 +197,10 @@ import { useRadioGroup } from '@mui/material/RadioGroup';
       </Typography>
       <ul>
         <li>
-          <code>value.name</code> (<em>string</em> [optional]): The name used to reference the value
-          of the control.
+          <code>value.name</code> (<em>string</em> [optional]): The name used to reference the value of the control.
         </li>
         <li>
-          <code>value.onChange</code> (<em>func</em> [optional]): Callback fired when a radio button
-          is selected.
+          <code>value.onChange</code> (<em>func</em> [optional]): Callback fired when a radio button is selected.
         </li>
         <li>
           <code>value.value</code> (<em>any</em> [optional]): Value of the selected radio button.
@@ -230,9 +223,7 @@ import { useRadioGroup } from '@mui/material/RadioGroup';
       </Typography>
       <ul>
         <li>
-          <a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">
-            Checkboxes vs. Radio Buttons
-          </a>
+          <a href="https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/">Checkboxes vs. Radio Buttons</a>
         </li>
       </ul>
       <Typography className="text-32 mt-40 mb-10 font-700" component="h2">
@@ -247,15 +238,14 @@ import { useRadioGroup } from '@mui/material/RadioGroup';
       </Typography>
       <ul>
         <li>
-          All form controls should have labels, and this includes radio buttons, checkboxes, and
-          switches. In most cases, this is done by using the <code>{`<label>`}</code> element (
+          All form controls should have labels, and this includes radio buttons, checkboxes, and switches. In most
+          cases, this is done by using the <code>{`<label>`}</code> element (
           <a href="/material-ui/api/form-control-label/">FormControlLabel</a>).
         </li>
         <li>
-          When a label can&#39;t be used, it&#39;s necessary to add an attribute directly to the
-          input component. In this case, you can apply the additional attribute (e.g.{' '}
-          <code>aria-label</code>, <code>aria-labelledby</code>, <code>title</code>) via the{' '}
-          <code>inputProps</code> property.
+          When a label can&#39;t be used, it&#39;s necessary to add an attribute directly to the input component. In
+          this case, you can apply the additional attribute (e.g. <code>aria-label</code>, <code>aria-labelledby</code>,{' '}
+          <code>title</code>) via the <code>inputProps</code> property.
         </li>
       </ul>
 

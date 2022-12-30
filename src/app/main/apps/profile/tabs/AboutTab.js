@@ -48,9 +48,7 @@ function AboutTab() {
         <div className="flex flex-col flex-1 md:ltr:pr-32 md:rtl:pl-32">
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="px-32 pt-24">
-              <Typography className="text-2xl font-semibold leading-tight">
-                General Information
-              </Typography>
+              <Typography className="text-2xl font-semibold leading-tight">General Information</Typography>
             </div>
 
             <CardContent className="px-32 py-24">
@@ -167,9 +165,7 @@ function AboutTab() {
         <div className="flex flex-col md:w-320">
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="flex items-center px-32 pt-24">
-              <Typography className="flex flex-1 text-2xl font-semibold leading-tight">
-                Friends
-              </Typography>
+              <Typography className="flex flex-1 text-2xl font-semibold leading-tight">Friends</Typography>
 
               <Button className="-mx-8" size="small">
                 See 454 more
@@ -178,21 +174,14 @@ function AboutTab() {
 
             <CardContent className="flex flex-wrap px-32">
               {friends.map((friend) => (
-                <Avatar
-                  key={friend.id}
-                  className="w-64 h-64 rounded-12 m-4"
-                  src={friend.avatar}
-                  alt={friend.name}
-                />
+                <Avatar key={friend.id} className="w-64 h-64 rounded-12 m-4" src={friend.avatar} alt={friend.name} />
               ))}
             </CardContent>
           </Card>
 
           <Card component={motion.div} variants={item} className="w-full mb-32 rounded-16 shadow">
             <div className="px-32 pt-24 flex items-center">
-              <Typography className="flex flex-1 text-2xl font-semibold leading-tight">
-                Joined Groups
-              </Typography>
+              <Typography className="flex flex-1 text-2xl font-semibold leading-tight">Joined Groups</Typography>
               <div className="-mx-8">
                 <Button color="inherit" size="small">
                   See 6 more
@@ -209,11 +198,7 @@ function AboutTab() {
                     <ListItemText
                       primary={
                         <div className="flex">
-                          <Typography
-                            className="font-medium"
-                            color="secondary.main"
-                            paragraph={false}
-                          >
+                          <Typography className="font-medium" color="secondary.main" paragraph={false}>
                             {group.name}
                           </Typography>
 
