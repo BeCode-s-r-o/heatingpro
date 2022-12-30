@@ -1,4 +1,3 @@
-import maintenancePageConfig from './maintenance/maintenancePageConfig';
 import activitiesPageConfig from './activities/activitiesPageConfig';
 import authenticationPagesConfig from './authentication/authenticationPagesConfig';
 import comingSoonPagesConfig from './coming-soon/comingSoonPagesConfig';
@@ -11,7 +10,6 @@ const pagesConfigs = [
   ...authenticationPagesConfig,
   comingSoonPagesConfig,
   errorPagesConfig,
-  maintenancePageConfig,
   invoicePagesConfig,
   activitiesPageConfig,
   pricingPagesConfig,
