@@ -27,11 +27,12 @@ jobs:
       - name: Set build date
         run: |
           BUILD_DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-          sed -i "s/\"buildDate\": \".*\"/\"buildDate\": \"${BUILD_DATE}\"/" package.json
+           BUILD_DATE=$(jq -n 'now | todateiso')
+          jq ". + {\"buildDate\": ${BUILD_DATE}}" package.json > package.json.tmp && mv package.json.tmp package.json
 
       - name: Add buildEnv string 
         run: |
-          sed -i '$ a\,"buildEnv": "prod"' package.json
+           jq '. + {"buildEnv":"prod" }' package.json > package.json.tmp && mv package.json.tmp package.json
 
       - name: 🔨 NPM RUN BUILD
         run: |
