@@ -5,14 +5,12 @@ const ContactModel = (data) =>
     avatar: null,
     background: null,
     name: '',
-    emails: [{ email: '', label: '' }],
-    phoneNumbers: [{ country: 'us', phoneNumber: '', label: '' }],
-    title: '',
-    company: '',
-    birthday: null,
-    address: '',
+    role: 'Zákazník',
+    email: '',
+    birthNumber: '',
+    phone: '',
+    heaters: [{ heater: '', label: '' }],
     notes: '',
-    tags: [],
   });
 
 export default ContactModel;

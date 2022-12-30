@@ -24,11 +24,11 @@ const navigationConfig = [
         url: '/systemy/',
       },
       {
-        id: 'dashboards.analytics',
-        title: 'Štatistiky',
+        id: 'apps.contacts',
+        title: 'Používatelia',
         type: 'item',
-        icon: 'heroicons-outline:chart-pie',
-        url: '/dashboards/analytics',
+        icon: 'heroicons-outline:user-group',
+        url: '/apps/contacts',
       },
       {
         id: 'dashboards.errors',
@@ -37,13 +37,14 @@ const navigationConfig = [
         icon: 'heroicons-outline:exclamation-circle',
         url: '/dashboards/errors',
       },
-      {
-        id: 'apps.contacts',
-        title: 'Používatelia',
-        type: 'item',
-        icon: 'heroicons-outline:user-group',
-        url: '/apps/contacts',
-      },
+      //TODO - uncomment when ready
+      // {
+      //   id: 'dashboards.analytics',
+      //   title: 'Štatistiky',
+      //   type: 'item',
+      //   icon: 'heroicons-outline:chart-pie',
+      //   url: '/dashboards/analytics',
+      // },
     ],
   },
   {

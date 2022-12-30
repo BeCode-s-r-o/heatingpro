@@ -15,7 +15,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import * as yup from 'yup';
 import jwtService from '../../../auth/services/jwtService';
-
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from 'src/firebase-config';
 const schema = yup.object().shape({
   email: yup.string().email('Musíte zadať platný e-mail').required('Musíte zadať e-mail'),
   password: yup.string().required('Prosím zadajte heslo.').min(4, 'Heslo je príliš krátke – musí mať aspoň 4 znaky.'),
@@ -37,21 +38,23 @@ function SignInPage() {
   const { isValid, dirtyFields, errors } = formState;
 
   useEffect(() => {
-    setValue('email', 'admin@fusetheme.com', { shouldDirty: true, shouldValidate: true });
-    setValue('password', 'admin', { shouldDirty: true, shouldValidate: true });
+    setValue('email', 'vladko@becode.sk', { shouldDirty: true, shouldValidate: true });
+    setValue('password', 'lubojekral', { shouldDirty: true, shouldValidate: true });
   }, [setValue]);
 
   function onSubmit({ email, password }) {
     // TODO - add firebase login
+    /*     signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log('mami ja som sa prihlásil');
+        console.log(userCredential.user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+      }); */
 
-    jwtService.signInWithEmailAndPassword(email, password).catch((_errors) => {
-      _errors.forEach((error) => {
-        setError(error.type, {
-          type: 'manual',
-          message: error.message,
-        });
-      });
-    });
+    jwtService.signInWithEmailAndPassword(email, password);
   }
 
   return (
