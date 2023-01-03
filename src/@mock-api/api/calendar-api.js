@@ -1,7 +1,7 @@
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 const eventsDB = mockApi.components.examples.calendar_events.value;
 const labelsDB = mockApi.components.examples.calendar_labels.value;
