@@ -3,13 +3,13 @@
 // import { create } from 'jss';
 // import jssExtend from 'jss-plugin-extend';
 // import rtl from 'jss-rtl';
-import Provider from 'react-redux/es/components/Provider';
+import { StyledEngineProvider } from '@mui/material/styles';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { StyledEngineProvider } from '@mui/material/styles';
-import routes from 'app/configs/routesConfig';
-import store from './store';
+import routes from 'app/config/routesConfig';
+import Provider from 'react-redux/es/components/Provider';
 import AppContext from './AppContext';
+import store from './store';
 
 const withAppProviders = (Component) => (props) => {
   const WrapperComponent = () => (

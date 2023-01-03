@@ -1,10 +1,10 @@
 /* eslint import/no-extraneous-dependencies: off */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import history from '@history';
 import _ from '@lodash';
-import { setInitialSettings } from 'app/store/fuse/settingsSlice';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import settingsConfig from 'app/config/settingsConfig';
 import { showMessage } from 'app/store/fuse/messageSlice';
-import settingsConfig from 'app/configs/settingsConfig';
+import { setInitialSettings } from 'app/store/fuse/settingsSlice';
 import jwtService from '../auth/services/jwtService';
 
 export const setUser = createAsyncThunk('user/setUser', async (user, { dispatch, getState }) => {

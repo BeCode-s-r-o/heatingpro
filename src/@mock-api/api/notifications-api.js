@@ -1,7 +1,7 @@
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 let notificationsDB = mockApi.components.examples.notifications.value;
 
