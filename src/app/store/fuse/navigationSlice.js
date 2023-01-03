@@ -1,7 +1,7 @@
-import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
-import navigationConfig from 'app/configs/navigationConfig';
-import FuseUtils from '@fuse/utils';
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
+import { createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
+import navigationConfig from 'app/config/navigationConfig';
 
 const navigationAdapter = createEntityAdapter();
 const emptyInitialState = navigationAdapter.getInitialState();

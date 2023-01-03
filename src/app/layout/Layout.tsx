@@ -1,12 +1,12 @@
-import FuseDialog from '@fuse/core/FuseDialog';
-import FuseMessage from '@fuse/core/FuseMessage';
-import FuseSuspense from '@fuse/core/FuseSuspense';
 import { styled } from '@mui/material/styles';
 import AppContext from 'app/AppContext';
 import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice';
 import { memo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useRoutes } from 'react-router-dom';
+import FuseDialog from 'src/@app/core/FuseDialog';
+import FuseMessage from 'src/@app/core/FuseMessage';
+import FuseSuspense from 'src/@app/core/FuseSuspense';
 import NavbarWrapperLayout1 from './components/NavbarWrapper';
 import RightSideLayout1 from './components/RightSide';
 import Toolbar from './components/Toolbar';

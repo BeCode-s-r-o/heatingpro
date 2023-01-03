@@ -1,4 +1,3 @@
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
 import { Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Hidden from '@mui/material/Hidden';
@@ -9,12 +8,13 @@ import { selectFuseCurrentLayoutConfig, selectToolbarTheme } from 'app/store/fus
 import clsx from 'clsx';
 import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ChatPanelToggleButton from '../shared-components/chatPanel/ChatPanelToggleButton';
-import NavbarToggleButton from '../shared-components/NavbarToggleButton';
-import NavigationSearch from '../shared-components/NavigationSearch';
-import NavigationShortcuts from '../shared-components/NavigationShortcuts';
-import NotificationPanelToggleButton from '../shared-components/notificationPanel/NotificationPanelToggleButton';
-import UserMenu from '../shared-components/UserMenu';
+import FuseSvgIcon from 'src/@app/core/FuseSvgIcon';
+import ChatPanelToggleButton from '../shared/chatPanel/ChatPanelToggleButton';
+import NavbarToggleButton from '../shared/NavbarToggleButton';
+import NavigationSearch from '../shared/NavigationSearch';
+import NavigationShortcuts from '../shared/NavigationShortcuts';
+import NotificationPanelToggleButton from '../shared/notificationPanel/NotificationPanelToggleButton';
+import UserMenu from '../shared/UserMenu';
 
 const Toolbar = (props) => {
   const config = useSelector(selectFuseCurrentLayoutConfig);

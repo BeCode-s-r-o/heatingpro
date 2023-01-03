@@ -1,11 +1,10 @@
 import { ThemeProvider } from '@mui/material/styles';
+import { selectFuseNavbar } from 'app/store/fuse/navbarSlice';
+import { selectFuseCurrentLayoutConfig, selectNavbarTheme } from 'app/store/fuse/settingsSlice';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectFuseCurrentLayoutConfig, selectNavbarTheme } from 'app/store/fuse/settingsSlice';
-import { selectFuseNavbar } from 'app/store/fuse/navbarSlice';
+import NavbarToggleFab from '../shared/NavbarToggleFab';
 import Navbar from './Navbar';
-
-import NavbarToggleFab from '../shared-components/NavbarToggleFab';
 
 function NavbarWrapper() {
   const config = useSelector(selectFuseCurrentLayoutConfig);

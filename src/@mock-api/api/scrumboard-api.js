@@ -1,7 +1,7 @@
-import FuseUtils from '@fuse/utils';
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 const boardsDB = mockApi.components.examples.scrumboard_boards.value;
 const labelsDB = mockApi.components.examples.scrumboard_labels.value;
