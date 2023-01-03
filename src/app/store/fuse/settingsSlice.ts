@@ -1,19 +1,18 @@
 // @ts-nocheck
 /* eslint-disable import/no-named-as-default */
+import _ from '@lodash';
 import { createTheme, getContrastRatio } from '@mui/material/styles';
 import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
-import _ from '@lodash';
+import { setUser, updateUserSettings } from 'app/store/userSlice';
+import settingsConfig from 'src/app/config/settingsConfig';
+import { darkPaletteText, lightPaletteText } from 'src/app/config/themesConfig';
 import {
   defaultSettings,
   defaultThemeOptions,
   extendThemeWithMixins,
   getParsedQuerySettings,
   mustHaveThemeOptions,
-} from '@fuse/default-settings';
-import settingsConfig from 'app/configs/settingsConfig';
-
-import { setUser, updateUserSettings } from 'app/store/userSlice';
-import { darkPaletteText, lightPaletteText } from 'app/configs/themesConfig';
+} from 'src/settings';
 import { themeLayoutConfigs } from '../../layout/layoutConfig';
 
 export const changeFuseTheme = (theme) => (dispatch, getState) => {

@@ -1,7 +1,7 @@
 import { memo } from 'react';
-import ChatPanel from '../shared-components/chatPanel/ChatPanel';
-import QuickPanel from '../shared-components/quickPanel/QuickPanel';
-import NotificationPanel from '../shared-components/notificationPanel/NotificationPanel';
+import ChatPanel from '../shared/chatPanel/ChatPanel';
+import NotificationPanel from '../shared/notificationPanel/NotificationPanel';
+import QuickPanel from '../shared/quickPanel/QuickPanel';
 
 function RightSide() {
   return (

@@ -1,7 +1,7 @@
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 let tasksDB = mockApi.components.examples.tasks.value;
 const tagsDB = mockApi.components.examples.tasks_tags.value;

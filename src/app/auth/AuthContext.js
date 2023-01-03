@@ -1,9 +1,9 @@
+import SplashScreen from '@app/core/SplashScreen';
+import { showMessage } from 'app/store/fuse/messageSlice';
+import { logoutUser, setUser } from 'app/store/userSlice';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import SplashScreen from '@fuse/core/SplashScreen';
-import { showMessage } from 'app/store/fuse/messageSlice';
-import { logoutUser, setUser } from 'app/store/userSlice';
 import jwtService from './services/jwtService';
 
 const AuthContext = React.createContext();

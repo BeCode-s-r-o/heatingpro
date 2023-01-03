@@ -1,6 +1,6 @@
-import FuseDialog from '@fuse/core/FuseDialog';
-import FuseMessage from '@fuse/core/FuseMessage';
-import FuseSuspense from '@fuse/core/FuseSuspense';
+import FuseMessage from '@app/core/AppMessage';
+import FuseDialog from '@app/core/Dialog';
+import FuseSuspense from '@app/core/Suspense';
 import { styled } from '@mui/material/styles';
 import AppContext from 'app/AppContext';
 import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice';

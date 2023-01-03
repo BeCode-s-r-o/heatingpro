@@ -1,7 +1,7 @@
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 const contactsDB = mockApi.components.examples.chat_contacts.value;
 let userDB = mockApi.components.examples.chat_profile.value;

@@ -1,7 +1,7 @@
+import FuseUtils from '@app/utils';
 import _ from '@lodash';
-import FuseUtils from '@fuse/utils';
-import mockApi from '../mock-api.json';
 import mock from '../mock';
+import mockApi from '../mock-api.json';
 
 const notesDB = mockApi.components.examples.notes_notes.value;
 const labelsDB = mockApi.components.examples.notes_labels.value;
