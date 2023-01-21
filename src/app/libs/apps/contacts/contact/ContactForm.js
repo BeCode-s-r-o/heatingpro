@@ -178,9 +178,9 @@ const ContactForm = (props) => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              <FormControlLabel value="Zákazník" control={<Radio />} label="Zákazník" />
-              <FormControlLabel value="Hosť" control={<Radio />} label="Hosť" />
-              <FormControlLabel value="Admin" control={<Radio />} label="Admin" />
+              <FormControlLabel value="user" control={<Radio />} label="Zákazník" />
+              <FormControlLabel value="guest" control={<Radio />} label="Hosť" />
+              <FormControlLabel value="admin" control={<Radio />} label="Admin" />
             </RadioGroup>
           )}
         />

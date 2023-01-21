@@ -4,8 +4,10 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { auth } from 'src/firebase-config';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
@@ -15,6 +17,17 @@ const schema = yup.object().shape({
 const defaultValues = {
   email: '',
 };
+function sendResetPasswordEmail(email) {
+  sendPasswordResetEmail(auth, email)
+    .then(function () {
+      // Email sent.
+      console.log('Password reset email sent to: ' + email);
+    })
+    .catch(function (error) {
+      // An error occurred.
+      console.log(error);
+    });
+}
 
 function ClassicForgotPasswordPage() {
   const { control, formState, handleSubmit, reset } = useForm({
@@ -25,7 +38,8 @@ function ClassicForgotPasswordPage() {
 
   const { isValid, dirtyFields, errors } = formState;
 
-  function onSubmit() {
+  function onSubmit(e) {
+    sendResetPasswordEmail(e.email);
     reset(defaultValues);
   }
 
