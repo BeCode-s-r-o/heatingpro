@@ -4,10 +4,13 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { auth } from 'src/firebase-config';
 import * as yup from 'yup';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const schema = yup.object().shape({
   email: yup.string().email('Musíte zadať platný e-mail').required('Musíte zadať e-mail'),
 });
@@ -15,6 +18,35 @@ const schema = yup.object().shape({
 const defaultValues = {
   email: '',
 };
+function sendResetPasswordEmail(email) {
+  sendPasswordResetEmail(auth, email)
+    .then(function () {
+      toast.success('Obnovenie hesla bolo zaslané na váš email', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      console.log('Password reset email sent to: ' + email);
+    })
+    .catch(function (error) {
+      toast.error('Ops, niečo sa nepodarilo, opakujte prosím akciu', {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      console.log(error);
+    });
+}
 
 function ClassicForgotPasswordPage() {
   const { control, formState, handleSubmit, reset } = useForm({
@@ -25,12 +57,14 @@ function ClassicForgotPasswordPage() {
 
   const { isValid, dirtyFields, errors } = formState;
 
-  function onSubmit() {
+  function onSubmit(e) {
+    sendResetPasswordEmail(e.email);
     reset(defaultValues);
   }
 
   return (
     <div className="flex flex-col flex-auto items-center sm:justify-center min-w-0">
+      <ToastContainer />
       <Paper className="w-full sm:w-auto min-h-full sm:min-h-auto rounded-0 py-32 px-16 sm:p-48 sm:rounded-2xl sm:shadow">
         <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
           <img className="w-160" src="assets/images/logo/logo.png" alt="logo" />

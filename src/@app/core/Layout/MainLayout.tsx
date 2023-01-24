@@ -13,6 +13,7 @@ import { memo, useCallback, useContext, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { matchRoutes, useLocation } from 'react-router-dom';
 import { useDeepCompareEffect } from 'src/@app/hooks';
+import { getDatabase, ref, onValue, child, get } from 'firebase/database';
 import Layout from '../../../app/layout/Layout';
 import MaintenancePage from './MaintenancePage';
 
@@ -120,6 +121,17 @@ const MainLayout = () => {
 
   //TODO - add maintanance from backend
   const [maintenanceMode, setMaintenanceMoce] = useState(false);
+
+  /*   const readDataAndWaitForChanges = (path) => {
+    const db = getDatabase();
+    const starCountRef = ref(db, 'maintenanceMode');
+    onValue(starCountRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+    });
+  };
+
+  readDataAndWaitForChanges('maintenanceMode'); */
 
   if (maintenanceMode && user.role !== 'admin') {
     return <MaintenancePage />;

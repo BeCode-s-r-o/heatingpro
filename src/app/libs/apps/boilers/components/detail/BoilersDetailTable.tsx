@@ -5,20 +5,22 @@ import { TBoiler } from 'src/@app/types/TBoilers';
 import { tempColumns } from '../../constants';
 
 interface Props {
-  data: TBoiler;
+  data: any;
 }
 
 export const BoilersDetailTable = ({ data }: Props) => {
   const generateColumns = (data: TBoiler) => {
+    //@ts-ignore
     return data.map((item) => {
       return {
         field: item.accessor,
         headerName: `${item.columnName} (${item.unit})`,
+        hide: item.hide,
       };
     });
   };
-
-  const columns = generateColumns(tempColumns);
+  //@ts-ignore
+  const columns = generateColumns(tempColumns.sort((a, b) => a.order - b.order));
   const rows = [];
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">

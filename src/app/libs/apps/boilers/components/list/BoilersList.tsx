@@ -30,6 +30,7 @@ const BoilersList = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
+              {/* @ts-ignore */}
               <BoilersListTable data={data || []} />
             </motion.div>
           </motion.div>

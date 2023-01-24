@@ -20,6 +20,7 @@ interface IUserState {
 }
 
 export const setUser = createAsyncThunk('user/setUser', async (user: TContact) => {
+  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť' };
   /*
     You can redirect the logged-in user to a specific route depending on his role
     */
@@ -29,7 +30,7 @@ export const setUser = createAsyncThunk('user/setUser', async (user: TContact) =
   } */
 
   const userData: TUserData = {
-    role: ['admin'], // guest
+    role: [Object.keys(roles).find((key) => user.role === key) || 'guest'], // guest
     data: {
       ...user,
       displayName: user.name,
