@@ -12,15 +12,15 @@ export const item = {
 };
 
 export const tempColumns = [
-  { accessor: 'time', columnName: 'Čas', unit: 's' },
-  { accessor: 'k1', columnName: 'K1', unit: 's' },
-  { accessor: 'k2', columnName: 'K2', unit: 's' },
-  { accessor: 'uk_spiat', columnName: 'UK spiat.', unit: 's' },
-  { accessor: 'uk', columnName: 'UK', unit: 's' },
-  { accessor: 'spat_kotlov', columnName: 'spiat. kotlov', unit: 's' },
-  { accessor: 'privod_kotlov', columnName: 'prívod kotlov', unit: 's' },
-  { accessor: 'bojler', columnName: 'bojler', unit: 's' },
-  { accessor: 'vonkajsia_teplota', columnName: 'vonk. teplota', unit: 's' },
-  { accessor: 'tlak', columnName: 'tlak (uk)', unit: 's' },
-  { accessor: 'alarm', columnName: 'alarm', unit: 's' },
+  { accessor: 'time', columnName: 'Čas', unit: 's', order: 1, limit: { max: null, min: null } },
+  { accessor: 'k1', columnName: 'K1', unit: 's', hide: true, order: 2, limit: { max: null, min: null } },
+  { accessor: 'k2', columnName: 'K2', unit: 's', order: 3, limit: { max: null, min: null } },
+  { accessor: 'uk_spiat', columnName: 'UK spiat.', unit: 's', order: 4, limit: { max: null, min: null } },
+  { accessor: 'uk', columnName: 'UK', unit: 's', order: 5, limit: { max: null, min: null } },
+  { accessor: 'spat_kotlov', columnName: 'spiat. kotlov', unit: 's', order: 6, limit: { max: null, min: null } },
+  { accessor: 'privod_kotlov', columnName: 'prívod kotlov', unit: 's', order: 7, limit: { max: null, min: null } },
+  { accessor: 'bojler', columnName: 'bojler', unit: 's', order: 8, limit: { max: null, min: null } },
+  { accessor: 'vonkajsia_teplota', columnName: 'vonk. teplota', unit: 's', order: 9, limit: { max: null, min: null } },
+  { accessor: 'tlak', columnName: 'tlak (uk)', unit: 's', order: 10, limit: { max: null, min: null } },
+  { accessor: 'alarm', columnName: 'alarm', unit: 's', order: 11, limit: { max: null, min: null } },
 ];

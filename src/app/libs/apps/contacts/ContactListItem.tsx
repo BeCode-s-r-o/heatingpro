@@ -8,6 +8,8 @@ import Typography from '@mui/material/Typography';
 
 function ContactListItem(props) {
   const { contact } = props;
+  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť' };
+
   return (
     <>
       <ListItem
@@ -26,7 +28,7 @@ function ContactListItem(props) {
           secondary={
             <>
               <Typography className="inline" component="span" variant="body2" color="text.secondary">
-                {contact.role === 'customer' ? 'Zákazník' : contact.role}
+                {Object.keys(roles).map((key) => contact.role === key && roles[key])}
               </Typography>
             </>
           }

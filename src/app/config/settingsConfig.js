@@ -19,7 +19,7 @@ export const settingsConfig = {
    To make whole app accessible without authorization by default set defaultAuth: null
    *** The individual route configs which has auth option won't be overridden.
    */
-  defaultAuth: ['admin', 'staff', 'user'],
+  defaultAuth: ['admin', 'user', 'guest'],
   /*
     Default redirect url for the logged-in user,
    */
