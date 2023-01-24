@@ -12,7 +12,7 @@ import { BoilersDetailTable } from './BoilersDetailTable';
 
 const BoilersDetail = () => {
   const { id } = useParams();
-  const boiler: TBoiler = useSelector((state) => selectBoilerById(state, id || ''));
+  const boiler: any = useSelector((state) => selectBoilerById(state, id || ''));
 
   return (
     <Wrapper

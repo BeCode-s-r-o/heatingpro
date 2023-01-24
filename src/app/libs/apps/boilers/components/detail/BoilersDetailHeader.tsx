@@ -31,7 +31,10 @@ export const BoilersDetailHeader = ({ data }: Props) => {
         </div>
         <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
           <Button className="whitespace-nowrap" variant="contained" color="primary">
-            Zmeniť poradie stĺpcov
+            Export
+          </Button>
+          <Button className="whitespace-nowrap" variant="contained" color="primary">
+            Tlač
           </Button>
           <Button
             className="whitespace-nowrap"
@@ -39,7 +42,15 @@ export const BoilersDetailHeader = ({ data }: Props) => {
             color="secondary"
             startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
           >
-            Nastavenia
+            Nastavenia tabuľky
+          </Button>
+          <Button
+            className="whitespace-nowrap"
+            variant="contained"
+            color="secondary"
+            startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+          >
+            Nastavenia parametrov
           </Button>
         </div>
       </div>
