@@ -1,12 +1,10 @@
 import SplashScreen from '@app/core/SplashScreen';
-import { TContact } from '@app/types/TContact';
-import { showMessage } from 'app/store/fuse/messageSlice';
+import { showMessage } from 'app/store/slices/messageSlice';
 import { logoutUser, setUser } from 'app/store/userSlice';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-
-import jwtService from './services/jwtService';
+import { authInstance } from './jwtService';
 
 const AuthContext = React.createContext({ isAuthenticated: false });
 
@@ -16,13 +14,11 @@ function AuthProvider({ children }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    jwtService.on('onAutoLogin', () => {
+    authInstance.on('onAutoLogin', () => {
       dispatch(showMessage({ message: 'Automatické prihlásenie' }));
       setIsAuthenticated(true);
-      /**
-       * Sign in and retrieve user data with stored token
-       */
-      jwtService
+
+      authInstance
         .signInWithToken()
         .then((user) => {
           success(user, 'Automatické prihlásenie');
@@ -32,29 +28,28 @@ function AuthProvider({ children }) {
         });
     });
 
-    jwtService.on('onLogin', (user) => {
-      console.log(user);
+    authInstance.on('onLogin', (user) => {
       setIsAuthenticated(true);
       success(user, 'Boli ste prihlásený');
     });
 
-    jwtService.on('onLogout', () => {
+    authInstance.on('onLogout', () => {
       pass('Boli ste odhlásený');
       //@ts-ignore
       dispatch(logoutUser());
     });
 
-    jwtService.on('onAutoLogout', (message) => {
+    authInstance.on('onAutoLogout', (message) => {
       pass(message);
       //@ts-ignore
       dispatch(logoutUser());
     });
 
-    jwtService.on('onNoAccessToken', () => {
+    authInstance.on('onNoAccessToken', () => {
       pass();
     });
 
-    jwtService.init();
+    authInstance.init();
 
     function success(user, message) {
       if (message) {

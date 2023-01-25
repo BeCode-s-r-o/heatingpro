@@ -1,4 +1,4 @@
-import authRoles from '../../../auth/authRoles';
+import { authRoles } from '../../../auth/authRoles';
 import SignUpPage from './SignUpPage';
 
 const SignUpConfig = {

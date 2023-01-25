@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
-import { selectFuseNavbar } from 'app/store/fuse/navbarSlice';
-import { selectFuseCurrentLayoutConfig, selectNavbarTheme } from 'app/store/fuse/settingsSlice';
+import { selectFuseNavbar } from 'app/store/slices/navbarSlice';
+import { selectFuseCurrentLayoutConfig, selectNavbarTheme } from 'app/store/slices/settingsSlice';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import NavbarToggleFab from '../shared/NavbarToggleFab';

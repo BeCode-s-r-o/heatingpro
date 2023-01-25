@@ -2,8 +2,8 @@ import Hidden from '@mui/material/Hidden';
 import { styled } from '@mui/material/styles';
 import SwipeableDrawer from '@mui/material/SwipeableDrawer';
 import { useDispatch, useSelector } from 'react-redux';
-import { navbarCloseMobile, selectFuseNavbar } from 'app/store/fuse/navbarSlice';
-import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice';
+import { navbarCloseMobile, selectFuseNavbar } from 'app/store/slices/navbarSlice';
+import { selectFuseCurrentLayoutConfig } from 'app/store/slices/settingsSlice';
 import NavbarContent from './NavbarContent';
 
 const navbarWidth = 280;

@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createUserWithEmailAndPassword, getAuth, signOut } from 'firebase/auth';
-import axios from 'axios';
-import history from '@history';
-import { doc, getDoc, setDoc, deleteDoc } from 'firebase/firestore';
-import ContactModel from '../model/ContactModel';
-import { db, auth, secondaryApp } from '../../../../../firebase-config';
 import { TContact } from '@app/types/TContact';
+import history from '@history';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
+import { db, secondaryApp } from '../../../../../firebase-config';
+import ContactModel from '../model/ContactModel';
 export const getContact = createAsyncThunk('contactsApp/task/getContact', async (id, { dispatch, getState }) => {
   try {
     const usersRef = doc(db, 'users', `${id}`);
@@ -13,7 +13,6 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
     return userDoc.data();
   } catch (error) {
     history.push({ pathname: `/apps/contacts` });
-
     return null;
   }
 });

@@ -1,6 +1,6 @@
 import FuseScrollbars from '@app/core/Scrollbars';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
-import { selectContrastMainTheme } from 'app/store/fuse/settingsSlice';
+import { selectContrastMainTheme } from 'app/store/slices/settingsSlice';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
