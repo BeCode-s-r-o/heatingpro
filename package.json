@@ -46,7 +46,7 @@
     "material-ui-popup-state": "2.0.1",
     "mobile-detect": "1.4.5",
     "mobx": "^6.7.0",
-    "moment": "2.29.4",
+    "moment": "^2.29.4",
     "notistack": "1.0.6-next.3",
     "perfect-scrollbar": "1.5.5",
     "prismjs": "1.29.0",

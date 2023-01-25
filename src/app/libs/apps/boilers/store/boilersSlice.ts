@@ -1,10 +1,12 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
-import { TBoilers } from 'src/@app/types/TBoilers';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from 'src/firebase-config';
 import { RootState } from '../../../../store/index';
 
 export const getBoilers = createAsyncThunk('admin/boilers/getBoilers', async () => {
-  const response = { data: [] };
-  return response.data as TBoilers;
+  const boilers = await getDocs(collection(db, 'boilers'));
+  const data = boilers.docs.map((user) => user.data());
+  return { data };
 });
 
 const boilersAdapter = createEntityAdapter({});
@@ -15,7 +17,7 @@ export const {
   selectById: selectBoilerById,
   selectTotal: selectTotalBoilers,
   selectIds: selectBoilerIds,
-} = boilersAdapter.getSelectors((state: RootState) => state.boilers.boilers);
+} = boilersAdapter.getSelectors((state: RootState) => state.boilers);
 
 const boilersSlice = createSlice({
   name: 'boilers',

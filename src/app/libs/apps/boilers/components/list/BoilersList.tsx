@@ -11,7 +11,7 @@ import { BoilersListTable } from './BoilersListTable';
 
 const BoilersList = () => {
   const dispatch = useDispatch();
-  const data = useSelector(selectAllBoilers);
+  const data = useSelector(selectAllBoilers)[0];
 
   useEffect(() => {
     //@ts-ignore

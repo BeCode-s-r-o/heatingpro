@@ -1,22 +1,28 @@
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { TBoiler } from 'src/@app/types/TBoilers';
 import { container, item } from '../../constants';
 import reducer from '../../store';
-import { selectBoilerById } from '../../store/boilersSlice';
+import { getBoilers, selectAllBoilers } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
 import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 
 const BoilersDetail = () => {
   const { id } = useParams();
-  const boiler: any = useSelector((state) => selectBoilerById(state, id || ''));
+  const dispatch = useDispatch();
+  //@ts-ignore
+  const boiler = (useSelector(selectAllBoilers)[0] || []).find((item) => item.id === id);
 
+  useEffect(() => {
+    //@ts-ignore
+    dispatch(getBoilers());
+  }, [dispatch]);
   return (
     <Wrapper
-      header={<BoilersDetailHeader data={boiler} />}
+      header={<BoilersDetailHeader data={boiler || {}} />}
       content={
         <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
           <motion.div
@@ -26,7 +32,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable data={boiler} />
+              <BoilersDetailTable data={boiler || {}} />
             </motion.div>
           </motion.div>
         </div>

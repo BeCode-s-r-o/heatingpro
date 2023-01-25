@@ -8,21 +8,13 @@ import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { TBoilers } from 'src/@app/types/TBoilers';
 
-//TODO: Think about how data will look like
 interface Props {
   data: TBoilers;
 }
 
 export const BoilersListTable = ({ data }: Props) => {
   const columns = ['Názov', 'Číslo', 'Telefónne číslo', 'Perióda'];
-  const rows = [
-    {
-      name: 'Vodný kotol',
-      id: '123456',
-      phoneNumber: '0900 123 456',
-      period: 'Ročne',
-    },
-  ];
+  const rows = data;
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Zoznam systémov</Typography>
@@ -66,7 +58,7 @@ export const BoilersListTable = ({ data }: Props) => {
                 </TableCell>
                 <TableCell key={index}>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
-                    !
+                    {/* alarm */}
                   </Typography>
                 </TableCell>
                 <TableCell key={index}>
