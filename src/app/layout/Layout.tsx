@@ -3,7 +3,7 @@ import FuseDialog from '@app/core/Dialog';
 import FuseSuspense from '@app/core/Suspense';
 import { styled } from '@mui/material/styles';
 import AppContext from 'app/AppContext';
-import { selectFuseCurrentLayoutConfig } from 'app/store/fuse/settingsSlice';
+import { selectFuseCurrentLayoutConfig } from 'app/store/slices/settingsSlice';
 import { memo, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useRoutes } from 'react-router-dom';

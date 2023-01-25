@@ -6,7 +6,6 @@ import ContactModel from '../../model/ContactModel';
 import HeaterInput from './HeaterInput';
 
 const ContactHeaterSelector = forwardRef(({ value, onChange, className }, ref) => {
-  console.log(value);
   return (
     <div className={clsx('w-full', className)} ref={ref}>
       {value.map((item, index) => (

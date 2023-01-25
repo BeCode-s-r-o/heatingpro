@@ -5,7 +5,7 @@ import { useState } from 'react';
 import Tabs from '@mui/material/Tabs';
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
-import { selectContrastMainTheme } from 'app/store/fuse/settingsSlice';
+import { selectContrastMainTheme } from 'app/store/slices/settingsSlice';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { selectWidgets } from '../store/widgetsSlice';

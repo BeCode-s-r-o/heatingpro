@@ -31,7 +31,6 @@ function sendResetPasswordEmail(email) {
         progress: undefined,
         theme: 'colored',
       });
-      console.log('Password reset email sent to: ' + email);
     })
     .catch(function (error) {
       toast.error('Ops, niečo sa nepodarilo, opakujte prosím akciu', {
@@ -44,7 +43,6 @@ function sendResetPasswordEmail(email) {
         progress: undefined,
         theme: 'colored',
       });
-      console.log(error);
     });
 }
 

@@ -3,15 +3,14 @@ import FuseTheme from '@app/core/Theme';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
 import '@mock-api';
-import { selectMainTheme } from 'app/store/fuse/settingsSlice';
+import { selectMainTheme } from 'app/store/slices/settingsSlice';
 import { selectUser } from 'app/store/userSlice';
 import { SnackbarProvider } from 'notistack';
 import { useSelector } from 'react-redux';
 import BrowserRouter from 'src/@app/core/BrowserRouter';
 import { Layout } from 'src/@app/core/Layout';
-import settingsConfig from 'src/app/config/settingsConfig';
 import { AuthProvider } from './auth/AuthContext';
-import withAppProviders from './withAppProviders';
+import { WithAppProviders } from './WithAppProviders';
 
 const emotionCacheOption = {
   key: 'muiltr',
@@ -22,13 +21,13 @@ const emotionCacheOption = {
 const App = () => {
   const user: any = useSelector(selectUser);
   const mainTheme = useSelector(selectMainTheme);
-
+  const loginRedirectUrl = user.role[0] === 'user' ? '/pouzivatelske-systemy/' : '/';
   return (
     <CacheProvider value={createCache(emotionCacheOption)}>
       <FuseTheme theme={mainTheme} direction={'ltg'}>
         <AuthProvider>
           <BrowserRouter>
-            <FuseAuthorization userRole={user.role} loginRedirectUrl={settingsConfig.loginRedirectUrl}>
+            <FuseAuthorization userRole={user.role} loginRedirectUrl={loginRedirectUrl}>
               <SnackbarProvider
                 maxSnack={5}
                 anchorOrigin={{
@@ -49,4 +48,4 @@ const App = () => {
   );
 };
 
-export default withAppProviders(App)();
+export default WithAppProviders(App)();

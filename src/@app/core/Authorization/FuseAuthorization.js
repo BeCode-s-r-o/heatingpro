@@ -15,6 +15,7 @@ class FuseAuthorization extends Component {
       accessGranted: true,
       routes,
     };
+
     this.defaultLoginRedirectUrl = props.loginRedirectUrl || '/';
   }
 
@@ -49,21 +50,12 @@ class FuseAuthorization extends Component {
   redirectRoute() {
     const { location, userRole } = this.props;
     const { pathname } = location;
-    const redirectUrl = loginRedirectUrl || this.defaultLoginRedirectUrl;
+    const redirectUrl = userRole[0] === 'user' ? '/pouzivatelske-systemy/' : '/';
 
-    /*
-        User is guest
-        Redirect to Login Page
-        */
     if (!userRole || userRole.length === 0) {
       setTimeout(() => history.push('/sign-in'), 0);
       loginRedirectUrl = pathname;
     } else {
-      /*
-        User is member
-        User must be on unAuthorized page or just logged in
-        Redirect to dashboard or loginRedirectUrl
-        */
       setTimeout(() => history.push(redirectUrl), 0);
       loginRedirectUrl = this.defaultLoginRedirectUrl;
     }

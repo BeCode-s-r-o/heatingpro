@@ -26,9 +26,7 @@ function HelpCenterSupport() {
   const { isValid, dirtyFields, errors } = formState;
   const form = watch();
 
-  function onSubmit(data) {
-    console.log(data);
-  }
+  function onSubmit(data) {}
 
   if (_.isEmpty(form)) {
     return null;

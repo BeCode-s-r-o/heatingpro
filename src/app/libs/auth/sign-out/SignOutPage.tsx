@@ -1,12 +1,12 @@
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
-import JwtService from '../../../auth/services/jwtService';
+import { authInstance } from 'src/app/auth/jwtService';
 
 function SignOutPage() {
   useEffect(() => {
     setTimeout(() => {
-      JwtService.logout();
+      authInstance.logout();
     }, 1000);
   }, []);
 

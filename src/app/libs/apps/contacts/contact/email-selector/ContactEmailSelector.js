@@ -6,7 +6,6 @@ import ContactModel from '../../model/ContactModel';
 import EmailInput from './EmailInput';
 
 const ContactEmailSelector = forwardRef(({ value, onChange, className }, ref) => {
-  console.log(value);
   return (
     <div className={clsx('w-full', className)} ref={ref}>
       {value.map((item, index) => (

@@ -4,10 +4,9 @@ import { TUserData } from '@app/types/TUserData';
 import history from '@history';
 import _ from '@lodash';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import settingsConfig from 'app/config/settingsConfig';
-import { showMessage } from 'app/store/fuse/messageSlice';
-import { setInitialSettings } from 'app/store/fuse/settingsSlice';
-import jwtService from '../auth/services/jwtService';
+import { setInitialSettings } from 'app/store/slices/settingsSlice';
+import { settingsConfig } from 'app/config/settingsConfig';
+
 interface IUserState {
   role: string[];
   data: {
@@ -25,9 +24,9 @@ export const setUser = createAsyncThunk('user/setUser', async (user: TContact) =
     You can redirect the logged-in user to a specific route depending on his role
     */
 
-  /*   if (user.loginRedirectUrl) {
-    settingsConfig.loginRedirectUrl = user.loginRedirectUrl; // for example 'apps/academy'
-  } */
+  if (user.role === 'user') {
+    settingsConfig.loginRedirectUrl = '/pouzivatelske-systemy/';
+  }
 
   const userData: TUserData = {
     role: [Object.keys(roles).find((key) => user.role === key) || 'guest'], // guest
@@ -46,29 +45,8 @@ export const updateUserSettings = createAsyncThunk('user/updateSettings', async 
   const { user } = getState();
   const newUser = _.merge({}, user, { data: { settings } });
 
-  dispatch(updateUserData(newUser));
-
   return newUser;
 });
-
-export const updateUserShortcuts = createAsyncThunk(
-  'user/updateShortucts',
-  async (shortcuts, { dispatch, getState }) => {
-    //@ts-ignore
-    const { user } = getState();
-    const newUser = {
-      ...user,
-      data: {
-        ...user.data,
-        shortcuts,
-      },
-    };
-
-    dispatch(updateUserData(newUser));
-
-    return newUser;
-  }
-);
 
 export const logoutUser = () => async (dispatch, getState) => {
   const { user } = getState();
@@ -85,22 +63,6 @@ export const logoutUser = () => async (dispatch, getState) => {
   dispatch(setInitialSettings());
 
   return dispatch(userLoggedOut());
-};
-
-export const updateUserData = (user) => async (dispatch, getState) => {
-  if (!user.role || user.role.length === 0) {
-    // is guest
-    return;
-  }
-
-  jwtService
-    .updateUserData(user)
-    .then(() => {
-      dispatch(showMessage({ message: 'User data saved with api' }));
-    })
-    .catch((error) => {
-      dispatch(showMessage({ message: error.message }));
-    });
 };
 
 const initialState: IUserState = {
@@ -122,9 +84,6 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(updateUserSettings.fulfilled, (state, action: PayloadAction<IUserState>) => {
-        return action.payload;
-      })
-      .addCase(updateUserShortcuts.fulfilled, (state, action: PayloadAction<IUserState>) => {
         return action.payload;
       })
       .addCase(setUser.fulfilled, (state, action: PayloadAction<IUserState>) => {

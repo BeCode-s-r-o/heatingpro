@@ -9,8 +9,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { authInstance } from 'src/app/auth/jwtService';
 import * as yup from 'yup';
-import jwtService from '../../../auth/services/jwtService';
 
 const schema = yup.object().shape({
   displayName: yup.string().required('Musíte zadať meno'),
@@ -39,20 +39,14 @@ function SignUpPage() {
   const { isValid, dirtyFields, errors } = formState;
 
   function onSubmit({ displayName, password, email }) {
-    jwtService
-      .createUser({
-        displayName,
-        password,
-        email,
-      })
-      .catch((_errors) => {
-        _errors.forEach((error) => {
-          setError(error.type, {
-            type: 'manual',
-            message: error.message,
-          });
+    authInstance.createUser(email, password).catch((_errors) => {
+      _errors.forEach((error) => {
+        setError(error.type, {
+          type: 'manual',
+          message: error.message,
         });
       });
+    });
   }
 
   return (

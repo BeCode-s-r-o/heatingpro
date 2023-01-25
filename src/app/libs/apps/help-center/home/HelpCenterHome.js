@@ -5,7 +5,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { lighten, ThemeProvider } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import { selectMainThemeDark } from 'app/store/fuse/settingsSlice';
+import { selectMainThemeDark } from 'app/store/slices/settingsSlice';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

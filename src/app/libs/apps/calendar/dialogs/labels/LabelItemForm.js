@@ -13,7 +13,7 @@ import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
-import { closeDialog, openDialog } from 'app/store/fuse/dialogSlice';
+import { closeDialog, openDialog } from 'app/store/slices/dialogSlice';
 import clsx from 'clsx';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
