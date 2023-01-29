@@ -36,19 +36,6 @@ const StyledContent = styled(FuseScrollbars)(({ theme }) => ({
 }));
 
 const NavbarContent = (props) => {
-  const getEnv = () => {
-    if (packagejson.version.includes('alpha')) {
-      return 'alpha';
-    }
-    if (packagejson.version.includes('beta')) {
-      return 'beta';
-    }
-    if (packagejson.version.includes('rc')) {
-      return 'rc';
-    }
-    return 'stable';
-  };
-
   const getBuildDate = () => {
     if (!packagejson.buildDate) return '';
     const date = new Date(packagejson.buildDate);

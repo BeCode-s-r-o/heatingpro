@@ -50,7 +50,6 @@
             }
         ],
         "react/jsx-filename-extension": "off",
-        "import/prefer-default-export":"warn",
         "import/no-cycle":"warn",
         "import/no-extraneous-dependencies": ["warn", {"devDependencies": true}],
         "import/no-named-as-default":"warn",
@@ -76,6 +75,7 @@
         "react/jsx-uses-react": "off", // after react v17
         "react/jsx-no-bind": "off",
         "unused-imports/no-unused-imports": "warn",
-        "import/extensions": "off"
+        "import/extensions": "off",
+        "import/prefer-default-export": "off",
     }
 }

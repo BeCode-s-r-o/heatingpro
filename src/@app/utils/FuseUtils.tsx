@@ -156,7 +156,7 @@ class FuseUtils {
     return [...routes];
   }
 
-  static generateRoutesFromConfigs(configs: ISingleRouteConfig[], defaultAuth: TRouteAuth[]): IRoute[] {
+  static generateRoutesFromConfigs(configs: ISingleRouteConfig[], defaultAuth): IRoute[] {
     let allRoutes: IRoute[] = [];
     configs.forEach((config) => {
       allRoutes = [...allRoutes, ...this.setRoutes(config, defaultAuth)];

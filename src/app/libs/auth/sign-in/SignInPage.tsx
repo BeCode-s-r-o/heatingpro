@@ -13,10 +13,9 @@ import Typography from '@mui/material/Typography';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { authInstance } from 'src/app/auth/jwtService';
 import * as yup from 'yup';
-import jwtService from '../../../auth/services/jwtService';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from 'src/firebase-config';
+
 const schema = yup.object().shape({
   email: yup.string().email('Musíte zadať platný e-mail').required('Musíte zadať e-mail'),
   password: yup.string().required('Prosím zadajte heslo.').min(4, 'Heslo je príliš krátke – musí mať aspoň 4 znaky.'),
@@ -54,7 +53,7 @@ function SignInPage() {
         const errorMessage = error.message;
       }); */
 
-    jwtService.signInWithEmailAndPassword(email, password);
+    authInstance.signInWithEmailAndPassword(email, password);
   }
 
   return (

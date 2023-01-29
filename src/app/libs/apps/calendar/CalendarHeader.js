@@ -2,7 +2,7 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { selectMainTheme } from 'app/store/fuse/settingsSlice';
+import { selectMainTheme } from 'app/store/slices/settingsSlice';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import CalendarViewMenu from './CalendarViewMenu';

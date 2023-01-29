@@ -7,7 +7,7 @@ import {
   selectFuseCurrentSettings,
   selectFuseDefaultSettings,
   setSettings,
-} from 'app/store/fuse/settingsSlice';
+} from 'app/store/slices/settingsSlice';
 import { selectUser } from 'app/store/userSlice';
 import { memo, useCallback, useContext, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';

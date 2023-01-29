@@ -1,4 +1,4 @@
-import authRoles from '../../../auth/authRoles';
+import { authRoles } from '../../../auth/authRoles';
 import SignInPage from './SignInPage';
 
 const SignInConfig = {

@@ -1,13 +1,8 @@
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app';
 import { getAnalytics } from 'firebase/analytics';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from 'firebase/firestore';
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: 'AIzaSyCDOO0LluYZ9OFI-QXIEwyXJLqPx2qSmvc',
   authDomain: 'heating-pro.firebaseapp.com',
@@ -18,12 +13,8 @@ const firebaseConfig = {
   measurementId: 'G-JGMVJCT86K',
 };
 
-// Initialize Firebase
-
 const app = initializeApp(firebaseConfig);
 export const secondaryApp = initializeApp(firebaseConfig, 'Secondary');
-const analytics = getAnalytics(app);
+getAnalytics(app);
 export const auth = getAuth();
-// Export firestore database
-// It will be imported into your react app whenever it is needed
 export const db = getFirestore(app);

@@ -1,4 +1,4 @@
-import settingsConfig from 'app/config/settingsConfig';
+import { settingsConfig } from 'app/config/settingsConfig';
 import { Navigate } from 'react-router-dom';
 import Loading from 'src/@app/core/Loading';
 import FuseUtils from 'src/@app/utils';
@@ -19,7 +19,7 @@ const routeConfigs: ISingleRouteConfig[] = [
   ForgotPasswordConfig,
 ];
 
-const routes: IRoute[] = [
+const routes = [
   ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
   {
     path: '/',
