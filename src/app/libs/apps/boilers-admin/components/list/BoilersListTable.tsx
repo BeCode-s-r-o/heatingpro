@@ -14,7 +14,7 @@ interface Props {
 
 export const BoilersListTable = ({ data }: Props) => {
   const columns = ['Názov', 'Číslo', 'Telefónne číslo', 'Perióda'];
-  const rows = data || [];
+  const rows: any = data;
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Zoznam systémov</Typography>
@@ -34,7 +34,7 @@ export const BoilersListTable = ({ data }: Props) => {
           </TableHead>
 
           <TableBody>
-            {rows.map((row, index) => (
+            {rows?.map((row, index) => (
               <TableRow key={index}>
                 <TableCell key={index}>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
