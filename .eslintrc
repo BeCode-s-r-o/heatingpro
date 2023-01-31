@@ -53,7 +53,7 @@
         "import/no-cycle":"warn",
         "import/no-extraneous-dependencies": ["warn", {"devDependencies": true}],
         "import/no-named-as-default":"warn",
-        "no-unused-vars": "off",
+        "no-unused-vars": "warn",
         "no-console": "off",
         "no-use-before-define": "off",
         "no-underscore-dangle": "off",
@@ -76,6 +76,6 @@
         "react/jsx-no-bind": "off",
         "unused-imports/no-unused-imports": "warn",
         "import/extensions": "off",
-        "import/prefer-default-export": "off",
+        "import/prefer-default-export": "off"
     }
 }

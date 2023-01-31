@@ -26,7 +26,7 @@ const Root = styled('div')(({ theme }) => ({
 }));
 
 function UserNavbarHeader(props) {
-  const user = useSelector(selectUser);
+  const { data } = useSelector(selectUser);
 
   return (
     <Root className="user relative flex flex-col items-center justify-center p-16 pb-14 shadow-0">
@@ -38,12 +38,12 @@ function UserNavbarHeader(props) {
           }}
           className="avatar text-32 font-bold w-96 h-96"
         >
-          {user.data.displayName.charAt(0)}
+          {data?.name?.charAt(0)}
         </Avatar>
       </div>
-      <Typography className="username text-14 whitespace-nowrap font-medium">{user.data.displayName}</Typography>
+      <Typography className="username text-14 whitespace-nowrap font-medium">{data?.name}</Typography>
       <Typography className="email text-13 whitespace-nowrap font-medium" color="text.secondary">
-        {user.data.email}
+        {data?.email}
       </Typography>
     </Root>
   );

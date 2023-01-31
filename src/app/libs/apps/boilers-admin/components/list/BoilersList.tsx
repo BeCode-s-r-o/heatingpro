@@ -1,24 +1,32 @@
+import { AppDispatch } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { container, item } from '../../constants';
-import reducer from '../../store';
-import { getBoilers, selectAllBoilers } from '../../store/boilersSlice';
+
+import { boilersSlice, getBoilers, selectAllBoilers } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
 import { BoilersListHeader } from './BoilersListHeader';
 import { BoilersListTable } from './BoilersListTable';
 
 const BoilersList = () => {
-  const dispatch = useDispatch();
-  const data = useSelector(selectAllBoilers)[0];
+  const dispatch = useDispatch<AppDispatch>();
+  const data = useSelector(selectAllBoilers);
+  const { data: userData } = useSelector(selectUser);
+  const isAdmin = userData?.role === 'admin';
 
   useEffect(() => {
-    //@ts-ignore
-    dispatch(getBoilers());
+    if (isAdmin) {
+      dispatch(getBoilers());
+    }
   }, [dispatch]);
 
-  return (
+  return !isAdmin ? (
+    <Navigate to="/pages/error/404/" replace />
+  ) : (
     <Wrapper
       header={<BoilersListHeader />}
       content={
@@ -30,7 +38,6 @@ const BoilersList = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              {/* @ts-ignore */}
               <BoilersListTable data={data || []} />
             </motion.div>
           </motion.div>
@@ -40,4 +47,4 @@ const BoilersList = () => {
   );
 };
 
-export default withReducer('boilers', reducer)(BoilersList);
+export default withReducer('adminBoilers', boilersSlice.reducer)(BoilersList);

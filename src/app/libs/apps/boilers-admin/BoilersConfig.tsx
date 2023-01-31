@@ -1,10 +1,12 @@
+import { selectUser } from 'app/store/userSlice';
 import { lazy } from 'react';
+import { useSelector } from 'react-redux';
 import { ISingleRouteConfig } from 'src/@app/types/TRoutes';
 
 const BoilersList = lazy(() => import('./components/list/BoilersList'));
 const BoilersDetail = lazy(() => import('./components/detail/BoilersDetail'));
 
-const BoilersConfig: ISingleRouteConfig = {
+const UserBoilersConfig: ISingleRouteConfig = {
   routes: [
     {
       path: 'systemy',
@@ -22,4 +24,4 @@ const BoilersConfig: ISingleRouteConfig = {
   ],
 };
 
-export default BoilersConfig;
+export default UserBoilersConfig;

@@ -5,6 +5,7 @@ export type TBoiler = {
   period: string;
   assignedTo: string;
   columns: TBoilerColumn[];
+  lastUpdate: string;
 };
 
 export type TBoilers = TBoiler[];

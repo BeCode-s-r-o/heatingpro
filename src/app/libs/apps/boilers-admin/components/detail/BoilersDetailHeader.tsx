@@ -1,9 +1,10 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
+import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
 interface Props {
-  data: any;
+  data: TBoiler | undefined;
 }
 
 export const BoilersDetailHeader = ({ data }: Props) => {
@@ -20,9 +21,11 @@ export const BoilersDetailHeader = ({ data }: Props) => {
               <FuseSvgIcon size={20} color="action">
                 heroicons-solid:clock
               </FuseSvgIcon>
-              <Typography className="mx-6 leading-6 truncate" color="text.secondary">
-                Posledná aktualizácia: {moment(data.lastUpdate).calendar()}
-              </Typography>
+              {data?.lastUpdate && (
+                <Typography className="mx-6 leading-6 truncate" color="text.secondary">
+                  Posledná aktualizácia: {moment(data?.lastUpdate).calendar()}
+                </Typography>
+              )}
             </div>
           </div>
         </div>

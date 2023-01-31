@@ -1,11 +1,5 @@
 import { authRoles } from '../auth/authRoles';
 
-// TODO - can be used for badge
-// badge: {
-//   title: '27',
-//   classes: 'px-8 bg-pink-600 text-white rounded-full',
-// },
-
 const navigationConfig = [
   {
     id: 'dashboards',
@@ -26,19 +20,22 @@ const navigationConfig = [
 
       {
         id: 'dashboards.errors',
-        title: 'Errory',
+        title: 'Alarmy',
         type: 'item',
+        badge: {
+          title: '2',
+          classes: 'px-8 bg-red-600 text-white rounded-full',
+        },
         icon: 'heroicons-outline:exclamation-circle',
         url: '/dashboards/errors',
       },
-      //TODO - uncomment when ready
-      // {
-      //   id: 'dashboards.analytics',
-      //   title: 'Štatistiky',
-      //   type: 'item',
-      //   icon: 'heroicons-outline:chart-pie',
-      //   url: '/dashboards/analytics',
-      // },
+      {
+        id: 'dashboards.analytics',
+        title: 'Štatistiky',
+        type: 'item',
+        icon: 'heroicons-outline:chart-pie',
+        url: '/dashboards/analytics',
+      },
     ],
   },
   {
