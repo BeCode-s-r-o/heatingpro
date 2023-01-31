@@ -1,12 +1,13 @@
-import NavLinkAdapter from '@app/core/NavLinkAdapter';
+//@ts-nocheck
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import FuseSvgIcon from '../../../SvgIcon';
-import FuseNavBadge from '../../FuseNavBadge';
+import { useDispatch } from 'react-redux';
+import FuseSvgIcon from '../SvgIcon';
+import FuseNavBadge from './NavBadge';
 
 const Root = styled(ListItem)(({ theme, ...props }) => ({
   minHeight: 44,
@@ -17,16 +18,9 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
   paddingLeft: props.itempadding > 80 ? 80 : props.itempadding,
   paddingTop: 10,
   paddingBottom: 10,
-  color: alpha(theme.palette.text.primary, 0.7),
-  cursor: 'pointer',
-  textDecoration: 'none!important',
-  '&:hover': {
-    color: theme.palette.text.primary,
-  },
   '&.active': {
-    color: theme.palette.text.primary,
-    backgroundColor:
-      theme.palette.mode === 'light' ? 'rgba(0, 0, 0, .05)!important' : 'rgba(255, 255, 255, .1)!important',
+    backgroundColor: `${theme.palette.secondary.main}!important`,
+    color: `${theme.palette.secondary.contrastText}!important`,
     pointerEvents: 'none',
     transition: 'border-radius .15s cubic-bezier(0.4,0.0,0.2,1)',
     '& > .fuse-list-item-text-primary': {
@@ -36,14 +30,16 @@ const Root = styled(ListItem)(({ theme, ...props }) => ({
       color: 'inherit',
     },
   },
-  '& >.fuse-list-item-icon': {
+  '& > .fuse-list-item-icon': {
     marginRight: 16,
-    color: 'inherit',
   },
   '& > .fuse-list-item-text': {},
+  color: theme.palette.text.primary,
+  textDecoration: 'none!important',
 }));
 
-function FuseNavVerticalItem(props) {
+function FuseNavVerticalLink(props) {
+  const dispatch = useDispatch();
   const { item, nestedLevel, onItemClick } = props;
 
   const itempadding = nestedLevel > 0 ? 38 + nestedLevel * 16 : 16;
@@ -52,14 +48,13 @@ function FuseNavVerticalItem(props) {
     () => (
       <Root
         button
-        component={NavLinkAdapter}
-        to={item.url || ''}
-        activeClassName={item.url ? 'active' : ''}
-        className={clsx('fuse-list-item', item.active && 'active')}
+        component="a"
+        href={item.url}
+        target={item.target ? item.target : '_blank'}
+        className="fuse-list-item"
         onClick={() => onItemClick && onItemClick(item)}
-        end={item.end}
-        itempadding={itempadding}
         role="button"
+        itempadding={itempadding}
         sx={item.sx}
         disabled={item.disabled}
       >
@@ -78,6 +73,7 @@ function FuseNavVerticalItem(props) {
             secondary: 'text-11 font-medium fuse-list-item-text-secondary leading-normal truncate',
           }}
         />
+
         {item.badge && <FuseNavBadge badge={item.badge} />}
       </Root>
     ),
@@ -85,17 +81,17 @@ function FuseNavVerticalItem(props) {
   );
 }
 
-FuseNavVerticalItem.propTypes = {
+FuseNavVerticalLink.propTypes = {
   item: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string,
     icon: PropTypes.string,
     url: PropTypes.string,
+    target: PropTypes.string,
   }),
 };
+FuseNavVerticalLink.defaultProps = {};
 
-FuseNavVerticalItem.defaultProps = {};
+const NavVerticalLink = FuseNavVerticalLink;
 
-const NavVerticalItem = FuseNavVerticalItem;
-
-export default NavVerticalItem;
+export default NavVerticalLink;

@@ -1,3 +1,4 @@
+//@ts-nocheck
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import { ListItemText } from '@mui/material';
 import ListItem from '@mui/material/ListItem';
@@ -5,7 +6,7 @@ import { alpha, styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useMemo } from 'react';
-import FuseNavItem from '../../FuseNavItem';
+import FuseNavItem from './NavItem';
 
 const Root = styled(ListItem)(({ theme, itempadding, ...props }) => ({
   minminHeight: 44,

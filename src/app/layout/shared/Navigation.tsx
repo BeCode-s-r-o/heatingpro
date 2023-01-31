@@ -21,6 +21,7 @@ function Navigation(props) {
     return (
       <FuseNavigation
         className={clsx('navigation', props.className)}
+        //@ts-ignore
         navigation={navigation}
         layout={props.layout}
         dense={props.dense}

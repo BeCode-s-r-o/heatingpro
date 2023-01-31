@@ -1,6 +1,6 @@
-import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import IconButton from '@mui/material/IconButton';
+import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import { Outlet } from 'react-router-dom';
 
 function ContactsSidebarContent(props) {

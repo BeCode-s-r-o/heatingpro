@@ -25,6 +25,7 @@ const App = () => {
     <CacheProvider value={createCache(emotionCacheOption)}>
       <FuseTheme theme={mainTheme} direction={'ltg'}>
         <AuthProvider>
+          {/* @ts-ignore */}
           <BrowserRouter>
             <FuseAuthorization userRole={user.role} loginRedirectUrl={loginRedirectUrl}>
               <SnackbarProvider

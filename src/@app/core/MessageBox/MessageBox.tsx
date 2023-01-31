@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { amber, blue, green } from '@mui/material/colors';
 import IconButton from '@mui/material/IconButton';
 import Snackbar from '@mui/material/Snackbar';
@@ -40,7 +41,7 @@ const variantIcon = {
   info: 'info',
 };
 
-function FuseMessage(props) {
+const MessageBox = () => {
   const dispatch = useDispatch();
   const state = useSelector(selectFuseMessageState);
   const options = useSelector(selectFuseMessageOptions);
@@ -62,7 +63,6 @@ function FuseMessage(props) {
         className="FuseMessage-content"
         message={
           <div className="flex items-center">
-            {variantIcon[options.variant] && <FuseSvgIcon color="inherit">{variantIcon[options.variant]}</FuseSvgIcon>}
             <Typography className="mx-8">{options.message}</Typography>
           </div>
         }
@@ -80,6 +80,6 @@ function FuseMessage(props) {
       />
     </StyledSnackbar>
   );
-}
+};
 
-export default memo(FuseMessage);
+export default memo(MessageBox);

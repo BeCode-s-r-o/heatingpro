@@ -11,7 +11,6 @@ import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import NavbarToggleButton from '../shared/NavbarToggleButton';
 import NavigationSearch from '../shared/NavigationSearch';
-import NavigationShortcuts from '../shared/NavigationShortcuts';
 import NotificationPanelToggleButton from '../shared/notificationPanel/NotificationPanelToggleButton';
 import UserMenu from '../shared/UserMenu';
 
@@ -19,7 +18,6 @@ const Toolbar = (props) => {
   const config = useSelector(selectFuseCurrentLayoutConfig);
   const navbar: any = useSelector(selectFuseNavbar);
   const toolbarTheme = useSelector(selectToolbarTheme);
-  //TODO - add maintanance from backend
   const [maintenanceMode, setMaintenanceMoce] = useState(false);
 
   return (
@@ -64,10 +62,6 @@ const Toolbar = (props) => {
                 </Hidden>
               </>
             )}
-
-            <Hidden lgDown>
-              <NavigationShortcuts />
-            </Hidden>
           </div>
 
           <div className="flex items-center px-8 h-full overflow-x-auto">

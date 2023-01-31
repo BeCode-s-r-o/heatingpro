@@ -1,3 +1,4 @@
+//@ts-nocheck
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
@@ -9,9 +10,9 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import FuseSvgIcon from '../../../SvgIcon';
-import FuseNavBadge from '../../FuseNavBadge';
-import FuseNavItem from '../../FuseNavItem';
+import FuseSvgIcon from '../SvgIcon';
+import FuseNavBadge from './NavBadge';
+import FuseNavItem from './NavItem';
 
 const Root = styled(List)(({ theme, ...props }) => ({
   padding: 0,

@@ -1,8 +1,9 @@
+//@ts-nocheck
 import Dialog from '@mui/material/Dialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeDialog, selectFuseDialogOptions, selectFuseDialogState } from 'app/store/slices/dialogSlice';
 
-function FuseDialog(props) {
+function FuseDialog() {
   const dispatch = useDispatch();
   const state = useSelector(selectFuseDialogState);
   const options = useSelector(selectFuseDialogOptions);

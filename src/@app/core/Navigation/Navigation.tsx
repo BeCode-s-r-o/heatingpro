@@ -3,20 +3,17 @@ import Divider from '@mui/material/Divider';
 import GlobalStyles from '@mui/material/GlobalStyles';
 import PropTypes from 'prop-types';
 import { memo } from 'react';
-import { registerComponent } from './FuseNavItem';
-import FuseNavHorizontalCollapse from './horizontal/types/FuseNavHorizontalCollapse';
-import FuseNavHorizontalGroup from './horizontal/types/FuseNavHorizontalGroup';
-import FuseNavHorizontalItem from './horizontal/types/FuseNavHorizontalItem';
-import FuseNavHorizontalLink from './horizontal/types/FuseNavHorizontalLink';
-import NavigationLayout from './vertical/FuseNavVerticalLayout1';
-import FuseNavVerticalCollapse from './vertical/types/FuseNavVerticalCollapse';
-import FuseNavVerticalGroup from './vertical/types/FuseNavVerticalGroup';
-import FuseNavVerticalItem from './vertical/types/FuseNavVerticalItem';
-import FuseNavVerticalLink from './vertical/types/FuseNavVerticalLink';
+import { registerComponent } from './NavItem';
+
+import NavigationLayout from './NavigationLayout';
+import FuseNavVerticalCollapse from './NavVerticalCollapse';
+import FuseNavVerticalGroup from './NavVerticalGroup';
+import FuseNavVerticalItem from './NavVerticalItem';
+import FuseNavVerticalLink from './NavVerticalLink';
 
 const inputGlobalStyles = (
   <GlobalStyles
-    styles={(theme) => ({
+    styles={() => ({
       '.popper-navigation-list': {
         '& .fuse-list-item': {
           padding: '8px 12px 8px 12px',
@@ -47,10 +44,7 @@ registerComponent('vertical-group', FuseNavVerticalGroup);
 registerComponent('vertical-collapse', FuseNavVerticalCollapse);
 registerComponent('vertical-item', FuseNavVerticalItem);
 registerComponent('vertical-link', FuseNavVerticalLink);
-registerComponent('horizontal-group', FuseNavHorizontalGroup);
-registerComponent('horizontal-collapse', FuseNavHorizontalCollapse);
-registerComponent('horizontal-item', FuseNavHorizontalItem);
-registerComponent('horizontal-link', FuseNavHorizontalLink);
+
 registerComponent('vertical-divider', () => <Divider className="my-16" />);
 registerComponent('horizontal-divider', () => <Divider className="my-16" />);
 
