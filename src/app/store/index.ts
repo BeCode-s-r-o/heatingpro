@@ -1,4 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { TBoiler, TBoilers } from '@app/types/TBoilers';
+import { TContact } from '@app/types/TContact';
+import { TUserState } from '@app/types/TUserData';
+import { configureStore, Dictionary } from '@reduxjs/toolkit';
 import createReducer from './rootReducer';
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
@@ -42,7 +45,29 @@ export const injectReducer = (key, reducer) => {
   return store;
 };
 
-export type RootState = ReturnType<typeof store.getState>;
+type TBoilersState = {
+  entities: Dictionary<TBoiler>;
+  ids: string[];
+};
+
+type TcontactsState = {
+  entities: Dictionary<TContact>;
+  ids: string[];
+};
+
+type TContactsState = {
+  entities: Dictionary<TContact>;
+  ids: string[];
+  searchText: string;
+};
+
+export type RootState = {
+  fuse: any;
+  user: TUserState;
+  userBoilers: TBoilersState;
+  adminBoilers: TBoilersState;
+  contacts: TcontactsState;
+};
 export type AppDispatch = typeof store.dispatch;
 
 export default store;

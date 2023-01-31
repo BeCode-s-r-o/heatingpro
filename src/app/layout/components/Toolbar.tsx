@@ -9,7 +9,6 @@ import { selectFuseCurrentLayoutConfig, selectToolbarTheme } from 'app/store/sli
 import clsx from 'clsx';
 import { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ChatPanelToggleButton from '../shared/chatPanel/ChatPanelToggleButton';
 import NavbarToggleButton from '../shared/NavbarToggleButton';
 import NavigationSearch from '../shared/NavigationSearch';
 import NavigationShortcuts from '../shared/NavigationShortcuts';
@@ -73,10 +72,6 @@ const Toolbar = (props) => {
 
           <div className="flex items-center px-8 h-full overflow-x-auto">
             <NavigationSearch />
-
-            <Hidden lgUp>
-              <ChatPanelToggleButton />
-            </Hidden>
 
             {/* 
             TODO - might be used again in the future

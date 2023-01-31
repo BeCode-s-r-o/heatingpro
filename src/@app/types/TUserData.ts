@@ -1,21 +1,15 @@
-import { TContactHeater } from './TContact';
+import { TContactHeater, TUserRoles } from './TContact';
 
-export interface TUserData {
-  role: string[];
-  data: {
-    displayName: string;
-    photoURL: string;
-    shortcuts: string[];
-    id: string;
-    name: string;
-    address: string;
-    avatar: string | null;
-    background: string | null;
-    phone: string;
-    email: string;
-    birthNumber: string;
-    role: 'guest' | 'user' | 'admin' | '';
-    notes: string;
-    heaters: TContactHeater[];
-  };
+export interface TUserState {
+  role: string;
+  data:
+    | {
+        id: string;
+        name: string;
+        avatar: string | null;
+        phone: string;
+        email: string;
+        role: TUserRoles;
+      }
+    | undefined;
 }

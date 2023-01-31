@@ -6,7 +6,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 
-function ContactListItem(props) {
+const ContactListItem = (props) => {
   const { contact } = props;
   const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť' };
 
@@ -37,6 +37,6 @@ function ContactListItem(props) {
       <Divider />
     </>
   );
-}
+};
 
 export default ContactListItem;

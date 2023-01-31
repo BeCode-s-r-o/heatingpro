@@ -1,39 +1,29 @@
 import FuseLoading from '@app/core/Loading';
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
-import _ from '@lodash';
+import { TContact } from '@app/types/TContact';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
-import format from 'date-fns/format';
+import { AppDispatch } from 'app/store/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getContact, selectContact } from '../store/contactSlice';
-import { selectCountries } from '../store/countriesSlice';
-import { selectTags } from '../store/tagsSlice';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
-import { TContact } from '@app/types/TContact';
+import { getContact } from '../store/singleContactSlice';
 
 const ContactView = () => {
-  const contact: TContact = useSelector(selectContact);
-  const countries = useSelector(selectCountries);
-  const tags = useSelector(selectTags);
-  const routeParams = useParams();
-  const dispatch = useDispatch();
+  //@ts-ignore
+  const contact: TContact = useSelector<RootState>((state) => selectContactById(state, id || ''));
+  const { id } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    //@ts-ignore
-    dispatch(getContact(routeParams.id));
-  }, [dispatch, routeParams]);
-
-  /*   function getCountryByIso(iso) {
-    return countries.find((country) => country.iso === iso);
-  } */
+    dispatch(getContact(id || ''));
+  }, [dispatch, id]);
 
   if (!contact) {
     return <FuseLoading />;
@@ -91,63 +81,6 @@ const ContactView = () => {
               <div className="flex items-center">
                 <PermDeviceInformationIcon />
                 <div className="ml-24 leading-6">{contact.phone}</div>
-              </div>
-            )}
-
-            {contact.heaters.length && contact.heaters.some((item) => item.heater.length > 0) && (
-              <div className="flex">
-                <WhatshotIcon />
-                <div className="min-w-0 ml-24 space-y-4">
-                  {contact.heaters.map(
-                    (item) =>
-                      item.heater !== '' && (
-                        <div className="flex items-center leading-6" key={item.heater}>
-                          {item.heater}
-
-                          {item.label && (
-                            <>
-                              <Typography className="text-md truncate" color="text.secondary">
-                                <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{item.label}</span>
-                              </Typography>
-                            </>
-                          )}
-                          {item.phone && (
-                            <>
-                              <Typography className="text-md truncate" color="text.secondary">
-                                <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{item.phone}</span>
-                              </Typography>
-                            </>
-                          )}
-                        </div>
-                      )
-                  )}
-                </div>
-              </div>
-            )}
-
-            {contact.address && (
-              <div className="flex items-center">
-                <FuseSvgIcon>heroicons-outline:location-marker</FuseSvgIcon>
-                <div className="ml-24 leading-6">{contact.address}</div>
-              </div>
-            )}
-
-            {contact.birthNumber && (
-              <div className="flex items-center">
-                <FuseSvgIcon>heroicons-outline:cake</FuseSvgIcon>
-                <div className="ml-24 leading-6">{contact.birthNumber}</div>
-              </div>
-            )}
-
-            {contact.notes && (
-              <div className="flex">
-                <FuseSvgIcon>heroicons-outline:menu-alt-2</FuseSvgIcon>
-                <div
-                  className="max-w-none ml-24 prose dark:prose-invert"
-                  dangerouslySetInnerHTML={{ __html: contact.notes }}
-                />
               </div>
             )}
           </div>
