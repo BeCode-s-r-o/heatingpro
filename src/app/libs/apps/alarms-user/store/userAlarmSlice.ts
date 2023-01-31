@@ -3,7 +3,7 @@ import { createAsyncThunk, createEntityAdapter, createSlice, EntityAdapter } fro
 import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { RootState } from '../../../../store/index';
 
-export const getUserBoilers = createAsyncThunk('userBoilers/getUserBoilers', async (id: string) => {
+export const getUserAlarms = createAsyncThunk('userBoilers/getUserAlarms', async (id: string) => {
   const q = query(collection(getFirestore(), 'boilers'), where('assignedTo', '==', id));
   const queryData = await getDocs(q);
   const data = queryData.docs.map((user) => user.data() as TBoiler);
@@ -30,27 +30,24 @@ export const getUserBoiler = createAsyncThunk(
   }
 );
 
-const boilersAdapter: EntityAdapter<TBoiler> = createEntityAdapter({});
+const alarmsAdapter: EntityAdapter<TBoiler> = createEntityAdapter({});
 
 export const {
   selectAll: selectAllBoilers,
   selectById: selectBoilerById,
   selectTotal: selectTotalBoilers,
   selectIds: selectBoilerIds,
-} = boilersAdapter.getSelectors((state: RootState) => state.userBoilers);
+} = alarmsAdapter.getSelectors((state: RootState) => state.userAlarms);
 
-const userBoilersSlice = createSlice({
-  name: 'userBoilers',
-  initialState: boilersAdapter.getInitialState(),
+const userAlarmsSlice = createSlice({
+  name: 'userAlarms',
+  initialState: alarmsAdapter.getInitialState(),
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUserBoilers.fulfilled, (state, action) => {
-      boilersAdapter.setAll(state, action.payload);
-    });
-    builder.addCase(getUserBoiler.fulfilled, (state, action) => {
-      boilersAdapter.upsertOne(state, action.payload);
+    builder.addCase(getUserAlarms.fulfilled, (state, action) => {
+      alarmsAdapter.setAll(state, action.payload);
     });
   },
 });
 
-export default userBoilersSlice.reducer;
+export default userAlarmsSlice.reducer;

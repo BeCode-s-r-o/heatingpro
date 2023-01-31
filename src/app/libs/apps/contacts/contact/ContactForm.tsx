@@ -59,7 +59,7 @@ const ContactForm = () => {
   function onSubmit(data) {
     if (id === 'new') {
       dispatch(addContact(data)).then(() => {
-        navigate(`/apps/contacts`);
+        navigate(`/pouzivatelia`);
       });
     } else {
       dispatch(updateContact(data));
@@ -68,7 +68,7 @@ const ContactForm = () => {
 
   function handleRemoveContact() {
     dispatch(removeContact(contact.id)).then(() => {
-      navigate('/apps/contacts');
+      navigate('/pouzivatelia');
     });
   }
 

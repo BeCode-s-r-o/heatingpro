@@ -67,6 +67,7 @@ export type RootState = {
   userBoilers: TBoilersState;
   adminBoilers: TBoilersState;
   contacts: TcontactsState;
+  userAlarms: any;
 };
 export type AppDispatch = typeof store.dispatch;
 

@@ -112,7 +112,7 @@ function ClassicForgotPasswordPage() {
 
             <Typography className="mt-32 text-md font-medium" color="text.secondary">
               <span>Späť na</span>
-              <Link className="ml-4" to="/sign-in">
+              <Link className="ml-4" to="/prihlasenie">
                 prihlásenie
               </Link>
             </Typography>

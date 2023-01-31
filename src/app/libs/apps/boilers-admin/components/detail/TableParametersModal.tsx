@@ -13,13 +13,11 @@ import { tempColumns } from '../../constants';
 import { db } from 'src/firebase-config';
 
 function TableParametersModal({ data, isOpen, toggleOpen }) {
-  console.log(data, 'data');
-
   const [boilerData, setBoilerData] = useState(data);
 
   const handleChange = (e) => {
     const value = e.target.value;
-    console.log(e.target.name);
+
     setBoilerData((prev) => ({
       ...prev,
       [e.target.name]: value,
@@ -29,7 +27,7 @@ function TableParametersModal({ data, isOpen, toggleOpen }) {
   const saveColumnsInFirebase = (columns) => {
     try {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-      console.log(orderedColumns);
+
       const boilerRef = doc(db, 'boilers', '0002A'); //boiler id
 
       updateDoc(boilerRef, { columns: orderedColumns });
@@ -41,14 +39,14 @@ function TableParametersModal({ data, isOpen, toggleOpen }) {
   /*  
     const saveColumnsInFirebase = (columns) => {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-      console.log(orderedColumns);
+
         const boilerRef = doc(db, 'boilers', "hascvas"); //boiler id
       setDoc(boilerRef, {...data, columns: orderedColumns})
         .then(() => {
-          console.log('Document has been added successfully');
+         
         })
         .catch((error) => {
-          console.log(error);
+       
         }); 
     };
   */

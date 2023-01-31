@@ -6,6 +6,7 @@ export type TBoiler = {
   assignedTo: string;
   columns: TBoilerColumn[];
   lastUpdate: string;
+  sms: TSms[];
 };
 
 export type TBoilers = TBoiler[];
@@ -21,3 +22,30 @@ type TBoilerColumn = {
     min: any | null;
   };
 };
+
+export interface TSms {
+  deviceID: string;
+  fromPhoneNumber: string;
+  messageID: string;
+  messageServiceID: string;
+  originalBody: string;
+  status: string;
+  timestamp: {
+    firestore: string;
+    unix: number;
+  };
+  toPhoneNumber: string;
+  body?: Body;
+}
+
+interface Body {
+  deviceID: string;
+  digitalInput: Array<number | null>;
+  digitalOutput: Array<number>;
+  inputData: Array<number | null>;
+  timestamp: {
+    display: string;
+    original: string;
+    unix: number;
+  };
+}

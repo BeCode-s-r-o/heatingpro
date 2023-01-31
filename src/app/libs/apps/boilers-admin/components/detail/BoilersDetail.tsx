@@ -25,7 +25,7 @@ const BoilersDetail = () => {
   }, [dispatch]);
 
   return !isAdmin ? (
-    <Navigate to="/pages/error/404/" replace />
+    <Navigate to="/404/" replace />
   ) : (
     <Wrapper
       header={<BoilersDetailHeader data={boiler} />}
@@ -38,7 +38,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable data={boiler || {}} />
+              <BoilersDetailTable />
             </motion.div>
           </motion.div>
         </div>

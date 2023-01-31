@@ -26,7 +26,7 @@ const SignInConfig = {
   auth: authRoles.onlyGuest,
   routes: [
     {
-      path: 'sign-in',
+      path: 'prihlasenie',
       element: <SignInPage />,
     },
   ],

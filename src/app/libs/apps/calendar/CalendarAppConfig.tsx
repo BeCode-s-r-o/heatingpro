@@ -10,7 +10,7 @@ const CalendarAppConfig = {
   },
   routes: [
     {
-      path: 'apps/calendar',
+      path: '/kalendar',
       element: <CalendarApp />,
     },
   ],

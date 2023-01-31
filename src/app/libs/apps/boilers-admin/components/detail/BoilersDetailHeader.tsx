@@ -22,7 +22,7 @@ export const BoilersDetailHeader = ({ data }: Props) => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
-  console.log(boiler, 'boileris');
+
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
       <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">

@@ -69,7 +69,7 @@ const UserMenu = () => {
       >
         {!user.role || user.role.length === 0 ? (
           <>
-            <MenuItem component={Link} to="/sign-in" role="button">
+            <MenuItem component={Link} to="/prihlasenie" role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:lock-closed</FuseSvgIcon>
               </ListItemIcon>
@@ -84,7 +84,7 @@ const UserMenu = () => {
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/apps/profile" onClick={userMenuClose} role="button">
+            <MenuItem component={Link} to="/profil" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-circle</FuseSvgIcon>
               </ListItemIcon>
@@ -93,7 +93,7 @@ const UserMenu = () => {
 
             <MenuItem
               component={NavLink}
-              to="/sign-out"
+              to="/odhlasit"
               onClick={() => {
                 userMenuClose();
               }}

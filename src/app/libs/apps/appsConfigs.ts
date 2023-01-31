@@ -1,20 +1,18 @@
 import { ISingleRouteConfig } from 'src/@app/types/TRoutes';
 import BoilersConfig from './boilers-admin/BoilersConfig';
 import UserBoilersConfig from './boilers-user/UserBoilersConfig';
-import CalendarAppConfig from './unused/calendar/CalendarAppConfig';
+import CalendarAppConfig from './calendar/CalendarAppConfig';
 import ContactsAppConfig from './contacts/ContactsAppConfig';
-import FileManagerAppConfig from './unused/file-manager/FileManagerAppConfig';
-import HelpCenterAppConfig from './unused/profile/help-center/HelpCenterAppConfig';
-import ProfileAppConfig from './unused/profile/profileAppConfig';
+import ProfileAppConfig from './profile/ProfileAppConfig';
+import UserAlarmsConfig from './alarms-user/UserAlarmsConfig';
 
 const appsConfigs: ISingleRouteConfig[] = [
-  FileManagerAppConfig,
   ContactsAppConfig,
   CalendarAppConfig,
-  HelpCenterAppConfig,
   ProfileAppConfig,
   BoilersConfig,
   UserBoilersConfig,
+  UserAlarmsConfig,
 ];
 
 export default appsConfigs;

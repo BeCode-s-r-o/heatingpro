@@ -53,7 +53,7 @@ class FuseAuthorization extends Component {
     const redirectUrl = userRole[0] === 'user' ? '/pouzivatelske-systemy/' : '/';
 
     if (!userRole || userRole.length === 0) {
-      setTimeout(() => history.push('/sign-in'), 0);
+      setTimeout(() => history.push('/prihlasenie'), 0);
       loginRedirectUrl = pathname;
     } else {
       setTimeout(() => history.push(redirectUrl), 0);
@@ -62,7 +62,6 @@ class FuseAuthorization extends Component {
   }
 
   render() {
-    // console.info('Fuse Authorization rendered', this.state.accessGranted);
     return this.state.accessGranted ? <>{this.props.children}</> : null;
   }
 }

@@ -4,30 +4,25 @@ import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { container, item } from '../../constants';
-import { boilersSlice, getBoilers, selectAllBoilers } from '../../store/boilersSlice';
-import { Wrapper } from '../styled/BoilersStyled';
-import { BoilersListHeader } from './BoilersListHeader';
-import { BoilersListTable } from './BoilersListTable';
 
-const BoilersList = () => {
+import { container, item } from '../constants';
+import reducer from '../store';
+import { getUserAlarms, selectAllBoilers } from '../store/userAlarmSlice';
+import { Wrapper } from '../styled/Wrapper';
+
+import { BoilersListTable } from './UserAlarmTable';
+
+const UserAlarmList = () => {
   const dispatch = useDispatch<AppDispatch>();
   const data = useSelector(selectAllBoilers);
   const { data: userData } = useSelector(selectUser);
-  const isAdmin = userData?.role === 'admin';
 
   useEffect(() => {
-    if (isAdmin) {
-      dispatch(getBoilers());
-    }
-  }, [dispatch]);
+    dispatch(getUserAlarms(userData?.id || ''));
+  }, []);
 
-  return !isAdmin ? (
-    <Navigate to="/pouzivatelske-systemy/" replace />
-  ) : (
+  return (
     <Wrapper
-      header={<BoilersListHeader />}
       content={
         <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
           <motion.div
@@ -37,7 +32,7 @@ const BoilersList = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersListTable data={data || []} />
+              <BoilersListTable data={(data || []) as any} />
             </motion.div>
           </motion.div>
         </div>
@@ -46,4 +41,4 @@ const BoilersList = () => {
   );
 };
 
-export default withReducer('adminBoilers', boilersSlice.reducer)(BoilersList);
+export default withReducer('userAlarms', reducer)(UserAlarmList);

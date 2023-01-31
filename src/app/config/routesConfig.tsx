@@ -32,7 +32,7 @@ const routes = [
   },
   {
     path: '*',
-    element: <Navigate to="pages/error/404" />,
+    element: <Navigate to="/404" />,
   },
 ];
 

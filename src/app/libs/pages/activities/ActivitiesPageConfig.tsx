@@ -10,7 +10,7 @@ const activitiesPageConfig = {
   },
   routes: [
     {
-      path: 'pages/activities',
+      path: '/nastavenia',
       element: <ActivitiesPage />,
     },
   ],

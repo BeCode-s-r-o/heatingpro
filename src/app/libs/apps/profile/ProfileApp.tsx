@@ -7,7 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import useThemeMediaQuery from '../../../../../@app/hooks/useThemeMediaQuery';
+import useThemeMediaQuery from '../../../../@app/hooks/useThemeMediaQuery';
 import AboutTab from './tabs/AboutTab';
 import PhotosVideosTab from './tabs/PhotosVideosTab';
 import TimelineTab from './tabs/TimelineTab';

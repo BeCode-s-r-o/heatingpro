@@ -1,6 +1,6 @@
-import { TBoiler } from '@app/types/TBoilers';
+import { TBoiler, TSms } from '@app/types/TBoilers';
 import { createAsyncThunk, createEntityAdapter, createSlice, EntityAdapter } from '@reduxjs/toolkit';
-import { collection, getDocs, getDoc, getFirestore, doc } from 'firebase/firestore';
+import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { RootState } from '../../../../store/index';
 
 export const getBoilers = createAsyncThunk('adminBoilers/getAdminBoilers', async () => {
@@ -8,10 +8,16 @@ export const getBoilers = createAsyncThunk('adminBoilers/getAdminBoilers', async
   const data = docs.map((user) => user.data() as TBoiler);
   return data;
 });
+
 export const getBoiler = createAsyncThunk('adminBoilers/getAdminBoiler', async (id: string | undefined) => {
   if (id) {
     const data = await getDoc(doc(getFirestore(), 'boilers', id));
-    return data.data() as TBoiler;
+    const smsQuery = query(collection(getFirestore(), 'sms'), where('deviceID', '==', id));
+    const sms = await getDocs(smsQuery);
+    const smsData = sms.docs.map((doc) => doc.data() as TSms);
+    const boiler = data.data() as TBoiler;
+    const merged = { ...boiler, sms: smsData };
+    return merged as TBoiler;
   }
   return {} as TBoiler;
 });

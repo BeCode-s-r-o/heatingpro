@@ -10,7 +10,7 @@ const profileAppConfig = {
   },
   routes: [
     {
-      path: 'apps/profile',
+      path: '/profil',
       element: <ProfileApp />,
     },
   ],

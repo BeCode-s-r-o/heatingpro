@@ -15,7 +15,7 @@ import { db } from 'src/firebase-config';
 function SettingsModal({ data, isOpen, toggleOpen }) {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(100);
-  console.log(data, 'data');
+
   const generateColumns = (data) => {
     return data.map((item) => {
       return {
@@ -29,7 +29,7 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
   const columns = generateColumns(tempColumns.sort((a, b) => a.order - b.order));
 
   const [tableColumns, setTableColumns] = useState(columns);
-  console.log(tableColumns);
+
   //save reference for dragItem and dragOverItem
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
@@ -54,7 +54,7 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
   };
   const handleChange = (e, attribute) => {
     const value = e.target.value;
-    console.log(e.target.name, 'menooo');
+
     setTableColumns((prev) =>
       prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
     );
@@ -63,7 +63,7 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
   const saveColumnsInFirebase = (columns) => {
     try {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-      console.log(orderedColumns);
+
       const boilerRef = doc(db, 'boilers', '0002A'); //boiler id
 
       updateDoc(boilerRef, { columns: orderedColumns });
@@ -75,14 +75,14 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
   /*  
   const saveColumnsInFirebase = (columns) => {
     const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-    console.log(orderedColumns);
+
       const boilerRef = doc(db, 'boilers', "hascvas"); //boiler id
     setDoc(boilerRef, {...data, columns: orderedColumns})
       .then(() => {
-        console.log('Document has been added successfully');
+   
       })
       .catch((error) => {
-        console.log(error);
+      
       }); 
   };
 */

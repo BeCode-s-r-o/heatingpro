@@ -1,5 +1,6 @@
 import { TBoiler } from '@app/types/TBoilers';
 import { AppDispatch, RootState } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
@@ -16,9 +17,9 @@ const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
-
+  const { data: userData } = useSelector(selectUser);
   useEffect(() => {
-    dispatch(getUserBoiler(id || ''));
+    dispatch(getUserBoiler({ id: id || '', userId: userData?.id || '' }));
   }, [id, dispatch]);
 
   return !boiler ? (
@@ -35,7 +36,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable data={boiler || {}} />
+              <BoilersDetailTable />
             </motion.div>
           </motion.div>
         </div>

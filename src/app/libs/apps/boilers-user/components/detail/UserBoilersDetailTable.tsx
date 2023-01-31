@@ -2,17 +2,26 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid } from '@mui/x-data-grid';
+import { AppDispatch, RootState } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { TBoiler } from 'src/@app/types/TBoilers';
-import { tempColumns } from '../../constants';
+import { getUserBoiler, selectBoilerById } from '../../store/userBoilersSlice';
 
-interface Props {
-  data: any;
-}
+export const BoilersDetailTable = () => {
+  const { id } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
+  const { data: userData } = useSelector(selectUser);
+  useEffect(() => {
+    dispatch(getUserBoiler({ id: id || '', userId: userData?.id || '' }));
+  }, [id, dispatch]);
 
-export const BoilersDetailTable = ({ data }: Props) => {
-  const generateColumns = (data: TBoiler) => {
-    //@ts-ignore
-    return data.map((item) => {
+  const generateColumns = (data: TBoiler['columns']) => {
+    const sortedData = data.sort((i) => i.order);
+    return sortedData.map((item) => {
       return {
         field: item.accessor,
         headerName: `${item.columnName} (${item.unit})`,
@@ -20,31 +29,34 @@ export const BoilersDetailTable = ({ data }: Props) => {
       };
     });
   };
-  //@ts-ignore
-  const columns = generateColumns(tempColumns.sort((a, b) => a.order - b.order));
-  const rows = [];
+
+  const generateRows = (data: TBoiler['sms']) => {
+    return data
+      ?.sort((i) => i.timestamp.unix)
+      .map((i) => i.body?.inputData?.reduce((acc, curr, idx) => ({ ...acc, [String(idx)]: curr || '-' }), {}) || {});
+  };
+
+  const columns = generateColumns([...(boiler?.columns || [])]);
+  const rows = generateRows([...(boiler?.sms || [])]);
+
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Bojler {data?.id}</Typography>
+      <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Bojler {id}</Typography>
 
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={10}
+          rowsPerPageOptions={[10]}
+          getRowId={(row) => Math.random()}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">
                 Žiadne dáta
               </Stack>
             ),
-            NoResultsOverlay: () => (
-              <Stack height="100%" alignItems="center" justifyContent="center">
-                Žiadne výsledky
-              </Stack>
-            ),
           }}
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[10]}
         />
       </div>
     </Paper>
