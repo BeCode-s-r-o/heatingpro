@@ -1,28 +1,41 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
+import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
 import moment from 'moment';
+import { useState } from 'react';
+
+import TableParametersModal from './TableParametersModal';
+
+import TableSettingsModal from './TableSettingsModal';
+
 interface Props {
-  data: any;
+  boiler: TBoiler | undefined;
 }
 
-export const BoilersDetailHeader = ({ data }: Props) => {
+export const BoilersDetailHeader = ({ boiler }: Props) => {
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
+  const [isParametersModalOpen, setIsParametersModalOpen] = useState(false);
+
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
       <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
         <div className="flex flex-auto items-center min-w-0">
           <div className="flex flex-col min-w-0 mx-16">
             <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-              Bojler {data?.name}
+              Bojler {boiler?.name}
             </Typography>
 
             <div className="flex items-center">
               <FuseSvgIcon size={20} color="action">
                 heroicons-solid:clock
               </FuseSvgIcon>
-              <Typography className="mx-6 leading-6 truncate" color="text.secondary">
-                Posledná aktualizácia: {moment(data.lastUpdate).calendar()}
-              </Typography>
+              {boiler?.lastUpdate && (
+                <Typography className="mx-6 leading-6 truncate" color="text.secondary">
+                  Posledná aktualizácia: {moment(boiler?.lastUpdate).calendar()}
+                </Typography>
+              )}
             </div>
           </div>
         </div>
@@ -38,17 +51,41 @@ export const BoilersDetailHeader = ({ data }: Props) => {
             variant="contained"
             color="secondary"
             startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+            onClick={() => {
+              setIsSettingsModalOpen(true);
+            }}
           >
             Nastavenia tabuľky
           </Button>
+          {boiler && (
+            <TableSettingsModal
+              boiler={boiler}
+              isOpen={isSettingsModalOpen}
+              toggleOpen={() => {
+                setIsSettingsModalOpen((prev) => !prev);
+              }}
+            />
+          )}
           <Button
             className="whitespace-nowrap"
             variant="contained"
             color="secondary"
             startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+            onClick={() => {
+              setIsParametersModalOpen(true);
+            }}
           >
             Nastavenia parametrov
           </Button>
+          {boiler && (
+            <TableParametersModal
+              boiler={boiler}
+              isOpen={isParametersModalOpen}
+              toggleOpen={() => {
+                setIsParametersModalOpen((prev) => !prev);
+              }}
+            />
+          )}
         </div>
       </div>
     </div>

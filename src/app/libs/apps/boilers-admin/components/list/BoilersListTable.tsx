@@ -14,7 +14,7 @@ interface Props {
 
 export const BoilersListTable = ({ data }: Props) => {
   const columns = ['Názov', 'Číslo', 'Telefónne číslo', 'Perióda'];
-  const rows = data || [];
+  const rows: any = data;
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Zoznam systémov</Typography>
@@ -34,34 +34,34 @@ export const BoilersListTable = ({ data }: Props) => {
           </TableHead>
 
           <TableBody>
-            {rows.map((row, index) => (
+            {rows?.map((row, index) => (
               <TableRow key={index}>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.name}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.id}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.phoneNumber}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.period}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {/* alarm */}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     <Link to={String(row.id || '')} role="button">
                       Detail

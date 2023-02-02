@@ -60,7 +60,7 @@ function SignUpPage() {
           </Typography>
           <div className="flex items-baseline mt-2 font-medium">
             <Typography>Máte už účet?</Typography>
-            <Link className="ml-4" to="/sign-in">
+            <Link className="ml-4" to="/prihlasenie">
               Prihláste sa
             </Link>
           </div>

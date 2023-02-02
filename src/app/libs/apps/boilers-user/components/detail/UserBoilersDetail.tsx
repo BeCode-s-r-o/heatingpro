@@ -1,3 +1,6 @@
+import { TBoiler } from '@app/types/TBoilers';
+import { AppDispatch, RootState } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
@@ -12,18 +15,18 @@ import { BoilersDetailTable } from './UserBoilersDetailTable';
 
 const BoilersDetail = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
-  const boiler = useSelector((state) => selectBoilerById(state, id || ''));
-
+  const dispatch = useDispatch<AppDispatch>();
+  const boiler = id ? useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id)) : undefined;
+  const { data: userData } = useSelector(selectUser);
   useEffect(() => {
-    dispatch(getUserBoiler(id || '') as any);
+    if (id && userData?.id) dispatch(getUserBoiler({ id: id, userId: userData?.id }));
   }, [id, dispatch]);
 
   return !boiler ? (
-    <h1>Boiler neexistuje</h1>
+    <Wrapper header={<BoilersDetailHeader doesNotExist />} />
   ) : (
     <Wrapper
-      header={<BoilersDetailHeader data={boiler || {}} />}
+      header={<BoilersDetailHeader data={boiler} />}
       content={
         <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
           <motion.div
@@ -33,7 +36,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable data={boiler || {}} />
+              <BoilersDetailTable boiler={boiler} id={id || ''} />
             </motion.div>
           </motion.div>
         </div>
@@ -42,4 +45,4 @@ const BoilersDetail = () => {
   );
 };
 
-export default withReducer('boilers', reducer)(BoilersDetail);
+export default withReducer('userBoilers', reducer)(BoilersDetail);

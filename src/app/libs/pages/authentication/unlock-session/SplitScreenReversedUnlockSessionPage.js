@@ -184,7 +184,7 @@ function SplitScreenReversedUnlockSessionPage() {
 
             <Typography className="mt-32 text-md font-medium" color="text.secondary">
               <span>I'm not</span>
-              <Link className="ml-4" to="/sign-in">
+              <Link className="ml-4" to="/prihlasenie">
                 Brian Hughes
               </Link>
             </Typography>

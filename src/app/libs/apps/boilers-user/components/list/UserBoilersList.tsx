@@ -1,4 +1,4 @@
-import { TBoiler } from '@app/types/TBoilers';
+import { AppDispatch } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
 import { motion } from 'framer-motion';
@@ -12,13 +12,12 @@ import { BoilersListHeader } from './UserBoilersListHeader';
 import { BoilersListTable } from './UserBoilersListTable';
 
 const BoilersList = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const data = useSelector(selectAllBoilers);
   const { data: userData } = useSelector(selectUser);
+
   useEffect(() => {
-    if (userData.id) {
-      dispatch(getUserBoilers({ id: userData.id || '' }) as any);
-    }
+    dispatch(getUserBoilers(userData?.id || ''));
   }, []);
 
   return (
@@ -33,7 +32,7 @@ const BoilersList = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersListTable data={(data || []) as TBoiler[]} />
+              <BoilersListTable data={(data || []) as any} />
             </motion.div>
           </motion.div>
         </div>
@@ -42,4 +41,4 @@ const BoilersList = () => {
   );
 };
 
-export default withReducer('boilers', reducer)(BoilersList);
+export default withReducer('userBoilers', reducer)(BoilersList);

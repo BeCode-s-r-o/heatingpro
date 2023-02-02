@@ -12,21 +12,21 @@ export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async 
   return data;
 });
 
-export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (newEvent, { dispatch }) => {
+export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (newEvent) => {
   const response = await axios.post('/api/calendar/events', newEvent);
   const data = await response.data;
 
   return data;
 });
 
-export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', async (event, { dispatch }) => {
+export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', async (event) => {
   const response = await axios.put(`/api/calendar/events/${event.id}`, event);
   const data = await response.data;
 
   return data;
 });
 
-export const removeEvent = createAsyncThunk('calendarApp/events/removeEvent', async (eventId, { dispatch }) => {
+export const removeEvent = createAsyncThunk('calendarApp/events/removeEvent', async (eventId) => {
   const response = await axios.delete(`/api/calendar/events/${eventId}`);
   const data = await response.data;
 
@@ -100,7 +100,7 @@ const eventsSlice = createSlice({
         state.eventDialog = action.payload;
       },
     },
-    closeNewEventDialog: (state, action) => {
+    closeNewEventDialog: (state) => {
       state.eventDialog = {
         type: 'new',
         props: {
@@ -110,7 +110,7 @@ const eventsSlice = createSlice({
         data: null,
       };
     },
-    closeEditEventDialog: (state, action) => {
+    closeEditEventDialog: (state) => {
       state.eventDialog = {
         type: 'edit',
         props: {
