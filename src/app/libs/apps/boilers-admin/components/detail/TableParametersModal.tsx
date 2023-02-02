@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -8,31 +8,47 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import { doc, updateDoc, getDoc, collection, deleteDoc, setDoc } from 'firebase/firestore';
 import { tempColumns } from '../../constants';
 import { db } from 'src/firebase-config';
+import { useDispatch } from 'react-redux';
+import { TBoiler } from '@app/types/TBoilers';
+interface Props {
+  boiler: TBoiler;
+  isOpen: boolean;
+  toggleOpen: () => void;
+}
 
-function TableParametersModal({ data, isOpen, toggleOpen }) {
-  const [boilerData, setBoilerData] = useState(data);
+function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
+  const [newBoiler, setNewBoiler] = useState(boiler);
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     const value = e.target.value;
 
-    setBoilerData((prev) => ({
+    setNewBoiler((prev) => ({
       ...prev,
       [e.target.name]: value,
     }));
   };
 
-  const saveColumnsInFirebase = (columns) => {
+  const deleteOldBoilerDocument = (id) => {
+    const oldBoilerRef = doc(db, 'boilers', id);
+    deleteDoc(oldBoilerRef);
+  };
+
+  const setNewBoilerDocument = (id, data) => {
+    const newBoilerRef = doc(db, 'boilers', id); //boiler id
+    setDoc(newBoilerRef, data);
+  };
+
+  const deleteAndSetBoilerDocument = () => {
     try {
-      const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-
-      const boilerRef = doc(db, 'boilers', '0002A'); //boiler id
-
-      updateDoc(boilerRef, { columns: orderedColumns });
+      deleteOldBoilerDocument(boiler.id);
+      setNewBoilerDocument(newBoiler.id, newBoiler);
+      dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
-      console.error(error);
+      dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
 
@@ -58,13 +74,13 @@ function TableParametersModal({ data, isOpen, toggleOpen }) {
         </ListItem>
 
         <ListItem>
-          <TextField type="text" value={boilerData.id} name="id" onChange={handleChange} />
+          <TextField type="text" label="id" value={newBoiler.id} name="id" onChange={handleChange} />
         </ListItem>
         <ListItem>
-          <TextField type="text" label="jedn." value={boilerData.name} name="name" onChange={handleChange} />
+          <TextField type="text" label="meno" value={newBoiler.name} name="name" onChange={handleChange} />
         </ListItem>
         <ListItem>
-          <TextField type="text" label="id" value={boilerData.period} name="period" onChange={handleChange} />
+          <TextField type="text" label="perióda" value={newBoiler.period} name="period" onChange={handleChange} />
         </ListItem>
 
         <ListItem className="flex justify-around">
@@ -72,7 +88,7 @@ function TableParametersModal({ data, isOpen, toggleOpen }) {
             className="whitespace-nowrap"
             variant="contained"
             color="secondary"
-            onClick={() => saveColumnsInFirebase(boilerData)}
+            onClick={() => deleteAndSetBoilerDocument()}
           >
             Uložiť
           </Button>

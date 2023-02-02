@@ -23,20 +23,16 @@ export const selectFilteredContacts = createSelector([selectContacts, selectSear
   if (searchText.length === 0) {
     return contacts;
   }
-  return FuseUtils.filterArrayByString(contacts, searchText);
+  return FuseUtils.filterArrayByString(contacts, searchText || '');
 });
 
 export const selectGroupedFilteredContacts = createSelector([selectFilteredContacts], (contacts) => {
   return contacts
     .sort((a, b) => a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }))
     .reduce((r, e) => {
-      // get first letter of name of current element
       const group = e.name[0];
-      // if there is no property in accumulator with this letter create it
       if (!r[group]) r[group] = { group, children: [e] };
-      // if there is push current element to children array for that letter
       else r[group].children.push(e);
-      // return accumulator
       return r;
     }, {});
 });

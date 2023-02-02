@@ -36,32 +36,32 @@ export const BoilersListTable = ({ data }: Props) => {
           <TableBody>
             {rows?.map((row, index) => (
               <TableRow key={index}>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.name}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.id}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.phoneNumber}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.period}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {/* alarm */}
                   </Typography>
                 </TableCell>
-                <TableCell key={index}>
+                <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     <Link to={String(row.id || '')} role="button">
                       Detail

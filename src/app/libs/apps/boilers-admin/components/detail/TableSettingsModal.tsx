@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-
+import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -9,83 +9,55 @@ import ListItemText from '@mui/material/ListItemText';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { doc, updateDoc, getDoc } from 'firebase/firestore';
-import { tempColumns } from '../../constants';
+
 import { db } from 'src/firebase-config';
-
-function SettingsModal({ data, isOpen, toggleOpen }) {
-  const [minValue, setMinValue] = useState(0);
-  const [maxValue, setMaxValue] = useState(100);
-
-  const generateColumns = (data) => {
-    return data.map((item) => {
-      return {
-        name: `${item.columnName} (${item.unit})`,
-        hide: item.hide,
-        ...item,
-      };
-    });
-  };
-
-  const columns = generateColumns(tempColumns.sort((a, b) => a.order - b.order));
-
-  const [tableColumns, setTableColumns] = useState(columns);
-
-  //save reference for dragItem and dragOverItem
+import { TBoiler } from '@app/types/TBoilers';
+import { useDispatch } from 'react-redux';
+import { getBoiler } from '../../store/boilersSlice';
+import { AppDispatch } from 'app/store/index';
+import HeightIcon from '@mui/icons-material/Height';
+interface Props {
+  boiler: TBoiler;
+  isOpen: boolean;
+  toggleOpen: () => void;
+}
+function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
+  const [tableColumns, setTableColumns] = useState(boiler.columns);
+  const dispatch = useDispatch<AppDispatch>();
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
-
-  //const handle drag sorting
   const handleSort = () => {
-    //duplicate items
     let _tableColums = [...tableColumns];
-
-    //remove and save the dragged item content
     const draggedItemContent = _tableColums.splice(dragItem.current, 1)[0];
-
-    //switch the position
     _tableColums.splice(dragOverItem.current, 0, draggedItemContent);
-
-    //reset the position ref
     dragItem.current = null;
     dragOverItem.current = null;
-
-    //update the actual array
     setTableColumns(_tableColums);
   };
-  const handleChange = (e, attribute) => {
-    const value = e.target.value;
+
+  const handleChange = (e, attribute, value) => {
+    if (attribute === 'hide') {
+      const value = !e.target.checked;
+    }
 
     setTableColumns((prev) =>
       prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
     );
   };
 
-  const saveColumnsInFirebase = (columns) => {
+  const saveColumnsForBoilerInFirebase = (columns) => {
     try {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-
-      const boilerRef = doc(db, 'boilers', '0002A'); //boiler id
-
+      const boilerRef = doc(db, 'boilers', boiler.id);
       updateDoc(boilerRef, { columns: orderedColumns });
+      dispatch(getBoiler(boiler.id || ''));
+      toggleOpen();
+      dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
-      console.error(error);
+      dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
 
-  /*  
-  const saveColumnsInFirebase = (columns) => {
-    const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-
-      const boilerRef = doc(db, 'boilers', "hascvas"); //boiler id
-    setDoc(boilerRef, {...data, columns: orderedColumns})
-      .then(() => {
-   
-      })
-      .catch((error) => {
-      
-      }); 
-  };
-*/
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[500px]">
@@ -107,7 +79,7 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
               type="text"
               value={item.columnName}
               name={item.accessor}
-              onChange={(e) => handleChange(e, 'columnName')}
+              onChange={(e) => handleChange(e, 'columnName', e.target.value)}
               className="w-[165px] "
             />
             <TextField
@@ -115,35 +87,34 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
               label="jedn."
               value={item.unit}
               name={item.accessor}
-              onChange={(e) => handleChange(e, 'unit')}
+              onChange={(e) => handleChange(e, 'unit', e.target.value)}
               className="w-[60px] px-6"
             />
             <TextField
               type="number"
               label="Min"
-              value={item.limit.min}
+              value={item.limit.min || undefined}
               name={item.accessor}
-              onChange={(e) => handleChange(e, 'min')}
+              onChange={(e) => handleChange(e, 'min', e.target.value)}
               className="w-[70px] pr-6"
             />
             <TextField
               type="number"
               label="Max"
-              value={item.limit.max}
+              value={item.limit.max || undefined}
               name={item.accessor}
-              onChange={(e) => handleChange(e, 'max')}
+              onChange={(e) => handleChange(e, 'max', e.target.value)}
               className="w-[70px]"
+            />{' '}
+            <Switch
+              checked={!item.hide}
+              name={item.accessor}
+              onChange={(e) => {
+                handleChange(e, 'hide', !e.target.checked);
+              }}
             />
-
-            <ListItemSecondaryAction>
-              <Switch
-                checked={!item.hide}
-                onChange={() => {
-                  const newItems = [...tableColumns];
-                  newItems[index].hide = !newItems[index].hide;
-                  setTableColumns(newItems);
-                }}
-              />
+            <ListItemSecondaryAction className="mx-12 cursor-move -z-10">
+              <HeightIcon />
             </ListItemSecondaryAction>
           </ListItem>
         ))}
@@ -153,7 +124,7 @@ function SettingsModal({ data, isOpen, toggleOpen }) {
             className="whitespace-nowrap"
             variant="contained"
             color="secondary"
-            onClick={() => saveColumnsInFirebase(tableColumns)}
+            onClick={() => saveColumnsForBoilerInFirebase(tableColumns)}
           >
             Uložiť
           </Button>

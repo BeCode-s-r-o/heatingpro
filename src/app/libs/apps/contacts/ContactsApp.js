@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import ContactsHeader from './ContactsHeader';
 import ContactsList from './ContactsList';
 import ContactsSidebarContent from './ContactsSidebarContent';
-import reducer from './store';
+import reducer from './store/contactsSlice';
 import { getContacts } from './store/contactsSlice';
 import { getCountries } from './store/countriesSlice';
 import { getTags } from './store/tagsSlice';

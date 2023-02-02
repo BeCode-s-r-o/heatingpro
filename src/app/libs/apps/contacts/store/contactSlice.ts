@@ -6,16 +6,17 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, secondaryApp } from '../../../../../firebase-config';
 import ContactModel from '../model/ContactModel';
-export const getContact = createAsyncThunk('contactsApp/task/getContact', async (id, { dispatch, getState }) => {
-  try {
-    const usersRef = doc(db, 'users', `${id}`);
-    const userDoc = await getDoc(usersRef);
-    return userDoc.data();
-  } catch (error) {
-    history.push({ pathname: `/pouzivatelia` });
-    return null;
-  }
-});
+export const getContact = (id) =>
+  createAsyncThunk('contactsApp/task/getContact', async () => {
+    try {
+      const usersRef = doc(db, 'users', `${id}`);
+      const userDoc = await getDoc(usersRef);
+      return userDoc.data();
+    } catch (error) {
+      history.push({ pathname: `/pouzivatelia` });
+      return null;
+    }
+  });
 
 export const addContact = createAsyncThunk(
   'contactsApp/contacts/addContact',

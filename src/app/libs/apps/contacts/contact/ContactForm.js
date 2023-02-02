@@ -3,36 +3,35 @@ import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
+import { AppDispatch, RootState } from 'app/store/index';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
-import { selectTags } from '../store/tagsSlice';
-import { selectCountries } from '../store/countriesSlice';
-import { addContact, getContact, newContact, removeContact, selectContact, updateContact } from '../store/contactSlice';
+import { selectContactById } from '../store/contactsSlice';
+import { addContact, getContact, newContact, removeContact, updateContact } from '../store/singleContactSlice';
+
+
 
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
 });
 
-const ContactForm = (props) => {
-  const contact = useSelector(selectContact);
-  const countries = useSelector(selectCountries);
-  const tags = useSelector(selectTags);
-  const routeParams = useParams();
-  const dispatch = useDispatch();
+const ContactForm = () => {
+  const { id } = useParams();
+  const contact: any = useSelector<RootState>((state) => selectContactById(state, id || ''));
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
@@ -60,9 +59,6 @@ const ContactForm = (props) => {
     return countries.find((country) => country.iso === iso);
   }
 
-  /**
-   * Form Submit
-   */
   function onSubmit(data) {
     if (routeParams.id === 'new') {
       dispatch(addContact(data)).then(() => {
@@ -178,8 +174,7 @@ const ContactForm = (props) => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              <FormControlLabel value="user" control={<Radio />} label="Zákazník" />
-              <FormControlLabel value="guest" control={<Radio />} label="Hosť" />
+              <FormControlLabel value="user" control={<Radio />} label="Klient" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
             </RadioGroup>
           )}
@@ -255,76 +250,6 @@ const ContactForm = (props) => {
                 startAdornment: (
                   <InputAdornment position="start">
                     <PermDeviceInformationIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {/*         <Controller
-          control={control}
-          name="emails"
-          render={({ field }) => <ContactEmailSelector className="mt-32" {...field} />}
-        /> */}
-        <Controller
-          control={control}
-          name="address"
-          render={({ field }) => (
-            <TextField
-              className="mt-32"
-              {...field}
-              label="Adresa"
-              placeholder="Adresa"
-              id="address"
-              required
-              error={!!errors.address}
-              helperText={errors?.address?.message}
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:location-marker</FuseSvgIcon>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-
-        <Controller
-          control={control}
-          name="heaters"
-          render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
-        />
-        {/*         <Controller
-          control={control}
-          name="phoneNumbers"
-          render={({ field }) => <PhoneNumberSelector className="mt-32" {...field} />}
-        /> */}
-
-        <Controller
-          control={control}
-          name="notes"
-          render={({ field }) => (
-            <TextField
-              className="mt-32"
-              {...field}
-              label="Notes"
-              placeholder="Notes"
-              id="notes"
-              error={!!errors.notes}
-              helperText={errors?.notes?.message}
-              variant="outlined"
-              fullWidth
-              multiline
-              minRows={5}
-              maxRows={10}
-              InputProps={{
-                className: 'max-h-min h-min items-start',
-                startAdornment: (
-                  <InputAdornment className="mt-16" position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:menu-alt-2</FuseSvgIcon>
                   </InputAdornment>
                 ),
               }}
