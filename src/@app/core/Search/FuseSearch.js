@@ -345,7 +345,7 @@ function FuseSearch(props) {
     case 'full': {
       return (
         <Root className={clsx('flex', props.className)}>
-          <Tooltip title="Click to search" placement="bottom">
+          <Tooltip title="Vyhľadávanie" placement="bottom">
             <div onClick={showSearch} onKeyDown={showSearch} role="button" tabIndex={0} ref={buttonNode}>
               {props.trigger}
             </div>

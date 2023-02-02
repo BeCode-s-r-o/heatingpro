@@ -12,7 +12,7 @@ const ContactsAppConfig = {
   },
   routes: [
     {
-      path: 'apps/contacts',
+      path: '/pouzivatelia',
       element: <ContactsApp />,
       children: [
         {

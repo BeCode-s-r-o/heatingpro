@@ -1,11 +1,5 @@
 import { authRoles } from '../auth/authRoles';
 
-// TODO - can be used for badge
-// badge: {
-//   title: '27',
-//   classes: 'px-8 bg-pink-600 text-white rounded-full',
-// },
-
 const navigationConfig = [
   {
     id: 'dashboards',
@@ -26,19 +20,22 @@ const navigationConfig = [
 
       {
         id: 'dashboards.errors',
-        title: 'Errory',
+        title: 'Alarmy',
         type: 'item',
+        badge: {
+          title: '2',
+          classes: 'px-8 bg-red-600 text-white rounded-full',
+        },
         icon: 'heroicons-outline:exclamation-circle',
-        url: '/dashboards/errors',
+        url: '/alarmy',
       },
-      //TODO - uncomment when ready
-      // {
-      //   id: 'dashboards.analytics',
-      //   title: 'Štatistiky',
-      //   type: 'item',
-      //   icon: 'heroicons-outline:chart-pie',
-      //   url: '/dashboards/analytics',
-      // },
+      {
+        id: 'dashboards.analytics',
+        title: 'Štatistiky',
+        type: 'item',
+        icon: 'heroicons-outline:chart-pie',
+        url: '/statistiky',
+      },
     ],
   },
   {
@@ -63,16 +60,12 @@ const navigationConfig = [
         title: 'Alarmy',
         type: 'item',
         icon: 'heroicons-outline:exclamation-circle',
-        url: '/dashboards/errors',
+        url: '/pouzivatelske-alarmy/',
+        badge: {
+          title: '1',
+          classes: 'px-8 bg-red-600 text-white rounded-full',
+        },
       },
-      //TODO - uncomment when ready
-      // {
-      //   id: 'dashboards.analytics',
-      //   title: 'Štatistiky',
-      //   type: 'item',
-      //   icon: 'heroicons-outline:chart-pie',
-      //   url: '/dashboards/analytics',
-      // },
     ],
   },
   {
@@ -88,7 +81,7 @@ const navigationConfig = [
         title: 'Používatelia',
         type: 'item',
         icon: 'heroicons-outline:user-group',
-        url: '/apps/contacts',
+        url: '/pouzivatelia',
       },
       {
         id: 'apps.calendar',
@@ -96,7 +89,7 @@ const navigationConfig = [
         // subtitle: '3 upcoming events',
         type: 'item',
         icon: 'heroicons-outline:calendar',
-        url: '/apps/calendar',
+        url: '/kalendar',
       },
     ],
   },
@@ -113,7 +106,7 @@ const navigationConfig = [
         title: 'Nastavenia',
         type: 'item',
         icon: 'heroicons-outline:cog',
-        url: '/pages/activities',
+        url: '/nastavenia',
       },
     ],
   },

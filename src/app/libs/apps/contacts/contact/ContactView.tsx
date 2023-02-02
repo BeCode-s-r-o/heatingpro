@@ -1,23 +1,22 @@
+//@ts-nocheck
 import FuseLoading from '@app/core/Loading';
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
-import _ from '@lodash';
+import { TContact } from '@app/types/TContact';
+import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
-import format from 'date-fns/format';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getContact, selectContact } from '../store/contactSlice';
 import { selectCountries } from '../store/countriesSlice';
 import { selectTags } from '../store/tagsSlice';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
-import { TContact } from '@app/types/TContact';
 
 const ContactView = () => {
   const contact: TContact = useSelector(selectContact);

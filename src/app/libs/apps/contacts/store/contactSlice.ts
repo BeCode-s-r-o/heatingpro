@@ -12,7 +12,7 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
     const userDoc = await getDoc(usersRef);
     return userDoc.data();
   } catch (error) {
-    history.push({ pathname: `/apps/contacts` });
+    history.push({ pathname: `/pouzivatelia` });
     return null;
   }
 });

@@ -38,7 +38,7 @@ const CountryCodeSelector = forwardRef(({ value, onChange, className }, ref) => 
           component="span"
           className="w-24 h-16 overflow-hidden"
           sx={{
-            background: "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
+            background: "url('/assets/images/pouzivatelia/flags.png') no-repeat 0 0",
             backgroundSize: '24px 3876px',
             backgroundPosition: country?.flagImagePos,
           }}
@@ -67,7 +67,7 @@ const CountryCodeSelector = forwardRef(({ value, onChange, className }, ref) => 
               component="span"
               className="w-24 h-16 overflow-hidden"
               sx={{
-                background: "url('/assets/images/apps/contacts/flags.png') no-repeat 0 0",
+                background: "url('/assets/images/pouzivatelia/flags.png') no-repeat 0 0",
                 backgroundSize: '24px 3876px',
                 backgroundPosition: item.flagImagePos,
               }}

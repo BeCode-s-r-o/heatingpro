@@ -66,7 +66,7 @@ const ContactForm = (props) => {
   function onSubmit(data) {
     if (routeParams.id === 'new') {
       dispatch(addContact(data)).then(() => {
-        navigate(`/apps/contacts`);
+        navigate(`/pouzivatelia`);
       });
     } else {
       dispatch(updateContact(data));
@@ -75,7 +75,7 @@ const ContactForm = (props) => {
 
   function handleRemoveContact() {
     dispatch(removeContact(contact.id)).then(() => {
-      navigate('/apps/contacts');
+      navigate('/pouzivatelia');
     });
   }
 

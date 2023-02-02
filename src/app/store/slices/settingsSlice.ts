@@ -68,8 +68,6 @@ export const setDefaultSettings = createAsyncThunk(
     const { settings } = fuse;
     const defaults = generateSettings(settings.defaults, val);
 
-    dispatch(updateUserSettings(defaults));
-
     return {
       ...settings,
       defaults: _.merge({}, defaults),
