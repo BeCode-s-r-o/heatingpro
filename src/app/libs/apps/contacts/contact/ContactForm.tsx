@@ -19,10 +19,14 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-import { selectContactById } from '../store/contactsSlice';
-import { addContact, getContact, newContact, removeContact, updateContact } from '../store/singleContactSlice';
-
-
+import {
+  addContact,
+  getContact,
+  newContact,
+  removeContact,
+  updateContact,
+  selectContactById,
+} from '../store/contactSlice';
 
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
@@ -44,23 +48,19 @@ const ContactForm = () => {
   const form = watch();
 
   useEffect(() => {
-    if (routeParams.id === 'new') {
+    if (id === 'new') {
       dispatch(newContact());
     } else {
-      dispatch(getContact(routeParams.id));
+      dispatch(getContact(id));
     }
-  }, [dispatch, routeParams]);
+  }, [dispatch, id]);
 
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
 
-  function getCountryByIso(iso) {
-    return countries.find((country) => country.iso === iso);
-  }
-
   function onSubmit(data) {
-    if (routeParams.id === 'new') {
+    if (id === 'new') {
       dispatch(addContact(data)).then(() => {
         navigate(`/pouzivatelia`);
       });
@@ -70,9 +70,10 @@ const ContactForm = () => {
   }
 
   function handleRemoveContact() {
-    dispatch(removeContact(contact.id)).then(() => {
-      navigate('/pouzivatelia');
-    });
+    dispatch(removeContact(contact.id));
+    // .then(() => {
+    //   navigate('/pouzivatelia');
+    // });
   }
 
   if (_.isEmpty(form) || !contact) {
@@ -119,6 +120,7 @@ const ContactForm = () => {
                           onChange={async (e) => {
                             function readFileAsync() {
                               return new Promise((resolve, reject) => {
+                                //@ts-ignore
                                 const file = e.target.files[0];
                                 if (!file) {
                                   return;
@@ -126,6 +128,7 @@ const ContactForm = () => {
                                 const reader = new FileReader();
 
                                 reader.onload = () => {
+                                  //@ts-ignore
                                   resolve(`data:${file.type};base64,${btoa(reader.result)}`);
                                 };
 
@@ -190,7 +193,6 @@ const ContactForm = () => {
               placeholder="Meno"
               id="name"
               error={!!errors.name}
-              helperText={errors?.name?.message}
               variant="outlined"
               required
               fullWidth
@@ -216,7 +218,6 @@ const ContactForm = () => {
               placeholder="Email"
               id="title"
               error={!!errors.title}
-              helperText={errors?.title?.message}
               variant="outlined"
               required
               fullWidth
@@ -243,7 +244,6 @@ const ContactForm = () => {
               id="phone"
               required
               error={!!errors.company}
-              helperText={errors?.company?.message}
               variant="outlined"
               fullWidth
               InputProps={{
@@ -262,7 +262,7 @@ const ContactForm = () => {
         className="flex items-center mt-40 py-14 pr-16 pl-4 sm:pr-48 sm:pl-36 border-t"
         sx={{ backgroundColor: 'background.default' }}
       >
-        {routeParams.id !== 'new' && (
+        {id !== 'new' && (
           <Button color="error" onClick={handleRemoveContact}>
             Delete
           </Button>

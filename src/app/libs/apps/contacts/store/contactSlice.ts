@@ -6,6 +6,7 @@ import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { deleteDoc, doc, getDoc, setDoc } from 'firebase/firestore';
 import { db, secondaryApp } from '../../../../../firebase-config';
 import ContactModel from '../model/ContactModel';
+
 export const getContact = (id) =>
   createAsyncThunk('contactsApp/task/getContact', async () => {
     try {
@@ -58,9 +59,8 @@ export const updateContact = createAsyncThunk(
   }
 );
 
-export const removeContact = createAsyncThunk(
-  'contactsApp/contacts/removeContact',
-  async (id, { dispatch, getState }) => {
+export const removeContact = (id) =>
+  createAsyncThunk('contactsApp/contacts/removeContact', async () => {
     const customerRef = doc(db, 'users', `${id}`);
 
     deleteDoc(customerRef)
@@ -75,8 +75,7 @@ export const removeContact = createAsyncThunk(
     await response.data;
 
     return id;
-  }
-);
+  });
 
 export const selectContact = ({ contactsApp }) => contactsApp.contact;
 
@@ -84,17 +83,20 @@ const contactSlice = createSlice({
   name: 'contactsApp/contact',
   initialState: null as TContact | null,
   reducers: {
-    newContact: (state, action) => ContactModel(),
+    newContact: () => ContactModel(),
     resetContact: () => null,
   },
   extraReducers: (builder) => {
     builder
+      //@ts-ignore
       .addCase(getContact.pending, (state) => null)
+      //@ts-ignore
       .addCase(getContact.fulfilled, (state, action) => {
         const contact = action.payload as TContact;
         return contact;
       })
       .addCase(updateContact.fulfilled, (state, action) => action.payload)
+      //@ts-ignore
       .addCase(removeContact.fulfilled, (state) => null);
   },
 });
