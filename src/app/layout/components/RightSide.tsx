@@ -2,7 +2,6 @@ import { selectUser } from 'app/store/userSlice';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import ChatPanel from '../shared/chatPanel/ChatPanel';
-import NotificationPanel from '../shared/notificationPanel/NotificationPanel';
 import QuickPanel from '../shared/quickPanel/QuickPanel';
 
 function RightSide() {
@@ -11,7 +10,7 @@ function RightSide() {
     <>
       {user.role === 'admin' && <ChatPanel />}
       <QuickPanel />
-      <NotificationPanel />
+      {/* <NotificationPanel /> */}
     </>
   );
 }

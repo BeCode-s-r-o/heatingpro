@@ -182,7 +182,7 @@ function FullScreenReversedResetPasswordPage() {
 
             <Typography className="mt-32 text-md font-medium" color="text.secondary">
               <span>Return to</span>
-              <Link className="ml-4" to="/sign-in">
+              <Link className="ml-4" to="/prihlasenie">
                 sign in
               </Link>
             </Typography>

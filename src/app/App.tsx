@@ -2,7 +2,6 @@ import FuseAuthorization from '@app/core/Authorization';
 import FuseTheme from '@app/core/Theme';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
-import '@mock-api';
 import { selectMainTheme } from 'app/store/slices/settingsSlice';
 import { selectUser } from 'app/store/userSlice';
 import { SnackbarProvider } from 'notistack';

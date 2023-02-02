@@ -1,15 +1,17 @@
+export enum TUserRoles {
+  none = '',
+  guest = 'guest',
+  user = 'user',
+  admin = 'admin',
+}
+
 export interface TContact {
   id: string;
   name: string;
-  address: string;
   avatar: null | string;
-  background: null | string;
   phone: string;
   email: string;
-  birthNumber: string;
-  role: 'guest' | 'user' | 'admin' | '';
-  notes: string;
-  heaters: TContactHeater[];
+  role: TUserRoles;
 }
 
 export interface TContactHeater {

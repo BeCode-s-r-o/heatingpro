@@ -100,7 +100,7 @@ function FullScreenReversedConfirmationRequiredPage() {
 
           <Typography className="mt-32 text-md font-medium" color="text.secondary">
             <span>Return to</span>
-            <Link className="ml-4 text-primary-500 hover:underline" to="/sign-in">
+            <Link className="ml-4 text-primary-500 hover:underline" to="/prihlasenie">
               sign in
             </Link>
           </Typography>
