@@ -8,11 +8,26 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import { doc, updateDoc, getDoc, collection, deleteDoc, setDoc } from 'firebase/firestore';
+import {
+  doc,
+  updateDoc,
+  getDoc,
+  collection,
+  deleteDoc,
+  setDoc,
+  getFirestore,
+  query,
+  where,
+  getDocs,
+} from 'firebase/firestore';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+
 import { tempColumns } from '../../constants';
 import { db } from 'src/firebase-config';
 import { useDispatch } from 'react-redux';
 import { TBoiler } from '@app/types/TBoilers';
+import { id } from 'date-fns/locale';
 interface Props {
   boiler: TBoiler;
   isOpen: boolean;
@@ -41,31 +56,39 @@ function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
     const newBoilerRef = doc(db, 'boilers', id); //boiler id
     setDoc(newBoilerRef, data);
   };
+  const changeBoilerIdInSms = async (oldId, newId) => {
+    const smsQuery = collection(db, 'sms').where('deviceID', '==', oldId);
+    const smsSnapshot = await smsQuery.get();
+    const sms = smsSnapshot.docs;
 
-  const deleteAndSetBoilerDocument = () => {
-    try {
-      deleteOldBoilerDocument(boiler.id);
-      setNewBoilerDocument(newBoiler.id, newBoiler);
-      dispatch(showMessage({ message: 'Zmeny boli uložené' }));
-    } catch (error) {
-      dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
+    if (!sms.length) {
+      return;
     }
+
+    sms.forEach((doc) => {
+      doc.ref.update({ deviceID: newId });
+    });
   };
 
-  /*  
-    const saveColumnsInFirebase = (columns) => {
-      const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
+  const deleteAndSetBoilerDocument = () => {
+    /*     const successMesage = dispatch(showMessage({ message: 'Zmeny boli uložené' }));
+    try {
+      if (boiler.id === newBoiler.id) {
+        setNewBoilerDocument(newBoiler.id, newBoiler);
+        successMesage;
+        return;
+      }
+      changeBoilerIdInSms(newBoiler.id, newBoiler.id);
+      setNewBoilerDocument(newBoiler.id, newBoiler);
+      deleteOldBoilerDocument(boiler.id);
 
-        const boilerRef = doc(db, 'boilers', "hascvas"); //boiler id
-      setDoc(boilerRef, {...data, columns: orderedColumns})
-        .then(() => {
-         
-        })
-        .catch((error) => {
-       
-        }); 
-    };
-  */
+      successMesage;
+    } catch (error) {
+      dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
+    } */
+    changeBoilerIdInSms(newBoiler.id, newBoiler.id);
+  };
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[300px]">
