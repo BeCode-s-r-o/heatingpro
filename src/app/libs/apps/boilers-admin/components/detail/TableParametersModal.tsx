@@ -26,7 +26,7 @@ import 'firebase/firestore';
 import { tempColumns } from '../../constants';
 import { db } from 'src/firebase-config';
 import { useDispatch } from 'react-redux';
-import { TBoiler } from '@app/types/TBoilers';
+import { TBoiler, TSms } from '@app/types/TBoilers';
 import { id } from 'date-fns/locale';
 interface Props {
   boiler: TBoiler;
@@ -40,7 +40,6 @@ function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
 
   const handleChange = (e) => {
     const value = e.target.value;
-
     setNewBoiler((prev) => ({
       ...prev,
       [e.target.name]: value,
@@ -53,40 +52,40 @@ function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
   };
 
   const setNewBoilerDocument = (id, data) => {
-    const newBoilerRef = doc(db, 'boilers', id); //boiler id
+    const newBoilerRef = doc(db, 'boilers', id);
     setDoc(newBoilerRef, data);
   };
-  const changeBoilerIdInSms = async (oldId, newId) => {
-    const smsQuery = collection(db, 'sms').where('deviceID', '==', oldId);
-    const smsSnapshot = await smsQuery.get();
-    const sms = smsSnapshot.docs;
 
-    if (!sms.length) {
+  const changeBoilerIdInSms = async (oldId, newId) => {
+    const smsQuery = query(collection(getFirestore(), 'sms'), where('deviceID', '==', oldId));
+    const sms = await getDocs(smsQuery);
+    const smsData = sms.docs.map((doc) => doc.data() as TSms);
+
+    if (!smsData.length) {
       return;
     }
-
-    sms.forEach((doc) => {
-      doc.ref.update({ deviceID: newId });
+    smsData.forEach((sms) => {
+      const smsRef = doc(db, 'sms', sms.messageID);
+      updateDoc(smsRef, { deviceID: newId });
     });
   };
 
-  const deleteAndSetBoilerDocument = () => {
-    /*     const successMesage = dispatch(showMessage({ message: 'Zmeny boli uložené' }));
+  const updateBoilerDocument = () => {
     try {
       if (boiler.id === newBoiler.id) {
         setNewBoilerDocument(newBoiler.id, newBoiler);
-        successMesage;
+        dispatch(showMessage({ message: 'Zmeny boli uložené' }));
         return;
       }
-      changeBoilerIdInSms(newBoiler.id, newBoiler.id);
+      changeBoilerIdInSms(boiler.id, newBoiler.id);
       setNewBoilerDocument(newBoiler.id, newBoiler);
       deleteOldBoilerDocument(boiler.id);
-
-      successMesage;
+      toggleOpen();
+      dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
+      toggleOpen();
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
-    } */
-    changeBoilerIdInSms(newBoiler.id, newBoiler.id);
+    }
   };
 
   return (
@@ -111,7 +110,7 @@ function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
             className="whitespace-nowrap"
             variant="contained"
             color="secondary"
-            onClick={() => deleteAndSetBoilerDocument()}
+            onClick={() => updateBoilerDocument()}
           >
             Uložiť
           </Button>
