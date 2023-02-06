@@ -5,14 +5,13 @@ import { DataGrid } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 
 export const BoilersDetailTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
-  console.log(boiler);
+
   useEffect(() => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);

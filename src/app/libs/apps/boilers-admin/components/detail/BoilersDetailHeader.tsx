@@ -2,14 +2,10 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import moment from 'moment';
 import { useState } from 'react';
-
 import TableParametersModal from './TableParametersModal';
-
 import TableSettingsModal from './TableSettingsModal';
-
 interface Props {
   boiler: TBoiler | undefined;
 }
