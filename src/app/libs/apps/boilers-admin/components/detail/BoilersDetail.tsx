@@ -38,7 +38,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <motion.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable />
+              <BoilersDetailTable id={id} />
             </motion.div>
           </motion.div>
         </div>
