@@ -1,11 +1,12 @@
 import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from 'src/firebase-config';
 import axios from 'axios';
 import _ from '@lodash';
 
 export const getLabels = createAsyncThunk('calendarApp/labels/getLabels', async () => {
-  const response = await axios.get('/api/calendar/labels');
-  const data = await response.data;
-
+  const labels = await getDocs(collection(db, 'calendar-labels'));
+  const data = labels.docs.map((label) => label.data());
   return data;
 });
 
