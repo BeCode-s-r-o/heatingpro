@@ -1,14 +1,15 @@
 import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import formatISO from 'date-fns/formatISO';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from 'src/firebase-config';
 import { selectSelectedLabels } from './labelsSlice';
 
 export const dateFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ';
 
 export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async () => {
-  const response = await axios.get('/api/calendar/events');
-  const data = await response.data;
-
+  const events = await getDocs(collection(db, 'calendar-events'));
+  const data = events.docs.map((event) => event.data());
   return data;
 });
 

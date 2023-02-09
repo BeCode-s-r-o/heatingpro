@@ -197,7 +197,7 @@ function EventDialog(props) {
               render={({ field: { onChange, value } }) => (
                 <FormControlLabel
                   className="mt-8"
-                  label="All Day"
+                  label="Celý Deň"
                   control={
                     <Switch
                       onChange={(ev) => {
@@ -258,7 +258,7 @@ function EventDialog(props) {
               onClick={onSubmit}
               disabled={_.isEmpty(dirtyFields) || !isValid}
             >
-              Add
+              Pridať
             </Button>
           </div>
         ) : (
@@ -273,7 +273,7 @@ function EventDialog(props) {
               onClick={onSubmit}
               disabled={_.isEmpty(dirtyFields) || !isValid}
             >
-              Save
+              Uložiť
             </Button>
           </div>
         )}

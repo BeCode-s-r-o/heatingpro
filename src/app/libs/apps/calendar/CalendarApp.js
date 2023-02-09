@@ -99,6 +99,7 @@ function CalendarApp(props) {
   const [currentDate, setCurrentDate] = useState();
   const dispatch = useDispatch();
   const events = useSelector(selectFilteredEvents);
+  console.log(events, 'events');
   const calendarRef = useRef();
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(!isMobile);
