@@ -19,12 +19,12 @@ function CalendarAppSidebar() {
         delay={300}
         className="pb-24 text-4xl font-extrabold tracking-tight"
       >
-        Calendar
+        Kalendár
       </motion.span>
 
       <div className="group flex items-center justify-between mb-12">
         <Typography className="text-15 font-600 leading-none" color="secondary.main">
-          LABELS
+          OZNAČENIA
         </Typography>
 
         <IconButton onClick={(ev) => dispatch(openLabelsDialog())} size="small">

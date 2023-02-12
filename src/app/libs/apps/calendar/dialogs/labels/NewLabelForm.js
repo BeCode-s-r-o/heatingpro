@@ -32,7 +32,7 @@ function NewLabelForm(props) {
   const { isValid, dirtyFields, errors } = formState;
 
   function onSubmit(data) {
-    const newLabel = LabelModel(data);
+    const newLabel = LabelModel({ ...data, id: data.title });
     dispatch(addLabel(newLabel));
     reset(defaultValues);
   }
@@ -49,7 +49,7 @@ function NewLabelForm(props) {
               className={clsx('flex flex-1')}
               error={!!errors.title}
               helperText={errors?.title?.message}
-              placeholder="Create new label"
+              placeholder="Nové označenie"
               variant="outlined"
               InputProps={{
                 startAdornment: (

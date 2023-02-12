@@ -18,12 +18,12 @@ const EventLabelSelect = forwardRef((props, ref) => {
 
   return (
     <FormControl fullWidth className={className}>
-      <InputLabel id="select-label">Label</InputLabel>
+      <InputLabel id="select-label">Označenie</InputLabel>
       <Select
         labelId="select-label"
         id="label-select"
         value={value}
-        label="Label"
+        label="Označenie"
         onChange={handleChange}
         ref={ref}
         classes={{ select: 'flex items-center space-x-12' }}
