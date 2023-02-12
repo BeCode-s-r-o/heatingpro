@@ -36,7 +36,7 @@ function EventDialog(props) {
   const dispatch = useDispatch<AppDispatch>();
   const eventDialog = useSelector(selectEventDialog);
   const firstLabelId = useSelector(selectFirstLabelId);
-
+  console.log(eventDialog);
   const { reset, formState, watch, control, getValues } = useForm({
     defaultValues,
     mode: 'onChange',
@@ -152,6 +152,31 @@ function EventDialog(props) {
                 }}
                 variant="outlined"
                 autoFocus
+                required
+                fullWidth
+              />
+            )}
+          />
+        </div>
+        <div className="flex sm:space-x-24 mb-16">
+          <FuseSvgIcon className="hidden sm:inline-flex mt-16" color="action">
+            heroicons-outline:pencil-alt
+          </FuseSvgIcon>
+          <Controller
+            name="deviceID"
+            control={control}
+            render={({ field }) => (
+              <TextField
+                {...field}
+                id="deviceID"
+                label="ID Zariadenia"
+                className="flex-auto"
+                error={!!errors.title} //@ts-ignore
+                helperText={errors?.title?.message}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="outlined"
                 required
                 fullWidth
               />

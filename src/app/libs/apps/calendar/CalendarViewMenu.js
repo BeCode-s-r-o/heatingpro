@@ -7,15 +7,15 @@ import * as React from 'react';
 
 const viewNamesObj = {
   dayGridMonth: {
-    title: 'Month',
+    title: 'Mesiac',
     icon: 'view_module',
   },
   timeGridWeek: {
-    title: 'Week',
+    title: 'Týždeň',
     icon: 'view_week',
   },
   timeGridDay: {
-    title: 'Day',
+    title: 'Deň',
     icon: 'view_agenda',
   },
 };
