@@ -61,15 +61,15 @@ function NewLabelForm(props) {
       openDialog({
         children: (
           <>
-            <DialogTitle id="alert-dialog-title">Are you sure?</DialogTitle>
+            <DialogTitle id="alert-dialog-title">Ste si istý?</DialogTitle>
             <DialogContent>
               <DialogContentText id="alert-dialog-description">
-                All associated events will be removed.
+                Všetky eventy s týmto označním budú zmazané
               </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={() => dispatch(closeDialog())} color="primary">
-                Disagree
+                Zrušiť
               </Button>
               <Button
                 onClick={() => {
@@ -81,7 +81,7 @@ function NewLabelForm(props) {
                 color="primary"
                 autoFocus
               >
-                Agree
+                Potvrdiť
               </Button>
             </DialogActions>
           </>
@@ -102,7 +102,7 @@ function NewLabelForm(props) {
               className={clsx('flex flex-1')}
               error={!!errors.title}
               helperText={errors?.title?.message}
-              placeholder="Create new label"
+              placeholder="Nové označenie"
               variant="outlined"
               InputProps={{
                 startAdornment: (

@@ -99,7 +99,6 @@ function CalendarApp(props) {
   const [currentDate, setCurrentDate] = useState();
   const dispatch = useDispatch();
   const events = useSelector(selectFilteredEvents);
-  console.log(events, 'events');
   const calendarRef = useRef();
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(!isMobile);
@@ -187,7 +186,7 @@ function CalendarApp(props) {
             eventChange={handleEventChange}
             eventRemove={handleEventRemove}
             eventDrop={handleEventDrop}
-            initialDate={new Date(2022, 3, 1)}
+            initialDate={new Date()}
             ref={calendarRef}
           />
         }

@@ -19,7 +19,7 @@ function LabelsDialog(props) {
       onClose={(ev) => dispatch(closeLabelsDialog())}
       open={labelsDialogOpen}
     >
-      <Typography className="text-20 mb-24 font-semibold">Edit Labels</Typography>
+      <Typography className="text-20 mb-24 font-semibold">UPRAVIŤ OZNAČENIA</Typography>
 
       <List dense>
         <NewLabelForm />
