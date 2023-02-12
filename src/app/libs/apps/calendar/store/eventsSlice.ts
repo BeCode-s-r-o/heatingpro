@@ -94,7 +94,7 @@ const eventsSlice = createSlice({
       prepare: (clickInfo) => {
         const { jsEvent, event } = clickInfo;
         const { id, title, allDay, start, end, extendedProps } = event;
-
+        console.log(event, 'event');
         const payload = {
           type: 'edit',
           props: {
@@ -105,6 +105,7 @@ const eventsSlice = createSlice({
             id,
             title,
             allDay,
+            deviceID: extendedProps.deviceID,
             extendedProps,
             start: formatISO(new Date(start)),
             end: formatISO(new Date(end)),
