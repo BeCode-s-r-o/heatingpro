@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
 import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+import { AppDispatch } from 'app/store/index';
 import { useCallback, useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +33,7 @@ const schema = yup.object().shape({
 });
 
 function EventDialog(props) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const eventDialog = useSelector(selectEventDialog);
   const firstLabelId = useSelector(selectFirstLabelId);
 
@@ -46,7 +47,7 @@ function EventDialog(props) {
 
   const start = watch('start');
   const end = watch('end');
-  const id = watch('id');
+  const id: string = watch('id');
 
   /**
    * Initialize Dialog with Data
@@ -88,7 +89,9 @@ function EventDialog(props) {
    * Close Dialog
    */
   function closeComposeDialog() {
-    return eventDialog.type === 'edit' ? dispatch(closeEditEventDialog()) : dispatch(closeNewEventDialog());
+    return eventDialog.type === 'edit' //@ts-ignore
+      ? dispatch(closeEditEventDialog()) //@ts-ignore
+      : dispatch(closeNewEventDialog());
   }
 
   /**
@@ -140,9 +143,9 @@ function EventDialog(props) {
               <TextField
                 {...field}
                 id="title"
-                label="Title"
+                label="Názov"
                 className="flex-auto"
-                error={!!errors.title}
+                error={!!errors.title} //@ts-ignore
                 helperText={errors?.title?.message}
                 InputLabelProps={{
                   shrink: true,
@@ -238,7 +241,7 @@ function EventDialog(props) {
                 {...field}
                 className="mt-8 mb-16"
                 id="desc"
-                label="Description"
+                label="Popis"
                 type="text"
                 multiline
                 rows={5}
