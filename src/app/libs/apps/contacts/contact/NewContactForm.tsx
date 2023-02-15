@@ -137,6 +137,7 @@ const NewContactForm = () => {
             <RadioGroup row {...field} name="role">
               <FormControlLabel value="user" control={<Radio />} label="Klient" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
             </RadioGroup>
           )}
         />
