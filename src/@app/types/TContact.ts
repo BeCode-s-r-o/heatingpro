@@ -3,6 +3,7 @@ export enum TUserRoles {
   guest = 'guest',
   user = 'user',
   admin = 'admin',
+  staff = 'staff',
 }
 
 export interface TContact {

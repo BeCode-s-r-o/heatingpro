@@ -13,6 +13,6 @@ export const settingsConfig = {
     toolbar: themesConfig.default,
     footer: themesConfig.defaultDark,
   },
-  defaultAuth: ['admin', 'user', 'guest'],
+  defaultAuth: ['admin', 'user', 'guest', 'staff'],
   loginRedirectUrl: '/',
 };

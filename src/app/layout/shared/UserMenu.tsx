@@ -34,6 +34,9 @@ const UserMenu = () => {
     if (userRole === 'guest') {
       return 'Guest';
     }
+    if (userRole === 'staff') {
+      return 'Staff';
+    }
   };
 
   return (

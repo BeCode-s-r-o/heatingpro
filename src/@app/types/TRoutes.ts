@@ -12,7 +12,7 @@ export interface IRoute {
 }
 
 export type TRouteAuth = {
-  path: 'guest' | 'user' | 'admin' | '';
+  path: 'guest' | 'user' | 'admin' | '' | 'staff';
 };
 
 interface TRouteSettings {

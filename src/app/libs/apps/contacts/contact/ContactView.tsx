@@ -19,7 +19,7 @@ import { getContact, selectContactById } from '../../../../layout/shared/chatPan
 const ContactView = () => {
   const { id } = useParams();
   const contact: TContact | undefined = useSelector((state: RootState) => selectContactById(state, id || ''));
-
+  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť', staff: 'Kurič' };
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -65,7 +65,11 @@ const ContactView = () => {
           <Typography className="mt-12 text-4xl font-bold truncate">{contact.name}</Typography>
 
           <div className="flex flex-wrap items-center mt-8">
-            <Chip label={contact.role} className="mr-12 mb-12" size="small" />
+            <Chip
+              label={Object.keys(roles).map((key) => contact.role === key && roles[key])}
+              className="mr-12 mb-12"
+              size="small"
+            />
           </div>
 
           <Divider className="mt-16 mb-24" />

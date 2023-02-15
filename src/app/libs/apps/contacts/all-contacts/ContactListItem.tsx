@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 
 function ContactListItem(props) {
   const { contact } = props;
-  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť' };
+  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť', staff: 'Kurič' };
 
   return (
     <>
