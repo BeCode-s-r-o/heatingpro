@@ -1,90 +1,104 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { collection, deleteDoc, doc, getDocs, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/firebase-config';
 import axios from 'axios';
 import _ from '@lodash';
 import { TLabel } from '@app/types/TEvent';
 
-export const getLabels = createAsyncThunk('calendarApp/labels/getLabels', async () => {
+export const getLabels = createAsyncThunk<TLabel[]>('calendarApp/labels/getLabels', async () => {
   const labels = await getDocs(collection(db, 'calendar-labels'));
   const data = labels.docs.map((label) => label.data());
-  return data;
+  return data as TLabel[];
 });
 
-export const addLabel = createAsyncThunk('calendarApp/labels/addLabel', async (newLabel: TLabel, { dispatch }) => {
-  try {
-    const labelRef = doc(db, 'calendar-labels', newLabel.id);
-    setDoc(labelRef, newLabel);
-  } catch (error) {
-    return error;
+export const addLabel = createAsyncThunk<TLabel, TLabel, {}>(
+  'calendarApp/labels/addLabel',
+  async (newLabel: TLabel, { dispatch }) => {
+    try {
+      const labelRef = doc(db, 'calendar-labels', newLabel.id);
+      setDoc(labelRef, newLabel);
+    } catch (error) {
+      return Promise.reject(error);
+    }
+
+    return newLabel;
   }
+);
 
-  return newLabel;
-});
+export const updateLabel = createAsyncThunk<TLabel, TLabel, {}>(
+  'calendarApp/labels/updateLabel',
+  async (label, { dispatch }) => {
+    try {
+      const labelRef = doc(db, 'calendar-labels', label.id);
+      await updateDoc(labelRef, label);
+    } catch (error) {
+      return Promise.reject(error);
+    }
 
-export const updateLabel = createAsyncThunk('calendarApp/labels/updateLabel', async (label: TLabel, { dispatch }) => {
-  try {
-    const labelRef = doc(db, 'calendar-labels', label.id);
-    updateDoc(labelRef, label);
-  } catch (error) {
-    return error;
+    return label;
   }
+);
 
-  return label;
-});
+export const removeLabel = createAsyncThunk<string, string, {}>(
+  'calendarApp/labels/removeLabel',
+  async (labelId, { dispatch }) => {
+    try {
+      const labelRef = doc(db, 'calendar-labels', labelId);
+      await deleteDoc(labelRef);
+    } catch (error) {
+      return Promise.reject(error);
+    }
 
-export const removeLabel = createAsyncThunk('calendarApp/labels/removeLabel', async (labelId: string, { dispatch }) => {
-  try {
-    const labelRef = doc(db, 'calendar-labels', labelId);
-    deleteDoc(labelRef);
-  } catch (error) {
-    return error;
+    return labelId;
   }
+);
 
-  return labelId;
-});
-
-const labelsAdapter = createEntityAdapter({});
+const labelsAdapter = createEntityAdapter<TLabel>({});
 
 export const {
   selectAll: selectLabels,
   selectIds: selectLabelIds,
-  selectById: selectLabelById, //@ts-ignore
-} = labelsAdapter.getSelectors((state) => state.calendarApp.labels);
+  selectById: selectLabelById,
+} = labelsAdapter.getSelectors((state: TLabel) => state.calendarApp.labels);
+
+interface LabelsState {
+  selectedLabels: string[];
+  labelsDialogOpen: boolean;
+}
 
 const labelsSlice = createSlice({
   name: 'calendarApp/labels',
-  initialState: labelsAdapter.getInitialState({
+  initialState: labelsAdapter.getInitialState<LabelsState>({
     selectedLabels: [],
     labelsDialogOpen: false,
   }),
   reducers: {
-    toggleSelectedLabels: (state, action) => {
+    toggleSelectedLabels: (state, action: PayloadAction<string>) => {
       state.selectedLabels = _.xor(state.selectedLabels, [action.payload]);
     },
-    openLabelsDialog: (state, action) => {
+    openLabelsDialog: (state) => {
       state.labelsDialogOpen = true;
     },
-    closeLabelsDialog: (state, action) => {
+    closeLabelsDialog: (state) => {
       state.labelsDialogOpen = false;
     },
   },
-  extraReducers: {
-    //@ts-ignore
-    [getLabels.fulfilled]: (state, action) => {
-      labelsAdapter.setAll(state, action.payload);
-      state.selectedLabels = action.payload.map((item) => item.id);
-    }, //@ts-ignore
-    [addLabel.fulfilled]: labelsAdapter.addOne, //@ts-ignore
-    [updateLabel.fulfilled]: labelsAdapter.upsertOne, //@ts-ignore
-    [removeLabel.fulfilled]: labelsAdapter.removeOne,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getLabels.fulfilled, (state, action) => {
+        labelsAdapter.setAll(state, action.payload);
+        state.selectedLabels = action.payload.map((item) => item.id);
+      })
+      .addCase(addLabel.fulfilled, labelsAdapter.addOne)
+      .addCase(updateLabel.fulfilled, labelsAdapter.upsertOne)
+      .addCase(removeLabel.fulfilled, labelsAdapter.removeOne);
   },
 });
 
-export const selectSelectedLabels = ({ calendarApp }) => calendarApp.labels.selectedLabels;
-export const selectFirstLabelId = ({ calendarApp }) => calendarApp.labels.ids[0];
-export const selectLabelsDialogOpen = ({ calendarApp }) => calendarApp.labels.labelsDialogOpen;
+export const selectSelectedLabels = (state) => state.calendarApp.labels.selectedLabels;
+export const selectFirstLabelId = (state) => state.calendarApp.labels.ids[0];
+export const selectLabelsDialogOpen = (state) => state.calendarApp.labels.labelsDialogOpen;
 
 export const { toggleSelectedLabels, openLabelsDialog, closeLabelsDialog } = labelsSlice.actions;
 
-export default labelsSlice.reducer;
+export default labelsSlice;

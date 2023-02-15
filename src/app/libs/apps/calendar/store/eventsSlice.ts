@@ -1,5 +1,5 @@
 import { TEvent } from '@app/types/TEvent';
-import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import formatISO from 'date-fns/formatISO';
 import { collection, getDocs, doc, setDoc, updateDoc, deleteDoc } from 'firebase/firestore';
@@ -8,56 +8,63 @@ import { selectSelectedLabels } from './labelsSlice';
 
 export const dateFormat = 'YYYY-MM-DDTHH:mm:ss.sssZ';
 
-export const getEvents = createAsyncThunk('calendarApp/events/getEvents', async () => {
+export const getEvents = createAsyncThunk<TEvent[]>('calendarApp/events/getEvents', async () => {
   const events = await getDocs(collection(db, 'calendar-events'));
-  const data = events.docs.map((event) => event.data());
+  const data = events.docs.map((event) => event.data()) as TEvent[];
   return data;
 });
 
-export const addEvent = createAsyncThunk('calendarApp/events/addEvent', async (newEvent: TEvent) => {
+export const addEvent = createAsyncThunk<TEvent, TEvent>('calendarApp/events/addEvent', async (newEvent) => {
   try {
     const eventRef = doc(db, 'calendar-events', newEvent.id);
-    setDoc(eventRef, newEvent);
-  } catch (error) {
-    return error;
-  }
+    await setDoc(eventRef, newEvent);
+  } catch (error) {}
 
   return newEvent;
 });
 
-export const updateEvent = createAsyncThunk('calendarApp/events/updateEvent', async (event: TEvent) => {
+export const updateEvent = createAsyncThunk<TEvent, TEvent>('calendarApp/events/updateEvent', async (event) => {
   try {
     const eventRef = doc(db, 'calendar-events', event.id);
-    updateDoc(eventRef, event);
-  } catch (error) {
-    return error;
-  }
+    await updateDoc(eventRef, event);
+  } catch (error) {}
 
   return event;
 });
 
-export const removeEvent = createAsyncThunk('calendarApp/events/removeEvent', async (eventId: string) => {
+export const removeEvent = createAsyncThunk<string, string>('calendarApp/events/removeEvent', async (eventId) => {
   try {
     const eventRef = doc(db, 'calendar-events', eventId);
-    deleteDoc(eventRef);
-  } catch (error) {
-    return error;
-  }
+    await deleteDoc(eventRef);
+  } catch (error) {}
 
   return eventId;
 });
 
-const eventsAdapter = createEntityAdapter({});
+const eventsAdapter = createEntityAdapter<TEvent>({});
 
 export const {
   selectAll: selectEvents,
   selectIds: selectEventIds,
-  selectById: selectEventById, //@ts-ignore
-} = eventsAdapter.getSelectors((state) => state.calendarApp.events);
+  selectById: selectEventById,
+} = eventsAdapter.getSelectors((state: { calendarApp: { events: any } }) => state.calendarApp.events);
+
+interface EventDialogState {
+  type: 'new' | 'edit';
+  props: {
+    open: boolean;
+    anchorPosition: { top: number; left: number };
+  };
+  data: TEvent | null;
+}
+
+interface EventsState {
+  eventDialog: EventDialogState;
+}
 
 const eventsSlice = createSlice({
   name: 'calendarApp/events',
-  initialState: eventsAdapter.getInitialState({
+  initialState: eventsAdapter.getInitialState<EventsState>({
     eventDialog: {
       type: 'new',
       props: {
@@ -69,8 +76,7 @@ const eventsSlice = createSlice({
   }),
   reducers: {
     openNewEventDialog: {
-      //@ts-ignore
-      prepare: (selectInfo) => {
+      prepare: (selectInfo: { start: Date; end: Date; jsEvent: MouseEvent }) => {
         const { start, end, jsEvent } = selectInfo;
         const payload = {
           type: 'new',
@@ -82,19 +88,17 @@ const eventsSlice = createSlice({
             start: formatISO(new Date(start)),
             end: formatISO(new Date(end)),
           },
-        };
+        } as EventDialogState;
         return { payload };
       },
-      reducer: (state, action) => {
+      reducer: (state, action: PayloadAction<EventDialogState>) => {
         state.eventDialog = action.payload;
       },
     },
     openEditEventDialog: {
-      //@ts-ignore
-      prepare: (clickInfo) => {
+      prepare: (clickInfo: { start: Date; end: Date; jsEvent: MouseEvent; event: TEvent }) => {
         const { jsEvent, event } = clickInfo;
         const { id, title, allDay, start, end, extendedProps } = event;
-        console.log(event, 'event');
         const payload = {
           type: 'edit',
           props: {
@@ -113,7 +117,7 @@ const eventsSlice = createSlice({
         };
         return { payload };
       },
-      reducer: (state, action) => {
+      reducer: (state: any, action: any) => {
         state.eventDialog = action.payload;
       },
     },
@@ -139,21 +143,26 @@ const eventsSlice = createSlice({
     },
   },
 
-  extraReducers: {
-    //@ts-ignore
-    [getEvents.fulfilled]: eventsAdapter.setAll,
-    //@ts-ignore
-    [addEvent.fulfilled]: eventsAdapter.addOne,
-    //@ts-ignore
-    [updateEvent.fulfilled]: eventsAdapter.upsertOne,
-    //@ts-ignore
-    [removeEvent.fulfilled]: eventsAdapter.removeOne,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getEvents.fulfilled, (state, action) => {
+        eventsAdapter.setAll(state, action.payload);
+      })
+      .addCase(addEvent.fulfilled, (state, action) => {
+        eventsAdapter.addOne(state, action.payload);
+      })
+      .addCase(updateEvent.fulfilled, (state, action) => {
+        eventsAdapter.upsertOne(state, action.payload);
+      })
+      .addCase(removeEvent.fulfilled, (state, action) => {
+        eventsAdapter.removeOne(state, action.payload);
+      });
   },
 });
 
 export const { openNewEventDialog, closeNewEventDialog, openEditEventDialog, closeEditEventDialog } =
   eventsSlice.actions;
-//@ts-ignore
+
 export const selectFilteredEvents = createSelector(
   [selectSelectedLabels, selectEvents],
   (selectedLabels: string[], events: TEvent[]) => {
