@@ -36,7 +36,7 @@ function EventDialog(props) {
   const dispatch = useDispatch<AppDispatch>();
   const eventDialog = useSelector(selectEventDialog);
   const firstLabelId = useSelector(selectFirstLabelId);
-  console.log(eventDialog);
+
   const { reset, formState, watch, control, getValues } = useForm({
     defaultValues,
     mode: 'onChange',

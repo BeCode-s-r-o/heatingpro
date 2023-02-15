@@ -3,7 +3,7 @@ export interface TEvent {
   allDay: boolean;
   start: string;
   end: string;
-  extendedProps: { desc: string; label: string };
+  extendedProps: { desc: string; label: string; deviceID: string };
   title: string;
   [key: string]: any;
 }
