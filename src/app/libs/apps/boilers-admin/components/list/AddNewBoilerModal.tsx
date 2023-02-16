@@ -16,7 +16,13 @@ interface Props {
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const dispatch = useDispatch();
-  const [newBoiler, setNewBoiler] = useState({ name: '', phoneNumber: '', assignedTo: '', columns: [] });
+  const [newBoiler, setNewBoiler] = useState({
+    name: '',
+    phoneNumber: '',
+    assignedTo: '',
+    columns: [],
+    header: { name: '', location: '', provider: '', maintenance: '', staff1: '', staff2: '', monitoringDeviceID: '' },
+  });
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -37,7 +43,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-[300px]">
+      <List className="w-fit">
         <ListItem>
           <ListItemText primary="Pridať nový systém" />
         </ListItem>
