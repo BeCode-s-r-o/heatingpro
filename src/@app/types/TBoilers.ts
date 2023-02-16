@@ -38,6 +38,15 @@ export interface TSms {
   body?: Body;
 }
 
+export interface TBoilerInfo {
+  name: string;
+  location: string;
+  provider: string;
+  maintenance: string;
+  staff: string[];
+  monitoringDeviceID: string;
+}
+
 interface Body {
   deviceID: string;
   digitalInput: Array<number | null>;
