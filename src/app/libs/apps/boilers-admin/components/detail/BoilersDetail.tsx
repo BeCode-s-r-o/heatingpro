@@ -2,13 +2,14 @@ import { TBoiler } from '@app/types/TBoilers';
 import { AppDispatch, RootState } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
-import { motion } from 'framer-motion';
+import { motion as m } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
 import { container, item } from '../../constants';
 import { boilersSlice, getBoilers, selectBoilerById } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
+import BoilerFooter from './BoilerFooter';
 import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 
@@ -32,16 +33,19 @@ const BoilersDetail = () => {
       header={<BoilersDetailHeader boiler={boiler} />}
       content={
         <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
-          <motion.div
+          <m.div
             className="grid grid-cols-1 sm:grid-cols-6 gap-24 w-full min-w-0 p-24"
             variants={container}
             initial="hidden"
             animate="show"
           >
-            <motion.div variants={item} className="sm:col-span-6">
+            <m.div variants={item} className="sm:col-span-6">
               <BoilersDetailTable id={id} />
-            </motion.div>
-          </motion.div>
+            </m.div>
+            <m.div variants={item} className="sm:col-span-6">
+              {boiler && <BoilerFooter boiler={boiler} />}
+            </m.div>
+          </m.div>
         </div>
       }
     />
