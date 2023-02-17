@@ -7,6 +7,7 @@ export type TBoiler = {
   columns: TBoilerColumn[];
   lastUpdate: string;
   sms: TSms[];
+  header: TBoilerInfo;
 };
 
 export type TBoilers = TBoiler[];
@@ -43,7 +44,8 @@ export interface TBoilerInfo {
   location: string;
   provider: string;
   maintenance: string;
-  staff: string[];
+  staff1: string;
+  staff2: string;
   monitoringDeviceID: string;
 }
 
