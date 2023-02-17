@@ -95,10 +95,10 @@ const labelsSlice = createSlice({
   },
 });
 
-export const selectSelectedLabels = (state) => state.calendarApp.labels.selectedLabels;
-export const selectFirstLabelId = (state) => state.calendarApp.labels.ids[0];
-export const selectLabelsDialogOpen = (state) => state.calendarApp.labels.labelsDialogOpen;
+export const selectSelectedLabels = ({ calendarApp }) => calendarApp.labels.selectedLabels;
+export const selectFirstLabelId = ({ calendarApp }) => calendarApp.labels.ids[0];
+export const selectLabelsDialogOpen = ({ calendarApp }) => calendarApp.labels.labelsDialogOpen;
 
 export const { toggleSelectedLabels, openLabelsDialog, closeLabelsDialog } = labelsSlice.actions;
 
-export default labelsSlice;
+export default labelsSlice.reducer;
