@@ -18,13 +18,14 @@ const BoilersDetail = () => {
   const { data: userData } = useSelector(selectUser);
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const isAdmin = userData?.role === 'admin';
+  const isStaff = userData?.role === 'staff';
   useEffect(() => {
-    if (isAdmin) {
+    if (isAdmin || isStaff) {
       dispatch(getBoilers());
     }
   }, [dispatch]);
 
-  return !isAdmin ? (
+  return !isAdmin && !isStaff ? (
     <Navigate to="/404/" replace />
   ) : (
     <Wrapper
