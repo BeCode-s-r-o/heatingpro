@@ -5,6 +5,7 @@ import { TContact, TUserRoles } from '@app/types/TContact';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
+import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -34,15 +35,15 @@ const schema = yup.object().shape({
 });
 
 const NewContactForm = () => {
-  const [contact, setContact] = useState<TContact>({
+  const [contact, setContact] = useState({
     id: '',
     name: '',
     avatar: '',
     phone: '',
     email: '',
     role: TUserRoles.user,
+    heaters: [],
   });
-
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
@@ -137,7 +138,11 @@ const NewContactForm = () => {
             <RadioGroup row {...field} name="role">
               <FormControlLabel value="user" control={<Radio />} label="Klient" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
+              <FormControlLabel
+                value="staff"
+                control={<Radio />}
+                label="Kurič" //@ts-ignore
+              />
             </RadioGroup>
           )}
         />
@@ -215,6 +220,13 @@ const NewContactForm = () => {
             />
           )}
         />
+        {form.role === 'staff' && (
+          <Controller
+            control={control}
+            name="heaters"
+            render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
+          />
+        )}
       </div>
 
       <Box

@@ -14,6 +14,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
+import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { AppDispatch, RootState } from 'app/store/index';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -138,7 +139,7 @@ const ContactForm = () => {
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
               <FormControlLabel value="user" control={<Radio />} label="Zákazník" />
-              <FormControlLabel value="guest" control={<Radio />} label="Hosť" />
+              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
             </RadioGroup>
           )}
@@ -242,6 +243,14 @@ const ContactForm = () => {
             />
           )}
         />
+        {contact.role === 'staff' ||
+          (form.role === 'staff' && (
+            <Controller
+              control={control}
+              name="heaters"
+              render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
+            />
+          ))}
 
         <Controller
           control={control}

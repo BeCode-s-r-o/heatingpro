@@ -3,7 +3,7 @@ import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TContact } from '@app/types/TContact';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
-
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -86,6 +86,39 @@ const ContactView = () => {
               <div className="flex items-center">
                 <PermDeviceInformationIcon />
                 <div className="ml-24 leading-6">{contact.phone}</div>
+              </div>
+            )}
+
+            {contact.heaters.length && contact.heaters.some((item) => item.heater.length > 0) && (
+              <div className="flex">
+                <WhatshotIcon />
+                <div className="min-w-0 ml-24 space-y-4">
+                  {contact.heaters.map(
+                    (item) =>
+                      item.heater !== '' && (
+                        <div className="flex items-center leading-6" key={item.heater}>
+                          {item.heater}
+
+                          {item.label && (
+                            <>
+                              <Typography className="text-md truncate" color="text.secondary">
+                                <span className="mx-8">&bull;</span>
+                                <span className="font-medium">{item.label}</span>
+                              </Typography>
+                            </>
+                          )}
+                          {item.phone && (
+                            <>
+                              <Typography className="text-md truncate" color="text.secondary">
+                                <span className="mx-8">&bull;</span>
+                                <span className="font-medium">{item.phone}</span>
+                              </Typography>
+                            </>
+                          )}
+                        </div>
+                      )
+                  )}
+                </div>
               </div>
             )}
           </div>
