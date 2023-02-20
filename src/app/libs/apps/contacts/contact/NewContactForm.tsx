@@ -76,58 +76,25 @@ const NewContactForm = () => {
         <div className="w-full">
           <center>
             <div className=" -mt-64 ">
-              <Controller
-                control={control}
-                name="avatar"
-                render={({ field: { onChange, value } }) => (
-                  <Box
-                    sx={{
-                      borderWidth: 4,
-                      borderStyle: 'solid',
-                      borderColor: 'background.paper',
-                    }}
-                    className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
-                  >
-                    <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
-                    <div className="absolute inset-0 flex items-center justify-center z-20">
-                      <div>
-                        <label htmlFor="button-avatar" className="flex p-8 cursor-pointer">
-                          <input
-                            accept="image/*"
-                            className="hidden"
-                            id="button-avatar"
-                            type="file"
-                            onChange={() => {}}
-                          />
-                          <FuseSvgIcon className="text-white">heroicons-outline:camera</FuseSvgIcon>
-                        </label>
-                      </div>
-                      {contact.avatar && (
-                        <div>
-                          <IconButton
-                            onClick={() => {
-                              onChange('');
-                            }}
-                          >
-                            <FuseSvgIcon className="text-white">heroicons-solid:trash</FuseSvgIcon>
-                          </IconButton>
-                        </div>
-                      )}
-                    </div>
-                    <Avatar
-                      sx={{
-                        backgroundColor: 'background.default',
-                        color: 'text.secondary',
-                      }}
-                      className="object-cover w-full h-full text-64 font-bold"
-                      src={value}
-                      alt={contact.name}
-                    >
-                      {contact.name.charAt(0)}
-                    </Avatar>
-                  </Box>
-                )}
-              />
+              <Box
+                sx={{
+                  borderWidth: 4,
+                  borderStyle: 'solid',
+                  borderColor: 'background.paper',
+                }}
+                className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
+              >
+                <Avatar
+                  sx={{
+                    backgroundColor: 'background.default',
+                    color: 'text.secondary',
+                  }}
+                  className="object-cover w-full h-full text-64 font-bold"
+                  alt={contact.name}
+                >
+                  {form.name.charAt(0)}
+                </Avatar>
+              </Box>
             </div>
           </center>
         </div>
@@ -138,11 +105,7 @@ const NewContactForm = () => {
             <RadioGroup row {...field} name="role">
               <FormControlLabel value="user" control={<Radio />} label="Klient" />
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-              <FormControlLabel
-                value="staff"
-                control={<Radio />}
-                label="Kurič" //@ts-ignore
-              />
+              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
             </RadioGroup>
           )}
         />
