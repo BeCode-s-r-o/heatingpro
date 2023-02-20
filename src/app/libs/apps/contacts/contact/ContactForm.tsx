@@ -84,53 +84,35 @@ const ContactForm = () => {
 
   return (
     <>
+      {' '}
+      <Box
+        className="relative w-full h-160 sm:h-192 px-32 sm:px-48"
+        sx={{
+          backgroundColor: 'background.default',
+        }}
+      ></Box>
       <div className="relative flex flex-col flex-auto items-center px-24 sm:px-48">
         <div className="w-full">
           <div className="flex flex-auto items-end -mt-64">
-            <Controller
-              control={control}
-              name="avatar"
-              render={({ field: { onChange, value } }) => (
-                <Box
-                  sx={{
-                    borderWidth: 4,
-                    borderStyle: 'solid',
-                    borderColor: 'background.paper',
-                  }}
-                  className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
-                >
-                  <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
-                  <div className="absolute inset-0 flex items-center justify-center z-20">
-                    <div>
-                      <label htmlFor="button-avatar" className="flex p-8 cursor-pointer">
-                        <input accept="image/*" className="hidden" id="button-avatar" type="file" onChange={() => {}} />
-                        <FuseSvgIcon className="text-white">heroicons-outline:camera</FuseSvgIcon>
-                      </label>
-                    </div>
-                    <div>
-                      <IconButton
-                        onClick={() => {
-                          onChange('');
-                        }}
-                      >
-                        <FuseSvgIcon className="text-white">heroicons-solid:trash</FuseSvgIcon>
-                      </IconButton>
-                    </div>
-                  </div>
-                  <Avatar
-                    sx={{
-                      backgroundColor: 'background.default',
-                      color: 'text.secondary',
-                    }}
-                    className="object-cover w-full h-full text-64 font-bold"
-                    src={value}
-                    alt={contact.name}
-                  >
-                    {contact.name.charAt(0)}
-                  </Avatar>
-                </Box>
-              )}
-            />
+            <Box
+              sx={{
+                borderWidth: 4,
+                borderStyle: 'solid',
+                borderColor: 'background.paper',
+              }}
+              className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
+            >
+              <Avatar
+                sx={{
+                  backgroundColor: 'background.default',
+                  color: 'text.secondary',
+                }}
+                className="object-cover w-full h-full text-64 font-bold"
+                alt={contact.name}
+              >
+                {contact.name.charAt(0)}
+              </Avatar>
+            </Box>
           </div>
         </div>
         <Controller
@@ -219,68 +201,14 @@ const ContactForm = () => {
           )}
         />
 
-        <Controller
-          control={control}
-          name="address"
-          render={({ field }) => (
-            <TextField
-              className="mt-32"
-              {...field}
-              label="Adresa"
-              placeholder="Adresa"
-              id="address"
-              required
-              error={!!errors.address}
-              variant="outlined"
-              fullWidth
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:location-marker</FuseSvgIcon>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        {contact.role === 'staff' ||
-          (form.role === 'staff' && (
-            <Controller
-              control={control}
-              name="heaters"
-              render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
-            />
-          ))}
-
-        <Controller
-          control={control}
-          name="notes"
-          render={({ field }) => (
-            <TextField
-              className="mt-32"
-              {...field}
-              label="Notes"
-              placeholder="Notes"
-              id="notes"
-              error={!!errors.notes}
-              variant="outlined"
-              fullWidth
-              multiline
-              minRows={5}
-              maxRows={10}
-              InputProps={{
-                className: 'max-h-min h-min items-start',
-                startAdornment: (
-                  <InputAdornment className="mt-16" position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:menu-alt-2</FuseSvgIcon>
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
+        {form.role === 'staff' && (
+          <Controller
+            control={control}
+            name="heaters"
+            render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
+          />
+        )}
       </div>
-
       <Box
         className="flex items-center mt-40 py-14 pr-16 pl-4 sm:pr-48 sm:pl-36 border-t"
         sx={{ backgroundColor: 'background.default' }}
