@@ -15,7 +15,7 @@ export const setUser = createAsyncThunk('user/setUser', async (user: TContact) =
 
 export const logoutUser = createAsyncThunk('user/logoutUser', async (dispatch) => {
   history.push({
-    pathname: '/',
+    pathname: '/prihlasenie',
   });
 });
 
