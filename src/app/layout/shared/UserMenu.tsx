@@ -87,12 +87,12 @@ const UserMenu = () => {
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/profil" onClick={userMenuClose} role="button">
+            {/*            <MenuItem component={Link} to="/profil" onClick={userMenuClose} role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-circle</FuseSvgIcon>
               </ListItemIcon>
               <ListItemText primary="Profil" />
-            </MenuItem>
+            </MenuItem> */}
 
             <MenuItem
               component={NavLink}
