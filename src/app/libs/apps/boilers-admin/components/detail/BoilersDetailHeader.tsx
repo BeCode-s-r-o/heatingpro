@@ -2,16 +2,16 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
 import moment from 'moment';
 import { useState } from 'react';
 import TableParametersModal from './TableParametersModal';
 import TableSettingsModal from './TableSettingsModal';
 interface Props {
   boiler: TBoiler | undefined;
+  handlePrint: () => void;
 }
 
-export const BoilersDetailHeader = ({ boiler }: Props) => {
+export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isParametersModalOpen, setIsParametersModalOpen] = useState(false);
 
@@ -38,11 +38,8 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-            <Button className="whitespace-nowrap" variant="contained" color="primary">
-              Export
-            </Button>
-            <Button className="whitespace-nowrap" variant="contained" color="primary">
-              Tlač
+            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
+              Export / Tlač
             </Button>
             <Button
               className="whitespace-nowrap"

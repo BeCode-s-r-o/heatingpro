@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 
-export const BoilersDetailTable = ({ id }) => {
+export const BoilersDetailTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
 
@@ -38,7 +38,7 @@ export const BoilersDetailTable = ({ id }) => {
   const rows = generateRows([...(boiler?.sms || [])]);
 
   return (
-    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Bojler {id}</Typography>
 
       <div style={{ height: 400, width: '100%' }}>
