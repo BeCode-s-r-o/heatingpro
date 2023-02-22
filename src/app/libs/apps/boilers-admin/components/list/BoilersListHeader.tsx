@@ -23,15 +23,6 @@ export const BoilersListHeader = () => {
             <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
               {`Vitajte naspäť, ${data?.name || ''}!`}
             </Typography>
-
-            <div className="flex items-center">
-              <FuseSvgIcon size={20} color="action">
-                heroicons-solid:bell
-              </FuseSvgIcon>
-              <Typography className="mx-6 leading-6 truncate" color="text.secondary">
-                Máte 2 nové hlásenia a 15 nových úloh
-              </Typography>
-            </div>
           </div>
         </div>
         <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
