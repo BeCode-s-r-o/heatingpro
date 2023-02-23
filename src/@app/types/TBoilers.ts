@@ -18,10 +18,9 @@ type TBoilerColumn = {
   unit: string;
   hide?: boolean;
   order: number;
-  limit: {
-    max: any | null;
-    min: any | null;
-  };
+
+  max: any | null;
+  min: any | null;
 };
 
 export interface TSms {
