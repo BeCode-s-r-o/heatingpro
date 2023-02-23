@@ -99,7 +99,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
             <TextField
               type="number"
               label="Min"
-              value={item.limit.min || undefined}
+              value={item.min || undefined}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'min', e.target.value)}
               className="w-[70px] pr-6"
@@ -107,7 +107,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
             <TextField
               type="number"
               label="Max"
-              value={item.limit.max || undefined}
+              value={item.max || undefined}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'max', e.target.value)}
               className="w-[70px]"
