@@ -27,7 +27,7 @@ const ContactHeaterSelector = forwardRef(({ value, onChange, className }, ref) =
       >
         <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
 
-        <span className="ml-8 font-medium text-secondary group-hover:underline">Pridať kotol</span>
+        <span className="ml-8 font-medium text-secondary group-hover:underline">Priradiť kotolňu</span>
       </Button>
     </div>
   );

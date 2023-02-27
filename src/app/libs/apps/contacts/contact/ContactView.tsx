@@ -19,7 +19,13 @@ import { getContact, selectContactById } from '../../../../layout/shared/chatPan
 const ContactView = () => {
   const { id } = useParams();
   const contact: TContact | undefined = useSelector((state: RootState) => selectContactById(state, id || ''));
-  const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť', staff: 'Kurič' };
+  const roles = {
+    admin: 'Admin',
+    user: 'Zákazník',
+    staff: 'Kurič',
+    obsluhar: 'Obsluha kotolne',
+    instalater: 'Inštalatér',
+  };
   const dispatch = useDispatch<AppDispatch>();
 
   if (!contact) {

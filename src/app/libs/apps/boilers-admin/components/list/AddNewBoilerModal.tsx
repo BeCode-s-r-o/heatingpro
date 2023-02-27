@@ -21,6 +21,8 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     phoneNumber: '',
     assignedTo: '',
     columns: [],
+    id: '',
+    period: '24',
     header: { name: '', location: '', provider: '', maintenance: '', staff1: '', staff2: '', monitoringDeviceID: '' },
   });
 
@@ -32,9 +34,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       [e.target.name]: value,
     }));
   };
+
   const saveNewBoiler = () => {
     try {
-      const boilerRef = doc(db, 'boilers', '0004A'); //need id?
+      const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, newBoiler);
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
     } catch (error) {
@@ -43,16 +46,34 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-fit">
+      <List className="w-[500px]">
         <ListItem>
           <ListItemText primary="Pridať nový systém" />
         </ListItem>
 
         <ListItem>
-          <TextField type="text" label="Názov kotolne" value={newBoiler.name} name="name" onChange={handleChange} />
+          <TextField
+            className="w-[500px]"
+            type="text"
+            label="Názov kotolne"
+            value={newBoiler.name}
+            name="name"
+            onChange={handleChange}
+          />
         </ListItem>
         <ListItem>
           <TextField
+            className="w-[500px]"
+            type="text"
+            label="ID"
+            value={newBoiler.id}
+            name="id"
+            onChange={handleChange}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            className="w-[500px]"
             type="text"
             label="Telefónne číslo"
             value={newBoiler.phoneNumber}
@@ -62,6 +83,17 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
         </ListItem>
         <ListItem>
           <TextField
+            className="w-[500px]"
+            type="text"
+            label="Perióda"
+            value={newBoiler.period}
+            name="period"
+            onChange={handleChange}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            className="w-[500px]"
             type="text"
             label="Majiteľ"
             value={newBoiler.assignedTo}
@@ -70,7 +102,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           />
         </ListItem>
         <ListItem className="flex  justify-around">
-          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={() => saveNewBoiler}>
+          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={saveNewBoiler}>
             Vytvoriť
           </Button>
           <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={toggleOpen}>

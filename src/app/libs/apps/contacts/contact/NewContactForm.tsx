@@ -104,8 +104,8 @@ const NewContactForm = () => {
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
               <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               <FormControlLabel value="user" control={<Radio />} label="Klient" />
-              <FormControlLabel value="staff" control={<Radio />} label="Inštalatér" />
-              <FormControlLabel value="staff" control={<Radio />} label="Obsluha kotolne" />
+              <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
+              <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
             </RadioGroup>
           )}
         />
@@ -210,7 +210,7 @@ const NewContactForm = () => {
           )}
         />
 
-        {form.role === 'staff' && (
+        {form.role !== 'admin' && (
           <Controller
             control={control}
             name="heaters"

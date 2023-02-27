@@ -1,17 +1,13 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import IconButton from '@mui/material/IconButton';
-import InputAdornment from '@mui/material/InputAdornment';
 import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import Checkbox from '@mui/material/Checkbox/Checkbox';
-import ComboBox from './Tets';
-import PhoneNumberInput from '../phone-number-selector/PhoneNumberInput';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
-import { Typography } from '@mui/material';
+import PhoneNumberInput from '../phone-number-selector/PhoneNumberInput';
+
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),
   label: yup.string().required('Pridajte názov kotla'),
