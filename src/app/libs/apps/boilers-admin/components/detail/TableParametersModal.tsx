@@ -1,33 +1,17 @@
-import { useRef, useState } from 'react';
-import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
-import Switch from '@mui/material/Switch';
 import TextField from '@mui/material/TextField';
-import {
-  doc,
-  updateDoc,
-  getDoc,
-  collection,
-  deleteDoc,
-  setDoc,
-  getFirestore,
-  query,
-  where,
-  getDocs,
-} from 'firebase/firestore';
-import firebase from 'firebase/app';
+import { showMessage } from 'app/store/slices/messageSlice';
 import 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, getFirestore, query, setDoc, updateDoc, where } from 'firebase/firestore';
+import { useState } from 'react';
 
-import { tempColumns } from '../../constants';
-import { db } from 'src/firebase-config';
-import { useDispatch } from 'react-redux';
 import { TBoiler, TSms } from '@app/types/TBoilers';
-import { id } from 'date-fns/locale';
+import { useDispatch } from 'react-redux';
+import { db } from 'src/firebase-config';
 interface Props {
   boiler: TBoiler;
   isOpen: boolean;
@@ -96,13 +80,13 @@ function TableParametersModal({ boiler, isOpen, toggleOpen }: Props) {
         </ListItem>
 
         <ListItem>
-          <TextField type="text" label="id" value={newBoiler.id} name="id" onChange={handleChange} />
+          <TextField type="text" label="ID" value={newBoiler.id} name="id" disabled onChange={handleChange} />
         </ListItem>
         <ListItem>
-          <TextField type="text" label="meno" value={newBoiler.name} name="name" onChange={handleChange} />
+          <TextField type="text" label="Meno" value={newBoiler.name} name="name" onChange={handleChange} />
         </ListItem>
         <ListItem>
-          <TextField type="text" label="perióda" value={newBoiler.period} name="period" onChange={handleChange} />
+          <TextField type="text" label="Perióda" value={newBoiler.period} name="period" onChange={handleChange} />
         </ListItem>
 
         <ListItem className="flex justify-around">
