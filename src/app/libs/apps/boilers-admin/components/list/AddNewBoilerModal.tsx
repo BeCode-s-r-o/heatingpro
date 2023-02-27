@@ -49,12 +49,12 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
         </ListItem>
 
         <ListItem>
-          <TextField type="text" label="meno" value={newBoiler.name} name="name" onChange={handleChange} />
+          <TextField type="text" label="Názov kotolne" value={newBoiler.name} name="name" onChange={handleChange} />
         </ListItem>
         <ListItem>
           <TextField
             type="text"
-            label="telefónne číslo"
+            label="Telefónne číslo"
             value={newBoiler.phoneNumber}
             name="phoneNumber"
             onChange={handleChange}
@@ -63,15 +63,15 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
         <ListItem>
           <TextField
             type="text"
-            label="majiteľ"
+            label="Majiteľ"
             value={newBoiler.assignedTo}
             name="assignedTo"
             onChange={handleChange}
           />
         </ListItem>
-        <ListItem className="flex justify-around">
+        <ListItem className="flex  justify-around">
           <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={() => saveNewBoiler}>
-            Uložiť
+            Vytvoriť
           </Button>
           <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={toggleOpen}>
             Zrušiť
