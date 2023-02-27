@@ -12,7 +12,7 @@ import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 
-export const BoilersDetailTable = ({ id, componentRef }) => {
+export const ManualBoilerTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const [isEditRows, setIsEditRows] = React.useState(false);
@@ -41,17 +41,6 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     return [lastUpdate, ...generatedColumns];
   };
 
-  const generateRows = (data: TBoiler['sms']) => {
-    return data
-      ?.sort((i) => i.timestamp.unix)
-      .map(
-        (i) =>
-          i.body?.inputData?.reduce(
-            (acc, curr, idx) => ({ id: i.messageID, ...acc, [String(idx)]: curr || '-' }),
-            {}
-          ) || {}
-      );
-  };
   const deleteSelectedRows = () => {
     var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
     getDocs(deleteQuery).then((querySnapshot) => {
@@ -59,14 +48,23 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     });
     setShowConfirmModal(false);
   };
-  const columns = generateColumns([...(boiler?.columns || [])]);
-  const rows = generateRows([...(boiler?.sms || [])]);
+  const columns = [
+    {
+      field: 'teplota',
+      headerName: `teplota`,
+
+      flex: 1,
+    },
+  ];
+  const rows = [{ teplota: '36C', id: '9283' }];
 
   return (
-    <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">Bojler {id}</Typography>
+    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+      <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
+        Manuálne Dáta Bojler {id}
+      </Typography>
 
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={columns}
