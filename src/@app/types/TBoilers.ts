@@ -18,7 +18,7 @@ type TBoilerColumn = {
   unit: string;
   hide?: boolean;
   order: number;
-
+  description?: string;
   max: any | null;
   min: any | null;
 };

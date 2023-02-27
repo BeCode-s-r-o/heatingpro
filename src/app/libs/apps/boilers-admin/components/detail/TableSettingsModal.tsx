@@ -66,7 +66,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-[500px]">
+      <List className="w-[700px]">
         <ListItem>
           <ListItemText primary="Nastavenie stĺpcov" />
         </ListItem>
@@ -83,6 +83,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
           >
             <TextField
               type="text"
+              label="Názov"
               value={item.columnName}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'columnName', e.target.value)}
@@ -90,15 +91,23 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
             />
             <TextField
               type="text"
-              label="jedn."
+              label="Vysvetlivka"
+              value={item.description}
+              name={item.accessor}
+              onChange={(e) => handleChange(e, 'desc', e.target.value)}
+              className="w-[255px] "
+            />
+            <TextField
+              type="text"
+              label="Jednotka"
               value={item.unit}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'unit', e.target.value)}
-              className="w-[60px] px-6"
+              className="w-[80px] px-6"
             />
             <TextField
               type="number"
-              label="Min"
+              label="Min."
               value={item.min || undefined}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'min', Number(e.target.value))}
@@ -106,7 +115,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
             />
             <TextField
               type="number"
-              label="Max"
+              label="Max."
               value={item.max || undefined}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'max', Number(e.target.value))}

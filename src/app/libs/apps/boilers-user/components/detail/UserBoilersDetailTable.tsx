@@ -48,7 +48,7 @@ export const BoilersDetailTable = ({ boiler, id }: Props) => {
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Bojler {id}</Typography>
+      <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Kotolňa {id}</Typography>
 
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid

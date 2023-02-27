@@ -12,7 +12,7 @@ const navigationConfig = [
     children: [
       {
         id: 'dashboards.project',
-        title: 'Zoznam bojlerov',
+        title: 'Zoznam kotolní',
         type: 'item',
         icon: 'developer_board',
         url: '/systemy/',
@@ -49,7 +49,7 @@ const navigationConfig = [
     children: [
       {
         id: 'dashboards.project',
-        title: 'Vaše bojlery',
+        title: 'Vaše kotolne',
         type: 'item',
         icon: 'developer_board',
         url: '/pouzivatelske-systemy/',

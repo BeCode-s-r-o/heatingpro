@@ -22,7 +22,7 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
           <div className="flex flex-auto items-center min-w-0">
             <div className="flex flex-col min-w-0 mx-16">
               <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                Bojler {boiler?.name}
+                Kotolňa {boiler?.name}
               </Typography>
 
               <div className="flex items-center">
@@ -31,15 +31,18 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
                 </FuseSvgIcon>
                 {boiler?.lastUpdate && (
                   <Typography className="mx-6 leading-6 truncate" color="text.secondary">
-                    Posledná aktualizácia: {moment(boiler?.lastUpdate).calendar()}
+                    Posledná aktualizácia: {moment(boiler?.lastUpdate).format('DD.MM.YYYY HH:mm:ss')}
                   </Typography>
                 )}
               </div>
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
+            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={() => {}}>
+              Export
+            </Button>
             <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
-              Export / Tlač
+              Tlač
             </Button>
             <Button
               className="whitespace-nowrap"
@@ -71,6 +74,9 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
               }}
             >
               Nastavenia parametrov
+            </Button>
+            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
+              Vyžiadať dáta
             </Button>
             {boiler && (
               <TableParametersModal

@@ -61,7 +61,7 @@ export const ManualBoilerTable = ({ id }) => {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
-        Manuálne Dáta Bojler {id}
+        Mesačné Dáta pre kotolňu {id}
       </Typography>
 
       <div style={{ height: 300, width: '100%' }}>

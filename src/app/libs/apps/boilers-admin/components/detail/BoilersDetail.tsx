@@ -45,13 +45,13 @@ const BoilersDetail = () => {
             animate="show"
           >
             <m.div variants={item} className="sm:col-span-6">
+              {boiler && <BoilerFooter boiler={boiler} />}
+            </m.div>
+            <m.div variants={item} className="sm:col-span-6">
               <BoilersDetailTable id={id} componentRef={componentRef} />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               <ManualBoilerTable id={id} />
-            </m.div>
-            <m.div variants={item} className="sm:col-span-6">
-              {boiler && <BoilerFooter boiler={boiler} />}
             </m.div>
           </m.div>
         </div>
