@@ -25,8 +25,6 @@ const ContactButton = ({ contact }: { contact: TContact }) => {
   return (
     <Root title={contact.name} placement="left">
       <Button className="contactButton rounded-0 py-4 h-auto min-h-auto max-h-none">
-        <StyledStatus />
-
         <Avatar src={contact.avatar || ''} alt={contact.name}>
           {!contact.avatar || contact.avatar === '' ? contact.name[0] : ''}
         </Avatar>

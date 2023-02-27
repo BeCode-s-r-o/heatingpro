@@ -11,9 +11,7 @@ export default function ComboBox() {
       getOptionLabel={(option) => option.heater}
       sx={{ width: 300 }}
       //@ts-ignore
-      onChange={(event: any, newValue: string | null) => {
-        console.log(newValue);
-      }}
+      onChange={(event: any, newValue: string | null) => {}}
       renderInput={(params) => <TextField {...params} label="Movie" />}
     />
   );

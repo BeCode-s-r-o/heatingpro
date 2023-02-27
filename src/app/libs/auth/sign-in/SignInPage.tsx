@@ -61,7 +61,7 @@ function SignInPage() {
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Email"
+                  label="E-mail"
                   autoFocus
                   type="email"
                   error={!!errors.email}
@@ -80,7 +80,7 @@ function SignInPage() {
                 <TextField
                   {...field}
                   className="mb-24"
-                  label="Password"
+                  label="Heslo"
                   type="password"
                   error={!!errors.password}
                   helperText={errors?.password?.message}

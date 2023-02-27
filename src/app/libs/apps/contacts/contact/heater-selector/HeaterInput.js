@@ -30,7 +30,7 @@ function HeaterInput(props) {
   }, [reset, value]);
 
   const { isValid, dirtyFields, errors } = formState;
-  console.log(form.heater);
+
   function onSubmit(data) {
     props.onChange(data);
   }

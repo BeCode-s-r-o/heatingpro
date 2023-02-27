@@ -47,7 +47,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
       toggleOpen();
     } catch (error) {
       toggleOpen();
-      console.log(error);
+
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };

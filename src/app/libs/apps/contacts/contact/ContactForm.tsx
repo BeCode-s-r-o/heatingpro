@@ -86,7 +86,7 @@ const ContactForm = () => {
     <>
       {' '}
       <Box
-        className="relative w-full h-160 sm:h-192 px-32 sm:px-48"
+        className="relative w-full h-80 sm:h-5 px-32 sm:px-48"
         sx={{
           backgroundColor: 'background.default',
         }}
@@ -195,7 +195,7 @@ const ContactForm = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <FuseSvgIcon size={20}>heroicons-solid:lock</FuseSvgIcon>
+                    <FuseSvgIcon size={20}>heroicons-solid:lock-closed</FuseSvgIcon>
                   </InputAdornment>
                 ),
               }}
