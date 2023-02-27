@@ -55,15 +55,16 @@ const NewContactForm = () => {
   const { isValid, dirtyFields, errors } = formState;
 
   const form = watch();
-
+  console.log(form.heaters);
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
 
   function onSubmit(data) {
-    dispatch(addContact(data)).then(() => {
+    console.log(data);
+    /*     dispatch(addContact(data)).then(() => {
       navigate(`/pouzivatelia`);
-    });
+    }); */
   }
 
   if (_.isEmpty(form) || !contact) {

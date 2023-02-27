@@ -22,10 +22,6 @@ const ContactView = () => {
   const roles = { admin: 'Admin', user: 'Zákazník', guest: 'Hosť', staff: 'Kurič' };
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(getContact(id || '') as any);
-  }, [dispatch, id]);
-
   if (!contact) {
     return <FuseLoading />;
   }
