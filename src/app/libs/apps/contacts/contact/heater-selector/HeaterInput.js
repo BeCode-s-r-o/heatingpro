@@ -6,38 +6,82 @@ import TextField from '@mui/material/TextField';
 import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import Checkbox from '@mui/material/Checkbox/Checkbox';
+import ComboBox from './Tets';
 import PhoneNumberInput from '../phone-number-selector/PhoneNumberInput';
+import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { Typography } from '@mui/material';
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),
   label: yup.string().required('Pridajte názov kotla'),
   phone: yup.string().required('Pridajte tel.číslo kotla'),
 });
 
-const defaultValues = {
-  heater: '',
-  label: '',
-  phone: '',
-};
+const defaultValues = [{ id: '', label: '', phone: '' }];
 
 function HeaterInput(props) {
   const { value, hideRemove } = props;
 
-  const { control, formState, handleSubmit, reset } = useForm({
+  const { control, formState, handleSubmit, reset, watch } = useForm({
     mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
   });
-
+  const form = watch();
   useEffect(() => {
     reset(value);
   }, [reset, value]);
 
   const { isValid, dirtyFields, errors } = formState;
-
+  console.log(form.heater);
   function onSubmit(data) {
     props.onChange(data);
   }
+  const heaters = [
+    {
+      id: 'c31e9e5d-e0cb-4574-a13f-8a6ee5ff8309',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: 'a8991c76-2fda-4bbd-a718-df13d6478847',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: '56ddbd47-4078-4ddd-8448-73c5e88d5f59',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: '2026ce08-d08f-4b4f-9506-b10cdb5b104f',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: '65930b5a-5d2a-4303-b11f-865d69e6fdb5',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: '3eaab175-ec0d-4db7-bc3b-efc633c769be',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+    {
+      id: 'cbde2486-5033-4e09-838e-e901b108cd41',
+
+      label: 'Piecka',
+      phone: '0907 961 609',
+    },
+  ];
 
   return (
     <>
@@ -46,45 +90,59 @@ function HeaterInput(props) {
         <Controller
           control={control}
           name="heater"
-          render={({ field }) => (
-            <TextField
-              {...field}
-              className=""
-              label="ID"
-              placeholder="ID"
-              variant="outlined"
-              fullWidth
-              error={!!errors.heater}
-              helperText={errors?.heater?.message}
-              InputProps={{
-                startAdornment: <InputAdornment position="start">{/* <WhatshotIcon /> */}</InputAdornment>,
+          render={({ field: { onChange, value } }) => (
+            <Autocomplete
+              disablePortal
+              id="heater"
+              options={heaters}
+              getOptionLabel={(option) => option.id}
+              isOptionEqualToValue={(option, value) => option.id === value.id}
+              renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
+              onChange={(event, newValue) => {
+                onChange(newValue);
               }}
+              fullWidth
+              renderInput={(params) => (
+                <TextField {...params} variant="outlined" fullWidth label="ID Zariadenia" placeholder="ID Zariadenia" />
+              )}
             />
           )}
         />
-        <Controller
+
+        {/*         <Controller
           control={control}
-          name="label"
+          name="autocomplete"
           render={({ field }) => (
-            <TextField
+            <Autocomplete
               {...field}
-              className=""
-              label="Názov"
-              placeholder="Názov"
-              variant="outlined"
-              fullWidth
-              error={!!errors.label}
-              helperText={errors?.label?.message}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {/* <FuseSvgIcon size={20}>heroicons-solid:tag</FuseSvgIcon> */}
-                  </InputAdornment>
-                ),
-              }}
+              disablePortal
+              options={options}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  label="Autocomplete"
+                  variant="outlined"
+                  error={!!errors.autocomplete}
+                  helperText={errors?.autocomplete?.message}
+                />
+              )}
             />
           )}
+        /> */}
+
+        <TextField
+          value={form.heater ? form.heater.label : ''}
+          className=""
+          label="Názov"
+          placeholder="Názov"
+          variant="outlined"
+          fullWidth
+          helperText={errors?.label?.message}
+          InputProps={{
+            readOnly: true,
+          }}
         />
+
         <Controller
           control={control}
           name="phone"
@@ -93,17 +151,13 @@ function HeaterInput(props) {
               {...field}
               className=""
               label="Tel.číslo"
+              value={form.heater ? form.heater.phone : ''}
               placeholder="Tel.číslo"
               variant="outlined"
               fullWidth
-              error={!!errors.phone}
               helperText={errors?.phone?.message}
               InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    {/* <FuseSvgIcon size={20}>heroicons-solid:tag</FuseSvgIcon> */}
-                  </InputAdornment>
-                ),
+                readOnly: true,
               }}
             />
           )}

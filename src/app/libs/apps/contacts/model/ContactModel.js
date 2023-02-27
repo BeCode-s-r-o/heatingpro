@@ -7,9 +7,10 @@ const ContactModel = (data) =>
     name: '',
     role: 'Zákazník',
     email: '',
+    tags: '',
     birthNumber: '',
     phone: '',
-    heaters: [{ heater: '', label: '' }],
+    heaters: [],
     notes: '',
   });
 
