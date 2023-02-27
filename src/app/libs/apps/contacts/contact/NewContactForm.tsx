@@ -62,9 +62,6 @@ const NewContactForm = () => {
 
   function onSubmit(data) {
     console.log(data);
-    /*     dispatch(addContact(data)).then(() => {
-      navigate(`/pouzivatelia`);
-    }); */
   }
 
   if (_.isEmpty(form) || !contact) {
@@ -164,6 +161,32 @@ const NewContactForm = () => {
 
         <Controller
           control={control}
+          name="password"
+          render={({ field }) => (
+            <TextField
+              className="mt-32"
+              {...field}
+              label="Heslo"
+              placeholder="Heslo"
+              id="password"
+              error={!!errors.password}
+              variant="outlined"
+              type="password"
+              required
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FuseSvgIcon size={20}>heroicons-solid:lock-closed</FuseSvgIcon>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
           name="phone"
           render={({ field }) => (
             <TextField
@@ -186,6 +209,7 @@ const NewContactForm = () => {
             />
           )}
         />
+
         {form.role === 'staff' && (
           <Controller
             control={control}

@@ -36,22 +36,7 @@ function SignInPage() {
 
   const { isValid, dirtyFields, errors } = formState;
 
-  useEffect(() => {
-    setValue('email', 'vladko@becode.sk', { shouldDirty: true, shouldValidate: true });
-    setValue('password', 'lubojekral', { shouldDirty: true, shouldValidate: true });
-  }, [setValue]);
-
   function onSubmit({ email, password }) {
-    // TODO - add firebase login
-    /*     signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-  
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      }); */
-
     authInstance.signInWithEmailAndPassword(email, password);
   }
 
@@ -62,12 +47,6 @@ function SignInPage() {
           <img className="w-160" src="assets/images/logo/logo.png" alt="logo" />
 
           <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">Prihlásiť sa</Typography>
-          <div className="flex items-baseline mt-2 font-medium">
-            <Typography>Nemáte účet?</Typography>
-            <Link className="ml-4" to="/sign-up">
-              Vytvorte si účet
-            </Link>
-          </div>
 
           <form
             name="loginForm"
@@ -113,18 +92,8 @@ function SignInPage() {
             />
 
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
-              <Controller
-                name="remember"
-                control={control}
-                render={({ field }) => (
-                  <FormControl>
-                    <FormControlLabel label="Zapamätať si ma" control={<Checkbox size="small" {...field} />} />
-                  </FormControl>
-                )}
-              />
-
               <Link className="text-md font-medium" to="/forgot-password">
-                Zabudnuté heslo?
+                Zabudli ste heslo?
               </Link>
             </div>
 
@@ -155,24 +124,6 @@ function SignInPage() {
             CRM od spoločnosti MonitoringPRO umožňuje klientom jednoducho vidieť aktuálne informácie o ich kotolni a
             vykurovacom systéme. Pomocou tejto aplikácie môžu klienti ľahko zobraziť stav svojho kotla, zobraziť
             históriu opráv a údržby a dokonca aj vyžiadať servis, keď je to potrebné.
-          </div>
-          <div className="flex items-center mt-32">
-            <AvatarGroup
-              sx={{
-                '& .MuiAvatar-root': {
-                  borderColor: 'primary.main',
-                },
-              }}
-            >
-              <Avatar src="assets/images/avatars/female-18.jpg" />
-              <Avatar src="assets/images/avatars/female-11.jpg" />
-              <Avatar src="assets/images/avatars/male-09.jpg" />
-              <Avatar src="assets/images/avatars/male-16.jpg" />
-            </AvatarGroup>
-
-            <div className="ml-16 font-medium tracking-tight text-gray-400">
-              Pridalo sa k nám viac ako tisíc ľudí, ste na rade.
-            </div>
           </div>
         </div>
       </Box>

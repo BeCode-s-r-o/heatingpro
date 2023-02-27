@@ -26,20 +26,22 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
   }
 });
 
-export const addContact = createAsyncThunk('contactsApp/contacts/addContact', async (contact: TContact) => {
-  const password = 'lubojekral';
-  const sAuth = getAuth(secondaryApp);
-  createUserWithEmailAndPassword(sAuth, contact.email, password)
-    .then((data) => {
-      const id = data.user.uid;
-      const customerRef = doc(getFirestore(), 'users', id);
+export const addContact = createAsyncThunk(
+  'contactsApp/contacts/addContact',
+  async (contact: TContact & { password: string }) => {
+    const sAuth = getAuth(secondaryApp);
+    createUserWithEmailAndPassword(sAuth, contact.email, contact.password)
+      .then((data) => {
+        const id = data.user.uid;
+        const customerRef = doc(getFirestore(), 'users', id);
 
-      setDoc(customerRef, { ...contact, id })
-        .then(() => {})
-        .catch((error) => {});
-    })
-    .catch((error) => {});
-});
+        setDoc(customerRef, { ...contact, id })
+          .then(() => {})
+          .catch((error) => {});
+      })
+      .catch((error) => {});
+  }
+);
 
 export const updateContact = createAsyncThunk('contactsApp/contacts/updateContact', async (contact: TContact) => {
   const customerRef = doc(getFirestore(), 'users', contact.id);

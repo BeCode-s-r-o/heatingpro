@@ -178,6 +178,31 @@ const ContactForm = () => {
 
         <Controller
           control={control}
+          name="email"
+          render={({ field }) => (
+            <TextField
+              className="mt-32"
+              {...field}
+              label="Heslo"
+              placeholder="Heslo"
+              id="password  "
+              error={!!errors.title}
+              variant="outlined"
+              required
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <FuseSvgIcon size={20}>heroicons-solid:lock</FuseSvgIcon>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          )}
+        />
+
+        <Controller
+          control={control}
           name="phone"
           render={({ field }) => (
             <TextField

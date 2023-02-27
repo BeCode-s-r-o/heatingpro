@@ -22,10 +22,10 @@ const navigationConfig = [
         id: 'dashboards.errors',
         title: 'Alarmy',
         type: 'item',
-        badge: {
-          title: '2',
-          classes: 'px-8 bg-red-600 text-white rounded-full',
-        },
+        // badge: {
+        //   title: '2',
+        //   classes: 'px-8 bg-red-600 text-white rounded-full',
+        // },
         icon: 'heroicons-outline:exclamation-circle',
         url: '/alarmy',
       },
@@ -61,10 +61,10 @@ const navigationConfig = [
         type: 'item',
         icon: 'heroicons-outline:exclamation-circle',
         url: '/pouzivatelske-alarmy/',
-        badge: {
-          title: '1',
-          classes: 'px-8 bg-red-600 text-white rounded-full',
-        },
+        // badge: {
+        //   title: '1',
+        //   classes: 'px-8 bg-red-600 text-white rounded-full',
+        // },
       },
     ],
   },
