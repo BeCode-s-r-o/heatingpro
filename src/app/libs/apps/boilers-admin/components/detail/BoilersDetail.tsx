@@ -13,6 +13,7 @@ import { Wrapper } from '../styled/BoilersStyled';
 import BoilerFooter from './BoilerFooter';
 import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
+import { ManualBoilerTable } from './ManualBoilerTable';
 
 const BoilersDetail = () => {
   const { id } = useParams();
@@ -45,6 +46,9 @@ const BoilersDetail = () => {
           >
             <m.div variants={item} className="sm:col-span-6">
               <BoilersDetailTable id={id} componentRef={componentRef} />
+            </m.div>
+            <m.div variants={item} className="sm:col-span-6">
+              <ManualBoilerTable id={id} />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               {boiler && <BoilerFooter boiler={boiler} />}
