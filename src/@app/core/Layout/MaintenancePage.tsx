@@ -34,7 +34,7 @@ const MaintenancePage = () => {
           color="text.secondary"
           className="mt-8 text-lg md:text-xl font-medium tracking-tight text-center"
         >
-          Ak máte otázky, kontaktujte nás na <a href="mailto:heatingpro@becode.sk">heatingpro@becode.sk</a>
+          Ak máte otázky, kontaktujte nás na <a href="mailto:monitoringpro@becode.sk">monitoringpro@becode.sk</a>
         </Typography>
       </motion.div>
     </div>

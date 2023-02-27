@@ -149,10 +149,10 @@ function SignInPage() {
       >
         <div className="z-10 relative w-full max-w-2xl">
           <div className="text-7xl font-bold leading-none text-gray-100">
-            <div>HEATING PRO</div>
+            <div>MonitoringPRO</div>
           </div>
           <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-            CRM od spoločnosti HeatingPro umožňuje klientom jednoducho vidieť aktuálne informácie o ich kotli a
+            CRM od spoločnosti MonitoringPRO umožňuje klientom jednoducho vidieť aktuálne informácie o ich kotolni a
             vykurovacom systéme. Pomocou tejto aplikácie môžu klienti ľahko zobraziť stav svojho kotla, zobraziť
             históriu opráv a údržby a dokonca aj vyžiadať servis, keď je to potrebné.
           </div>

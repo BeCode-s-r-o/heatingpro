@@ -1,5 +1,5 @@
 {
-  "name": "heatingpro",
+  "name": "monitoringpro",
   "private": true,
   "dependencies": {
     "@emotion/cache": "11.10.5",
