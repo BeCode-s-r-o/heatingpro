@@ -2,6 +2,7 @@ import FusePageSimple from '@app/core/PageSimple';
 import useThemeMediaQuery from '@app/hooks/useThemeMediaQuery';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import skLocale from '@fullcalendar/core/locales/sk';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { styled, useTheme } from '@mui/material/styles';
@@ -173,6 +174,7 @@ function CalendarApp(props) {
             headerToolbar={false}
             initialView="dayGridMonth"
             editable
+            locale={skLocale}
             selectable
             selectMirror
             dayMaxEvents
