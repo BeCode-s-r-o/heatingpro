@@ -86,33 +86,87 @@ const ContactForm = () => {
     <>
       {' '}
       <Box
-        className="relative w-full h-80 sm:h-5 px-32 sm:px-48"
+        className="relative w-full h-160 sm:h-90 px-32 sm:px-48"
         sx={{
           backgroundColor: 'background.default',
         }}
       ></Box>
       <div className="relative flex flex-col flex-auto items-center px-24 sm:px-48">
         <div className="w-full">
-          <div className="flex flex-auto items-end -mt-64">
-            <Box
-              sx={{
-                borderWidth: 4,
-                borderStyle: 'solid',
-                borderColor: 'background.paper',
-              }}
-              className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
-            >
-              <Avatar
-                sx={{
-                  backgroundColor: 'background.default',
-                  color: 'text.secondary',
-                }}
-                className="object-cover w-full h-full text-64 font-bold"
-                alt={contact.name}
-              >
-                {contact.name.charAt(0)}
-              </Avatar>
-            </Box>
+          <div className="flex flex-auto items-end -mt-64" style={{ justifyContent: 'center' }}>
+            <Controller
+              control={control}
+              name="avatar"
+              render={({ field: { onChange, value } }) => (
+                <Box
+                  sx={{
+                    borderWidth: 4,
+                    borderStyle: 'solid',
+                    borderColor: 'background.paper',
+                  }}
+                  className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
+                  <div className="absolute inset-0 flex items-center justify-center z-20">
+                    <div>
+                      <label htmlFor="button-avatar" className="flex p-8 cursor-pointer">
+                        <input
+                          accept="image/*"
+                          className="hidden"
+                          id="button-avatar"
+                          type="file"
+                          onChange={async (e) => {
+                            function readFileAsync() {
+                              return new Promise((resolve, reject) => {
+                                const file = e?.target?.files?.[0];
+                                if (!file) {
+                                  return;
+                                }
+                                const reader = new FileReader();
+
+                                reader.onload = () => {
+                                  //@ts-ignore
+                                  resolve(`data:${file.type};base64,${btoa(reader.result)}`);
+                                };
+
+                                reader.onerror = reject;
+
+                                reader.readAsBinaryString(file);
+                              });
+                            }
+
+                            const newImage = await readFileAsync();
+
+                            onChange(newImage);
+                          }}
+                        />
+                        <FuseSvgIcon className="text-white">heroicons-outline:camera</FuseSvgIcon>
+                      </label>
+                    </div>
+                    <div>
+                      <IconButton
+                        onClick={() => {
+                          onChange('');
+                        }}
+                      >
+                        <FuseSvgIcon className="text-white">heroicons-solid:trash</FuseSvgIcon>
+                      </IconButton>
+                    </div>
+                  </div>
+                  <Avatar
+                    sx={{
+                      backgroundColor: 'background.default',
+                      color: 'text.secondary',
+                    }}
+                    className="object-cover w-full h-full text-64 font-bold"
+                    src={value}
+                    alt={contact.name}
+                  >
+                    {contact.name.charAt(0)}
+                  </Avatar>
+                </Box>
+              )}
+            />
           </div>
         </div>
         <Controller

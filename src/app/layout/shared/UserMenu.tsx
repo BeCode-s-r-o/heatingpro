@@ -51,7 +51,9 @@ const UserMenu = () => {
           </Typography>
         </div>
 
-        <Avatar className="md:mx-4">{user?.data?.name[0]}</Avatar>
+        <Avatar className="md:mx-4" src={user?.data?.avatar || undefined}>
+          {user?.data?.name[0]}
+        </Avatar>
       </Button>
 
       <Popover
