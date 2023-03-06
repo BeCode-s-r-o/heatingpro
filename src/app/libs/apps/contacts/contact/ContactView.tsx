@@ -53,6 +53,7 @@ const ContactView = () => {
               }}
               className="w-128 h-128 text-64 font-bold"
               alt={contact.name}
+              src={contact.avatar || undefined}
             >
               {contact.name.charAt(0)}
             </Avatar>

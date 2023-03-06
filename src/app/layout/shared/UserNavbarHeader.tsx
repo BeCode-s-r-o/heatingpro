@@ -37,6 +37,7 @@ function UserNavbarHeader(props) {
             color: 'text.secondary',
           }}
           className="avatar text-32 font-bold w-96 h-96"
+          src={data?.avatar || undefined}
         >
           {data?.name?.charAt(0)}
         </Avatar>

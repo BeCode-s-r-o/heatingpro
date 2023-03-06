@@ -26,7 +26,7 @@ function ContactListItem(props) {
         to={`/pouzivatelia/${contact.id}`}
       >
         <ListItemAvatar>
-          <Avatar alt={contact.name} />
+          <Avatar alt={contact.name} src={contact.avatar || undefined} />
         </ListItemAvatar>
         <ListItemText
           classes={{ root: 'm-0', primary: 'font-medium leading-5 truncate' }}

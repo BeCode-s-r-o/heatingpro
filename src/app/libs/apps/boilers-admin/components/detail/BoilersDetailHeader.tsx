@@ -38,11 +38,8 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={() => {}}>
-              Export
-            </Button>
             <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
-              Tlač
+              Export / Tlač
             </Button>
             <Button
               className="whitespace-nowrap"
