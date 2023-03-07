@@ -65,6 +65,10 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">Kotolňa {id}</Typography>
+      <div className="w-fit border p-8">
+        <label htmlFor="start">Vyberte mesiac </label>
+        <input type="month" id="start" name="start" min="2017-03" />
+      </div>
 
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
