@@ -24,6 +24,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     id: '',
     period: '24',
     header: { name: '', location: '', provider: '', maintenance: '', staff1: '', staff2: '', monitoringDeviceID: '' },
+    notes: [],
   });
 
   const handleChange = (e) => {
