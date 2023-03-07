@@ -8,8 +8,9 @@ export type TBoiler = {
   lastUpdate: string;
   sms: TSms[];
   header: TBoilerInfo;
+  notes: TBoilerNote[];
 };
-
+type TBoilerNote = { id: string; note: String; date: string; addedBy: string };
 export type TBoilers = TBoiler[];
 
 type TBoilerColumn = {
