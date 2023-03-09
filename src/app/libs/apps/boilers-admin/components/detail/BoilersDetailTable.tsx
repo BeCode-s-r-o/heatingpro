@@ -5,10 +5,11 @@ import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
-import React from 'react';
+import moment from 'moment';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TBoiler } from 'src/@app/types/TBoilers';
+import { TBoiler, TSms } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 
@@ -18,15 +19,27 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-
-  const handleClickOpen = () => {
-    setShowConfirmModal(true);
-  };
+  const [rows, setRows] = React.useState<any[]>([]);
 
   useEffect(() => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
+  useEffect(() => {
+    setRows(defaultRows);
+  }, [boiler]);
 
+  const compareDates = (date1, date2) => {
+    const d1 = moment(date1, 'DD.MM.YYYY HH:mm:ss');
+    const d2 = moment(date2, 'YYYY-MM').startOf('month');
+
+    return d1.isSame(d2, 'month') && d1.isSame(d2, 'year');
+  };
+
+  const filterRowsByDate = (e) => {
+    !e.target.value
+      ? setRows(defaultRows)
+      : setRows(defaultRows.filter((i) => compareDates(i.lastUpdate, e.target.value)));
+  };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
     const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, headerName: 'Dátum' };
@@ -47,7 +60,12 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       .map(
         (i) =>
           i.body?.inputData?.reduce(
-            (acc, curr, idx) => ({ id: i.messageID, ...acc, [String(idx)]: curr || '-' }),
+            (acc, curr, idx) => ({
+              lastUpdate: i.body?.timestamp.display,
+              id: i.messageID,
+              ...acc,
+              [String(idx)]: curr || '-',
+            }),
             {}
           ) || {}
       );
@@ -60,14 +78,14 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     setShowConfirmModal(false);
   };
   const columns = generateColumns([...(boiler?.columns || [])]);
-  const rows = generateRows([...(boiler?.sms || [])]);
+  const defaultRows: any = generateRows([...(boiler?.sms || [])]);
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">Kotolňa {id}</Typography>
       <div className="w-fit border p-8">
-        <label htmlFor="start">Vyberte mesiac </label>
-        <input type="month" id="start" name="start" min="2017-03" />
+        <label htmlFor="start">Vyberte mesiac: </label>
+        <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
       </div>
 
       <div style={{ height: 400, width: '100%' }}>
@@ -106,7 +124,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
             className="whitespace-nowrap w-fit mb-2"
             variant="contained"
             color="secondary"
-            onClick={handleClickOpen}
+            onClick={() => setShowConfirmModal(true)}
           >
             Zmazať vybrané riadky
           </Button>
