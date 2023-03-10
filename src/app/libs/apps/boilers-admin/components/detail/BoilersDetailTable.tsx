@@ -118,7 +118,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           }}
         />
       </div>
-      <div className="flex gap-16 relative">
+      <div className="flex gap-16">
         <Button
           className="whitespace-nowrap w-fit mb-2"
           variant="contained"
