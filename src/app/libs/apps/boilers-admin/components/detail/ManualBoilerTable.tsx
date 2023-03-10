@@ -11,6 +11,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
+import AddColumnModal from './AddColumnModal';
+import AddRowModal from './AddRowModal';
 
 export const ManualBoilerTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,6 +20,8 @@ export const ManualBoilerTable = ({ id }) => {
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
+  const [showAddColumn, setShowAddColumn] = React.useState(false);
+  const [showAddRow, setShowAddRow] = React.useState(false);
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
@@ -48,15 +52,8 @@ export const ManualBoilerTable = ({ id }) => {
     });
     setShowConfirmModal(false);
   };
-  const columns = [
-    {
-      field: 'teplota',
-      headerName: `teplota`,
-
-      flex: 1,
-    },
-  ];
-  const rows = [{ teplota: '36C', id: '9283' }];
+  const columns = boiler?.monthTable.columns || [];
+  const rows = boiler?.monthTable.rows || [];
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -105,6 +102,30 @@ export const ManualBoilerTable = ({ id }) => {
             Zmazať vybrané riadky
           </Button>
         )}
+        <Button
+          className="whitespace-nowrap w-fit mb-2"
+          variant="contained"
+          color="primary"
+          onClick={() => setShowAddColumn(true)}
+        >
+          Pridať stĺpec
+        </Button>
+        <AddColumnModal isOpen={showAddColumn} close={() => setShowAddColumn(false)} columns={columns} deviceID={id} />
+        <Button
+          className="whitespace-nowrap w-fit mb-2"
+          variant="contained"
+          color="primary"
+          onClick={() => setShowAddRow(true)}
+        >
+          Pridať záznam
+        </Button>
+        <AddRowModal
+          isOpen={showAddRow}
+          close={() => setShowAddRow(false)}
+          columns={columns}
+          rows={rows}
+          deviceID={id}
+        />
       </div>
       <Dialog
         open={showConfirmModal}
