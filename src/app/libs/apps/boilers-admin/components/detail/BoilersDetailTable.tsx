@@ -1,9 +1,10 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useState } from 'react';
@@ -20,6 +21,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [rows, setRows] = React.useState<any[]>([]);
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(getBoiler(id || ''));
@@ -83,11 +85,20 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">Kotolňa {id}</Typography>
-      <div className="w-fit border p-8">
-        <label htmlFor="start">Vyberte mesiac: </label>
-        <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
+      <div className="relative">
+        <div className="w-fit border p-10">
+          <label htmlFor="start">Vyberte mesiac: </label>
+          <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
+        </div>
+        <div className="flex mx-4 absolute right-0 top-0">
+          <Avatar className="md:mx-4  " src={user?.data?.avatar || undefined}>
+            {user?.data?.name[0]}
+          </Avatar>
+          <Typography component="span" className="font-semibold my-auto">
+            {user?.data?.name}
+          </Typography>
+        </div>
       </div>
-
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -107,7 +118,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           }}
         />
       </div>
-      <div className="flex gap-16">
+      <div className="flex gap-16 relative">
         <Button
           className="whitespace-nowrap w-fit mb-2"
           variant="contained"
