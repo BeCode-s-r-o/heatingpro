@@ -18,7 +18,7 @@ const Root = styled('div')(({ theme }) => ({
 const Logo = () => {
   return (
     <Root className="flex items-center">
-      <img className="logo-icon w-120 h-32" src="assets/images/logo/logo.png" alt="logo" />
+      <img className="logo-icon  h-24" src="assets/images/logo/logo.png" alt="logo" />
     </Root>
   );
 };
