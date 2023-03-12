@@ -26,6 +26,7 @@ import { selectUser } from 'app/store/userSlice';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
+import { showMessage } from 'app/store/slices/messageSlice';
 
 export const DailyNotesTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -47,28 +48,15 @@ export const DailyNotesTable = ({ id }) => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
 
-  const generateColumns = (data: TBoiler['columns']) => {
-    const sortedData = data.sort((i) => i.order);
-    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, headerName: 'Dátum' };
-    const generatedColumns = sortedData.map((item) => {
-      return {
-        field: item.accessor,
-        headerName: `${item.columnName} (${item.unit})`,
-        hide: item.hide,
-        flex: 1,
-      };
-    });
-    return [lastUpdate, ...generatedColumns];
-  };
   const getCurrentDate = () => {
     const date = new Date();
-
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
 
     return `${day}-${month}-${year}`;
   };
+
   const addNewRecord = () => {
     const newRecord = {
       date: getCurrentDate(),
@@ -80,13 +68,21 @@ export const DailyNotesTable = ({ id }) => {
     updateDoc(newRecordRef, { notes: [...rows, newRecord] });
     setShowNewNoteModal(false);
   };
+
   const deleteSelectedRows = () => {
-    var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
-    getDocs(deleteQuery).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => deleteDoc(doc.ref));
-    });
+    const boilerRef = doc(db, 'boilers', id);
+    const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
+    try {
+      updateDoc(boilerRef, { notes: filteredRows });
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      return;
+    }
+    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+    dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
   };
+
   const columns = [
     {
       field: 'date',
