@@ -91,10 +91,8 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
         </div>
         <div className="flex mx-4 absolute right-0 top-0">
-          <Avatar className="md:mx-4  " src={user?.data?.avatar || undefined}>
-            {user?.data?.name[0]}
-          </Avatar>
-          <Typography component="span" className="font-semibold my-auto">
+          <Avatar src={user?.data?.avatar || undefined}>{user?.data?.name[0]}</Avatar>
+          <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
             {user?.data?.name}
           </Typography>
         </div>

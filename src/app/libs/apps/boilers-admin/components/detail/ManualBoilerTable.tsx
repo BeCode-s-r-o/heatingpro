@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
-import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
+import { showMessage } from 'app/store/slices/messageSlice';
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,27 +32,20 @@ export const ManualBoilerTable = ({ id }) => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
 
-  const generateColumns = (data: TBoiler['columns']) => {
-    const sortedData = data.sort((i) => i.order);
-    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, headerName: 'Dátum' };
-    const generatedColumns = sortedData.map((item) => {
-      return {
-        field: item.accessor,
-        headerName: `${item.columnName} (${item.unit})`,
-        hide: item.hide,
-        flex: 1,
-      };
-    });
-    return [lastUpdate, ...generatedColumns];
-  };
-
   const deleteSelectedRows = () => {
-    var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
-    getDocs(deleteQuery).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => deleteDoc(doc.ref));
-    });
+    const boilerRef = doc(db, 'boilers', id);
+    const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
+    try {
+      updateDoc(boilerRef, { monthTable: { columns: columns, rows: filteredRows } });
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      return;
+    }
+    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+    dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
   };
+
   const columns = boiler?.monthTable.columns || [];
   const rows = boiler?.monthTable.rows || [];
 
@@ -105,16 +99,22 @@ export const ManualBoilerTable = ({ id }) => {
         <Button
           className="whitespace-nowrap w-fit mb-2"
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => setShowAddColumn(true)}
         >
           Pridať stĺpec
         </Button>
-        <AddColumnModal isOpen={showAddColumn} close={() => setShowAddColumn(false)} columns={columns} deviceID={id} />
+        <AddColumnModal
+          isOpen={showAddColumn}
+          close={() => setShowAddColumn(false)}
+          columns={columns}
+          rows={rows}
+          deviceID={id}
+        />
         <Button
           className="whitespace-nowrap w-fit mb-2"
           variant="contained"
-          color="primary"
+          color="secondary"
           onClick={() => setShowAddRow(true)}
         >
           Pridať záznam
@@ -123,7 +123,7 @@ export const ManualBoilerTable = ({ id }) => {
           isOpen={showAddRow}
           close={() => setShowAddRow(false)}
           columns={columns}
-          rows={rows}
+          existingRows={rows}
           deviceID={id}
         />
       </div>
