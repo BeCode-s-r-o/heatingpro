@@ -59,12 +59,12 @@ export const ManualBoilerTable = ({ id }) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
     const updatedRows = rows.map((row) => (row.id === rowForEdit.id ? rowForEdit : row));
-    console.log(updatedRows);
+
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
-      console.log(error);
+
       setShowEditRow(false);
       return;
     }
