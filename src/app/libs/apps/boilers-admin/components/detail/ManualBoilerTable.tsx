@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -8,6 +8,7 @@ import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'fi
 import { showMessage } from 'app/store/slices/messageSlice';
 import React from 'react';
 import { useEffect } from 'react';
+import FuseSvgIcon from '@app/core/SvgIcon';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
@@ -23,6 +24,8 @@ export const ManualBoilerTable = ({ id }) => {
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [showAddColumn, setShowAddColumn] = React.useState(false);
   const [showAddRow, setShowAddRow] = React.useState(false);
+  const [showEditRow, setShowEditRow] = React.useState(false);
+  const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
@@ -45,7 +48,30 @@ export const ManualBoilerTable = ({ id }) => {
     dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
   };
-
+  const handleRowChange = (e) => {
+    const { name, value } = e.target;
+    setRowForEdit((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+  const saveEditedRow = (e) => {
+    e.preventDefault();
+    const boilerRef = doc(db, 'boilers', id);
+    const updatedRows = rows.map((row) => (row.id === rowForEdit.id ? rowForEdit : row));
+    console.log(updatedRows);
+    try {
+      updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      console.log(error);
+      setShowEditRow(false);
+      return;
+    }
+    setShowEditRow(false);
+    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+    dispatch(getBoiler(id || ''));
+  };
   const columns = boiler?.monthTable.columns || [];
   const rows = boiler?.monthTable.rows || [];
 
@@ -58,7 +84,39 @@ export const ManualBoilerTable = ({ id }) => {
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
-          columns={columns}
+          columns={[
+            ...columns,
+            {
+              field: 'id',
+              headerName: 'upraviť',
+              id: 'ahskjahsf',
+              sortable: false,
+              renderCell: (params) => {
+                const onClick = (e) => {
+                  e.stopPropagation(); // don't select this row after clicking
+
+                  const api = params.api;
+                  const thisRow = {};
+
+                  api
+                    .getAllColumns()
+                    .filter((c) => c.field !== '__check__' && !!c)
+                    .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
+                  //@ts-ignore
+                  setRowForEdit(thisRow);
+                  setShowEditRow(true);
+                };
+
+                return (
+                  <>
+                    <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer">
+                      heroicons-solid:cog
+                    </FuseSvgIcon>
+                  </>
+                );
+              },
+            },
+          ]}
           pageSize={10}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
@@ -127,6 +185,54 @@ export const ManualBoilerTable = ({ id }) => {
           deviceID={id}
         />
       </div>
+      <Dialog
+        onClose={() => {
+          setShowEditRow(false);
+        }}
+        open={showEditRow}
+      >
+        <DialogTitle>Upraviť záznam</DialogTitle>
+        <form onSubmit={saveEditedRow}>
+          <DialogContent>
+            {Object.keys(rowForEdit).map(
+              (key) =>
+                key != 'id' && (
+                  <TextField
+                    key={key}
+                    label={key}
+                    name={key}
+                    value={rowForEdit[key]}
+                    onChange={handleRowChange}
+                    fullWidth
+                    margin="normal"
+                  />
+                )
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              className="whitespace-nowrap w-fit mb-2 mr-4"
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setShowEditRow(false);
+              }}
+            >
+              Zatvoriť
+            </Button>
+            <Button
+              className="whitespace-nowrap w-fit mb-2 mr-8"
+              variant="contained"
+              color="secondary"
+              autoFocus
+              type="submit"
+            >
+              Zmeniť
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+      {/* confirm dialog */}
       <Dialog
         open={showConfirmModal}
         onClose={() => {
