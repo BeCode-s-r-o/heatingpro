@@ -1,14 +1,13 @@
+import FuseSvgIcon from '@app/core/SvgIcon';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
-import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
 import { showMessage } from 'app/store/slices/messageSlice';
-import React from 'react';
-import { useEffect } from 'react';
-import FuseSvgIcon from '@app/core/SvgIcon';
+import { doc, updateDoc } from 'firebase/firestore';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
