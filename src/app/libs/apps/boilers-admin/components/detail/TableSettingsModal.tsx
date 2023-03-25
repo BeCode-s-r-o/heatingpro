@@ -63,7 +63,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
-
+  console.log(tableColumns);
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[700px]">
@@ -92,7 +92,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
             <TextField
               type="text"
               label="Vysvetlivka"
-              value={item.description}
+              value={item.desc}
               name={item.accessor}
               onChange={(e) => handleChange(e, 'desc', e.target.value)}
               className="w-[255px] "
