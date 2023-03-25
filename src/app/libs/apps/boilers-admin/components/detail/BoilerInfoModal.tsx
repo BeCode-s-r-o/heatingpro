@@ -40,7 +40,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
 
   const updateBoilerDocument = () => {
     try {
-      const data = { ...boilerData, header: headerData };
+      const data = { ...boilerData, name: headerData.name, header: headerData };
       uptadeHeaderInfo(boilerData.id, data);
       dispatch(getBoiler(boilerData.id || ''));
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));

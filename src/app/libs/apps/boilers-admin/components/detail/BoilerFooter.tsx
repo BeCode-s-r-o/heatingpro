@@ -10,9 +10,6 @@ const BoilerFooter = ({ boiler }: { boiler: TBoiler }) => {
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Typography className="text-xl font-light tracking-tight leading-6 truncate">
-        <strong className="font-semibold">Názov kotolne:</strong> {boiler?.header.name}
-      </Typography>
       <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
         <strong className="font-semibold">Umiestnenie v objekte:</strong> {boiler?.header.location}
       </Typography>
