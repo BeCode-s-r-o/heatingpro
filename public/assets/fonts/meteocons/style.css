@@ -1,13 +1,13 @@
 @font-face {
   font-family: 'meteocons';
-  src:
-    url('./fonts/meteocons.ttf?kx31oc') format('truetype'),
-    url('./fonts/meteocons.woff?kx31oc') format('woff'),
+  src: url('./fonts/meteocons.ttf?kx31oc') format('truetype'), url('./fonts/meteocons.woff?kx31oc') format('woff'),
     url('./fonts/meteocons.svg?kx31oc#meteocons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
-
+.muiltr-de9k3v-MuiDataGrid-selectedRowCount {
+  visibility: hidden !important;
+}
 .meteocons {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'meteocons' !important;
@@ -20,11 +20,11 @@
 
   /* Enable Ligatures ================ */
   letter-spacing: 0;
-  -webkit-font-feature-settings: "liga";
-  -moz-font-feature-settings: "liga=1";
-  -moz-font-feature-settings: "liga";
-  -ms-font-feature-settings: "liga" 1;
-  font-feature-settings: "liga";
+  -webkit-font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga=1';
+  -moz-font-feature-settings: 'liga';
+  -ms-font-feature-settings: 'liga' 1;
+  font-feature-settings: 'liga';
   -webkit-font-variant-ligatures: discretionary-ligatures;
   font-variant-ligatures: discretionary-ligatures;
 

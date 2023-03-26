@@ -1,5 +1,6 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
+import { Avatar } from '@mui/material';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
@@ -21,9 +22,11 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
         <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
           <div className="flex flex-auto items-center min-w-0">
             <div className="flex flex-col min-w-0 mx-16">
-              <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                Kotolňa {boiler?.name}
-              </Typography>
+              <div className="flex gap-4 ">
+                <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                  Kotolňa {boiler?.name}
+                </Typography>
+              </div>
 
               <div className="flex items-center">
                 <FuseSvgIcon size={20} color="action">
@@ -75,6 +78,7 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
               Vyžiadať dáta
             </Button>
+
             {boiler && (
               <TableParametersModal
                 boiler={boiler}

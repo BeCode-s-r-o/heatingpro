@@ -48,6 +48,7 @@ export interface TBoilerInfo {
   staff1: string;
   staff2: string;
   monitoringDeviceID: string;
+  avatar: string;
 }
 
 interface Body {
