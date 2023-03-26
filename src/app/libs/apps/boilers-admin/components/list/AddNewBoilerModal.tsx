@@ -34,12 +34,135 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     name: header.name,
     phoneNumber: '',
     assignedTo: '',
-    columns: [],
     id: '',
     period: '24',
     header: header,
     notes: [],
     monthTable: { columns: [], rows: [] },
+    columns: [
+      {
+        order: 0,
+        max: 11,
+        desc: '',
+        name: 'alarm (s)',
+        min: 1,
+        hide: false,
+        unit: 's',
+        columnName: 'K1',
+        accessor: '10',
+      },
+      {
+        unit: 's',
+        name: 'K1 (s)',
+        order: 1,
+        columnName: 'K2',
+        hide: false,
+        desc: '',
+        accessor: '1',
+        max: 4,
+        min: 1,
+      },
+      {
+        columnName: 'tlak (uk)',
+        min: 5,
+        max: 12,
+        order: 2,
+        hide: false,
+        name: 'tlak (uk) (s)',
+        unit: 's',
+        accessor: '9',
+        desc: '',
+      },
+      {
+        max: 6,
+        columnName: 'K3',
+        hide: false,
+        accessor: '0',
+        order: 3,
+        unit: 's',
+        name: 'Čas (s)',
+        min: 2,
+        desc: '',
+      },
+      {
+        hide: false,
+        min: 102,
+        columnName: 'K4',
+        order: 4,
+        unit: 's',
+        name: 'K2 (s)',
+        accessor: '2',
+        max: 151,
+        desc: '',
+      },
+      {
+        accessor: '3',
+        hide: false,
+        columnName: 'K5',
+        unit: 's',
+        order: 5,
+        max: 51,
+        name: 'UK spiat. (s)',
+        min: 11,
+        desc: '',
+      },
+      {
+        columnName: 'UK',
+        order: 6,
+        max: 10,
+        hide: false,
+        unit: 's',
+        name: 'UK (s)',
+        desc: '',
+        min: 9,
+        accessor: '4',
+      },
+      {
+        unit: 's',
+        min: 3,
+        max: 5,
+        name: 'spiat. kotlov (s)',
+        columnName: 'spiat. kotlov',
+        hide: false,
+        accessor: '5',
+        order: 7,
+        desc: '',
+      },
+      {
+        name: 'prívod kotlov (s)',
+        hide: false,
+        order: 8,
+        min: 4,
+        accessor: '6',
+        columnName: 'prívod kotlov',
+        unit: 's',
+        max: 1,
+        desc: '',
+      },
+      {
+        unit: 's',
+
+        max: 6,
+        min: 5,
+        name: 'bojler (s)',
+        accessor: '7',
+        hide: false,
+        columnName: 'bojler',
+        order: 9,
+        desc: '',
+      },
+      {
+        accessor: '8',
+        name: 'vonk. teplota (s)',
+        min: 6,
+        unit: 's',
+        max: 7,
+        columnName: 'vonk. teplota',
+        hide: false,
+        order: 10,
+        desc: '',
+      },
+    ],
   });
 
   const handleHeaderChange = (e) => {
@@ -123,7 +246,6 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-nested="nested"
               type="text"
               label="Umiestnenie v objekte"
               value={header.location}
@@ -134,7 +256,6 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-header=""
               type="text"
               label="Prevádzkovateľ"
               value={header.provider}
@@ -145,9 +266,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-header=""
               type="text"
               label="Kúrič 1"
+              placeholder="meno + číslo"
               value={header.maintenance}
               name="maintenance"
               onChange={handleHeaderChange}
@@ -156,9 +277,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-header=""
               type="text"
               label="Kúrič 2"
+              placeholder="meno + číslo"
               value={header.staff1}
               name="staff1"
               onChange={handleHeaderChange}
