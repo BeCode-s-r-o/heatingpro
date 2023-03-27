@@ -12,16 +12,21 @@ import { showMessage } from 'app/store/slices/messageSlice';
 import { Typography } from '@mui/material';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { Box } from '@mui/system';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
+import { getBoilers } from '../../store/boilersSlice';
+import { AppDispatch } from 'app/store/index';
 interface Props {
   isOpen: boolean;
   toggleOpen: () => void;
 }
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [pageNumber, setPageNumber] = useState(1);
   const [header, setHeader] = useState({
+    avatar: '',
     name: '',
     location: '',
     provider: '',
@@ -31,12 +36,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     monitoringDeviceID: '',
   });
   const [newBoiler, setNewBoiler] = useState({
-    name: header.name,
     phoneNumber: '',
     assignedTo: '',
     id: '',
     period: '24',
-    header: header,
     notes: [],
     monthTable: { columns: [], rows: [] },
     columns: [
@@ -180,6 +183,24 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       [name]: value,
     }));
   };
+  const handlePicture = async (e) => {
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      //@ts-ignore
+      setHeader((prev) => ({ ...prev, avatar: `data:${file.type};base64,${btoa(reader.result)}` }));
+    };
+
+    reader.readAsBinaryString(file);
+  };
+
+  const handleRemove = () => {
+    setHeader((prev) => ({ ...prev, avatar: '' }));
+  };
   const pages = [
     {
       number: 1,
@@ -244,6 +265,47 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       content: (
         <>
           <ListItem>
+            <Box
+              sx={{
+                borderWidth: 4,
+                borderStyle: 'solid',
+                borderColor: 'background.paper',
+              }}
+              className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden mx-auto"
+            >
+              <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div>
+                  <label htmlFor="button-avatar" className="flex p-8 cursor-pointer">
+                    <input
+                      accept="image/*"
+                      className="hidden"
+                      id="button-avatar"
+                      type="file"
+                      onChange={handlePicture}
+                    />
+                    <FuseSvgIcon className="text-white">heroicons-outline:camera</FuseSvgIcon>
+                  </label>
+                </div>
+                <div>
+                  <IconButton onClick={handleRemove}>
+                    <FuseSvgIcon className="text-white">heroicons-solid:trash</FuseSvgIcon>
+                  </IconButton>
+                </div>
+              </div>
+              <Avatar
+                sx={{
+                  backgroundColor: 'background.default',
+                  color: 'text.secondary',
+                }}
+                className="object-cover w-full h-full text-64 font-bold"
+                src={header.avatar}
+              >
+                {header.name.charAt(0)}
+              </Avatar>
+            </Box>
+          </ListItem>
+          <ListItem>
             <TextField
               className="w-[500px]"
               type="text"
@@ -301,18 +363,19 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     },
   ];
   const createBoilerOnBackend = async () => {
-    try {
+    /*   try {
       const response = await axios.post('/', {});
       console.log(response.data);
     } catch (error) {
       console.log(error);
-    }
+    } */
   };
   const saveNewBoiler = () => {
     try {
       const boilerRef = doc(db, 'boilers', newBoiler.id);
-      setDoc(boilerRef, newBoiler);
+      setDoc(boilerRef, { ...newBoiler, name: header.name, header: header });
       createBoilerOnBackend();
+      dispatch(getBoilers());
       toggleOpen();
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
     } catch (error) {
