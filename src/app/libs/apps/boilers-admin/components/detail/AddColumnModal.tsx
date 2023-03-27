@@ -110,12 +110,14 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
           </Button>
         </ListItem>
         <br />
-        <Button variant="contained" className="mx-12" onClick={close} color="primary">
-          Zrušiť
-        </Button>
-        <Button variant="contained" onClick={submit} color="secondary">
-          Pridať
-        </Button>
+        <ListItem className="flex justify-end gap-12">
+          <Button variant="contained" onClick={submit} color="primary">
+            Pridať
+          </Button>
+          <Button variant="contained" onClick={close} color="secondary">
+            Zrušiť
+          </Button>
+        </ListItem>
       </List>
     </Drawer>
   );

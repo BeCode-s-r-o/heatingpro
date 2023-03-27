@@ -176,16 +176,16 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             onChange={handleChange}
           />
         </ListItem>
-        <ListItem className="flex justify-around">
+        <ListItem className="flex justify-end gap-12">
           <Button
             className="whitespace-nowrap"
             variant="contained"
-            color="secondary"
+            color="primary"
             onClick={() => updateBoilerDocument()}
           >
             Uložiť
           </Button>
-          <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={toggleOpen}>
+          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
             Zrušiť
           </Button>
         </ListItem>
