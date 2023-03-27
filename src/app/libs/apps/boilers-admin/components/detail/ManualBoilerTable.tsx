@@ -30,10 +30,6 @@ export const ManualBoilerTable = ({ id }) => {
     setShowConfirmModal(true);
   };
 
-  useEffect(() => {
-    dispatch(getBoiler(id || ''));
-  }, [id, dispatch]);
-
   const deleteSelectedRows = () => {
     const boilerRef = doc(db, 'boilers', id);
     const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
@@ -47,6 +43,7 @@ export const ManualBoilerTable = ({ id }) => {
     dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
   };
+
   const handleRowChange = (e) => {
     const { name, value } = e.target;
     setRowForEdit((prev) => ({
@@ -54,6 +51,7 @@ export const ManualBoilerTable = ({ id }) => {
       [name]: value,
     }));
   };
+
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
