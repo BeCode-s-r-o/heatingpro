@@ -87,7 +87,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               borderStyle: 'solid',
               borderColor: 'background.paper',
             }}
-            className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
+            className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden mx-auto"
           >
             <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
             <div className="absolute inset-0 flex items-center justify-center z-20">
