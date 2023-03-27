@@ -44,10 +44,6 @@ export const DailyNotesTable = ({ id }) => {
     setShowConfirmModal(true);
   };
 
-  useEffect(() => {
-    dispatch(getBoiler(id || ''));
-  }, [id, dispatch]);
-
   const getCurrentDate = () => {
     const date = new Date();
     let day = date.getDate();
@@ -265,14 +261,14 @@ export const DailyNotesTable = ({ id }) => {
             />
           </ListItem>
 
-          <ListItem className="flex justify-around">
-            <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={addNewRecord}>
+          <ListItem className="flex justify-end gap-12">
+            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={addNewRecord}>
               Uložiť
             </Button>
             <Button
               className="whitespace-nowrap"
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={() => {
                 setShowNewNoteModal(false);
               }}
