@@ -7,13 +7,14 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import { TBoilers } from 'src/@app/types/TBoilers';
-
+import FuseSvgIcon from '@app/core/SvgIcon';
+import Button from '@mui/material/Button';
 interface Props {
   data: TBoilers;
 }
 
 export const BoilersListTable = ({ data }: Props) => {
-  const columns = ['Názov', 'Číslo', 'Telefónne číslo', 'Perióda'];
+  const columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
   const rows: any = data;
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -43,6 +44,11 @@ export const BoilersListTable = ({ data }: Props) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
+                    {row.phoneNumber}
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {row.id}
                   </Typography>
                 </TableCell>
@@ -53,18 +59,18 @@ export const BoilersListTable = ({ data }: Props) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
-                    {row.period}
-                  </Typography>
-                </TableCell>
-                <TableCell>
-                  <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {/* alarm */}
                   </Typography>
                 </TableCell>
                 <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
-                    <Link to={String(row.id || '')} role="button">
-                      Detail
+                    <Link to={String(row.id || '')} role="button" className="flex  items-center" color="primary">
+                      <Button color="primary" className="whitespace-nowrap gap-6 " variant="contained">
+                        Detail
+                        <FuseSvgIcon className="text-48 text-white" size={16} color="action">
+                          heroicons-solid:external-link
+                        </FuseSvgIcon>
+                      </Button>
                     </Link>
                   </Typography>
                 </TableCell>

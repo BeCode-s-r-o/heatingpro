@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
 import { useState } from 'react';
+import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableParametersModal from './TableParametersModal';
 import TableSettingsModal from './TableSettingsModal';
 interface Props {
@@ -55,15 +56,7 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             >
               Nastavenia tabuľky
             </Button>
-            {boiler && (
-              <TableSettingsModal
-                boiler={boiler}
-                isOpen={isSettingsModalOpen}
-                toggleOpen={() => {
-                  setIsSettingsModalOpen((prev) => !prev);
-                }}
-              />
-            )}
+
             <Button
               className="whitespace-nowrap"
               variant="contained"
@@ -78,15 +71,34 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
               Vyžiadať dáta
             </Button>
-
             {boiler && (
-              <TableParametersModal
-                boiler={boiler}
-                isOpen={isParametersModalOpen}
-                toggleOpen={() => {
-                  setIsParametersModalOpen((prev) => !prev);
-                }}
-              />
+              <>
+                {boiler.columns.length === 0 ? (
+                  <NewBoilerSettingsModal
+                    boiler={boiler}
+                    isOpen={isSettingsModalOpen}
+                    toggleOpen={() => {
+                      setIsSettingsModalOpen((prev) => !prev);
+                    }}
+                  />
+                ) : (
+                  <TableSettingsModal
+                    boiler={boiler}
+                    isOpen={isSettingsModalOpen}
+                    toggleOpen={() => {
+                      setIsSettingsModalOpen((prev) => !prev);
+                    }}
+                  />
+                )}
+
+                <TableParametersModal
+                  boiler={boiler}
+                  isOpen={isParametersModalOpen}
+                  toggleOpen={() => {
+                    setIsParametersModalOpen((prev) => !prev);
+                  }}
+                />
+              </>
             )}
           </div>
         </div>
