@@ -22,7 +22,7 @@ interface Props {
   toggleOpen: () => void;
 }
 function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
-  const [tableColumns, setTableColumns] = useState(boiler.columns);
+  const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
   const dispatch = useDispatch<AppDispatch>();
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
@@ -56,21 +56,21 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
       const boilerRef = doc(db, 'boilers', boiler.id);
 
       updateDoc(boilerRef, { columns: orderedColumns });
-      dispatch(getBoiler(boiler.id || ''));
+      dispatch(getBoiler(boiler?.id || ''));
       toggleOpen();
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
-  console.log(tableColumns);
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[700px]">
         <ListItem>
           <ListItemText primary="Nastavenie stĺpcov" />
         </ListItem>
-        {tableColumns.map((item, index) => (
+        {tableColumns?.map((item, index) => (
           <ListItem
             key={index}
             button
