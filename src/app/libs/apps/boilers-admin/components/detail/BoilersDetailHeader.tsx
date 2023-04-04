@@ -10,10 +10,9 @@ import TableParametersModal from './TableParametersModal';
 import TableSettingsModal from './TableSettingsModal';
 interface Props {
   boiler: TBoiler | undefined;
-  handlePrint: () => void;
 }
 
-export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
+export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isParametersModalOpen, setIsParametersModalOpen] = useState(false);
 
@@ -42,10 +41,7 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
-              Export / Tlač
-            </Button>
-            <Button
+            {/* <Button
               className="whitespace-nowrap"
               variant="contained"
               color="secondary"
@@ -54,8 +50,8 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
                 setIsSettingsModalOpen(true);
               }}
             >
-              Nastavenia tabuľky
-            </Button>
+              Nastavenie prevádzkového denníku
+            </Button> */}
 
             <Button
               className="whitespace-nowrap"
@@ -68,7 +64,17 @@ export const BoilersDetailHeader = ({ boiler, handlePrint }: Props) => {
             >
               Nastavenia parametrov
             </Button>
-            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={handlePrint}>
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="primary"
+              startIcon={
+                <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+                  heroicons-outline:upload
+                </FuseSvgIcon>
+              }
+              onClick={() => {}}
+            >
               Vyžiadať dáta
             </Button>
             {boiler && (

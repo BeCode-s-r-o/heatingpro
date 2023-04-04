@@ -15,7 +15,9 @@ import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 import { DailyNotesTable } from './DailyNotesTable';
 import { ManualBoilerTable } from './ManualBoilerTable';
-
+import { jsPDF } from 'jspdf';
+import * as htmlToImage from 'html-to-image';
+import html2canvas from 'html2canvas';
 const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
@@ -28,15 +30,73 @@ const BoilersDetail = () => {
       dispatch(getBoilers());
     }
   }, [dispatch]);
-  const componentRef = useRef(null);
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
+
+  const headerRef = useRef<HTMLDivElement>(null);
+  const boilerDetailTableRef = useRef<HTMLDivElement>(null);
+  const manualBoilerTableRef = useRef<HTMLDivElement>(null);
+
+  const printBoilerDetailTable = useReactToPrint({
+    content: () => {
+      const printElem = document.createElement('div');
+      const header = headerRef.current?.cloneNode(true) as HTMLDivElement;
+      const table = boilerDetailTableRef.current?.cloneNode(true) as HTMLDivElement;
+      printElem.appendChild(header);
+      printElem.appendChild(table);
+      return printElem;
+    },
   });
+
+  const printManualBoilerTable = useReactToPrint({
+    content: () => {
+      const printElem = document.createElement('div');
+      const header = headerRef.current?.cloneNode(true) as HTMLDivElement;
+      const table = manualBoilerTableRef.current?.cloneNode(true) as HTMLDivElement;
+      printElem.appendChild(header);
+      printElem.appendChild(table);
+      return printElem;
+    },
+  });
+
+  const generatePDF = async () => {
+    // @ts-ignore
+    const header = headerRef.current.cloneNode(true);
+    // @ts-ignore
+    const table = boilerDetailTableRef.current.cloneNode(true);
+
+    const container = document.createElement('div');
+    container.appendChild(header);
+    container.appendChild(table);
+    container.style.maxWidth = '1570px';
+    container.querySelectorAll('.dont-print').forEach((button) => button.remove());
+    document.body.appendChild(container);
+
+    const canvas = await htmlToImage.toCanvas(container);
+    const imgData = canvas.toDataURL('image/svg+xml', 1.0);
+    const report = new jsPDF({
+      orientation: 'landscape',
+      unit: 'px',
+      precision: 16,
+    });
+    report.addImage(
+      imgData,
+      'SVG',
+      0,
+      0,
+      report.internal.pageSize.width,
+      report.internal.pageSize.height - 70,
+      '',
+      'FAST'
+    );
+
+    report.save('report.pdf');
+    document.body.removeChild(container);
+  };
+
   return !isAdmin && !isStaff ? (
     <Navigate to="/404/" replace />
   ) : (
     <Wrapper
-      header={<BoilersDetailHeader boiler={boiler} handlePrint={handlePrint} />}
+      header={<BoilersDetailHeader boiler={boiler} />}
       content={
         <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
           <m.div
@@ -46,13 +106,23 @@ const BoilersDetail = () => {
             animate="show"
           >
             <m.div variants={item} className="sm:col-span-6">
-              {boiler && <BoilerFooter boiler={boiler} />}
+              {boiler && <BoilerFooter boiler={boiler} headerRef={headerRef} />}
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable id={id} componentRef={componentRef} />
+              <BoilersDetailTable
+                id={id}
+                componentRef={boilerDetailTableRef}
+                generatePDF={generatePDF}
+                printTable={printBoilerDetailTable}
+              />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <ManualBoilerTable id={id} />
+              <ManualBoilerTable
+                id={id}
+                generatePDF={generatePDF}
+                printTable={printManualBoilerTable}
+                componentRef={manualBoilerTableRef}
+              />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               <DailyNotesTable id={id} />

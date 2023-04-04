@@ -35,6 +35,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     staff2: '',
     monitoringDeviceID: '',
   });
+  const [address, setAddress] = useState({ city: '', zip: '', street: '' });
   const [newBoiler, setNewBoiler] = useState({
     phoneNumber: '',
     assignedTo: '',
@@ -45,21 +46,18 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     columns: [],
   });
 
-  const handleHeaderChange = (e) => {
+  const handleChange = (setValue) => (e) => {
     const { name, value } = e.target;
-    setHeader((prev) => ({
+    setValue((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setNewBoiler((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleHeaderChange = handleChange(setHeader);
+  const handleAddressChange = handleChange(setAddress);
+  const handleBoilerChange = handleChange(setNewBoiler);
+
   const handlePicture = async (e) => {
     const file = e.target.files[0];
     if (!file) {
@@ -86,7 +84,6 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-nested="nested"
               type="text"
               label="Názov kotolne"
               value={header.name}
@@ -101,9 +98,41 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="ID"
               value={newBoiler.id}
               name="id"
-              onChange={handleChange}
+              onChange={handleBoilerChange}
             />
           </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Ulica"
+              placeholder="Ulica + číslo"
+              value={address.street}
+              name="street"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Mesto"
+              value={address.city}
+              name="city"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="PSČ"
+              value={address.zip}
+              name="zip"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+
           <ListItem>
             <TextField
               className="w-[500px]"
@@ -111,7 +140,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Telefónne číslo"
               value={newBoiler.phoneNumber}
               name="phoneNumber"
-              onChange={handleChange}
+              onChange={handleBoilerChange}
             />
           </ListItem>
           <ListItem>
@@ -121,7 +150,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Perióda"
               value={newBoiler.period}
               name="period"
-              onChange={handleChange}
+              onChange={handleBoilerChange}
             />
           </ListItem>
           <ListItem>
@@ -131,7 +160,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Majiteľ"
               value={newBoiler.assignedTo}
               name="assignedTo"
-              onChange={handleChange}
+              onChange={handleBoilerChange}
             />
           </ListItem>
         </>
@@ -250,7 +279,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const saveNewBoiler = () => {
     try {
       const boilerRef = doc(db, 'boilers', newBoiler.id);
-      setDoc(boilerRef, { ...newBoiler, name: header.name, header: header });
+      setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
       createBoilerOnBackend();
       dispatch(getBoilers());
       toggleOpen();

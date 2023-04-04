@@ -8,16 +8,20 @@ import { selectUser } from 'app/store/userSlice';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useState } from 'react';
+import FuseSvgIcon from '@app/core/SvgIcon';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TSms } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
+import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
+import TableSettingsModal from './TableSettingsModal';
 
-export const BoilersDetailTable = ({ id, componentRef }) => {
+export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const [isEditRows, setIsEditRows] = React.useState(false);
+  const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [rows, setRows] = React.useState<any[]>([]);
@@ -84,7 +88,9 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">Kotolňa {id}</Typography>
+      <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
+        Prevádzkový denník {id}
+      </Typography>
       <div className="relative">
         <div className="w-fit border p-10">
           <label htmlFor="start">Vyberte mesiac: </label>
@@ -116,27 +122,89 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           }}
         />
       </div>
-      <div className="flex gap-16">
+      <div className="flex gap-16 dont-print">
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
           onClick={() => {
             setIsEditRows((prev) => !prev);
           }}
         >
+          {!isEditRows && (
+            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+              material-outline:edit
+            </FuseSvgIcon>
+          )}
           {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
         </Button>
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
-            className="whitespace-nowrap w-fit mb-2"
+            className="whitespace-nowrap w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={() => setShowConfirmModal(true)}
           >
+            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+              material-outline:delete
+            </FuseSvgIcon>
             Zmazať vybrané riadky
           </Button>
+        )}
+        <Button
+          className="whitespace-nowrap"
+          variant="contained"
+          color="primary"
+          startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+          onClick={() => {
+            setIsSettingsModalOpen(true);
+          }}
+        >
+          Nastaviť stĺpce
+        </Button>
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={generatePDF}
+        >
+          <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+            material-outline:picture_as_pdf
+          </FuseSvgIcon>{' '}
+          Export
+        </Button>
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={printTable}
+        >
+          <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+            material-outline:local_printshop
+          </FuseSvgIcon>
+          Tlač
+        </Button>
+        {boiler && (
+          <>
+            {boiler.columns.length === 0 ? (
+              <NewBoilerSettingsModal
+                boiler={boiler}
+                isOpen={isSettingsModalOpen}
+                toggleOpen={() => {
+                  setIsSettingsModalOpen((prev) => !prev);
+                }}
+              />
+            ) : (
+              <TableSettingsModal
+                boiler={boiler}
+                isOpen={isSettingsModalOpen}
+                toggleOpen={() => {
+                  setIsSettingsModalOpen((prev) => !prev);
+                }}
+              />
+            )}
+          </>
         )}
       </div>
       <Dialog
