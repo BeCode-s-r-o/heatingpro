@@ -15,7 +15,7 @@ import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import AddColumnModal from './AddColumnModal';
 import AddRowModal from './AddRowModal';
 
-export const ManualBoilerTable = ({ id }) => {
+export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const [isEditRows, setIsEditRows] = React.useState(false);
@@ -73,7 +73,7 @@ export const ManualBoilerTable = ({ id }) => {
   const rows = boiler?.monthTable.rows || [];
 
   return (
-    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Mesačné Dáta pre kotolňu {id}
       </Typography>
@@ -131,31 +131,48 @@ export const ManualBoilerTable = ({ id }) => {
       </div>
       <div className="flex gap-16">
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
           onClick={() => {
             setIsEditRows((prev) => !prev);
           }}
+          startIcon={
+            !isEditRows && (
+              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                material-outline:edit
+              </FuseSvgIcon>
+            )
+          }
         >
           {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
         </Button>
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
-            className="whitespace-nowrap w-fit mb-2"
+            className="whitespace-nowrap w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={handleClickOpen}
+            startIcon={
+              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                heroicons-outline:trash
+              </FuseSvgIcon>
+            }
           >
             Zmazať vybrané riadky
           </Button>
         )}
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => setShowAddColumn(true)}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+              heroicons-outline:plus-sm
+            </FuseSvgIcon>
+          }
         >
           Pridať stĺpec
         </Button>
@@ -167,10 +184,15 @@ export const ManualBoilerTable = ({ id }) => {
           deviceID={id}
         />
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => setShowAddRow(true)}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+              heroicons-outline:plus-sm
+            </FuseSvgIcon>
+          }
         >
           Pridať záznam
         </Button>
@@ -181,6 +203,32 @@ export const ManualBoilerTable = ({ id }) => {
           existingRows={rows}
           deviceID={id}
         />
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={generatePDF}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+              material-outline:picture_as_pdf
+            </FuseSvgIcon>
+          }
+        >
+          Export
+        </Button>
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={printTable}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+              material-outline:local_printshop
+            </FuseSvgIcon>
+          }
+        >
+          Tlač
+        </Button>
       </div>
       <Dialog
         onClose={() => {

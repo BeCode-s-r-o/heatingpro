@@ -2,6 +2,7 @@ export type TBoiler = {
   name: string;
   id: string;
   phoneNumber: string;
+  address: { city: string; street: string; zip: string };
   period: string;
   assignedTo: string;
   columns: TBoilerColumn[];
