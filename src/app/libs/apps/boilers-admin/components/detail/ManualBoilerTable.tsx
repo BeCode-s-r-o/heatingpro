@@ -1,5 +1,14 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from '@mui/material';
+import {
+  Avatar,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -12,12 +21,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import AddColumnModal from './AddColumnModal';
-import AddRowModal from './AddRowModal';
+import AddColumnModal from './modals/AddColumnModal';
+import AddRowModal from './modals/AddRowModal';
+import { selectUser } from 'app/store/userSlice';
+import moment from 'moment';
+import ConfirmModal from './modals/ConfirmModal';
+import { compareDates } from './functions/datesOperations';
 
 export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
+  const user = useSelector(selectUser);
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
@@ -25,11 +39,13 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
   const [showAddRow, setShowAddRow] = React.useState(false);
   const [showEditRow, setShowEditRow] = React.useState(false);
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
-
+  const [rows, setRows] = React.useState<any[]>([]);
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
-
+  useEffect(() => {
+    setRows(defaultRows);
+  }, [boiler]);
   const deleteSelectedRows = () => {
     const boilerRef = doc(db, 'boilers', id);
     const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
@@ -52,6 +68,9 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
     }));
   };
 
+  const filterRowsByDate = (e) => {
+    !e.target.value ? setRows(defaultRows) : setRows(defaultRows.filter((i) => compareDates(i.date, e.target.value)));
+  };
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
@@ -70,18 +89,37 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
     dispatch(getBoiler(id || ''));
   };
   const columns = boiler?.monthTable.columns || [];
-  const rows = boiler?.monthTable.rows || [];
+  const defaultRows = boiler?.monthTable.rows || [];
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
-        Mesačné Dáta pre kotolňu {id}
+        Mesačné odpisy stavu spotreby {id}
       </Typography>
-
+      <div className="relative">
+        <div className="w-fit border p-10">
+          <label htmlFor="start">Vyberte mesiac: </label>
+          <input
+            type="month"
+            className="cursor-pointer"
+            id="start"
+            name="start"
+            min="2023-01"
+            onChange={filterRowsByDate}
+          />
+        </div>
+        <div className="flex mx-4 absolute right-0 top-0 show-on-print">
+          <Avatar src={user?.data?.avatar || undefined}>{user?.data?.name[0]}</Avatar>
+          <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
+            {user?.data?.name}
+          </Typography>
+        </div>
+      </div>
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={[
+            { field: 'date', headerName: 'Dátum' },
             ...columns,
             {
               field: 'id',
@@ -105,11 +143,9 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
                 };
 
                 return (
-                  <>
-                    <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer">
-                      heroicons-solid:cog
-                    </FuseSvgIcon>
-                  </>
+                  <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer">
+                    material-outline:edit
+                  </FuseSvgIcon>
                 );
               },
             },
@@ -278,40 +314,15 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
         </form>
       </Dialog>
       {/* confirm dialog */}
-      <Dialog
+      <ConfirmModal
         open={showConfirmModal}
-        onClose={() => {
-          setShowConfirmModal(false);
-        }}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{'Želáte si zmazať danné záznamy?'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">Táto akcia je nezvratná</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-4"
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setShowConfirmModal(false);
-            }}
-          >
-            Zrusiť
-          </Button>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-8"
-            variant="contained"
-            color="secondary"
-            autoFocus
-            onClick={deleteSelectedRows}
-          >
-            Zmazať
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={deleteSelectedRows}
+        title="Želáte si zmazať danné záznamy?"
+        message="Táto akcia je nezvratná"
+        confirmText="Zmazať"
+        cancelText="Zrušiť"
+      />
     </Paper>
   );
 };

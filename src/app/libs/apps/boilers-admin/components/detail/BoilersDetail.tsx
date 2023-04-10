@@ -117,15 +117,15 @@ const BoilersDetail = () => {
               />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
+              <DailyNotesTable id={id} />
+            </m.div>
+            <m.div variants={item} className="sm:col-span-6">
               <ManualBoilerTable
                 id={id}
                 generatePDF={generatePDF}
                 printTable={printManualBoilerTable}
                 componentRef={manualBoilerTableRef}
               />
-            </m.div>
-            <m.div variants={item} className="sm:col-span-6">
-              <DailyNotesTable id={id} />
             </m.div>
           </m.div>
         </div>

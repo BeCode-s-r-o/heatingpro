@@ -15,7 +15,8 @@ import { TBoiler, TSms } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
-import TableSettingsModal from './TableSettingsModal';
+import TableSettingsModal from './modals/TableSettingsModal';
+import ConfirmModal from './modals/ConfirmModal';
 
 export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -48,7 +49,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
-    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, headerName: 'Dátum' };
+    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 110, headerName: 'Dátum' };
     const generatedColumns = sortedData.map((item) => {
       return {
         field: item.accessor,
@@ -96,7 +97,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
           <label htmlFor="start">Vyberte mesiac: </label>
           <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
         </div>
-        <div className="flex mx-4 absolute right-0 top-0">
+        <div className="flex mx-4 absolute right-0 top-0 show-on-print">
           <Avatar src={user?.data?.avatar || undefined}>{user?.data?.name[0]}</Avatar>
           <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
             {user?.data?.name}
@@ -145,10 +146,12 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
             variant="contained"
             color="secondary"
             onClick={() => setShowConfirmModal(true)}
+            startIcon={
+              <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+                material-outline:delete
+              </FuseSvgIcon>
+            }
           >
-            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-              material-outline:delete
-            </FuseSvgIcon>
             Zmazať vybrané riadky
           </Button>
         )}
@@ -207,40 +210,16 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
           </>
         )}
       </div>
-      <Dialog
+
+      <ConfirmModal
         open={showConfirmModal}
-        onClose={() => {
-          setShowConfirmModal(false);
-        }}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{'Želáte si zmazať danné záznamy?'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">Táto akcia je nezvratná</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-4"
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setShowConfirmModal(false);
-            }}
-          >
-            Zrusiť
-          </Button>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-8"
-            variant="contained"
-            color="secondary"
-            autoFocus
-            onClick={deleteSelectedRows}
-          >
-            Zmazať
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={deleteSelectedRows}
+        title="Želáte si zmazať danné záznamy?"
+        message="Táto akcia je nezvratná"
+        confirmText="Zmazať"
+        cancelText="Zrušiť"
+      />
     </Paper>
   );
 };

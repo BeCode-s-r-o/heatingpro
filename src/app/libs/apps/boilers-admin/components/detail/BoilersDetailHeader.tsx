@@ -6,8 +6,8 @@ import Typography from '@mui/material/Typography';
 import moment from 'moment';
 import { useState } from 'react';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
-import TableParametersModal from './TableParametersModal';
-import TableSettingsModal from './TableSettingsModal';
+import TableParametersModal from './modals/TableParametersModal';
+import TableSettingsModal from './modals/TableSettingsModal';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -41,18 +41,6 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-            {/* <Button
-              className="whitespace-nowrap"
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
-              onClick={() => {
-                setIsSettingsModalOpen(true);
-              }}
-            >
-              Nastavenie prevádzkového denníku
-            </Button> */}
-
             <Button
               className="whitespace-nowrap"
               variant="contained"

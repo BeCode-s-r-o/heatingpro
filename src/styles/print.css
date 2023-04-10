@@ -22,6 +22,9 @@
   .dont-print {
     display: none;
   }
+  .show-on-print {
+    opacity: 1 !important;
+  }
   /* Page breaks */
   .page-break-after {
     display: block;
@@ -48,4 +51,8 @@
   #fuse-layout .ps {
     overflow: visible !important;
   }
+}
+
+.show-on-print {
+  opacity: 0;
 }

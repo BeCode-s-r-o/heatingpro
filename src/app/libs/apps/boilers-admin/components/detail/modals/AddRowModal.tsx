@@ -4,8 +4,9 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/firebase-config';
 import { useDispatch } from 'react-redux';
 import { showMessage } from 'app/store/slices/messageSlice';
-import { getBoiler } from '../../store/boilersSlice';
+import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
+import { getCurrentDate } from '../functions/datesOperations';
 function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
   const [newRow, setNewRow] = useState<any>();
   const dispatch = useDispatch<AppDispatch>();
@@ -17,22 +18,22 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
     const { name, value } = e.target;
     setNewRow((prev) => prev.map((i) => (i.name === e.target.name ? { ...i, [name]: value } : i)));
   };
-  function createObjectFromArray(arr) {
-    const newObj = { id: Date.now() };
+  function convertRowFromArrayToObject(arr) {
+    const row = { id: Date.now() };
     for (let i = 0; i < arr.length; i++) {
       const obj = arr[i];
       for (let key in obj) {
         if (key !== 'name') {
-          newObj[key] = obj[key];
+          row[key] = obj[key];
         }
       }
     }
-    return newObj;
+    return { ...row, date: getCurrentDate() };
   }
 
   const submit = (e) => {
     e.preventDefault();
-    const createdRow = createObjectFromArray(newRow);
+    const createdRow = convertRowFromArrayToObject(newRow);
     try {
       const boilerRef = doc(db, 'boilers', deviceID);
       updateDoc(boilerRef, { monthTable: { rows: [...existingRows, createdRow], columns: columns } });

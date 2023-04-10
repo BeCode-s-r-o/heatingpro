@@ -27,6 +27,8 @@ import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import { showMessage } from 'app/store/slices/messageSlice';
+import ConfirmModal from './modals/ConfirmModal';
+import { getCurrentDate } from './functions/datesOperations';
 
 export const DailyNotesTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -42,15 +44,6 @@ export const DailyNotesTable = ({ id }) => {
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
-  };
-
-  const getCurrentDate = () => {
-    const date = new Date();
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-
-    return `${day}-${month}-${year}`;
   };
 
   const addNewRecord = () => {
@@ -133,7 +126,7 @@ export const DailyNotesTable = ({ id }) => {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
-        Denník pre kotolňu {id}
+        Zápisy z dňa {id}
       </Typography>
 
       <div style={{ height: 300, width: '100%' }}>
@@ -163,8 +156,15 @@ export const DailyNotesTable = ({ id }) => {
           onClick={() => {
             setIsEditRows((prev) => !prev);
           }}
+          startIcon={
+            !isEditRows && (
+              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                material-outline:edit
+              </FuseSvgIcon>
+            )
+          }
         >
-          {!isEditRows ? 'Upraviť' : 'Skryť'}
+          {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
         </Button>
         {isEditRows && (
           <Button
@@ -173,6 +173,11 @@ export const DailyNotesTable = ({ id }) => {
             variant="contained"
             color="secondary"
             onClick={handleClickOpen}
+            startIcon={
+              <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+                material-outline:delete
+              </FuseSvgIcon>
+            }
           >
             Zmazať vybrané riadky
           </Button>
@@ -180,49 +185,29 @@ export const DailyNotesTable = ({ id }) => {
         <Button
           className="whitespace-nowrap w-fit mb-2"
           variant="contained"
-          color="secondary"
+          color="primary"
           onClick={() => {
             setShowNewNoteModal(true);
           }}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+              heroicons-outline:plus-sm
+            </FuseSvgIcon>
+          }
         >
-          Pridať
+          Pridať záznam
         </Button>
       </div>
       {/* Confirm Dialog */}
-      <Dialog
+      <ConfirmModal
         open={showConfirmModal}
-        onClose={() => {
-          setShowConfirmModal(false);
-        }}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{'Želáte si zmazať danné záznamy?'}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">Táto akcia je nezvratná</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-4"
-            variant="contained"
-            color="primary"
-            onClick={() => {
-              setShowConfirmModal(false);
-            }}
-          >
-            Zrusiť
-          </Button>
-          <Button
-            className="whitespace-nowrap w-fit mb-2 mr-8"
-            variant="contained"
-            color="secondary"
-            autoFocus
-            onClick={deleteSelectedRows}
-          >
-            Zmazať
-          </Button>
-        </DialogActions>
-      </Dialog>
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={deleteSelectedRows}
+        title="Želáte si zmazať danné záznamy?"
+        message="Táto akcia je nezvratná"
+        confirmText="Zmazať"
+        cancelText="Zrušiť"
+      />
       {/* Note detail dialog */}
       <Dialog
         onClose={() => {
@@ -244,7 +229,7 @@ export const DailyNotesTable = ({ id }) => {
         </DialogContent>
       </Dialog>
       <Drawer anchor="right" open={showNewNoteModal} onClose={() => setShowNewNoteModal(false)}>
-        <List className="w-[300px] my-auto">
+        <List className="w-[300px] ">
           <ListItem>
             <ListItemText primary="Pridanie poznámky" className="text-center" />
           </ListItem>

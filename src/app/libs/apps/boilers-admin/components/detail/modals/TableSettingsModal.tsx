@@ -13,7 +13,7 @@ import { doc, updateDoc, getDoc } from 'firebase/firestore';
 import { db } from 'src/firebase-config';
 import { TBoiler } from '@app/types/TBoilers';
 import { useDispatch } from 'react-redux';
-import { getBoiler } from '../../store/boilersSlice';
+import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 import HeightIcon from '@mui/icons-material/Height';
 interface Props {

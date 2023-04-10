@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/firebase-config';
-import { getBoiler } from '../../store/boilersSlice';
+import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 interface Props {
   isOpen: boolean;

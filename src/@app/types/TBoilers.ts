@@ -42,6 +42,7 @@ export interface TSms {
 }
 
 export interface TBoilerInfo {
+  period: number;
   name: string;
   location: string;
   provider: string;

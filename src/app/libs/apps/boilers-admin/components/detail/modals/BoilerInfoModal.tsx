@@ -15,7 +15,7 @@ import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
 import { AppDispatch } from 'app/store/index';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
-import { getBoiler } from '../../store/boilersSlice';
+import { getBoiler } from '../../../store/boilersSlice';
 import Box from '@mui/material/Box';
 interface Props {
   boilerInfo: TBoilerInfo;
@@ -150,6 +150,16 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
           <TextField
             className="w-full"
             type="text"
+            label="Prevádzkovateľ"
+            value={headerData.maintenance}
+            name="maintenance"
+            onChange={handleChange}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            className="w-full"
+            type="text"
             label="Kúrič 1"
             value={headerData.staff1}
             name="staff1"
@@ -170,9 +180,19 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
           <TextField
             className="w-full"
             type="text"
-            label="ID"
+            label="ID monit.zariadenia"
             value={headerData.monitoringDeviceID}
             name="monitoringDeviceID"
+            onChange={handleChange}
+          />
+        </ListItem>{' '}
+        <ListItem>
+          <TextField
+            className="w-full"
+            type="number"
+            label="Perióda"
+            value={headerData.period}
+            name="period"
             onChange={handleChange}
           />
         </ListItem>

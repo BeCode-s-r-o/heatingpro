@@ -6,10 +6,14 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import BoilerInfoModal from './BoilerInfoModal';
+import ConfirmModal from './modals/ConfirmModal';
+import BoilerInfoModal from './modals/BoilerInfoModal';
 const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const deleteBoiler = () => {
+    console.log('Boiler was deleted');
+  };
   return (
     <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       {' '}
@@ -34,7 +38,7 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.maintenance}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Perióda</strong> {boiler?.header.maintenance}
+          <strong className="font-semibold">Perióda:</strong> {boiler?.header.period}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">Kúrič 1:</strong> {boiler?.header.staff1}
@@ -58,13 +62,13 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           }
           onClick={() => setIsModalOpen(true)}
         >
-          Zmeniť údaje
+          Nastavenie kotolne
         </Button>
         <Button
           className="whitespace-nowrap w-fit dont-print "
           variant="contained"
           color="secondary"
-          onClick={() => {}}
+          onClick={() => setShowConfirmModal(true)}
         >
           <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
             material-outline:cancel
@@ -77,6 +81,15 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
         boilerInfo={boiler.header}
         isOpen={isModalOpen}
         toggleOpen={() => setIsModalOpen((prev) => !prev)}
+      />
+      <ConfirmModal
+        open={showConfirmModal}
+        onClose={() => setShowConfirmModal(false)}
+        onConfirm={deleteBoiler}
+        title="Želáte si vymazať kotolňu?"
+        message="Táto akcia je nezvratná"
+        confirmText="Zmazať"
+        cancelText="Zrušiť"
       />
     </Paper>
   );
