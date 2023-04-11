@@ -8,7 +8,7 @@ const navigationConfig = [
     type: 'group',
     icon: 'heroicons-outline:home',
     translate: 'VŠETKY SYSTÉMY',
-    auth: authRoles.admin && authRoles.staff,
+    auth: authRoles.admin && authRoles.staff && authRoles.instalater,
     children: [
       {
         id: 'dashboards.project',

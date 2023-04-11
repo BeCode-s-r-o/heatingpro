@@ -32,14 +32,6 @@ export const BoilersDetailHeader = ({ data, doesNotExist }: Props) => {
             )}
           </div>
         </div>
-        <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-          {/* <Button className="whitespace-nowrap" variant="contained" color="primary">
-            Export
-          </Button>
-          <Button className="whitespace-nowrap" variant="contained" color="primary">
-            Tlač
-          </Button> */}
-        </div>
       </div>
     </div>
   );
