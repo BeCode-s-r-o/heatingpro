@@ -155,7 +155,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
-          rowsPerPageOptions={[10]}
+          rowsPerPageOptions={[12]}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">
