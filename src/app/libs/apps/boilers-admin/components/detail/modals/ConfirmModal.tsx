@@ -12,20 +12,22 @@ function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText, c
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">{message}</DialogContentText>
+        <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
+          {message.split('<br/>').join('\n')}
+        </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button className="whitespace-nowrap w-fit mb-2 mr-4" variant="contained" onClick={onClose}>
-          {cancelText}
-        </Button>
         <Button
           className="whitespace-nowrap w-fit mb-2 mr-8"
           variant="contained"
-          color="secondary"
+          color="primary"
           autoFocus
           onClick={onConfirm}
         >
           {confirmText}
+        </Button>
+        <Button className="whitespace-nowrap w-fit mb-2 mr-4" variant="contained" color="secondary" onClick={onClose}>
+          {cancelText}
         </Button>
       </DialogActions>
     </Dialog>

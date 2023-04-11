@@ -6,6 +6,8 @@ import {
   DialogContentText,
   DialogTitle,
   Drawer,
+  Input,
+  InputLabel,
   List,
   ListItem,
   ListItemText,
@@ -33,26 +35,26 @@ import { getCurrentDate } from './functions/datesOperations';
 export const DailyNotesTable = ({ id }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
-  const actualUser: any = useSelector(selectUser);
+  const user: any = useSelector(selectUser);
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [showDetailNote, setShowDetailNote] = React.useState(false);
   const [showNewNoteModal, setShowNewNoteModal] = React.useState(false);
+  const [showRecordConfirmModal, setShowRecordConfirmModal] = React.useState(false);
   const [record, setRecord] = React.useState({ date: '', note: '', addedBy: '' });
   const [newNote, setNewNote] = React.useState('');
-
+  const [newRecord, setNewRecord] = React.useState({
+    date: getCurrentDate(),
+    note: '',
+    addedBy: user.data.name,
+    id: self.crypto.randomUUID(),
+  });
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
 
   const addNewRecord = () => {
-    const newRecord = {
-      date: getCurrentDate(),
-      note: newNote,
-      addedBy: actualUser.data.name,
-      id: self.crypto.randomUUID(),
-    };
     const newRecordRef = doc(db, 'boilers', id);
     updateDoc(newRecordRef, { notes: [...rows, newRecord] });
     setShowNewNoteModal(false);
@@ -71,7 +73,10 @@ export const DailyNotesTable = ({ id }) => {
     dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
   };
-
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNewRecord((prev) => ({ ...prev, [name]: value }));
+  };
   const columns = [
     {
       field: 'date',
@@ -122,6 +127,7 @@ export const DailyNotesTable = ({ id }) => {
     },
   ];
   const rows = boiler ? boiler.notes : [];
+  const todayDate = new Date().toISOString().split('T')[0];
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -233,21 +239,48 @@ export const DailyNotesTable = ({ id }) => {
           <ListItem>
             <ListItemText primary="Pridanie poznámky" className="text-center" />
           </ListItem>
-
+          {user.role === 'admin' && (
+            <ListItem className="flex justify-center items-center gap-8">
+              <InputLabel htmlFor="dateForNote">Dátum:</InputLabel>
+              <Input
+                type="date"
+                id="dateForNote"
+                name="date"
+                value={newRecord.date}
+                inputProps={{ min: '2018-01-01', max: todayDate }}
+                onChange={handleChange}
+              />
+            </ListItem>
+          )}
+          <ListItem className="w-full">
+            <TextField
+              aria-label="minimum height"
+              label="Zapisal"
+              name="addedBy"
+              value={newRecord.addedBy}
+              defaultValue={user.data.name}
+              onChange={handleChange}
+              className="border w-full"
+            />
+          </ListItem>
           <ListItem className="w-full">
             <TextareaAutosize
               aria-label="minimum height"
               minRows={15}
-              value={newNote}
-              onChange={(e) => {
-                setNewNote(e.target.value);
-              }}
+              name="note"
+              value={newRecord.note}
+              onChange={handleChange}
               className="border w-full"
             />
           </ListItem>
 
           <ListItem className="flex justify-end gap-12">
-            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={addNewRecord}>
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="primary"
+              onClick={() => setShowRecordConfirmModal(true)}
+            >
               Uložiť
             </Button>
             <Button
@@ -263,6 +296,15 @@ export const DailyNotesTable = ({ id }) => {
           </ListItem>
         </List>
       </Drawer>
+      <ConfirmModal
+        open={showRecordConfirmModal}
+        onClose={() => setShowRecordConfirmModal(false)}
+        onConfirm={addNewRecord}
+        title="Želáte si pridať nový záznam?"
+        message={`Dátum: ${newRecord.date}<br/> Poznámka: ${newRecord.note} <br/> Pridal: ${newRecord.addedBy}`}
+        confirmText="Pridať"
+        cancelText="Zrušiť"
+      />
     </Paper>
   );
 };
