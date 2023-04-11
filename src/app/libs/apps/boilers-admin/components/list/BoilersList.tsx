@@ -39,7 +39,7 @@ const BoilersList = () => {
   };
 
   useEffect(() => {
-    if (userRole && userRole in allowedAuthRoles) {
+    if (userRole && allowedAuthRoles.includes(userRole)) {
       dispatch(getBoilers());
     }
   }, [dispatch]);
