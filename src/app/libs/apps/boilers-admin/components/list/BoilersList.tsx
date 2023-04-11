@@ -24,8 +24,11 @@ const BoilersList = () => {
   const data = useSelector(selectAllBoilers);
 
   const { data: userData } = useSelector(selectUser);
+  const allowedAuthRoles = ['admin', 'staff', 'instalater'];
+  const userRole = userData?.role;
   const isAdmin = userData?.role === 'admin';
   const isStaff = userData?.role === 'staff';
+
   const boilers = () => {
     if (isAdmin) {
       return data;
@@ -36,7 +39,7 @@ const BoilersList = () => {
   };
 
   useEffect(() => {
-    if (isAdmin || isStaff) {
+    if (userRole && userRole in allowedAuthRoles) {
       dispatch(getBoilers());
     }
   }, [dispatch]);

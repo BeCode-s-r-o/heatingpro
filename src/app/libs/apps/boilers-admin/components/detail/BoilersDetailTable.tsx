@@ -17,6 +17,7 @@ import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
 import ConfirmModal from './modals/ConfirmModal';
+import { compareDates } from './functions/datesOperations';
 
 export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -34,13 +35,6 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   useEffect(() => {
     setRows(defaultRows);
   }, [boiler]);
-
-  const compareDates = (date1, date2) => {
-    const d1 = moment(date1, 'DD.MM.YYYY HH:mm:ss');
-    const d2 = moment(date2, 'YYYY-MM').startOf('month');
-
-    return d1.isSame(d2, 'month') && d1.isSame(d2, 'year');
-  };
 
   const filterRowsByDate = (e) => {
     !e.target.value
