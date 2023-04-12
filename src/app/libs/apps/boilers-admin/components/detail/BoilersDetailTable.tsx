@@ -43,7 +43,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
-    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 110, headerName: 'Dátum' };
+    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 160, headerName: 'Dátum' };
     const generatedColumns = sortedData.map((item) => {
       return {
         field: item.accessor,
@@ -57,7 +57,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
 
   const generateRows = (data: TBoiler['sms']) => {
     return data
-      ?.sort((i) => i.timestamp.unix)
+      ?.sort((a, b) => b.timestamp.unix - a.timestamp.unix)
       .map(
         (i) =>
           i.body?.inputData?.reduce(
@@ -80,7 +80,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const columns = generateColumns([...(boiler?.columns || [])]);
   const defaultRows: any = generateRows([...(boiler?.sms || [])]);
-
+  console.log('rows:', rows, 'columns:', columns);
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">

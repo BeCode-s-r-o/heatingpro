@@ -268,22 +268,23 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       ),
     },
   ];
-  const createBoilerOnBackend = async () => {
-    /*   try {
-      const response = await axios.post('/', {});
-      console.log(response.data);
-    } catch (error) {
-      console.log(error);
-    } */
+  const createBoilerOnBackend = async (boilerPhoneNumber, boilerID) => {
+    const data = {
+      phoneNumber: boilerPhoneNumber,
+      boilerId: boilerID,
+    };
+    try {
+      await axios.post('http://localhost:5500/config-boiler', data);
+    } catch (error) {}
   };
   const saveNewBoiler = () => {
     try {
       const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
-      createBoilerOnBackend();
-      dispatch(getBoilers());
+      createBoilerOnBackend(newBoiler.id, newBoiler.phoneNumber);
       toggleOpen();
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
+      dispatch(getBoilers());
     } catch (error) {
       toggleOpen();
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
