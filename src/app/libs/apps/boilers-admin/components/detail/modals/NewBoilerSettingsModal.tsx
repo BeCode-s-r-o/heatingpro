@@ -44,39 +44,23 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
   };
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleInChange = useCallback((e, attribute, value) => {
+  const createHandleChange = (setState) => (e, attribute, value) => {
     if (attribute === 'hide') {
       value = !e.target.checked;
     }
 
-    setDigitalInput((prev) =>
+    setState((prev) =>
       prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
     );
-  }, []);
+  };
 
-  const handleOutChange = useCallback((e, attribute, value) => {
-    if (attribute === 'hide') {
-      value = !e.target.checked;
-    }
-
-    setDigitalOutput((prev) =>
-      prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
-    );
-  }, []);
-
-  const handleDataChange = useCallback((e, attribute, value) => {
-    if (attribute === 'hide') {
-      value = !e.target.checked;
-    }
-
-    setInputData((prev) =>
-      prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
-    );
-  }, []);
+  const handleInChange = useCallback(createHandleChange(setDigitalInput), []);
+  const handleOutChange = useCallback(createHandleChange(setDigitalOutput), []);
+  const handleDataChange = useCallback(createHandleChange(setInputData), []);
 
   const saveColumnsForBoilerInFirebase = (columns) => {
     try {
-      const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
+      const orderedColumns = columns.map((column, index) => ({ ...column, order: index, accessor: index }));
       console.log(orderedColumns);
       const boilerRef = doc(db, 'boilers', boiler.id);
 
