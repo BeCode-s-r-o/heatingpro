@@ -1,6 +1,7 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
 import { Avatar } from '@mui/material';
+import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import moment from 'moment';
@@ -8,6 +9,10 @@ import { useState } from 'react';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableParametersModal from './modals/TableParametersModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getBoiler, getBoilers } from '../../store/boilersSlice';
+import { AppDispatch } from 'app/store/index';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -15,7 +20,20 @@ interface Props {
 export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [isParametersModalOpen, setIsParametersModalOpen] = useState(false);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const sendSMSToGetData = async () => {
+    const data = {
+      phoneNumber: boiler?.phoneNumber,
+      boilerId: boiler?.id,
+    };
+    try {
+      await axios.post('http://localhost:5500/get-data', data);
+      dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané' }));
+      dispatch(getBoiler(boiler?.id || ''));
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+    }
+  };
   return (
     <>
       <div className="flex flex-col w-full px-24 sm:px-32">
@@ -27,7 +45,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   Kotolňa {boiler?.name}
                 </Typography>
               </div>
-
+              <div className="flex items-center">
+                <Typography className="text-lg leading-6 truncate" color="text.secondary">
+                  Perióda: {boiler?.period}
+                </Typography>
+              </div>
               <div className="flex items-center">
                 <FuseSvgIcon size={20} color="action">
                   heroicons-solid:clock
@@ -61,9 +83,9 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   heroicons-outline:upload
                 </FuseSvgIcon>
               }
-              onClick={() => {}}
+              onClick={sendSMSToGetData}
             >
-              Vyžiadať dáta
+              Vyžiadať data
             </Button>
             {boiler && (
               <>
