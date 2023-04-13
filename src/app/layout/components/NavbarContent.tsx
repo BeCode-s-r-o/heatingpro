@@ -72,9 +72,6 @@ const NavbarContent = (props) => {
         <div className="flex flex-0 items-center justify-center py-48 opacity-10">
           <img className="w-full w-160" src="assets/images/logo/logo.png" alt="footer logo" />
         </div>
-        <Typography textAlign="center" color="rgba(255,255,255,0.3)">
-          v {packagejson.version} {packagejson.buildEnv || 'localhost'} {getBuildDate()}
-        </Typography>
       </StyledContent>
     </Root>
   );

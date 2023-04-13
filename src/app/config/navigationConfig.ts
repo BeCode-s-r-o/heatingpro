@@ -18,17 +18,6 @@ const navigationConfig = [
         url: '/systemy/',
       },
 
-      {
-        id: 'dashboards.errors',
-        title: 'Alarmy',
-        type: 'item',
-        // badge: {
-        //   title: '2',
-        //   classes: 'px-8 bg-red-600 text-white rounded-full',
-        // },
-        icon: 'heroicons-outline:exclamation-circle',
-        url: '/alarmy',
-      },
       // {
       //   id: 'dashboards.analytics',
       //   title: 'Štatistiky',

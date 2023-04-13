@@ -281,7 +281,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     try {
       const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
-      createBoilerOnBackend(newBoiler.id, newBoiler.phoneNumber);
+      createBoilerOnBackend(newBoiler.phoneNumber, newBoiler.id);
       toggleOpen();
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
       dispatch(getBoilers());
