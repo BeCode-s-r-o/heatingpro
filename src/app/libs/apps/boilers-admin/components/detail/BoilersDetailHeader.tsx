@@ -1,18 +1,16 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
-import { Avatar } from '@mui/material';
-import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
 import moment from 'moment';
 import { useState } from 'react';
-import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
-import TableParametersModal from './modals/TableParametersModal';
-import TableSettingsModal from './modals/TableSettingsModal';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { getBoiler, getBoilers } from '../../store/boilersSlice';
-import { AppDispatch } from 'app/store/index';
+import { getBoiler } from '../../store/boilersSlice';
+import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
+import TableSettingsModal from './modals/TableSettingsModal';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -42,38 +40,12 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             <div className="flex flex-col min-w-0 mx-16">
               <div className="flex gap-4 ">
                 <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                  Kotolňa {boiler?.name}
+                  {boiler?.name}
                 </Typography>
-              </div>
-              <div className="flex items-center">
-                <Typography className="text-lg leading-6 truncate" color="text.secondary">
-                  Perióda: {boiler?.period}
-                </Typography>
-              </div>
-              <div className="flex items-center">
-                <FuseSvgIcon size={20} color="action">
-                  heroicons-solid:clock
-                </FuseSvgIcon>
-                {boiler?.lastUpdate && (
-                  <Typography className="mx-6 leading-6 truncate" color="text.secondary">
-                    Posledná aktualizácia: {moment(boiler?.lastUpdate).format('DD.MM.YYYY HH:mm:ss')}
-                  </Typography>
-                )}
               </div>
             </div>
           </div>
           <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
-            <Button
-              className="whitespace-nowrap"
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
-              onClick={() => {
-                setIsParametersModalOpen(true);
-              }}
-            >
-              Nastavenia parametrov
-            </Button>
             <Button
               className="whitespace-nowrap"
               variant="contained"
@@ -106,14 +78,6 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                     }}
                   />
                 )}
-
-                <TableParametersModal
-                  boiler={boiler}
-                  isOpen={isParametersModalOpen}
-                  toggleOpen={() => {
-                    setIsParametersModalOpen((prev) => !prev);
-                  }}
-                />
               </>
             )}
           </div>

@@ -81,7 +81,7 @@ function HeaterInput(props) {
 
   return (
     <>
-      <h1 className="text-center pb-12">Kotol</h1>
+      <h1 className="text-center pb-12">Kotolňa</h1>
       <form className="flex space-x-16 mb-16" onChange={handleSubmit(onSubmit)}>
         <Controller
           control={control}
@@ -127,6 +127,8 @@ function HeaterInput(props) {
         /> */}
 
         <TextField
+          disabled
+          readOnly
           value={form.heater ? form.heater.label : ''}
           className=""
           label="Názov"
@@ -140,11 +142,15 @@ function HeaterInput(props) {
         />
 
         <Controller
+          disabled
+          readOnly
           control={control}
           name="phone"
           render={({ field }) => (
             <TextField
               {...field}
+              disabled
+              readOnly
               className=""
               label="Tel.číslo"
               value={form.heater ? form.heater.phone : ''}

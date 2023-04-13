@@ -15,13 +15,13 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     authInstance.on('onAutoLogin', () => {
-      dispatch(showMessage({ message: 'Automatické prihlásenie' }));
+      dispatch(showMessage({ message: 'Prihaslujem...' }));
       setIsAuthenticated(true);
 
       authInstance
         .signInWithToken()
         .then((user) => {
-          success(user, 'Automatické prihlásenie');
+          success(user, 'Prihaslujem...');
         })
         .catch((error) => {
           pass(error.message);

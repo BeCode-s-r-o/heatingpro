@@ -92,7 +92,7 @@ const ContactView = () => {
               </div>
             )}
 
-            {contact.heaters.length && contact.heaters.some((item) => item.heater.length > 0) && (
+            {contact.heaters.length && contact.heaters.some((item) => item.heater.length > 0) ? (
               <div className="flex">
                 <WhatshotIcon />
                 <div className="min-w-0 ml-24 space-y-4">
@@ -123,7 +123,7 @@ const ContactView = () => {
                   )}
                 </div>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

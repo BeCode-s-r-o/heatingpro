@@ -121,9 +121,15 @@ function SignInPage() {
             <div>MonitoringPRO</div>
           </div>
           <div className="mt-24 text-lg tracking-tight leading-6 text-gray-400">
-            CRM od spoločnosti MonitoringPRO umožňuje klientom jednoducho vidieť aktuálne informácie o ich kotolni a
-            vykurovacom systéme. Pomocou tejto aplikácie môžu klienti ľahko zobraziť stav svojho kotla, zobraziť
-            históriu opráv a údržby a dokonca aj vyžiadať servis, keď je to potrebné.
+            Vitajte na stránke MonitoringPRO - Vášho spoľahlivého partnera v monitorovaní a správe kotolní! Naša
+            inovatívna platforma ponúka komplexné riešenie pre sledovanie a optimalizáciu vykurovacích systémov.
+            Umožňuje vám mať v reálnom čase pod kontrolou stav kotla, históriu údržby a plánovať potrebné servisné
+            zásahy.
+            <br />
+            <br />
+            MonitoringPRO prináša revolúciu v riadení a údržbe kotolní, zabezpečuje efektívne využitie energie a znižuje
+            prevádzkové náklady. Naša CRM aplikácia bola navrhnutá s ohľadom na jednoduchosť a intuitívne ovládanie, aby
+            ste mohli mať vždy prístup k dôležitým informáciám a udržiavať Váš vykurovací systém v optimálnom stave.
           </div>
         </div>
       </Box>

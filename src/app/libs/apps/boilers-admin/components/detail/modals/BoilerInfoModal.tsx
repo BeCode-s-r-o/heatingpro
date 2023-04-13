@@ -160,7 +160,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
           <TextField
             className="w-full"
             type="text"
-            label="Kúrič 1"
+            label="Kurič 1"
             value={headerData.staff1}
             name="staff1"
             onChange={handleChange}
@@ -170,7 +170,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
           <TextField
             className="w-full"
             type="text"
-            label="Kúrič 2"
+            label="Kurič 2"
             value={headerData.staff2}
             name="staff2"
             onChange={handleChange}

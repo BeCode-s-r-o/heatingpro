@@ -11,15 +11,15 @@ import BoilerInfoModal from './modals/BoilerInfoModal';
 const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
   const deleteBoiler = () => {
     console.log('Boiler was deleted');
+    //TODO vymazat boiler z DB a SMS z DB
   };
+
   return (
     <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      {' '}
-      <Avatar className="my-auto" src={boiler.header.avatar} sx={{ width: 64, height: 64 }}>
-        {'V'}
-      </Avatar>
+      <Avatar className="my-auto" src={boiler.header.avatar} sx={{ width: 64, height: 64 }}></Avatar>
       <Box>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">ID zariadenia:</strong> {boiler?.id}
@@ -32,23 +32,22 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           <strong className="font-semibold">Umiestnenie v objekte:</strong> {boiler?.header.location}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Prevádzkovateľ:</strong> {boiler?.header.provider}
+          <strong className="font-semibold">Majiteľ:</strong> {boiler?.assignedTo}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.maintenance}
+          <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.provider}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Perióda:</strong> {boiler?.header.period}
+          <strong className="font-semibold">Perióda:</strong> {boiler?.period}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Kúrič 1:</strong> {boiler?.header.staff1}
+          <strong className="font-semibold">Kurič 1:</strong> {boiler?.header.staff1}
         </Typography>
-        <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Kúrič 2:</strong> {boiler?.header.staff2}
-        </Typography>
-        <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">ID Monitorovacieho zariadenia:</strong> {boiler?.header.monitoringDeviceID}
-        </Typography>
+        {boiler?.header.staff2 && (
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong className="font-semibold">Kurič 2:</strong> {boiler?.header.staff2}
+          </Typography>
+        )}
       </Box>
       <Box className="flex mt-16 gap-12">
         <Button
