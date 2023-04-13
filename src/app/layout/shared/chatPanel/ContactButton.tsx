@@ -10,17 +10,6 @@ const Root = styled(Tooltip)(() => ({
   flex: '0 0 auto',
 }));
 
-const StyledStatus = styled('div')(({ theme }) => ({
-  position: 'absolute',
-  width: 12,
-  height: 12,
-  bottom: 4,
-  left: 44,
-  border: `2px solid ${theme.palette.background.default}`,
-  borderRadius: '50%',
-  zIndex: 10,
-}));
-
 const ContactButton = ({ contact }: { contact: TContact }) => {
   return (
     <Root title={contact.name} placement="left">

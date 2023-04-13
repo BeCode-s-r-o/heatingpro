@@ -45,8 +45,7 @@ const NewContactForm = () => {
     heaters: [],
   });
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
-
+  const [showPassword, setShowPassword] = useState(false);
   const { control, watch, reset, handleSubmit, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -83,7 +82,7 @@ const NewContactForm = () => {
                     borderStyle: 'solid',
                     borderColor: 'background.paper',
                   }}
-                  className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden"
+                  className="relative flex items-center justify-center w-128 h-128  overflow-hidden"
                 >
                   <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
                   <div className="absolute inset-0 flex items-center justify-center z-20">
@@ -136,6 +135,8 @@ const NewContactForm = () => {
                     sx={{
                       backgroundColor: 'background.default',
                       color: 'text.secondary',
+                      width: '100%',
+                      height: 'auto !important',
                     }}
                     className="object-cover w-full h-full text-64 font-bold"
                     src={value}
@@ -153,11 +154,11 @@ const NewContactForm = () => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               <FormControlLabel value="user" control={<Radio />} label="Klient" />
+              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
               <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
+              <FormControlLabel value="admin" control={<Radio />} label="Admin" />
             </RadioGroup>
           )}
         />
@@ -168,8 +169,8 @@ const NewContactForm = () => {
             <TextField
               className="mt-32"
               {...field}
-              label="Meno"
-              placeholder="Meno"
+              label="Meno a priezvisko"
+              placeholder="Meno a priezvisko"
               id="name"
               error={!!errors.name}
               variant="outlined"
@@ -221,7 +222,7 @@ const NewContactForm = () => {
               id="password"
               error={!!errors.password}
               variant="outlined"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               required
               fullWidth
               InputProps={{
@@ -234,6 +235,10 @@ const NewContactForm = () => {
             />
           )}
         />
+        <div>
+          <input type="checkbox" onClick={() => setShowPassword(!showPassword)} />
+          <label>Zobraziť heslo</label>
+        </div>
         <Controller
           control={control}
           name="phone"

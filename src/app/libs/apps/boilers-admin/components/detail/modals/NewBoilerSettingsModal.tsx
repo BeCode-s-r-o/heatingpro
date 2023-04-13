@@ -29,10 +29,13 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
   const [inputData, setInputData] = useState<any>([]);
 
   useEffect(() => {
-    setDigitalInput(initializeNewColumns(boiler.sms[0].body?.digitalInput));
-    setDigitalOutput(initializeNewColumns(boiler.sms[0].body?.digitalOutput));
-    setInputData(initializeNewColumns(boiler.sms[0].body?.inputData));
-  }, []);
+    if (boiler.sms?.length > 0) {
+      setDigitalInput(initializeNewColumns(boiler.sms[0].body?.digitalInput));
+      setDigitalOutput(initializeNewColumns(boiler.sms[0].body?.digitalOutput));
+      setInputData(initializeNewColumns(boiler.sms[0].body?.inputData));
+    }
+  }, [boiler]);
+
   const initializeNewColumns = (data) => {
     const emptyColumn = { columnName: '', desc: '', hide: false, max: 0, min: 0, unit: '' };
     return data.map((value, index) => ({

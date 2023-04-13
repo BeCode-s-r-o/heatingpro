@@ -17,6 +17,19 @@ const ContactsHeader = () => {
   const searchText = useSelector(selectSearchText);
   const filteredData = useSelector(selectFilteredContacts);
 
+  const getUsersCountLabel = (count) => {
+    if (count === 0) {
+      return 'Žiadni používatelia';
+    }
+    if (count === 1) {
+      return 'používateľ';
+    }
+    if (count > 1 && count < 5) {
+      return 'používatelia';
+    }
+    return 'používateľov';
+  };
+
   return (
     <div className="p-24 sm:p-32 w-full border-b-1">
       <div className="flex flex-col items-center sm:items-start">
@@ -24,7 +37,7 @@ const ContactsHeader = () => {
           Používatelia
         </Typography>
         <Typography component={motion.span} className="text-14 font-medium ml-2" color="text.secondary">
-          {`${filteredData.length} používateľov`}
+          {`${filteredData.length > 0 ? filteredData.length : ''} ${getUsersCountLabel(filteredData.length)}`}
         </Typography>
       </div>
       <div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center mt-16 -mx-8">

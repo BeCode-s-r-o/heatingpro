@@ -18,9 +18,6 @@ export const BoilersListTable = ({ data }: Props) => {
   const columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
   const rows: any = data;
   const selectBoilerState = (boiler) => {
-    if (boiler.alarms.length !== 0) {
-      return 'bg-red';
-    }
     if (boiler.columns.length === 0) {
       return 'bg-yellow';
     }
@@ -29,17 +26,7 @@ export const BoilersListTable = ({ data }: Props) => {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Zoznam systémov</Typography>
-      <Box className="flex  gap-12 mt-12">
-        <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap flex gap-6 items-center">
-          <div className="w-12 h-12 rounded-full bg-green"></div>vporiadku
-        </Typography>
-        <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap flex gap-6 items-center">
-          <div className="w-12 h-12 rounded-full bg-yellow"></div>chýba nastavenie
-        </Typography>
-        <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap flex gap-6 items-center">
-          <div className="w-12 h-12 rounded-full bg-red"></div>alarm
-        </Typography>
-      </Box>
+
       <div className="table-responsive">
         <Table className="w-full min-w-full">
           <TableHead>
@@ -62,7 +49,6 @@ export const BoilersListTable = ({ data }: Props) => {
                     color="text.secondary"
                     className="font-semibold text-12 whitespace-nowrap flex gap-6 items-center"
                   >
-                    <div className={`w-12 h-12 rounded-full ${selectBoilerState(row)}`}></div>
                     {row.name}
                   </Typography>
                 </TableCell>

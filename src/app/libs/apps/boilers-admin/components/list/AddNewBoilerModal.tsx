@@ -82,95 +82,6 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       content: (
         <>
           <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Názov kotolne"
-              value={header.name}
-              name="name"
-              onChange={handleHeaderChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="ID"
-              value={newBoiler.id}
-              name="id"
-              onChange={handleBoilerChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Ulica"
-              placeholder="Ulica + číslo"
-              value={address.street}
-              name="street"
-              onChange={handleAddressChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Mesto"
-              value={address.city}
-              name="city"
-              onChange={handleAddressChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="PSČ"
-              value={address.zip}
-              name="zip"
-              onChange={handleAddressChange}
-            />
-          </ListItem>
-
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Telefónne číslo"
-              value={newBoiler.phoneNumber}
-              name="phoneNumber"
-              onChange={handleBoilerChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Perióda"
-              value={newBoiler.period}
-              name="period"
-              onChange={handleBoilerChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Majiteľ"
-              value={newBoiler.assignedTo}
-              name="assignedTo"
-              onChange={handleBoilerChange}
-            />
-          </ListItem>
-        </>
-      ),
-    },
-    {
-      number: 2,
-      content: (
-        <>
-          <ListItem>
             <Box
               sx={{
                 borderWidth: 4,
@@ -215,7 +126,90 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Umiestnenie v objekte"
+              label="Názov kotolne *"
+              value={header.name}
+              name="name"
+              onChange={handleHeaderChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="ID  *"
+              value={newBoiler.id}
+              name="id"
+              onChange={handleBoilerChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Ulica  *"
+              placeholder="Ulica + číslo"
+              value={address.street}
+              name="street"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Mesto  *"
+              value={address.city}
+              name="city"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="PSČ  *"
+              value={address.zip}
+              name="zip"
+              onChange={handleAddressChange}
+            />
+          </ListItem>
+
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Telefónne číslo kotolne  *"
+              value={newBoiler.phoneNumber}
+              name="phoneNumber"
+              onChange={handleBoilerChange}
+            />
+          </ListItem>
+          <ListItem>
+            {/* TODO - spravit select podla -> https://firebasestorage.googleapis.com/v0/b/heating-pro.appspot.com/o/Screenshot%202023-04-13%20at%2018.05.05.png?alt=media&token=4c184209-92f6-4c57-b5fd-7d728181161b */}
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Perióda  *"
+              value={newBoiler.period}
+              name="period"
+              onChange={handleBoilerChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Majiteľ  *"
+              value={newBoiler.assignedTo}
+              name="assignedTo"
+              onChange={handleBoilerChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Umiestnenie v objekte  *"
               value={header.location}
               name="location"
               onChange={handleHeaderChange}
@@ -225,7 +219,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Prevádzkovateľ"
+              label="Obsluha kotolne"
               value={header.provider}
               name="provider"
               onChange={handleHeaderChange}
@@ -235,19 +229,8 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Kúrič 1"
-              placeholder="meno + číslo"
-              value={header.maintenance}
-              name="maintenance"
-              onChange={handleHeaderChange}
-            />
-          </ListItem>
-          <ListItem>
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Kúrič 2"
-              placeholder="meno + číslo"
+              label="Kurič 1 *"
+              placeholder="Meno + tel. číslo"
               value={header.staff1}
               name="staff1"
               onChange={handleHeaderChange}
@@ -256,9 +239,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           <ListItem>
             <TextField
               className="w-[500px]"
-              data-header=""
               type="text"
-              label="ID monit. zariadenia"
+              label="Kurič 2"
+              placeholder="Meno + tel. číslo"
               value={header.staff2}
               name="staff2"
               onChange={handleHeaderChange}
@@ -299,44 +282,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
         {pages.map((page, i) => (
           <div key={i}>{page.number === pageNumber && page.content}</div>
         ))}
-        <ListItem className="flex justify-center">
-          {pageNumber > 1 && (
-            <FuseSvgIcon
-              className="text-48 cursor-pointer"
-              size={24}
-              color="action"
-              onClick={() => {
-                setPageNumber((prev) => prev - 1);
-              }}
-            >
-              heroicons-outline:arrow-left
-            </FuseSvgIcon>
-          )}
 
-          {pageNumber === 1 && (
-            <FuseSvgIcon
-              className="text-48 cursor-pointer"
-              size={24}
-              color="action"
-              onClick={() => {
-                setPageNumber((prev) => prev + 1);
-              }}
-            >
-              heroicons-outline:arrow-right
-            </FuseSvgIcon>
-          )}
-        </ListItem>
-        <ListItem>
-          <Typography className=" text-lg mx-auto">{pageNumber}/2</Typography>
-        </ListItem>
         <ListItem className="flex  justify-end gap-12">
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="primary"
-            onClick={saveNewBoiler}
-            disabled={pageNumber === 1}
-          >
+          <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={saveNewBoiler}>
             Vytvoriť
           </Button>
           <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
