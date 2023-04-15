@@ -25,14 +25,15 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from 'app/store/userSlice';
-import { TBoiler } from 'src/@app/types/TBoilers';
+import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import { showMessage } from 'app/store/slices/messageSlice';
 import ConfirmModal from './modals/ConfirmModal';
-import { getCurrentDate } from './functions/datesOperations';
+import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
 
 export const DailyNotesTable = ({ id }) => {
+  const todayDate = new Date().toISOString().split('T')[0];
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user: any = useSelector(selectUser);
@@ -43,9 +44,10 @@ export const DailyNotesTable = ({ id }) => {
   const [showNewNoteModal, setShowNewNoteModal] = React.useState(false);
   const [showRecordConfirmModal, setShowRecordConfirmModal] = React.useState(false);
   const [record, setRecord] = React.useState({ date: '', note: '', addedBy: '' });
-  const [newNote, setNewNote] = React.useState('');
+  const [rows, setRows] = React.useState<TBoilerNote[]>([]);
+
   const [newRecord, setNewRecord] = React.useState({
-    date: getCurrentDate(),
+    date: todayDate,
     note: '',
     addedBy: user.data.name,
     id: self.crypto.randomUUID(),
@@ -54,10 +56,20 @@ export const DailyNotesTable = ({ id }) => {
     setShowConfirmModal(true);
   };
 
+  useEffect(() => setRows(boiler?.notes || []), [boiler]);
+
   const addNewRecord = () => {
-    const newRecordRef = doc(db, 'boilers', id);
-    updateDoc(newRecordRef, { notes: [...rows, newRecord] });
-    setShowNewNoteModal(false);
+    let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
+    let newRecordRef = doc(db, 'boilers', id);
+    let updatedRows = [...rows, createdRecord];
+    try {
+      updateDoc(newRecordRef, { notes: updatedRows });
+      setShowNewNoteModal(false);
+      setRows(updatedRows);
+      dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+    }
   };
 
   const deleteSelectedRows = () => {
@@ -70,8 +82,8 @@ export const DailyNotesTable = ({ id }) => {
       return;
     }
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
-    dispatch(getBoiler(id || ''));
     setShowConfirmModal(false);
+    setRows([]);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -126,8 +138,6 @@ export const DailyNotesTable = ({ id }) => {
       },
     },
   ];
-  const rows = boiler ? boiler.notes : [];
-  const todayDate = new Date().toISOString().split('T')[0];
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -204,7 +214,7 @@ export const DailyNotesTable = ({ id }) => {
           Pridať záznam
         </Button>
       </div>
-      {/* Confirm Dialog */}
+      {/* Confirm Delete */}
       <ConfirmModal
         open={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
@@ -230,28 +240,29 @@ export const DailyNotesTable = ({ id }) => {
             <strong>Pridal</strong>: {record.addedBy}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description" className="mt-8">
-            <strong>Poznámka</strong>: {record.note}
+            <strong>Záznam</strong>: {record.note}
           </DialogContentText>
         </DialogContent>
       </Dialog>
       <Drawer anchor="right" open={showNewNoteModal} onClose={() => setShowNewNoteModal(false)}>
         <List className="w-[300px] ">
           <ListItem>
-            <ListItemText primary="Pridanie poznámky" className="text-center" />
+            <ListItemText primary="Pridanie záznamu" className="text-center" />
           </ListItem>
-          {user.role === 'admin' && (
-            <ListItem className="flex justify-center items-center gap-8">
-              <InputLabel htmlFor="dateForNote">Dátum:</InputLabel>
-              <Input
-                type="date"
-                id="dateForNote"
-                name="date"
-                value={newRecord.date}
-                inputProps={{ min: '2018-01-01', max: todayDate }}
-                onChange={handleChange}
-              />
-            </ListItem>
-          )}
+
+          <ListItem className="flex justify-center items-center gap-8">
+            <InputLabel htmlFor="dateForNote">Dátum:</InputLabel>
+            <Input
+              type="date"
+              id="dateForNote"
+              name="date"
+              readOnly={user.role !== 'admin'}
+              value={newRecord.date}
+              inputProps={{ min: '2018-01-01', max: todayDate }}
+              onChange={handleChange}
+            />
+          </ListItem>
+
           <ListItem className="w-full">
             <TextField
               aria-label="minimum height"
@@ -270,7 +281,7 @@ export const DailyNotesTable = ({ id }) => {
               name="note"
               value={newRecord.note}
               onChange={handleChange}
-              className="border w-full"
+              className="border w-full p-12"
             />
           </ListItem>
 
@@ -279,6 +290,12 @@ export const DailyNotesTable = ({ id }) => {
               className="whitespace-nowrap"
               variant="contained"
               color="primary"
+              disabled={!newRecord.date || !newRecord.note}
+              startIcon={
+                <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                  feather:save
+                </FuseSvgIcon>
+              }
               onClick={() => setShowRecordConfirmModal(true)}
             >
               Uložiť
@@ -301,7 +318,9 @@ export const DailyNotesTable = ({ id }) => {
         onClose={() => setShowRecordConfirmModal(false)}
         onConfirm={addNewRecord}
         title="Želáte si pridať nový záznam?"
-        message={`Dátum: ${newRecord.date}<br/> Poznámka: ${newRecord.note} <br/> Pridal: ${newRecord.addedBy}`}
+        message={`Dátum: ${formatDateToSK(newRecord.date)}<br/> Poznámka: ${newRecord.note} <br/> Pridal: ${
+          newRecord.addedBy
+        }`}
         confirmText="Pridať"
         cancelText="Zrušiť"
       />

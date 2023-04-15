@@ -14,3 +14,16 @@ export const getCurrentDate = () => {
 
   return `${day}.${month}.${year}`;
 };
+
+export const formatDateToSK = (dateString) => {
+  // Create a new Date object using the dateString
+  const date = new Date(dateString);
+
+  // Extract the day, month, and year from the date object
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  // Return the formatted date string
+  return `${day}.${month}.${year}`;
+};
