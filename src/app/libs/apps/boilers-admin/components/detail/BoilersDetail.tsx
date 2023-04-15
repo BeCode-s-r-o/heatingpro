@@ -34,7 +34,7 @@ const BoilersDetail = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const boilerDetailTableRef = useRef<HTMLDivElement>(null);
   const manualBoilerTableRef = useRef<HTMLDivElement>(null);
-
+  const dailyNotesTableRef = useRef<HTMLDivElement>(null);
   const printBoilerDetailTable = useReactToPrint({
     content: () => {
       const printElem = document.createElement('div');
@@ -57,11 +57,21 @@ const BoilersDetail = () => {
     },
   });
 
-  const generatePDF = async () => {
+  const printDailyNotesTable = useReactToPrint({
+    content: () => {
+      const printElem = document.createElement('div');
+      const header = headerRef.current?.cloneNode(true) as HTMLDivElement;
+      const table = dailyNotesTableRef.current?.cloneNode(true) as HTMLDivElement;
+      printElem.appendChild(header);
+      printElem.appendChild(table);
+      return printElem;
+    },
+  });
+  const generatePDF = async (tableRef) => {
     // @ts-ignore
     const header = headerRef.current.cloneNode(true);
     // @ts-ignore
-    const table = boilerDetailTableRef.current.cloneNode(true);
+    const table = tableRef.current.cloneNode(true);
 
     const container = document.createElement('div');
     container.appendChild(header);
@@ -112,17 +122,22 @@ const BoilersDetail = () => {
               <BoilersDetailTable
                 id={id}
                 componentRef={boilerDetailTableRef}
-                generatePDF={generatePDF}
+                generatePDF={() => generatePDF(boilerDetailTableRef)}
                 printTable={printBoilerDetailTable}
               />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <DailyNotesTable id={id} />
+              <DailyNotesTable
+                id={id}
+                printTable={printDailyNotesTable}
+                componentRef={dailyNotesTableRef}
+                generatePDF={() => generatePDF(dailyNotesTableRef)}
+              />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               <ManualBoilerTable
                 id={id}
-                generatePDF={generatePDF}
+                generatePDF={() => generatePDF(manualBoilerTableRef)}
                 printTable={printManualBoilerTable}
                 componentRef={manualBoilerTableRef}
               />
