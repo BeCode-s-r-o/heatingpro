@@ -3,7 +3,7 @@ import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, Ent
 import { RootState } from 'app/store/index';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import history from '@history';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { secondaryApp } from 'src/firebase-config';
 import FuseUtils from '@app/utils/FuseUtils';
 
@@ -29,17 +29,17 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
 export const addContact = createAsyncThunk(
   'contactsApp/contacts/addContact',
   async (contact: TContact & { password: string }) => {
-    const sAuth = getAuth(secondaryApp);
-    createUserWithEmailAndPassword(sAuth, contact.email, contact.password)
-      .then((data) => {
-        const id = data.user.uid;
-        const customerRef = doc(getFirestore(), 'users', id);
-
-        setDoc(customerRef, { ...contact, id })
-          .then(() => {})
-          .catch((error) => {});
-      })
-      .catch((error) => {});
+    try {
+      const sAuth = getAuth(secondaryApp);
+      const userCredential = await createUserWithEmailAndPassword(sAuth, contact.email, contact.password);
+      const id = userCredential.user.uid;
+      const customerRef = doc(getFirestore(), 'users', id);
+      await setDoc(customerRef, { ...contact, id });
+      await sendPasswordResetEmail(sAuth, contact.email);
+      console.log('noma problema');
+    } catch (error) {
+      throw error;
+    }
   }
 );
 
