@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 
 function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText, cancelText }) {
+  const confirmActionAndClose = () => {
+    onConfirm();
+    onClose();
+  };
   return (
     <Dialog
       open={open}
@@ -22,7 +26,7 @@ function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText, c
           variant="contained"
           color="primary"
           autoFocus
-          onClick={onConfirm}
+          onClick={confirmActionAndClose}
         >
           {confirmText}
         </Button>
