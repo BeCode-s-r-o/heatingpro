@@ -23,7 +23,7 @@ const ContactView = () => {
     admin: 'Admin',
     user: 'Zákazník',
     staff: 'Kurič',
-    obsluhar: 'Obsluha kotolne',
+    obsluha: 'Obsluha kotolne',
     instalater: 'Inštalatér',
   };
   const dispatch = useDispatch<AppDispatch>();
