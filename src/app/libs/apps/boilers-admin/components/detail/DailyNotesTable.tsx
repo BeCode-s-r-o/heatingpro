@@ -32,7 +32,7 @@ import { showMessage } from 'app/store/slices/messageSlice';
 import ConfirmModal from './modals/ConfirmModal';
 import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
 
-export const DailyNotesTable = ({ id }) => {
+export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
@@ -93,24 +93,23 @@ export const DailyNotesTable = ({ id }) => {
     {
       field: 'date',
       headerName: `Dátum`,
-
-      flex: 1,
+      minWidth: 100,
+      flex: 0,
     },
     {
       field: 'note',
       headerName: `Poznámka`,
-
-      flex: 3,
+      flex: 2,
     },
     {
       field: 'addedBy',
       headerName: `Pridal`,
-
       flex: 1,
     },
     {
       field: 'action',
       headerName: 'Detail',
+      flex: 0,
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
@@ -130,7 +129,7 @@ export const DailyNotesTable = ({ id }) => {
 
         return (
           <>
-            <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer">
+            <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
               heroicons-outline:search
             </FuseSvgIcon>
           </>
@@ -140,7 +139,7 @@ export const DailyNotesTable = ({ id }) => {
   ];
 
   return (
-    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden" ref={componentRef}>
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Zápisy z dňa {id}
       </Typography>
@@ -166,7 +165,7 @@ export const DailyNotesTable = ({ id }) => {
       </div>
       <div className="flex gap-16">
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
           onClick={() => {
@@ -185,7 +184,7 @@ export const DailyNotesTable = ({ id }) => {
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
-            className="whitespace-nowrap w-fit mb-2"
+            className="whitespace-nowrap w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={handleClickOpen}
@@ -199,7 +198,7 @@ export const DailyNotesTable = ({ id }) => {
           </Button>
         )}
         <Button
-          className="whitespace-nowrap w-fit mb-2"
+          className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
           onClick={() => {
@@ -212,6 +211,32 @@ export const DailyNotesTable = ({ id }) => {
           }
         >
           Pridať záznam
+        </Button>
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={generatePDF}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+              material-outline:picture_as_pdf
+            </FuseSvgIcon>
+          }
+        >
+          Export
+        </Button>
+        <Button
+          className="whitespace-nowrap w-fit mb-2 dont-print"
+          variant="contained"
+          color="primary"
+          onClick={printTable}
+          startIcon={
+            <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+              material-outline:local_printshop
+            </FuseSvgIcon>
+          }
+        >
+          Tlač
         </Button>
       </div>
       {/* Confirm Delete */}
