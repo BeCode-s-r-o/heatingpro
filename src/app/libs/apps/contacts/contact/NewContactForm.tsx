@@ -231,14 +231,23 @@ const NewContactForm = () => {
                     <FuseSvgIcon size={20}>heroicons-solid:lock-closed</FuseSvgIcon>
                   </InputAdornment>
                 ),
+                endAdornment: (
+                  <InputAdornment position="end">
+                    {showPassword ? (
+                      <FuseSvgIcon className="cursor-pointer" size={20} onClick={() => setShowPassword(false)}>
+                        heroicons-outline:eye
+                      </FuseSvgIcon>
+                    ) : (
+                      <FuseSvgIcon className="cursor-pointer" size={20} onClick={() => setShowPassword(true)}>
+                        heroicons-outline:eye-off
+                      </FuseSvgIcon>
+                    )}
+                  </InputAdornment>
+                ),
               }}
             />
           )}
         />
-        <div>
-          <input type="checkbox" onClick={() => setShowPassword(!showPassword)} />
-          <label>Zobraziť heslo</label>
-        </div>
         <Controller
           control={control}
           name="phone"
