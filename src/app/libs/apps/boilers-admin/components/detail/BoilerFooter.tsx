@@ -19,7 +19,7 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
 
   return (
     <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Avatar className="my-auto" src={boiler.header.avatar} sx={{ width: 64, height: 64 }}></Avatar>
+      <Avatar className="my-auto" variant="rounded" src={boiler.header.avatar} sx={{ width: 64, height: 64 }}></Avatar>
       <Box>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">ID zariadenia:</strong> {boiler?.id}
@@ -56,7 +56,7 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           color="primary"
           startIcon={
             <FuseSvgIcon className="text-48 text-white" size={24} color="action">
-              material-outline:edit
+              feather:settings
             </FuseSvgIcon>
           }
           onClick={() => setIsModalOpen(true)}

@@ -92,7 +92,9 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
           <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
         </div>
         <div className="flex mx-4 absolute right-0 top-0 show-on-print">
-          <Avatar src={user?.data?.avatar || undefined}>{user?.data?.name[0]}</Avatar>
+          <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
+            {user?.data?.name[0]}
+          </Avatar>
           <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
             {user?.data?.name}
           </Typography>
@@ -150,7 +152,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
           </Button>
         )}
         <Button
-          className="whitespace-nowrap"
+          className="whitespace-nowrap dont-print"
           variant="contained"
           color="primary"
           startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}

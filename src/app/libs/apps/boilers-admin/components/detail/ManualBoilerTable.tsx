@@ -109,7 +109,9 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
           />
         </div>
         <div className="flex mx-4 absolute right-0 top-0 show-on-print">
-          <Avatar src={user?.data?.avatar || undefined}>{user?.data?.name[0]}</Avatar>
+          <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
+            {user?.data?.name[0]}
+          </Avatar>
           <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
             {user?.data?.name}
           </Typography>

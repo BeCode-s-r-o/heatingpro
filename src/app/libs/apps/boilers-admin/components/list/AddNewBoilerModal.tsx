@@ -88,7 +88,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
                 borderStyle: 'solid',
                 borderColor: 'background.paper',
               }}
-              className="relative flex items-center justify-center w-128 h-128 rounded-full overflow-hidden mx-auto"
+              className="relative flex items-center justify-center w-128 h-128  overflow-hidden mx-auto"
             >
               <div className="absolute inset-0 bg-black bg-opacity-50 z-10" />
               <div className="absolute inset-0 flex items-center justify-center z-20">
@@ -115,6 +115,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
                   backgroundColor: 'background.default',
                   color: 'text.secondary',
                 }}
+                variant="rounded"
                 className="object-cover w-full h-full text-64 font-bold"
                 src={header.avatar}
               >
