@@ -30,10 +30,11 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (e) => {
-    const value = e.target.value;
+    const { name, value } = e.target;
+
     setHeaderData((prev) => ({
       ...prev,
-      [e.target.name]: value,
+      [name]: value,
     }));
   };
 
@@ -142,18 +143,8 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             className="w-full"
             type="text"
             label="Obsluha"
-            value={headerData.maintenance}
-            name="maintenance"
-            onChange={handleChange}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            className="w-full"
-            type="text"
-            label="Prevádzkovateľ"
-            value={headerData.maintenance}
-            name="maintenance"
+            value={headerData.operator}
+            name="operator"
             onChange={handleChange}
           />
         </ListItem>
@@ -174,26 +165,6 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             label="Kurič 2"
             value={headerData.staff2}
             name="staff2"
-            onChange={handleChange}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            className="w-full"
-            type="text"
-            label="ID monit.zariadenia"
-            value={headerData.monitoringDeviceID}
-            name="monitoringDeviceID"
-            onChange={handleChange}
-          />
-        </ListItem>{' '}
-        <ListItem>
-          <TextField
-            className="w-full"
-            type="number"
-            label="Perióda"
-            value={headerData.period}
-            name="period"
             onChange={handleChange}
           />
         </ListItem>
