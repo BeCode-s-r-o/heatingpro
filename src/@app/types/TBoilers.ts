@@ -47,6 +47,7 @@ export interface TBoilerInfo {
   location: string;
   provider: string;
   maintenance: string;
+  operator: string;
   staff1: string;
   staff2: string;
   monitoringDeviceID: string;
