@@ -25,12 +25,10 @@ const BoilersList = () => {
 
   const { data: userData } = useSelector(selectUser);
   const allowedAuthRoles = ['admin', 'staff', 'instalater'];
-  const userRole = userData?.role;
-  const isAdmin = userData?.role === 'admin';
-  const isStaff = userData?.role === 'staff';
+  const userRole = userData?.role || '';
 
   const boilers = () => {
-    if (isAdmin) {
+    if (allowedAuthRoles.includes(userRole)) {
       return data;
     } else {
       let ids = getAssignedHeatersIds(userData?.heaters || []);
@@ -44,7 +42,7 @@ const BoilersList = () => {
     }
   }, [dispatch]);
 
-  return !isAdmin && !isStaff ? (
+  return !allowedAuthRoles.includes(userRole) ? (
     <Navigate to="/pouzivatelske-systemy/" replace />
   ) : (
     <Wrapper

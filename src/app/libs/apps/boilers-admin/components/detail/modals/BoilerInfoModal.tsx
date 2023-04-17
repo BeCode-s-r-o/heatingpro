@@ -13,10 +13,11 @@ import IconButton from '@mui/material/IconButton';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
 import { AppDispatch } from 'app/store/index';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
 import Box from '@mui/material/Box';
+import { selectUser } from 'app/store/userSlice';
 interface Props {
   boilerInfo: TBoilerInfo;
   boilerData: TBoiler;
@@ -27,6 +28,7 @@ interface Props {
 function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: Props) {
   const [image, setImage] = useState(boilerInfo.avatar || '');
   const [headerData, setHeaderData] = useState(boilerInfo);
+  const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
 
   const handleChange = (e) => {
@@ -63,12 +65,10 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
       return;
     }
     const reader = new FileReader();
-
     reader.onload = () => {
       //@ts-ignore
       setImage(`data:${file.type};base64,${btoa(reader.result)}`);
     };
-
     reader.readAsBinaryString(file);
   };
 
@@ -126,6 +126,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             value={headerData.location}
             name="location"
             onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />
         </ListItem>
         <ListItem>
@@ -136,6 +137,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             value={headerData.provider}
             name="provider"
             onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />
         </ListItem>
         <ListItem>
@@ -146,6 +148,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             value={headerData.operator}
             name="operator"
             onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />
         </ListItem>
         <ListItem>
