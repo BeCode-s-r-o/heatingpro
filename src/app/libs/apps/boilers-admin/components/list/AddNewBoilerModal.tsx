@@ -30,10 +30,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     name: '',
     location: '',
     provider: '',
+    operator: '',
     maintenance: '',
     staff1: '',
     staff2: '',
-    monitoringDeviceID: '',
   });
   const [address, setAddress] = useState({ city: '', zip: '', street: '' });
   const [newBoiler, setNewBoiler] = useState({

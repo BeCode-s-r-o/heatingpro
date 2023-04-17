@@ -1,16 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { AppDispatch } from 'app/store/index';
-import { showMessage } from 'app/store/slices/messageSlice';
-import axios from 'axios';
-import moment from 'moment';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { getBoiler } from '../../store/boilersSlice';
-import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
-import TableSettingsModal from './modals/TableSettingsModal';
 import {
   Dialog,
   DialogActions,
@@ -21,7 +10,17 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { getBoiler } from '../../store/boilersSlice';
 import ConfirmModal from './modals/ConfirmModal';
+import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
+import TableSettingsModal from './modals/TableSettingsModal';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -29,14 +28,13 @@ interface Props {
 export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [newPeriod, setNewPeriod] = useState<string>();
-  const [isParametersModalOpen, setIsParametersModalOpen] = useState(false);
   const [showConfirmModalPeriodChange, setShowConfirmModalChange] = useState(false);
   const [showPeriodSetting, setShowPeriodSetting] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
-    //@ts-ignore
     setNewPeriod(boiler?.period);
   }, [boiler]);
-  const dispatch = useDispatch<AppDispatch>();
+
   const sendSMSToGetData = async () => {
     const data = {
       phoneNumber: boiler?.phoneNumber,
@@ -50,10 +48,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
     }
   };
-  const handlePeriodChange = (e) => {
-    const { value } = e.target;
-    setNewPeriod(periodOptions.find((option) => option.value === value)?.period);
-  };
+
   const sendSmsToChangePeriod = async () => {
     const data = {
       phoneNumber: boiler?.phoneNumber,
@@ -65,8 +60,17 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Perióda bola úspšene zmenená' }));
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+    } finally {
+      setShowConfirmModalChange(false);
+      setShowPeriodSetting(false);
     }
   };
+
+  const handlePeriodChange = (e) => {
+    const { value } = e.target;
+    setNewPeriod(periodOptions.find((option) => option.value === value)?.period);
+  };
+
   const periodOptions = [
     { value: 1, period: '24', smsPerDay: 1 },
     { value: 2, period: '12', smsPerDay: 2 },
@@ -103,6 +107,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   >
                     material-outline:settings
                   </FuseSvgIcon>
+                </Typography>
+                <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                  {' '}
+                  Sms za Deň: {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay}
                 </Typography>
               </div>
             </div>
