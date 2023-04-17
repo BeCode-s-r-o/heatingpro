@@ -8,7 +8,8 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import ConfirmModal from './modals/ConfirmModal';
 import BoilerInfoModal from './modals/BoilerInfoModal';
-const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }) => {
+import { TContact } from '@app/types/TContact';
+const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: any; user: TContact }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -38,9 +39,6 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.provider}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Perióda:</strong> {boiler?.period}
-        </Typography>
-        <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">Kurič 1:</strong> {boiler?.header.staff1}
         </Typography>
         {boiler?.header.staff2 && (
@@ -61,19 +59,21 @@ const BoilerFooter = ({ boiler, headerRef }: { boiler: TBoiler; headerRef: any }
           }
           onClick={() => setIsModalOpen(true)}
         >
-          Nastavenie kotolne
+          Nastaviť info
         </Button>
-        <Button
-          className="whitespace-nowrap w-fit dont-print "
-          variant="contained"
-          color="secondary"
-          onClick={() => setShowConfirmModal(true)}
-        >
-          <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-            material-outline:cancel
-          </FuseSvgIcon>
-          Vymazať kotolňu
-        </Button>
+        {user.role === 'admin' && (
+          <Button
+            className="whitespace-nowrap w-fit dont-print "
+            variant="contained"
+            color="secondary"
+            onClick={() => setShowConfirmModal(true)}
+          >
+            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+              material-outline:cancel
+            </FuseSvgIcon>
+            Vymazať kotolňu
+          </Button>
+        )}
       </Box>
       <BoilerInfoModal
         boilerData={boiler}

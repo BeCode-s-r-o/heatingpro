@@ -3,6 +3,8 @@ import { AppDispatch, RootState } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
 import { motion as m } from 'framer-motion';
+import * as htmlToImage from 'html-to-image';
+import { jsPDF } from 'jspdf';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useParams } from 'react-router-dom';
@@ -15,16 +17,14 @@ import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 import { DailyNotesTable } from './DailyNotesTable';
 import { ManualBoilerTable } from './ManualBoilerTable';
-import { jsPDF } from 'jspdf';
-import * as htmlToImage from 'html-to-image';
-import html2canvas from 'html2canvas';
+
 const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const { data: userData } = useSelector(selectUser);
+  const { data: user } = useSelector(selectUser);
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
-  const isAdmin = userData?.role === 'admin';
-  const isStaff = userData?.role === 'staff';
+  const isAdmin = user?.role === 'admin';
+  const isStaff = user?.role === 'staff';
   useEffect(() => {
     if (isAdmin || isStaff) {
       dispatch(getBoilers());
@@ -116,7 +116,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <m.div variants={item} className="sm:col-span-6">
-              {boiler && <BoilerFooter boiler={boiler} headerRef={headerRef} />}
+              {boiler && <BoilerFooter boiler={boiler} headerRef={headerRef} user={user} />}
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               <BoilersDetailTable

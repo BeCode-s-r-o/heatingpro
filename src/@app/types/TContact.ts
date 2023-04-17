@@ -4,6 +4,8 @@ export enum TUserRoles {
   user = 'user',
   admin = 'admin',
   staff = 'staff',
+  instalater = 'instalater',
+  obsluha = 'obsluha',
 }
 
 export interface TContact {

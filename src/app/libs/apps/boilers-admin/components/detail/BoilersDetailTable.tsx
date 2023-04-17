@@ -28,7 +28,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [rows, setRows] = React.useState<any[]>([]);
   const user = useSelector(selectUser);
-
+  const rolesEnableDelete = ['admin', 'instalater'];
   useEffect(() => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
@@ -86,20 +86,22 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Prevádzkový denník {id}
       </Typography>
-      <div className="relative">
-        <div className="w-fit border p-10">
-          <label htmlFor="start">Vyberte mesiac: </label>
-          <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
+      {user.role !== 'staff' && (
+        <div className="relative">
+          <div className="w-fit border p-10">
+            <label htmlFor="start">Vyberte mesiac: </label>
+            <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
+          </div>
+          <div className="flex mx-4 absolute right-0 top-0 show-on-print">
+            <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
+              {user?.data?.name[0]}
+            </Avatar>
+            <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
+              {user?.data?.name}
+            </Typography>
+          </div>
         </div>
-        <div className="flex mx-4 absolute right-0 top-0 show-on-print">
-          <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
-            {user?.data?.name[0]}
-          </Avatar>
-          <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
-            {user?.data?.name}
-          </Typography>
-        </div>
-      </div>
+      )}
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -120,21 +122,23 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         />
       </div>
       <div className="flex gap-16 dont-print">
-        <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            setIsEditRows((prev) => !prev);
-          }}
-        >
-          {!isEditRows && (
-            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-              material-outline:edit
-            </FuseSvgIcon>
-          )}
-          {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
-        </Button>
+        {rolesEnableDelete.includes(user.role) && (
+          <Button
+            className="whitespace-nowrap w-fit mb-2 dont-print"
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setIsEditRows((prev) => !prev);
+            }}
+          >
+            {!isEditRows && (
+              <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+                material-outline:edit
+              </FuseSvgIcon>
+            )}
+            {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
+          </Button>
+        )}
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
