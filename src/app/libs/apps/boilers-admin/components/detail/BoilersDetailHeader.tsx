@@ -96,11 +96,16 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               </div>
               <div>
                 <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                  Perióda: {boiler?.period}{' '}
+                  Perióda: {boiler?.period} (
+                  <small style={{ marginTop: '4px' }}>
+                    {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay} SMS/deň
+                  </small>
+                  )
                   <FuseSvgIcon
                     className="text-48 cursor-pointer "
                     size={24}
                     color="action"
+                    style={{ marginTop: '4px' }}
                     onClick={() => {
                       setShowPeriodSetting(true);
                     }}
@@ -110,7 +115,6 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                 </Typography>
                 <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                   {' '}
-                  Sms za Deň: {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay}
                 </Typography>
               </div>
             </div>
