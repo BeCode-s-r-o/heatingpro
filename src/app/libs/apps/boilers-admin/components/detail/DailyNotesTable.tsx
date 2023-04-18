@@ -47,7 +47,8 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
   const [newRecord, setNewRecord] = useState({
     date: todayDate,
     note: '',
-    addedBy: user.data.name,
+    addedBy: '',
+    createdBy: user.data.uid,
     id: self.crypto.randomUUID(),
   });
   const handleClickOpen = () => {
@@ -292,7 +293,19 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           <ListItem className="w-full">
             <TextField
               aria-label="minimum height"
-              label="Zapisal"
+              label="Zapísal"
+              name="addedBy"
+              disabled
+              value={newRecord.createdBy}
+              defaultValue={user.data.name}
+              onChange={handleChange}
+              className="border w-full"
+            />
+          </ListItem>
+          <ListItem className="w-full">
+            <TextField
+              aria-label="minimum height"
+              label="Zaevidoval (podpis kompetentnej osoby)"
               name="addedBy"
               value={newRecord.addedBy}
               defaultValue={user.data.name}

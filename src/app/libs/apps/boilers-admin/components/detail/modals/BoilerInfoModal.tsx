@@ -75,6 +75,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
   const handleRemovePicture = () => {
     setImage('');
   };
+  console.log(headerData);
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[300px]">
@@ -129,13 +130,14 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />
         </ListItem>
+
         <ListItem>
           <TextField
             className="w-full"
             type="text"
             label="Prevádzkovateľ"
-            value={headerData.provider}
-            name="provider"
+            value={headerData.operator}
+            name="operator"
             onChange={handleChange}
             disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />
@@ -145,8 +147,8 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             className="w-full"
             type="text"
             label="Obsluha"
-            value={headerData.operator}
-            name="operator"
+            value={headerData.provider}
+            name="provider"
             onChange={handleChange}
             disabled={user?.role === 'obsluha' || user?.role === 'user'}
           />

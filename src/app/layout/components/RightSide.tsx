@@ -8,7 +8,7 @@ function RightSide() {
   const user = useSelector(selectUser);
   return (
     <>
-      {user.role === 'admin' && <ChatPanel />}
+      {/* {user.role === 'admin' && <ChatPanel />} */}
       <QuickPanel />
       {/* <NotificationPanel /> */}
     </>

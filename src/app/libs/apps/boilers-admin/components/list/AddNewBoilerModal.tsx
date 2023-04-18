@@ -200,7 +200,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Majiteľ  *"
+              label="Prevádzkovateľ  *"
               value={newBoiler.assignedTo}
               name="assignedTo"
               onChange={handleBoilerChange}

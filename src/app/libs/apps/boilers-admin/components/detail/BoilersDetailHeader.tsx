@@ -41,8 +41,8 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       boilerId: boiler?.id,
     };
     try {
-      await axios.post('http://localhost:5500/get-data', data);
-      dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané' }));
+      await axios.post('https://api.monitoringpro.sk/get-data', data);
+      dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
       dispatch(getBoiler(boiler?.id || ''));
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
@@ -56,7 +56,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       period: periodOptions.find((option) => option.period === newPeriod)?.value,
     };
     try {
-      await axios.post('http://localhost:5500/change-period', data);
+      await axios.post('https://api.monitoringpro.sk/change-period', data);
       dispatch(showMessage({ message: 'Perióda bola úspšene zmenená' }));
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));

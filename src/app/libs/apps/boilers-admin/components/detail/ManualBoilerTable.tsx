@@ -212,13 +212,9 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             variant="contained"
             color="primary"
             onClick={() => setShowAddColumn(true)}
-            startIcon={
-              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
-                heroicons-outline:plus-sm
-              </FuseSvgIcon>
-            }
+            startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
           >
-            Pridať stĺpec
+            Nastaviť stĺpce
           </Button>
         )}
         <AddColumnModal

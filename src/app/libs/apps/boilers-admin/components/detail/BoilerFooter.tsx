@@ -33,7 +33,7 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
           <strong className="font-semibold">Umiestnenie v objekte:</strong> {boiler?.header.location}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-          <strong className="font-semibold">Majiteľ:</strong> {boiler?.assignedTo}
+          <strong className="font-semibold">Prevádzkovateľ:</strong> {boiler?.assignedTo}
         </Typography>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.provider}
