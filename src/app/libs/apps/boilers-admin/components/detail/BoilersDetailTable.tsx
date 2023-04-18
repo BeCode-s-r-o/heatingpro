@@ -28,7 +28,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
   const [rows, setRows] = React.useState<any[]>([]);
   const user = useSelector(selectUser);
-  const rolesEnableDelete = ['admin', 'instalater'];
+
   useEffect(() => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
@@ -80,6 +80,9 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const columns = generateColumns([...(boiler?.columns || [])]);
   const defaultRows: any = generateRows([...(boiler?.sms || [])]);
+  const rolesEnableDelete = ['admin', 'instalater'];
+  const rolesEnableEditColumns = ['admin', 'instalater'];
+  const rolesEnabledExportAndPrint = ['admin', 'user', 'instalater', 'obsluha'];
   console.log('rows:', rows, 'columns:', columns);
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -131,21 +134,22 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               setIsEditRows((prev) => !prev);
             }}
           >
-            {!isEditRows && (
+            {!isEditRows ? (
               <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
                 material-outline:edit
               </FuseSvgIcon>
-            )}
-            {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
+            ) : null}
+            {isEditRows ? 'Skryť' : 'Upraviť záznamy'}
           </Button>
         )}
+
         {isEditRows && (
           <Button
-            disabled={selectedRowsIds.length < 1}
             className="whitespace-nowrap w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={() => setShowConfirmModal(true)}
+            disabled={selectedRowsIds.length < 1}
             startIcon={
               <FuseSvgIcon className="text-48 text-white " size={24} color="action">
                 material-outline:delete
@@ -155,39 +159,46 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
             Zmazať vybrané riadky
           </Button>
         )}
-        <Button
-          className="whitespace-nowrap dont-print"
-          variant="contained"
-          color="primary"
-          startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
-          onClick={() => {
-            setIsSettingsModalOpen(true);
-          }}
-        >
-          Nastaviť stĺpce
-        </Button>
-        <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
-          variant="contained"
-          color="primary"
-          onClick={generatePDF}
-        >
-          <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-            material-outline:picture_as_pdf
-          </FuseSvgIcon>{' '}
-          Export
-        </Button>
-        <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
-          variant="contained"
-          color="primary"
-          onClick={printTable}
-        >
-          <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-            material-outline:local_printshop
-          </FuseSvgIcon>
-          Tlač
-        </Button>
+        {rolesEnableEditColumns.includes(user.role) && (
+          <Button
+            className="whitespace-nowrap dont-print"
+            variant="contained"
+            color="primary"
+            startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+            onClick={() => {
+              setIsSettingsModalOpen(true);
+            }}
+          >
+            Nastaviť stĺpce
+          </Button>
+        )}
+
+        {rolesEnabledExportAndPrint.includes(user.role) && (
+          <>
+            <Button
+              className="whitespace-nowrap w-fit mb-2 dont-print"
+              variant="contained"
+              color="primary"
+              onClick={generatePDF}
+            >
+              <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+                material-outline:picture_as_pdf
+              </FuseSvgIcon>{' '}
+              Export
+            </Button>
+            <Button
+              className="whitespace-nowrap w-fit mb-2 dont-print"
+              variant="contained"
+              color="primary"
+              onClick={printTable}
+            >
+              <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+                material-outline:local_printshop
+              </FuseSvgIcon>
+              Tlač
+            </Button>
+          </>
+        )}
         {boiler && (
           <>
             {boiler.columns.length === 0 ? (

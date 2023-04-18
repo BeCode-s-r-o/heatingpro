@@ -1,7 +1,8 @@
+import FuseSvgIcon from '@app/core/SvgIcon';
+import TextareaAutosize from '@mui/base/TextareaAutosize';
 import {
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
@@ -13,47 +14,44 @@ import {
   ListItemText,
   TextField,
 } from '@mui/material';
-import TextareaAutosize from '@mui/base/TextareaAutosize';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
-import { collection, deleteDoc, doc, getDocs, query, updateDoc, where } from 'firebase/firestore';
-import React from 'react';
-import FuseSvgIcon from '@app/core/SvgIcon';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
+import { doc, updateDoc } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
-import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { showMessage } from 'app/store/slices/messageSlice';
+import { selectBoilerById } from '../../store/boilersSlice';
+import { formatDateToSK } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
-import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
 
 export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user: any = useSelector(selectUser);
-  const [isEditRows, setIsEditRows] = React.useState(false);
-  const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
-  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-  const [showDetailNote, setShowDetailNote] = React.useState(false);
-  const [showNewNoteModal, setShowNewNoteModal] = React.useState(false);
-  const [showRecordConfirmModal, setShowRecordConfirmModal] = React.useState(false);
-  const [record, setRecord] = React.useState({ date: '', note: '', addedBy: '' });
-  const [rows, setRows] = React.useState<TBoilerNote[]>([]);
+  const [isEditRows, setIsEditRows] = useState(false);
+  const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowId[]>([]);
+  const [showDeletRowsConfirmModal, setShowDeleteRowsConfirmModal] = useState(false);
+  const [showDetailNote, setShowDetailNote] = useState(false);
+  const [showNewNoteModal, setShowNewNoteModal] = useState(false);
+  const [showRecordConfirmModal, setShowRecordConfirmModal] = useState(false);
+  const [record, setRecord] = useState({ date: '', note: '', addedBy: '' });
+  const [rows, setRows] = useState<TBoilerNote[]>([]);
 
-  const [newRecord, setNewRecord] = React.useState({
+  const [newRecord, setNewRecord] = useState({
     date: todayDate,
     note: '',
     addedBy: user.data.name,
     id: self.crypto.randomUUID(),
   });
   const handleClickOpen = () => {
-    setShowConfirmModal(true);
+    setShowDeleteRowsConfirmModal(true);
   };
 
   useEffect(() => setRows(boiler?.notes || []), [boiler]);
@@ -82,7 +80,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
       return;
     }
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
-    setShowConfirmModal(false);
+    setShowDeleteRowsConfirmModal(false);
     setRows([]);
   };
   const handleChange = (e) => {
@@ -138,6 +136,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     },
   ];
 
+  const rolesEnabledEdit = ['admin'];
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden" ref={componentRef}>
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
@@ -164,23 +163,25 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
         />
       </div>
       <div className="flex gap-16">
-        <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
-          variant="contained"
-          color="primary"
-          onClick={() => {
-            setIsEditRows((prev) => !prev);
-          }}
-          startIcon={
-            !isEditRows && (
-              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
-                material-outline:edit
-              </FuseSvgIcon>
-            )
-          }
-        >
-          {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
-        </Button>
+        {rolesEnabledEdit.includes(user.role) && (
+          <Button
+            className="whitespace-nowrap w-fit mb-2 dont-print"
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setIsEditRows((prev) => !prev);
+            }}
+            startIcon={
+              !isEditRows && (
+                <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                  material-outline:edit
+                </FuseSvgIcon>
+              )
+            }
+          >
+            {!isEditRows ? 'Upraviť záznamy' : 'Skryť'}
+          </Button>
+        )}
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
@@ -241,8 +242,8 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
       </div>
       {/* Confirm Delete */}
       <ConfirmModal
-        open={showConfirmModal}
-        onClose={() => setShowConfirmModal(false)}
+        open={showDeletRowsConfirmModal}
+        onClose={() => setShowDeleteRowsConfirmModal(false)}
         onConfirm={deleteSelectedRows}
         title="Želáte si zmazať danné záznamy?"
         message="Táto akcia je nezvratná"
