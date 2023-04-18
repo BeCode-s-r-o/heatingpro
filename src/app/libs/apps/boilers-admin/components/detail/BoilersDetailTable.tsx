@@ -65,7 +65,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               lastUpdate: i.body?.timestamp.display,
               id: i.messageID,
               ...acc,
-              [String(idx)]: curr || '-',
+              [String(idx + 20)]: curr || '-',
             }),
             {}
           ) || {}

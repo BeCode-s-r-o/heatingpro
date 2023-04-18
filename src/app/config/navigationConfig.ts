@@ -1,4 +1,5 @@
 import { authRoles } from '../auth/authRoles';
+const allowedRoles = [authRoles.admin, authRoles.staff, authRoles.instalater];
 
 const navigationConfig = [
   {
@@ -8,7 +9,7 @@ const navigationConfig = [
     type: 'group',
     icon: 'heroicons-outline:home',
     translate: 'VŠETKY SYSTÉMY',
-    auth: authRoles.admin && authRoles.staff && authRoles.instalater,
+    auth: authRoles.allRoles,
     children: [
       {
         id: 'dashboards.project',
@@ -19,7 +20,7 @@ const navigationConfig = [
       },
     ],
   },
-  {
+  /*   {
     id: 'dashboard-user',
     title: 'Vaše aplikácie',
     type: 'group',
@@ -44,13 +45,13 @@ const navigationConfig = [
         url: '/pouzivatelske-alarmy/',
       },
     ],
-  },
+  }, */
   {
     id: 'apps',
     title: 'Aplikácie',
     subtitle: 'Všetky aplikácie, ktoré ponúka systém',
     type: 'group',
-    auth: authRoles.admin,
+    auth: authRoles.rolesEnabledAddPeople,
     icon: 'heroicons-outline:cube',
     children: [
       {
