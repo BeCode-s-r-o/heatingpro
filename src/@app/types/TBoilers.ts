@@ -15,7 +15,7 @@ export type TBoiler = {
 export type TBoilerNote = { id: string; note: String; date: string; addedBy: string };
 export type TBoilers = TBoiler[];
 
-type TBoilerColumn = {
+export type TBoilerColumn = {
   accessor: string;
   columnName: string;
   unit: string;
