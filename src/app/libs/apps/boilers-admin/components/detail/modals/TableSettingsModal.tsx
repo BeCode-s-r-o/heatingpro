@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 import HeightIcon from '@mui/icons-material/Height';
+import { DragNDropColumn } from './DragNDropColumn';
 interface Props {
   boiler: TBoiler;
   isOpen: boolean;
@@ -40,15 +41,20 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
     setTableColumns(_tableColums);
   };
 
-  const handleChange = (e, attribute, value) => {
-    if (attribute === 'hide') {
-      const value = !e.target.checked;
-    }
+  const handleChange = useCallback((e, attribute, value) => {
+    const columnName = e.target.name;
 
     setTableColumns((prev) =>
-      prev.map((column) => (column.accessor === e.target.name ? { ...column, [attribute]: value } : column))
+      prev.map((column) =>
+        String(column.accessor) === columnName
+          ? {
+              ...column,
+              [attribute]: value,
+            }
+          : column
+      )
     );
-  };
+  }, []);
 
   const saveColumnsForBoilerInFirebase = (columns) => {
     try {
@@ -70,68 +76,16 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
         <ListItem>
           <ListItemText primary="Nastavenie stĺpcov" />
         </ListItem>
-        {tableColumns?.map((item, index) => (
-          <ListItem
+        {tableColumns?.map((column, index) => (
+          <DragNDropColumn
             key={index}
-            button
-            draggable
-            onDragStart={(e) => (dragItem.current = index)}
-            onDragEnter={(e) => (dragOverItem.current = index)}
+            column={column}
+            index={index}
+            onChange={handleChange}
+            onDragStart={() => (dragItem.current = index)}
+            onDragEnter={() => (dragOverItem.current = index)}
             onDragEnd={handleSort}
-            onDragOver={(e) => e.preventDefault()}
-            className="cursor-move"
-          >
-            <TextField
-              type="text"
-              label="Názov"
-              value={item.columnName}
-              name={item.accessor}
-              onChange={(e) => handleChange(e, 'columnName', e.target.value)}
-              className="w-[165px] "
-            />
-            <TextField
-              type="text"
-              label="Vysvetlivka"
-              value={item.desc}
-              name={item.accessor}
-              onChange={(e) => handleChange(e, 'desc', e.target.value)}
-              className="w-[255px] "
-            />
-            <TextField
-              type="text"
-              label="Jednotka"
-              value={item.unit}
-              name={item.accessor}
-              onChange={(e) => handleChange(e, 'unit', e.target.value)}
-              className="w-[80px] px-6"
-            />
-            <TextField
-              type="number"
-              label="Min."
-              value={item.min || undefined}
-              name={item.accessor}
-              onChange={(e) => handleChange(e, 'min', Number(e.target.value))}
-              className="w-[70px] pr-6"
-            />
-            <TextField
-              type="number"
-              label="Max."
-              value={item.max || undefined}
-              name={item.accessor}
-              onChange={(e) => handleChange(e, 'max', Number(e.target.value))}
-              className="w-[70px]"
-            />{' '}
-            <Switch
-              checked={!item.hide}
-              name={item.accessor}
-              onChange={(e) => {
-                handleChange(e, 'hide', !e.target.checked);
-              }}
-            />
-            <ListItemSecondaryAction className="mx-12 cursor-move -z-10">
-              <HeightIcon />
-            </ListItemSecondaryAction>
-          </ListItem>
+          />
         ))}
 
         <ListItem className="flex justify-end gap-12">
