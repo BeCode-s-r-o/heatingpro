@@ -44,9 +44,7 @@ const BoilersList = () => {
     if (userData?.role && allowedAuthRoles.includes(userData?.role)) {
       dispatch(getBoilers());
     }
-  }, [dispatch, userData?.role, allowedAuthRoles]);
-
-  const BoilersListTableMemo = memo(BoilersListTable);
+  }, [dispatch, userData?.role]);
 
   return !allowedAuthRoles.includes(userData?.role || '') ? (
     <Navigate to="/pouzivatelske-systemy/" replace />
