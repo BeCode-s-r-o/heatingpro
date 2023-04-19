@@ -20,7 +20,6 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
 
   return (
     <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Avatar className="my-auto" variant="rounded" src={boiler.header.avatar} sx={{ width: 64, height: 64 }}></Avatar>
       <Box>
         <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
           <strong className="font-semibold">ID zariadenia:</strong> {boiler?.id}
