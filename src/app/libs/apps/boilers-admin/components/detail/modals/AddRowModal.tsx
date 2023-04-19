@@ -49,7 +49,9 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
     <Drawer anchor="right" open={isOpen} onClose={close}>
       <List className="w-[300px]">
         <ListItem>
-          <ListItemText primary="Pridávanie záznamu" />
+          <ListItemText
+            primary={newRow?.length !== 0 ? 'Pridávanie záznamu' : 'Pre pridanie záznamu musíte pridať stĺpce'}
+          />
         </ListItem>
         {newRow && (
           <form onSubmit={submit}>

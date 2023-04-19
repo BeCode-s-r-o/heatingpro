@@ -1,5 +1,5 @@
 import { Drawer, List, ListItem, ListItemText, TextField, Button } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { useDispatch } from 'react-redux';
 import { showMessage } from 'app/store/slices/messageSlice';
@@ -16,13 +16,23 @@ interface Props {
 }
 
 function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
-  const [formFields, setFormFields] = useState([{ name: '' }]);
+  const [formFields, setFormFields] = useState<{ name: string }[]>([{ name: '' }]);
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    if (columns.length > 0) {
+      setFormFields(columns.map((column) => ({ name: column.headerName })));
+    }
+  }, []);
+
+  console.log(columns);
+  console.log(formFields);
   const hanldeChange = (event, index) => {
+    console.log(formFields);
     let { name, value } = event.target;
-    let data = [...formFields];
-    data[index][name] = value;
-    setFormFields(data);
+    let actualFormFields = [...formFields];
+    actualFormFields[index][name] = value;
+    setFormFields(actualFormFields);
   };
 
   const submit = (e) => {
@@ -35,7 +45,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     }
     try {
       const boilerRef = doc(db, 'boilers', deviceID);
-      updateDoc(boilerRef, { monthTable: { columns: [...columns, ...newColumns], rows: addEmptyValueForRows() } });
+      updateDoc(boilerRef, { monthTable: { columns: [...newColumns], rows: addEmptyValueForRows() } });
       close();
     } catch {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
@@ -84,17 +94,17 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     <Drawer anchor="right" open={isOpen} onClose={close}>
       <List className="w-[300px]">
         <ListItem>
-          <ListItemText primary="Pridávanie stĺpcov" />
+          <ListItemText primary="Upravovanie stĺpcov" />
         </ListItem>
         <form onSubmit={submit}>
-          {formFields.map((form, index) => (
+          {formFields.map((field, index) => (
             <ListItem key={index}>
               <TextField
                 name="name"
                 label="Názov"
-                placeholder="Názov"
+                placeholder={field.name !== '' ? field.name : 'Názov'}
                 onChange={(event) => hanldeChange(event, index)}
-                value={form.name}
+                value={field.name}
                 required
               />
 
@@ -112,7 +122,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
         <br />
         <ListItem className="flex justify-end gap-12">
           <Button variant="contained" onClick={submit} color="primary">
-            Pridať
+            Uložiť
           </Button>
           <Button variant="contained" onClick={close} color="secondary">
             Zrušiť

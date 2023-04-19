@@ -32,6 +32,14 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
+
+  const columns = boiler?.monthTable.columns || [];
+  const defaultRows = boiler?.monthTable.rows || [];
+  const rolesEnabledEdit = ['admin'];
+  const rolesEnabledAddColumn = ['admin', 'instalater'];
+  const rolesEnabledAddRecord = ['admin', 'staff'];
+  const rolesEnabledExportAndPrint = ['admin', 'instalater', 'user'];
+
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
@@ -40,12 +48,14 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
   const [showEditRow, setShowEditRow] = React.useState(false);
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
   const [rows, setRows] = React.useState<any[]>([]);
-  const handleClickOpen = () => {
-    setShowConfirmModal(true);
-  };
+
   useEffect(() => {
     setRows(defaultRows);
   }, [boiler]);
+  const handleClickOpen = () => {
+    setShowConfirmModal(true);
+  };
+
   const deleteSelectedRows = () => {
     const boilerRef = doc(db, 'boilers', id);
     const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
@@ -88,12 +98,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
     dispatch(getBoiler(id || ''));
   };
-  const columns = boiler?.monthTable.columns || [];
-  const defaultRows = boiler?.monthTable.rows || [];
-  const rolesEnabledEdit = ['admin'];
-  const rolesEnabledAddColumn = ['admin', 'instalater'];
-  const rolesEnabledAddRecord = ['admin', 'staff'];
-  const rolesEnabledExportAndPrint = ['admin', 'instalater', 'user'];
+
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
