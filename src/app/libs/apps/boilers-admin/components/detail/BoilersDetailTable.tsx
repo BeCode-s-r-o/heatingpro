@@ -65,7 +65,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               lastUpdate: i.body?.timestamp.display,
               id: i.messageID,
               ...acc,
-              [String(idx + 20)]: curr || '-',
+              [String(idx)]: curr || '-',
             }),
             {}
           ) || {}
@@ -109,12 +109,12 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         <DataGrid
           rows={rows}
           columns={columns}
-          pageSize={10}
+          pageSize={15}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
-          rowsPerPageOptions={[10]}
+          rowsPerPageOptions={[15]}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">
