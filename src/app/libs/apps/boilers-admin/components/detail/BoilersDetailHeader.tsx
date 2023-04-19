@@ -1,6 +1,7 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
 import {
+  Avatar,
   Dialog,
   DialogActions,
   DialogContent,
@@ -89,33 +90,40 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
         <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
           <div className="flex flex-auto items-center min-w-0">
             <div className="flex flex-col min-w-0 mx-16">
-              <div className="flex gap-4 ">
-                <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                  {boiler?.name}
-                </Typography>
-              </div>
-              <div>
-                <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                  Perióda: {boiler?.period} (
-                  <small style={{ marginTop: '4px' }}>
-                    {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay} SMS/deň
-                  </small>
-                  )
-                  <FuseSvgIcon
-                    className="text-48 cursor-pointer "
-                    size={24}
-                    color="action"
-                    style={{ marginTop: '4px' }}
-                    onClick={() => {
-                      setShowPeriodSetting(true);
-                    }}
-                  >
-                    material-outline:settings
-                  </FuseSvgIcon>
-                </Typography>
-                <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                  {' '}
-                </Typography>
+              <div className="flex gap-12">
+                <Avatar
+                  className="my-auto"
+                  variant="rounded"
+                  src={boiler?.header.avatar}
+                  sx={{ width: 80, height: 80 }}
+                />
+                <div>
+                  <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    {boiler?.name}
+                  </Typography>
+
+                  <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    Perióda: {boiler?.period} (
+                    <small style={{ marginTop: '4px' }}>
+                      {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay} SMS/deň
+                    </small>
+                    )
+                    <FuseSvgIcon
+                      className="text-48 cursor-pointer "
+                      size={24}
+                      color="action"
+                      style={{ marginTop: '4px' }}
+                      onClick={() => {
+                        setShowPeriodSetting(true);
+                      }}
+                    >
+                      material-outline:settings
+                    </FuseSvgIcon>
+                  </Typography>
+                  <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    {' '}
+                  </Typography>
+                </div>
               </div>
             </div>
           </div>
@@ -125,13 +133,28 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               variant="contained"
               color="primary"
               startIcon={
-                <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+                <FuseSvgIcon className="text-48 text-white " size={24}>
                   heroicons-outline:upload
                 </FuseSvgIcon>
               }
               onClick={sendSMSToGetData}
             >
               Vyžiadať data
+            </Button>
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="secondary"
+              startIcon={
+                <FuseSvgIcon className="text-48" size={24} color="white">
+                  heroicons-outline:rss
+                </FuseSvgIcon>
+              }
+              onClick={() => {
+                alert('Na mne sa ešte pracuje :)');
+              }}
+            >
+              Reset Kotolne
             </Button>
             {boiler && (
               <>
