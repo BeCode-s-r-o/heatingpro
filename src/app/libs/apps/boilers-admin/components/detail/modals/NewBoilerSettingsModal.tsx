@@ -63,7 +63,7 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
 
   const saveColumnsForBoilerInFirebase = (columns) => {
     try {
-      const orderedColumns = columns.map((column, index) => ({ ...column, order: index, accessor: index }));
+      const orderedColumns = columns.map((column, index) => ({ ...column, order: index, accessor: String(index) }));
       console.log(orderedColumns);
       const boilerRef = doc(db, 'boilers', boiler.id);
 
