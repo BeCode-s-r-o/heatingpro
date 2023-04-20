@@ -23,7 +23,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     if (columns.length > 0) {
       setFormFields(columns.map((column) => ({ name: column.headerName })));
     }
-  }, []);
+  }, [columns]);
 
   console.log(columns);
   console.log(formFields);
@@ -39,7 +39,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     e.preventDefault();
 
     const newColumns = formFields.map((column) => ({ field: column.name, headerName: column.name }));
-    if (existDuplicateColumn([...newColumns, ...columns])) {
+    if (existDuplicateColumn(newColumns)) {
       dispatch(showMessage({ message: 'Vyskytol sa duplicitný stĺpec' }));
       return;
     }
@@ -51,7 +51,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
     }
     dispatch(getBoiler(deviceID || ''));
-    dispatch(showMessage({ message: 'Stĺpec úspešné pridaný' }));
+    dispatch(showMessage({ message: 'Zmeny boli úspešne uložené' }));
   };
 
   const addFields = () => {
