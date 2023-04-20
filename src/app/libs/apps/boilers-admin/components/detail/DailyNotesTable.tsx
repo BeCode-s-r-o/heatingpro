@@ -48,7 +48,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     date: todayDate,
     note: '',
     addedBy: '',
-    createdBy: user.data.uid,
+    createdBy: user.data.name,
     id: self.crypto.randomUUID(),
   });
   const handleClickOpen = () => {
@@ -61,13 +61,14 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
     let newRecordRef = doc(db, 'boilers', id);
     let updatedRows = [...rows, createdRecord];
+
     try {
       updateDoc(newRecordRef, { notes: updatedRows });
       setShowNewNoteModal(false);
       setRows(updatedRows);
       dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
 
@@ -77,13 +78,14 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     try {
       updateDoc(boilerRef, { notes: filteredRows });
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
       return;
     }
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
     setShowDeleteRowsConfirmModal(false);
     setRows([]);
   };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewRecord((prev) => ({ ...prev, [name]: value }));
@@ -294,7 +296,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             <TextField
               aria-label="minimum height"
               label="Zapísal"
-              name="addedBy"
+              name="createdBy"
               disabled
               value={newRecord.createdBy}
               defaultValue={user.data.name}

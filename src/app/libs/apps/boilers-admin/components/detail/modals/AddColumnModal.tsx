@@ -25,10 +25,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     }
   }, [columns]);
 
-  console.log(columns);
-  console.log(formFields);
   const hanldeChange = (event, index) => {
-    console.log(formFields);
     let { name, value } = event.target;
     let actualFormFields = [...formFields];
     actualFormFields[index][name] = value;
@@ -47,8 +44,8 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
       const boilerRef = doc(db, 'boilers', deviceID);
       updateDoc(boilerRef, { monthTable: { columns: [...newColumns], rows: addEmptyValueForRows() } });
       close();
-    } catch {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
     dispatch(getBoiler(deviceID || ''));
     dispatch(showMessage({ message: 'Zmeny boli úspešne uložené' }));
@@ -68,7 +65,6 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
       var updatedRow = { ...rows[i] };
       for (let j = 0; j < newColumns.length; j++) {
         updatedRow[newColumns[j]] = '-';
-        console.log(i, j);
       }
       updatedRows.push(updatedRow);
     }

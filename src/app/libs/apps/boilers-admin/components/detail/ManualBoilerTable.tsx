@@ -62,7 +62,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: filteredRows } });
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
       return;
     }
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
@@ -89,7 +89,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
 
       setShowEditRow(false);
       return;

@@ -83,7 +83,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   const rolesEnableDelete = ['admin', 'instalater'];
   const rolesEnableEditColumns = ['admin', 'instalater'];
   const rolesEnabledExportAndPrint = ['admin', 'user', 'instalater', 'obsluha'];
-  console.log('rows:', rows, 'columns:', columns);
+
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">

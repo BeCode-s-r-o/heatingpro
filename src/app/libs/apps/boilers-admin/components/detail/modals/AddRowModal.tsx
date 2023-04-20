@@ -38,8 +38,8 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
       const boilerRef = doc(db, 'boilers', deviceID);
       updateDoc(boilerRef, { monthTable: { rows: [...existingRows, createdRow], columns: columns } });
       close();
-    } catch {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
     dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
     dispatch(getBoiler(deviceID || ''));

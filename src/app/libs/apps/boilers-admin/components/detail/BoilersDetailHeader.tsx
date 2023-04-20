@@ -60,7 +60,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       await axios.post('https://api.monitoringpro.sk/change-period', data);
       dispatch(showMessage({ message: 'Perióda bola úspšene zmenená' }));
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     } finally {
       setShowConfirmModalChange(false);
       setShowPeriodSetting(false);

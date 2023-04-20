@@ -75,7 +75,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
   const handleRemovePicture = () => {
     setImage('');
   };
-  console.log(headerData);
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[300px]">
