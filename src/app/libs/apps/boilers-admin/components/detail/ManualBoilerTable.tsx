@@ -133,7 +133,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             ...columns,
             {
               field: 'id',
-              headerName: 'upraviť',
+              headerName: 'Upraviť',
               id: 'ahskjahsf',
               sortable: false,
               renderCell: (params) => {
