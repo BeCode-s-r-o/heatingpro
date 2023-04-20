@@ -159,7 +159,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
                 );
               },
             },
-          ]}
+          ].map((i) => ({ ...i, flex: 1 }))}
           pageSize={10}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
