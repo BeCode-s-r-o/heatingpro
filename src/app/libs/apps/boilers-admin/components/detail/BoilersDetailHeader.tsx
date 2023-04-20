@@ -46,7 +46,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
       dispatch(getBoiler(boiler?.id || ''));
     } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
 

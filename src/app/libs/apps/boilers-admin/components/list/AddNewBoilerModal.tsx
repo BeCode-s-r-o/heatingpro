@@ -258,7 +258,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       boilerId: boilerID,
     };
     try {
-      await axios.post('http://localhost:5500/config-boiler', data);
+      await axios.post('https://api.monitoringpro.sk/config-boiler', data);
     } catch (error) {}
   };
   const saveNewBoiler = () => {
