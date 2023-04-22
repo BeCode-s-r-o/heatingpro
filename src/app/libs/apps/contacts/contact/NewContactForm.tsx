@@ -1,11 +1,10 @@
 import FuseLoading from '@app/core/Loading';
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { TContact, TUserRoles } from '@app/types/TContact';
+import { TUserRoles } from '@app/types/TContact';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
-import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,23 +14,18 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
-import { AppDispatch, RootState } from 'app/store/index';
+import { AppDispatch } from 'app/store/index';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
-
-import {
-  addContact,
-  getContact,
-  removeContact,
-  selectContactById,
-  updateContact,
-} from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 
 const schema = yup.object().shape({
-  name: yup.string().required('You must enter a name'),
+  name: yup.string().required('Zadajte prosím meno'),
+  email: yup.string().email().required('Toto nieje platný email'),
+  password: yup.string().required('Brácho ta dajaké heslo zadaj'),
+  phone: yup.string().required('You must enter a name'),
 });
 
 const NewContactForm = () => {
@@ -41,6 +35,7 @@ const NewContactForm = () => {
     avatar: '',
     phone: '',
     email: '',
+    password: '',
     role: TUserRoles.user,
     heaters: [],
   });
@@ -54,13 +49,14 @@ const NewContactForm = () => {
   const { isValid, dirtyFields, errors } = formState;
 
   const form = watch();
-
+  console.log(form);
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
 
   function onSubmit(data) {
-    dispatch(addContact(data));
+    console.log(data);
+    /* dispatch(addContact(data)); */
   }
 
   if (_.isEmpty(form) || !contact) {
@@ -195,8 +191,9 @@ const NewContactForm = () => {
               {...field}
               label="Email"
               placeholder="Email"
-              id="title"
-              error={!!errors.title}
+              id="email"
+              error={!!errors.email}
+              type="email"
               variant="outlined"
               required
               fullWidth
@@ -286,17 +283,17 @@ const NewContactForm = () => {
         className="flex items-center mt-40 py-14 pr-16 pl-4 sm:pr-48 sm:pl-36 border-t"
         sx={{ backgroundColor: 'background.default' }}
       >
-        <Button className="ml-auto" component={NavLinkAdapter} to={-1}>
-          Zrušiť
-        </Button>
         <Button
-          className="ml-8"
+          className="ml-auto"
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={_.isEmpty(dirtyFields) || !isValid}
           onClick={handleSubmit(onSubmit)}
         >
           Pridať
+        </Button>
+        <Button className="ml-8" component={NavLinkAdapter} to={-1}>
+          Zrušiť
         </Button>
       </Box>
     </>
