@@ -7,21 +7,20 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import PhoneNumberInput from '../phone-number-selector/PhoneNumberInput';
-
+import { useState } from 'react';
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),
   label: yup.string().required('Pridajte názov kotla'),
   phone: yup.string().required('Pridajte tel.číslo kotla'),
 });
 
-const defaultValues = [{ id: '', label: '', phone: '' }];
-
 function HeaterInput(props) {
   const { value, hideRemove } = props;
-
+  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', label: '', phone: '' });
+  const defaultValues = '';
   const { control, formState, handleSubmit, reset, watch } = useForm({
     mode: 'onChange',
-    defaultValues,
+    defaultValues: defaultValues,
     resolver: yupResolver(schema),
   });
   const form = watch();
@@ -32,7 +31,9 @@ function HeaterInput(props) {
   const { isValid, dirtyFields, errors } = formState;
 
   function onSubmit(data) {
-    props.onChange(data);
+    props.onChange(data.id);
+    setActualHeaterInfo(data);
+    console.log('kurvaa');
   }
   const heaters = [
     {
@@ -82,54 +83,27 @@ function HeaterInput(props) {
   return (
     <>
       <h1 className="text-center pb-12">Kotolňa</h1>
-      <form className="flex space-x-16 mb-16" onChange={handleSubmit(onSubmit)}>
-        <Controller
-          control={control}
-          name="heater"
-          render={({ field: { onChange, value } }) => (
-            <Autocomplete
-              disablePortal
-              id="heater"
-              options={heaters}
-              getOptionLabel={(option) => option.id}
-              isOptionEqualToValue={(option, value) => option.id === value.id}
-              renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
-              onChange={(event, newValue) => {
-                onChange(newValue);
-              }}
-              fullWidth
-              renderInput={(params) => (
-                <TextField {...params} variant="outlined" fullWidth label="ID Zariadenia" placeholder="ID Zariadenia" />
-              )}
-            />
+      <form className="flex space-x-16 mb-16">
+        <Autocomplete
+          disablePortal
+          id="id"
+          options={heaters}
+          getOptionLabel={(option) => option.id}
+          isOptionEqualToValue={(option, value) => option.id === value.id}
+          renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
+          onChange={(event, newValue) => {
+            onSubmit(newValue);
+          }}
+          fullWidth
+          renderInput={(params) => (
+            <TextField {...params} variant="outlined" fullWidth label="ID Zariadenia" placeholder="ID Zariadenia" />
           )}
         />
-
-        {/*         <Controller
-          control={control}
-          name="autocomplete"
-          render={({ field }) => (
-            <Autocomplete
-              {...field}
-              disablePortal
-              options={options}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Autocomplete"
-                  variant="outlined"
-                  error={!!errors.autocomplete}
-                  helperText={errors?.autocomplete?.message}
-                />
-              )}
-            />
-          )}
-        /> */}
 
         <TextField
           disabled
           readOnly
-          value={form.heater ? form.heater.label : ''}
+          value={actualHeaterInfo.label}
           className=""
           label="Názov"
           placeholder="Názov"
@@ -141,29 +115,21 @@ function HeaterInput(props) {
           }}
         />
 
-        <Controller
+        <TextField
           disabled
           readOnly
-          control={control}
-          name="phone"
-          render={({ field }) => (
-            <TextField
-              {...field}
-              disabled
-              readOnly
-              className=""
-              label="Tel.číslo"
-              value={form.heater ? form.heater.phone : ''}
-              placeholder="Tel.číslo"
-              variant="outlined"
-              fullWidth
-              helperText={errors?.phone?.message}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-          )}
+          className=""
+          label="Tel.číslo"
+          value={actualHeaterInfo.phone}
+          placeholder="Tel.číslo"
+          variant="outlined"
+          fullWidth
+          helperText={errors?.phone?.message}
+          InputProps={{
+            readOnly: true,
+          }}
         />
+
         {!hideRemove && (
           <IconButton onClick={props.onRemove}>
             <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
@@ -173,9 +139,5 @@ function HeaterInput(props) {
     </>
   );
 }
-
-PhoneNumberInput.defaultProps = {
-  hideRemove: false,
-};
 
 export default HeaterInput;
