@@ -1,21 +1,16 @@
-import { useCallback, useRef, useState } from 'react';
-import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
-import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
-
-import { db } from 'src/firebase-config';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useCallback, useRef, useState } from 'react';
 import { TBoiler } from '@app/types/TBoilers';
-import { useDispatch } from 'react-redux';
-import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
-import HeightIcon from '@mui/icons-material/Height';
+import { useDispatch } from 'react-redux';
+import { db } from 'src/firebase-config';
+import { getBoiler } from '../../../store/boilersSlice';
 import { DragNDropColumn } from './DragNDropColumn';
 interface Props {
   boiler: TBoiler;
@@ -23,8 +18,10 @@ interface Props {
   toggleOpen: () => void;
 }
 function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
-  const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
   const dispatch = useDispatch<AppDispatch>();
+
+  const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
+
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
 
@@ -60,7 +57,6 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
     try {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
       const boilerRef = doc(db, 'boilers', boiler.id);
-
       updateDoc(boilerRef, { columns: orderedColumns });
       dispatch(getBoiler(boiler?.id || ''));
       toggleOpen();

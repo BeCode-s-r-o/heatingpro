@@ -1,4 +1,5 @@
-import { Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import FuseSvgIcon from '@app/core/SvgIcon';
+import { Avatar, Button } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -6,41 +7,45 @@ import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
-import moment from 'moment';
-import React, { useState } from 'react';
-import FuseSvgIcon from '@app/core/SvgIcon';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { TBoiler, TSms } from 'src/@app/types/TBoilers';
+import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
+import { compareDates } from './functions/datesOperations';
+import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import ConfirmModal from './modals/ConfirmModal';
-import { compareDates } from './functions/datesOperations';
 
 export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
+  const user = useSelector(selectUser);
+
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-  const [rows, setRows] = React.useState<any[]>([]);
-  const user = useSelector(selectUser);
+  const [rows, setRows] = React.useState([]);
+
+  const rolesEnableDelete = ['admin', 'instalater'];
+  const rolesEnableEditColumns = ['admin', 'instalater'];
+  const rolesEnabledExportAndPrint = ['admin', 'user', 'instalater', 'obsluha'];
 
   useEffect(() => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
+
   useEffect(() => {
     setRows(defaultRows);
   }, [boiler]);
 
   const filterRowsByDate = (e) => {
-    !e.target.value
-      ? setRows(defaultRows)
-      : setRows(defaultRows.filter((i) => compareDates(i.lastUpdate, e.target.value)));
+    let { value } = e.target;
+
+    !value ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(sms.lastUpdate, value)));
   };
+
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
     const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 160, headerName: 'Dátum' };
@@ -71,6 +76,10 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
           ) || {}
       );
   };
+
+  const columns = generateColumns([...(boiler?.columns || [])]);
+  const defaultRows: any = generateRows([...(boiler?.sms || [])]);
+
   const deleteSelectedRows = () => {
     var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
     getDocs(deleteQuery).then((querySnapshot) => {
@@ -78,11 +87,6 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
     });
     setShowConfirmModal(false);
   };
-  const columns = generateColumns([...(boiler?.columns || [])]);
-  const defaultRows: any = generateRows([...(boiler?.sms || [])]);
-  const rolesEnableDelete = ['admin', 'instalater'];
-  const rolesEnableEditColumns = ['admin', 'instalater'];
-  const rolesEnabledExportAndPrint = ['admin', 'user', 'instalater', 'obsluha'];
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -201,7 +205,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         )}
         {boiler && (
           <>
-            {boiler.columns.length === 0 ? (
+            {boiler.columns.length === 0 ? ( //initializing new boiler
               <NewBoilerSettingsModal
                 boiler={boiler}
                 isOpen={isSettingsModalOpen}
