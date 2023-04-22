@@ -84,7 +84,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
           />
         ))}
 
-        <ListItem className="flex justify-end gap-12">
+        <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
           <Button
             className="whitespace-nowrap"
             variant="contained"
