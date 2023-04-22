@@ -8,9 +8,9 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  Typography,
+  Paper,
 } from '@mui/material';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -24,7 +24,6 @@ import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import { selectUser } from 'app/store/userSlice';
-import moment from 'moment';
 import ConfirmModal from './modals/ConfirmModal';
 import { compareDates } from './functions/datesOperations';
 
@@ -307,24 +306,18 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             )}
           </DialogContent>
           <DialogActions>
+            <Button className="whitespace-nowrap w-fit mb-2 mr-8" variant="contained" color="primary" type="submit">
+              Uložiť zmeny
+            </Button>
             <Button
               className="whitespace-nowrap w-fit mb-2 mr-4"
               variant="contained"
-              color="primary"
+              color="secondary"
               onClick={() => {
                 setShowEditRow(false);
               }}
             >
               Zatvoriť
-            </Button>
-            <Button
-              className="whitespace-nowrap w-fit mb-2 mr-8"
-              variant="contained"
-              color="secondary"
-              autoFocus
-              type="submit"
-            >
-              Zmeniť
             </Button>
           </DialogActions>
         </form>
