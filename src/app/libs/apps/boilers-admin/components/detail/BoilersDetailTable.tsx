@@ -42,10 +42,12 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
 
   const filterRowsByDate = (e) => {
     let { value } = e.target;
-
-    !value ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(sms.lastUpdate, value)));
+    let showAllRecords = !value;
+    showAllRecords ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(sms.lastUpdate, value)));
   };
-
+  const nubmerIsInInterval = (min, max, number) => {
+    return number >= min && number <= max;
+  };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
     const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 160, headerName: 'Dátum' };
@@ -55,6 +57,13 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         headerName: `${item.columnName} (${item.unit})`,
         hide: item.hide,
         flex: 1,
+        renderCell: (params) => {
+          return (
+            <p className={nubmerIsInInterval(params.min, params.max, params.value) ? 'text-green' : 'text-red'}>
+              {params.value}
+            </p>
+          );
+        },
       };
     });
     return [lastUpdate, ...generatedColumns];
@@ -168,7 +177,11 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
             className="whitespace-nowrap dont-print"
             variant="contained"
             color="primary"
-            startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
+            startIcon={
+              <FuseSvgIcon className="text-48 text-white" size={24}>
+                heroicons-solid:cog
+              </FuseSvgIcon>
+            }
             onClick={() => {
               setIsSettingsModalOpen(true);
             }}
@@ -185,7 +198,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               color="primary"
               onClick={generatePDF}
             >
-              <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+              <FuseSvgIcon className="text-48 mr-6" size={24} color="white">
                 material-outline:picture_as_pdf
               </FuseSvgIcon>{' '}
               Export
