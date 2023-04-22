@@ -63,7 +63,7 @@ const ContactsHeader = () => {
             onChange={(ev) => dispatch(setContactsSearchText(ev))}
           />
         </Box>
-        <Button className="mx-8" variant="contained" color="secondary" component={NavLinkAdapter} to="/novy-pouzivatel">
+        <Button className="mx-8" variant="contained" color="primary" component={NavLinkAdapter} to="/novy-pouzivatel">
           <FuseSvgIcon size={20}>heroicons-outline:plus</FuseSvgIcon>
           <span className="mx-8">Pridať</span>
         </Button>
