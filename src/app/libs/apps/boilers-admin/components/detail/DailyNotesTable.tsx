@@ -29,6 +29,7 @@ import { db } from 'src/firebase-config';
 import { selectBoilerById } from '../../store/boilersSlice';
 import { formatDateToSK } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
+import HandleSignature from './modals/HandleSignature';
 
 export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -49,6 +50,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     note: '',
     addedBy: '',
     createdBy: user.data.name,
+    imageURL: null,
     id: self.crypto.randomUUID(),
   });
   const handleClickOpen = () => {
@@ -325,7 +327,9 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
               className="border w-full p-12"
             />
           </ListItem>
-
+          <ListItem>
+            <HandleSignature imageURL={newRecord.imageURL} setImageURL={setNewRecord} />
+          </ListItem>
           <ListItem className="flex justify-end gap-12">
             <Button
               className="whitespace-nowrap"
