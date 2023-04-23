@@ -201,9 +201,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               className="w-[500px]"
               type="text"
               label="Prevádzkovateľ  *"
-              value={newBoiler.assignedTo}
+              value={header.operator}
               name="assignedTo"
-              onChange={handleBoilerChange}
+              onChange={handleHeaderChange}
             />
           </ListItem>
           <ListItem>
