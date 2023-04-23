@@ -59,7 +59,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         flex: 1,
         renderCell: (params) => {
           return (
-            <p className={nubmerIsInInterval(params.min, params.max, params.value) ? 'text-green' : 'text-red'}>
+            <p className={nubmerIsInInterval(item.min, item.max, params.value) ? 'text-green' : 'text-red'}>
               {params.value}
             </p>
           );
