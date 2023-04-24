@@ -13,8 +13,11 @@ function HandleSignature({ imageURL, setImageURL }: Props) {
 
   const create = () => {
     const URL = sigCanvas.current.getTrimmedCanvas().toDataURL('image/png');
-    setImageURL((prev) => ({ ...prev, imageURL: URL }));
+    setImageURL((prev) => ({ ...prev, signatureImgURL: URL }));
     setOpenModal(false);
+  };
+  const deleteImg = () => {
+    setImageURL((prev) => ({ ...prev, signatureImgURL: null }));
   };
 
   return (
@@ -22,7 +25,10 @@ function HandleSignature({ imageURL, setImageURL }: Props) {
       {imageURL && <img src={imageURL} alt="signature" className="signature mx-auto" />}
 
       <br />
-      <Button onClick={() => setOpenModal(true)}>Podpísať</Button>
+      <Button variant="outlined" onClick={() => setOpenModal(true)}>
+        Podpísať
+      </Button>
+      {imageURL !== null && <Button onClick={deleteImg}>Odstrániť podpis</Button>}
       {openModel && (
         <div className="modalContainer ">
           <div className="modal">
