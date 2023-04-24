@@ -64,7 +64,10 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     for (let i = 0; i < rows.length; i++) {
       var updatedRow = { ...rows[i] };
       for (let j = 0; j < newColumns.length; j++) {
-        updatedRow[newColumns[j]] = '-';
+        if (updatedRow[newColumns[j]] !== '-' && updatedRow[newColumns[j]] === undefined) {
+          console.log(updatedRow[newColumns[j]]);
+          updatedRow[newColumns[j]] = '-';
+        }
       }
       updatedRows.push(updatedRow);
     }
