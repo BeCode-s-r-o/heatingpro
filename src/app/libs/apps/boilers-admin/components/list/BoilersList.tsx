@@ -32,6 +32,12 @@ const BoilersList = () => {
 
   const assignedHeaterIds = useMemo(() => getAssignedHeatersIds(userData?.heaters || []), [userData?.heaters]);
 
+  useEffect(() => {
+    if (userData?.role && allowedAuthRoles.includes(userData?.role)) {
+      dispatch(getBoilers());
+    }
+  }, [dispatch, userData?.role]);
+
   const boilers = () => {
     if (isAdmin) {
       return arrayOfAllBoilers;
@@ -39,12 +45,6 @@ const BoilersList = () => {
       return filterAssignedHeaters(arrayOfAllBoilers, assignedHeaterIds);
     }
   };
-
-  useEffect(() => {
-    if (userData?.role && allowedAuthRoles.includes(userData?.role)) {
-      dispatch(getBoilers());
-    }
-  }, [dispatch, userData?.role]);
 
   return !allowedAuthRoles.includes(userData?.role || '') ? (
     <Navigate to="/pouzivatelske-systemy/" replace />
