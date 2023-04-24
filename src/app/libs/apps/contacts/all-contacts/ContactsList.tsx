@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
@@ -9,10 +9,18 @@ import {
   selectGroupedFilteredContacts,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 
+import withReducer from 'app/store/withReducer';
+import { getBoilers, boilersSlice } from '../../boilers-admin/store/boilersSlice';
+import { useEffect } from 'react';
+import { AppDispatch } from 'app/store/index';
+
 const ContactsList = () => {
   const filteredData = useSelector(selectFilteredContacts);
   const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
-
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(getBoilers());
+  }, [dispatch]);
   if (!filteredData) {
     return null;
   }
@@ -52,5 +60,4 @@ const ContactsList = () => {
     </motion.div>
   );
 };
-
-export default ContactsList;
+export default withReducer('adminBoilers', boilersSlice.reducer)(ContactsList);
