@@ -56,7 +56,8 @@ const NewContactForm = () => {
   }, [contact, reset]);
 
   function onSubmit(data) {
-    dispatch(addContact(data));
+    console.log(data);
+    /* dispatch(addContact(data)); */
   }
 
   if (_.isEmpty(form) || !contact) {

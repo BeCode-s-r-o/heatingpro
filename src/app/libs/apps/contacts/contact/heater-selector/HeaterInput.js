@@ -6,9 +6,11 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { boilersSlice, getBoilers, selectAllBoilers } from '../../../boilers-admin/store/boilersSlice';
 import withReducer from 'app/store/withReducer';
+
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),
   label: yup.string().required('Pridajte názov kotla'),
@@ -23,6 +25,7 @@ function HeaterInput(props) {
   useEffect(() => {
     dispatch(getBoilers());
   }, [dispatch]);
+
   const defaultValues = '';
   const { control, formState, handleSubmit, reset, watch } = useForm({
     mode: 'onChange',
@@ -39,7 +42,7 @@ function HeaterInput(props) {
   function onSubmit(data) {
     props.onChange(data.id);
     setActualHeaterInfo(data);
-    console.log(data);
+
   }
   const heaters = [
     {
@@ -135,6 +138,7 @@ function HeaterInput(props) {
             readOnly: true,
           }}
         />
+
         {!hideRemove && (
           <IconButton onClick={props.onRemove}>
             <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
@@ -144,4 +148,5 @@ function HeaterInput(props) {
     </>
   );
 }
+
 export default HeaterInput;
