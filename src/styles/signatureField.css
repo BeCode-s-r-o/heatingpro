@@ -1,0 +1,89 @@
+.modalContainer {
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal {
+  width: 90%;
+  max-width: 500px;
+  border: 5px;
+  padding: 10px;
+  background-color: white;
+  box-sizing: border-box;
+}
+
+.modal__bottom {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.modal__bottom button {
+  padding: 6px 10px;
+}
+
+.sigPadContainer {
+  background-color: rgb(238, 235, 235);
+  padding: 0 10px 10px;
+}
+
+.sigPadContainer hr {
+  margin-bottom: unset;
+  background-color: gainsboro;
+}
+
+.sigCanvas {
+  width: 100%;
+  height: 200px;
+}
+
+.sigPadContainer button {
+  border: none;
+  margin-left: auto;
+  color: rgb(78, 75, 75);
+  padding: 0;
+  display: block;
+  margin-top: 5px;
+}
+
+.sigPadContainer button:hover {
+  background-color: unset;
+  color: black;
+}
+
+.sigPad__penColors {
+  margin-bottom: 10px;
+}
+
+.sigPad__penColors p {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.sigPad__penColors span {
+  padding: 0px 9px;
+  border-radius: 100%;
+  margin-right: 5px;
+}
+
+.modal__bottom .create {
+  margin-left: 10px;
+  background-color: rgb(126, 119, 119);
+  color: white;
+}
+
+.signature {
+  width: 70%;
+  margin-top: 20px;
+  box-shadow: 0 0 4px 2px gainsboro;
+  padding: 10px;
+  object-fit: contain;
+}

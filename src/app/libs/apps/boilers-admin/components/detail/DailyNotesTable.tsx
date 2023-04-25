@@ -29,6 +29,7 @@ import { db } from 'src/firebase-config';
 import { selectBoilerById } from '../../store/boilersSlice';
 import { formatDateToSK } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
+import HandleSignature from './modals/HandleSignature';
 
 export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -41,14 +42,22 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
   const [showDetailNote, setShowDetailNote] = useState(false);
   const [showNewNoteModal, setShowNewNoteModal] = useState(false);
   const [showRecordConfirmModal, setShowRecordConfirmModal] = useState(false);
-  const [record, setRecord] = useState({ date: '', note: '', addedBy: '' });
+  const [record, setRecord] = useState<TBoilerNote>({
+    id: '',
+    date: '',
+    note: '',
+    createdBy: '',
+    confirmedBy: '',
+    signatureImgURL: null,
+  });
   const [rows, setRows] = useState<TBoilerNote[]>([]);
 
   const [newRecord, setNewRecord] = useState({
     date: todayDate,
     note: '',
-    addedBy: '',
+    confirmedBy: user.data.name,
     createdBy: user.data.name,
+    signatureImgURL: null,
     id: self.crypto.randomUUID(),
   });
   const handleClickOpen = () => {
@@ -85,7 +94,6 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     setShowDeleteRowsConfirmModal(false);
     setRows([]);
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNewRecord((prev) => ({ ...prev, [name]: value }));
@@ -103,10 +111,13 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
       flex: 2,
     },
     {
-      field: 'addedBy',
+      field: 'createdBy',
       headerName: `Pridal`,
       flex: 1,
     },
+
+    { field: 'confirmedBy', hide: true }, //this two columns just holds value, which is used down in action detail column
+    { field: 'signatureImgURL', hide: true },
     {
       field: 'action',
       headerName: 'Detail',
@@ -266,10 +277,17 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             <strong>Pridané dňa</strong>: {record.date}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description" className="mt-8">
-            <strong>Pridal</strong>: {record.addedBy}
+            <strong>Pridal</strong>: {record.createdBy}
+          </DialogContentText>
+          <DialogContentText id="alert-dialog-description" className="mt-8">
+            <strong>Potvrdil</strong>: {record.confirmedBy}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description" className="mt-8">
             <strong>Záznam</strong>: {record.note}
+          </DialogContentText>
+          <DialogContentText className="mt-8">
+            <strong>Podpis</strong>:
+            {record.signatureImgURL !== null && <img className="mt-24" src={record.signatureImgURL} />}
           </DialogContentText>
         </DialogContent>
       </Dialog>
@@ -299,7 +317,6 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
               name="createdBy"
               disabled
               value={newRecord.createdBy}
-              defaultValue={user.data.name}
               onChange={handleChange}
               className="border w-full"
             />
@@ -308,9 +325,8 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             <TextField
               aria-label="minimum height"
               label="Zaevidoval (podpis kompetentnej osoby)"
-              name="addedBy"
-              value={newRecord.addedBy}
-              defaultValue={user.data.name}
+              name="confirmedBy"
+              value={newRecord.confirmedBy}
               onChange={handleChange}
               className="border w-full"
             />
@@ -325,7 +341,9 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
               className="border w-full p-12"
             />
           </ListItem>
-
+          <ListItem>
+            <HandleSignature imageURL={newRecord.signatureImgURL} setImageURL={setNewRecord} />
+          </ListItem>
           <ListItem className="flex justify-end gap-12">
             <Button
               className="whitespace-nowrap"
@@ -360,7 +378,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
         onConfirm={addNewRecord}
         title="Želáte si pridať nový záznam?"
         message={`Dátum: ${formatDateToSK(newRecord.date)}<br/> Poznámka: ${newRecord.note} <br/> Pridal: ${
-          newRecord.addedBy
+          newRecord.confirmedBy
         }`}
         confirmText="Pridať"
         cancelText="Zrušiť"

@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
+import { addContact } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 
 const schema = yup.object().shape({

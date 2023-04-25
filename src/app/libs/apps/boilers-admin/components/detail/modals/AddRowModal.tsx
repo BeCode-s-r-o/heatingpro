@@ -10,6 +10,7 @@ import { getCurrentDate } from '../functions/datesOperations';
 function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
   const [newRow, setNewRow] = useState<any>();
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     setNewRow(columns.map((column) => ({ [column.field]: '', name: column.field })));
   }, [columns]);
@@ -19,6 +20,7 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
     setNewRow((prev) => prev.map((i) => (i.name === e.target.name ? { ...i, [name]: value } : i)));
   };
   function convertRowFromArrayToObject(arr) {
+    //new row must contain the key atribute which is also column name
     const row = { id: Date.now() };
     for (let i = 0; i < arr.length; i++) {
       const obj = arr[i];

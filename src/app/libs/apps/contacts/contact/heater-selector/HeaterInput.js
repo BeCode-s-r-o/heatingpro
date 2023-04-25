@@ -2,12 +2,15 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
-import PhoneNumberInput from '../phone-number-selector/PhoneNumberInput';
-import { useState } from 'react';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { boilersSlice, getBoilers, selectAllBoilers } from '../../../boilers-admin/store/boilersSlice';
+import withReducer from 'app/store/withReducer';
+
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),
   label: yup.string().required('Pridajte názov kotla'),
@@ -16,7 +19,13 @@ const schema = yup.object().shape({
 
 function HeaterInput(props) {
   const { value, hideRemove } = props;
-  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', label: '', phone: '' });
+  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '' });
+  const arrayOfAllBoilers = useSelector(selectAllBoilers);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getBoilers());
+  }, [dispatch]);
+
   const defaultValues = '';
   const { control, formState, handleSubmit, reset, watch } = useForm({
     mode: 'onChange',
@@ -33,7 +42,7 @@ function HeaterInput(props) {
   function onSubmit(data) {
     props.onChange(data.id);
     setActualHeaterInfo(data);
-    console.log('kurvaa');
+
   }
   const heaters = [
     {
@@ -87,7 +96,7 @@ function HeaterInput(props) {
         <Autocomplete
           disablePortal
           id="id"
-          options={heaters}
+          options={arrayOfAllBoilers}
           getOptionLabel={(option) => option.id}
           isOptionEqualToValue={(option, value) => option.id === value.id}
           renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
@@ -103,7 +112,7 @@ function HeaterInput(props) {
         <TextField
           disabled
           readOnly
-          value={actualHeaterInfo.label}
+          value={actualHeaterInfo.name}
           className=""
           label="Názov"
           placeholder="Názov"
@@ -120,7 +129,7 @@ function HeaterInput(props) {
           readOnly
           className=""
           label="Tel.číslo"
-          value={actualHeaterInfo.phone}
+          value={actualHeaterInfo.phoneNumber}
           placeholder="Tel.číslo"
           variant="outlined"
           fullWidth

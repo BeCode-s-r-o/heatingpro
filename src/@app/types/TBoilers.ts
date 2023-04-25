@@ -12,7 +12,14 @@ export type TBoiler = {
   notes: TBoilerNote[];
   monthTable: { columns: any; rows: any };
 };
-export type TBoilerNote = { id: string; note: String; date: string; addedBy: string };
+export type TBoilerNote = {
+  id: string;
+  note: String;
+  date: string;
+  confirmedBy: string;
+  createdBy: string;
+  signatureImgURL: string | null;
+};
 export type TBoilers = TBoiler[];
 
 export type TBoilerColumn = {
