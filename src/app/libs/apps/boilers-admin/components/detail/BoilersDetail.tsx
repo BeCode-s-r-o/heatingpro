@@ -102,9 +102,7 @@ const BoilersDetail = () => {
     document.body.removeChild(container);
   };
 
-  return !isAdmin && !isStaff ? (
-    <Navigate to="/404/" replace />
-  ) : (
+  return (
     <Wrapper
       header={<BoilersDetailHeader boiler={boiler} />}
       content={

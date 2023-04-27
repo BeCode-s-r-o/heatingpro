@@ -152,7 +152,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
                 };
 
                 return (
-                  <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer">
+                  <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
                     material-outline:edit
                   </FuseSvgIcon>
                 );

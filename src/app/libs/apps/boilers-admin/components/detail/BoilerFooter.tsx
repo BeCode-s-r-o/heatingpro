@@ -9,7 +9,7 @@ import { useState } from 'react';
 import ConfirmModal from './modals/ConfirmModal';
 import BoilerInfoModal from './modals/BoilerInfoModal';
 import { TContact } from '@app/types/TContact';
-const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: any; user: TContact }) => {
+const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: any; user: TContact | undefined }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
@@ -60,7 +60,7 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
         >
           Nastaviť info
         </Button>
-        {user.role === 'admin' && (
+        {user?.role === 'admin' && (
           <Button
             className="whitespace-nowrap w-fit dont-print "
             variant="contained"
