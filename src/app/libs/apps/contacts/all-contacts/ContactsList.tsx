@@ -17,10 +17,7 @@ import { AppDispatch } from 'app/store/index';
 const ContactsList = () => {
   const filteredData = useSelector(selectFilteredContacts);
   const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
-  const dispatch = useDispatch<AppDispatch>();
-  useEffect(() => {
-    dispatch(getBoilers());
-  }, [dispatch]);
+
   if (!filteredData) {
     return null;
   }
@@ -60,4 +57,4 @@ const ContactsList = () => {
     </motion.div>
   );
 };
-export default withReducer('adminBoilers', boilersSlice.reducer)(ContactsList);
+export default ContactsList;
