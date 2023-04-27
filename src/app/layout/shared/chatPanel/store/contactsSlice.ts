@@ -6,7 +6,7 @@ import history from '@history';
 import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 'firebase/auth';
 import { secondaryApp } from 'src/firebase-config';
 import FuseUtils from '@app/utils/FuseUtils';
-
+import { showMessage } from 'app/store/slices/messageSlice';
 export const selectSearchText = (state: RootState) => state.contacts.searchText;
 
 export const getContacts = createAsyncThunk('contacts/getContacts', async () => {
@@ -35,8 +35,7 @@ export const addContact = createAsyncThunk(
       const id = userCredential.user.uid;
       const customerRef = doc(getFirestore(), 'users', id);
       await setDoc(customerRef, { ...contact, id });
-      await sendPasswordResetEmail(sAuth, contact.email);
-      console.log('noma problema');
+      /* await sendPasswordResetEmail(sAuth, contact.email); */
     } catch (error) {
       throw error;
     }
