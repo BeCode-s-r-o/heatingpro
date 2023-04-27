@@ -1,5 +1,4 @@
 import { authRoles } from '../auth/authRoles';
-const allowedRoles = [authRoles.admin, authRoles.staff, authRoles.instalater];
 
 const navigationConfig = [
   {
@@ -67,6 +66,7 @@ const navigationConfig = [
         type: 'item',
         icon: 'heroicons-outline:calendar',
         url: '/kalendar',
+        auth: authRoles.none,
       },
     ],
   },

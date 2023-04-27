@@ -13,4 +13,5 @@ export const authRoles = {
   guest: ['admin', 'guest', 'user'],
   onlyUser: ['user'],
   onlyGuest: [],
+  none: [],
 };
