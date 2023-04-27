@@ -21,6 +21,9 @@ import { useDispatch } from 'react-redux';
 import * as yup from 'yup';
 import { addContact } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
+import { boilersSlice, getBoilers } from '../../boilers-admin/store/boilersSlice';
+import withReducer from 'app/store/withReducer';
+import { showMessage } from 'app/store/slices/messageSlice';
 
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
@@ -41,6 +44,11 @@ const NewContactForm = () => {
     heaters: [],
   });
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getBoilers());
+  }, [dispatch]);
+
   const [showPassword, setShowPassword] = useState(false);
   const { control, watch, reset, handleSubmit, formState } = useForm({
     mode: 'onChange',
@@ -50,14 +58,19 @@ const NewContactForm = () => {
   const { isValid, dirtyFields, errors } = formState;
 
   const form = watch();
-  console.log(form);
+
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
 
   function onSubmit(data) {
-    console.log(data);
-    /* dispatch(addContact(data)); */
+    try {
+      dispatch(addContact(data));
+      dispatch(showMessage({ message: 'Používateľ bol úspešne vytvorený' }));
+    } catch (error) {
+      dispatch(showMessage({ messagge: 'Ups, vyskytla sa chyba' + error }));
+    }
+    reset();
   }
 
   if (_.isEmpty(form) || !contact) {
@@ -301,4 +314,4 @@ const NewContactForm = () => {
   );
 };
 
-export default NewContactForm;
+export default withReducer('adminBoilers', boilersSlice.reducer)(NewContactForm);

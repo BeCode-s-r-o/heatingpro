@@ -1,5 +1,4 @@
 import { TBoiler } from '@app/types/TBoilers';
-import { TContactHeater } from '@app/types/TContact';
 import { AppDispatch } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
@@ -8,18 +7,10 @@ import { memo, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { container, item } from '../../constants';
-import { boilersSlice, getBoilers, selectAllBoilers } from '../../store/boilersSlice';
+import { boilersSlice, getBoilers, selectAllBoilers, userAssignedHeaters } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
 import { BoilersListHeader } from './BoilersListHeader';
 import { BoilersListTable } from './BoilersListTable';
-
-const filterAssignedHeaters = (heaters: TBoiler[], ids: string[]) => {
-  return heaters.filter((heater) => ids.includes(heater.id));
-};
-
-const getAssignedHeatersIds = (heaters: TContactHeater[] | []) => {
-  return heaters.map((device) => device.heater);
-};
 
 const BoilersList = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -30,25 +21,21 @@ const BoilersList = () => {
   const userRole = userData?.role || '';
   const isAdmin = userRole === 'admin';
 
-  const assignedHeaterIds = useMemo(() => getAssignedHeatersIds(userData?.heaters || []), [userData?.heaters]);
+  const assignedHeaterIds = userData?.heaters || [];
 
   useEffect(() => {
-    if (userData?.role && allowedAuthRoles.includes(userData?.role)) {
-      dispatch(getBoilers());
-    }
+    dispatch(getBoilers());
   }, [dispatch, userData?.role]);
 
   const boilers = () => {
     if (isAdmin) {
       return arrayOfAllBoilers;
     } else {
-      return filterAssignedHeaters(arrayOfAllBoilers, assignedHeaterIds);
+      return userAssignedHeaters(arrayOfAllBoilers, assignedHeaterIds);
     }
   };
 
-  return !allowedAuthRoles.includes(userData?.role || '') ? (
-    <Navigate to="/pouzivatelske-systemy/" replace />
-  ) : (
+  return (
     <Wrapper
       header={<BoilersListHeader />}
       content={

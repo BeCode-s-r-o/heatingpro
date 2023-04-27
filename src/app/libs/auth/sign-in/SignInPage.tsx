@@ -1,20 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
-import Avatar from '@mui/material/Avatar';
-import AvatarGroup from '@mui/material/AvatarGroup';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
-import FormControl from '@mui/material/FormControl';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { authInstance } from 'src/app/auth/jwtService';
 import * as yup from 'yup';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 const schema = yup.object().shape({
   email: yup.string().email('Musíte zadať platný e-mail').required('Musíte zadať e-mail'),
@@ -33,11 +30,19 @@ function SignInPage() {
     defaultValues,
     resolver: yupResolver(schema),
   });
-
+  const dispatch = useDispatch();
   const { isValid, dirtyFields, errors } = formState;
+  const [showLoginErrorMessage, setshowLoginErrorMessage] = useState(false);
 
-  function onSubmit({ email, password }) {
-    authInstance.signInWithEmailAndPassword(email, password);
+  async function onSubmit({ email, password }) {
+    try {
+      await authInstance.signInWithEmailAndPassword(email, password);
+    } catch (error) {
+      setshowLoginErrorMessage(true);
+      setTimeout(() => {
+        setshowLoginErrorMessage(false);
+      }, 3000);
+    }
   }
 
   return (
@@ -79,7 +84,7 @@ function SignInPage() {
               render={({ field }) => (
                 <TextField
                   {...field}
-                  className="mb-24"
+                  className="mb-12"
                   label="Heslo"
                   type="password"
                   error={!!errors.password}
@@ -90,7 +95,13 @@ function SignInPage() {
                 />
               )}
             />
-
+            {showLoginErrorMessage && (
+              <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
+                <Typography className="text-md font-medium" color="error">
+                  Heslo alebo E-mail je nesprávny.
+                </Typography>
+              </div>
+            )}
             <div className="flex flex-col sm:flex-row items-center justify-center sm:justify-between">
               <Link className="text-md font-medium" to="/forgot-password">
                 Zabudli ste heslo?

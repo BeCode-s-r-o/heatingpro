@@ -17,8 +17,10 @@ import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 import HeightIcon from '@mui/icons-material/Height';
 import React from 'react';
+import { Typography } from '@mui/material';
 
 interface SettingsColumnProps {
+  valueFromPlaceInSms: string | null;
   column: TBoilerColumn;
   index: number;
   onDragStart: (index: number) => void;
@@ -38,6 +40,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
   onDragEnter,
   onDragEnd,
   onChange,
+  valueFromPlaceInSms,
 }: SettingsColumnProps) {
   return (
     <ListItem
@@ -50,6 +53,11 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       onDragOver={(e) => e.preventDefault()}
       className="cursor-move"
     >
+      {' '}
+      <Typography className="text-lg font-bold mr-8">
+        {/* @ts-ignore */}
+        {column.value}
+      </Typography>
       <TextField
         type="text"
         label="Názov"

@@ -20,7 +20,7 @@ const emotionCacheOption = {
 const App = () => {
   const user: any = useSelector(selectUser);
   const mainTheme = useSelector(selectMainTheme);
-  const loginRedirectUrl = user.role[0] === 'user' ? '/pouzivatelske-systemy/' : '/';
+  const loginRedirectUrl = '/';
   return (
     <CacheProvider value={createCache(emotionCacheOption)}>
       <FuseTheme theme={mainTheme} direction={'ltg'}>

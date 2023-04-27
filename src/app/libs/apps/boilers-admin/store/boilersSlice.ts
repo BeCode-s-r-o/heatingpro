@@ -3,6 +3,11 @@ import { createAsyncThunk, createEntityAdapter, createSlice, EntityAdapter } fro
 import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import { RootState } from '../../../../store/index';
 
+export const userAssignedHeaters = (heaters: TBoiler[], ids: string[]) => {
+  let allAsignedHeatersData = heaters.filter((heater) => ids.includes(heater.id));
+  return allAsignedHeatersData as TBoiler[];
+};
+
 export const getBoilers = createAsyncThunk('adminBoilers/getAdminBoilers', async () => {
   const { docs } = await getDocs(collection(getFirestore(), 'boilers'));
   const data = docs.map((user) => user.data() as TBoiler);
@@ -42,3 +47,9 @@ export const boilersSlice = createSlice({
     });
   },
 });
+
+export const selectBoilersByIds = (state: RootState, ids: string[]) => {
+  //@ts-ignore
+  const allBoilers = selectAllBoilers(state.adminBoilers);
+  return allBoilers.filter((boiler) => ids.includes(boiler.id)) as TBoiler[];
+};

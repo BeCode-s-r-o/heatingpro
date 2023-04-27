@@ -1,4 +1,4 @@
-import { TContact, TContactHeater, TUserRoles } from './TContact';
+import { TContact, TUserRoles } from './TContact';
 
 export interface TUserState {
   role: string;

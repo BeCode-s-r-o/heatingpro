@@ -1,5 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Avatar, Button } from '@mui/material';
+import { Avatar, Button, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -59,9 +59,11 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         flex: 1,
         renderCell: (params) => {
           return (
-            <p className={nubmerIsInInterval(item.min, item.max, params.value) ? 'text-green' : 'text-red'}>
-              {params.value}
-            </p>
+            <Tooltip title={item.desc === '' ? 'Bez popisu' : item.desc} placement="top">
+              <p className={nubmerIsInInterval(item.min, item.max, params.value) ? 'text-green' : 'text-red'}>
+                {params.value}
+              </p>
+            </Tooltip>
           );
         },
       };
@@ -198,7 +200,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               color="primary"
               onClick={generatePDF}
             >
-              <FuseSvgIcon className="text-48 mr-6" size={24} color="white">
+              <FuseSvgIcon className="text-48 mr-6 text-white" size={24}>
                 material-outline:picture_as_pdf
               </FuseSvgIcon>{' '}
               Export

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -36,15 +36,19 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
     }
   }, [boiler]);
 
-  const initializeNewColumns = (data) => {
-    const emptyColumn = { columnName: '', desc: '', hide: false, max: 0, min: 0, unit: '' };
-    return data.map((value, index) => ({
-      ...emptyColumn,
-      accessor: self.crypto.randomUUID(),
-      order: index,
-      value: value === null ? '-' : value,
-    }));
-  };
+  const initializeNewColumns = useMemo(
+    () => (data) => {
+      const emptyColumn = { columnName: '', desc: '', hide: false, max: 0, min: 0, unit: '' };
+      return data.map((value, index) => ({
+        ...emptyColumn,
+        accessor: self.crypto.randomUUID(),
+        order: index,
+        value: value === null ? '-' : value,
+      }));
+    },
+    []
+  );
+
   const dispatch = useDispatch<AppDispatch>();
 
   const createHandleChange = (setState) => (e, attribute, value) => {
@@ -75,7 +79,6 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
-
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <List className="w-[700px]">

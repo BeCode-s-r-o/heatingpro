@@ -22,6 +22,7 @@ import { getBoiler } from '../../store/boilersSlice';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import { Box } from '@mui/system';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -146,7 +147,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               variant="contained"
               color="secondary"
               startIcon={
-                <FuseSvgIcon className="text-48" size={24} color="white">
+                <FuseSvgIcon className="text-48 text-white" size={24}>
                   heroicons-outline:rss
                 </FuseSvgIcon>
               }
@@ -192,7 +193,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             <strong>Sms za Deň: </strong>
             {periodOptions.find((option) => option.period === newPeriod)?.smsPerDay}
           </DialogContentText>
-          <DialogContentText id="alert-dialog-description" className="mt-8 flex gap-12 items-center">
+          <Box id="alert-dialog-description" className="mt-8 flex gap-12 items-center">
             <InputLabel id="demo-simple-select-label">
               <strong>Perióda:</strong>
             </InputLabel>
@@ -210,7 +211,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                 </MenuItem>
               ))}
             </Select>
-          </DialogContentText>
+          </Box>
           <DialogActions className="mt-20">
             <Button
               className="whitespace-nowrap w-fit mb-2 mr-4"
