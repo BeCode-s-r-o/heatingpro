@@ -37,12 +37,14 @@ export class JwtService extends FuseUtils.EventEmitter {
     });
   };
 
-  signInWithEmailAndPassword = (email, password) => {
-    return signInWithEmailAndPassword(auth, email, password).then(async (userCredential) => {
+  signInWithEmailAndPassword = async (email, password) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = await fetchUserData(userCredential.user.uid);
-
-      this.emit('onLogin', user);
-    });
+      return this.emit('onLogin', user);
+    } catch (error) {
+      throw error;
+    }
   };
 
   signInWithToken = () => {
