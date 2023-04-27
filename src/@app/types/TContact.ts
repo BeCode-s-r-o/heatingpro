@@ -15,11 +15,5 @@ export interface TContact {
   phone: string;
   email: string;
   role: TUserRoles;
-  heaters: TContactHeater[];
-}
-
-export interface TContactHeater {
-  heater: string;
-  label: string;
-  phone: string;
+  heaters: string[];
 }
