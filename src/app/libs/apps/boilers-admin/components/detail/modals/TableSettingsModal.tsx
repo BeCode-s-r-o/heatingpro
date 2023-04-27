@@ -5,7 +5,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { doc, updateDoc } from 'firebase/firestore';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { TBoiler } from '@app/types/TBoilers';
 import { AppDispatch } from 'app/store/index';
 import { useDispatch } from 'react-redux';
@@ -22,8 +22,22 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
 
   const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
 
+  const [digitalInput, setDigitalInput] = useState<any>([]);
+  const [digitalOutput, setDigitalOutput] = useState<any>([]);
+  const [inputData, setInputData] = useState<any>([]);
+
+  useEffect(() => {
+    if (boiler.sms?.length > 0) {
+      setDigitalInput(boiler.sms[0].body?.digitalInput);
+      setDigitalOutput(boiler.sms[0].body?.digitalOutput);
+      setInputData(boiler.sms[0].body?.inputData);
+    }
+  }, [boiler]);
+
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
+
+  const allInputsValuesArray = digitalInput.concat(digitalOutput, inputData);
 
   const handleSort = () => {
     let _tableColums = [...tableColumns];
@@ -74,6 +88,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
         </ListItem>
         {tableColumns?.map((column, index) => (
           <DragNDropColumn
+            valueFromPlaceInSms={allInputsValuesArray[Number(column.accessor)]}
             key={index}
             column={column}
             index={index}
