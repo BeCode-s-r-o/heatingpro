@@ -17,13 +17,14 @@ import Box from '@mui/system/Box';
 import { AppDispatch } from 'app/store/index';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { addContact } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { boilersSlice, getBoilers } from '../../boilers-admin/store/boilersSlice';
 import withReducer from 'app/store/withReducer';
 import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
 
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
@@ -40,10 +41,11 @@ const NewContactForm = () => {
     phone: '',
     email: '',
     password: '',
-    role: TUserRoles.user,
+    role: 'staff',
     heaters: [],
   });
   const dispatch = useDispatch<AppDispatch>();
+  const user = useSelector(selectUser);
 
   useEffect(() => {
     dispatch(getBoilers());
@@ -164,11 +166,18 @@ const NewContactForm = () => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              <FormControlLabel value="user" control={<Radio />} label="Klient" />
-              <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
-              <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
-              <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
-              <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+              {user.role === 'user' ? (
+                <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
+              ) : (
+                <>
+                  {' '}
+                  <FormControlLabel value="user" control={<Radio />} label="Klient" />
+                  <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
+                  <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
+                  <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
+                  <FormControlLabel value="admin" control={<Radio />} label="Admin" />{' '}
+                </>
+              )}
             </RadioGroup>
           )}
         />
