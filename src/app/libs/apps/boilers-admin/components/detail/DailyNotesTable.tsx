@@ -92,7 +92,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     }
     dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
     setShowDeleteRowsConfirmModal(false);
-    setRows([]);
+    setRows(filteredRows);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
