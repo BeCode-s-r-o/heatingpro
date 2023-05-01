@@ -4,6 +4,7 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { TContact } from '@app/types/TContact';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
+import { showMessage } from 'app/store/slices/messageSlice';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -16,7 +17,7 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { AppDispatch, RootState } from 'app/store/index';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -25,10 +26,12 @@ import * as yup from 'yup';
 import {
   addContact,
   getContact,
+  getContacts,
   removeContact,
   selectContactById,
   updateContact,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import ConfirmModal from '../../boilers-admin/components/detail/modals/ConfirmModal';
 
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
@@ -40,7 +43,7 @@ const ContactForm = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-
+  const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -64,11 +67,24 @@ const ContactForm = () => {
 
   function onSubmit(data) {
     if (id === 'new') {
-      dispatch(addContact(data)).then(() => {
-        navigate(`/pouzivatelia`);
-      });
+      dispatch(addContact(data))
+        .then(() => {
+          navigate(`/pouzivatelia`);
+          dispatch(showMessage({ message: 'Všetky zmeny sú úspešne uložené' }));
+        })
+        .catch(() => {
+          dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+        });
     } else {
-      dispatch(updateContact(data));
+      dispatch(updateContact(data))
+        .then(() => {
+          navigate(`/pouzivatelia`);
+          dispatch(getContacts());
+          dispatch(showMessage({ message: 'Všetky zmeny sú úspešne uložené' }));
+        })
+        .catch(() => {
+          dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' }));
+        });
     }
   }
 
@@ -86,14 +102,19 @@ const ContactForm = () => {
     <>
       {' '}
       <Box
-        className="relative w-full h-160 sm:h-90 px-32 sm:px-48"
+        className="relative w-full h-160 sm:h-90 px-32 sm:px-48 flex justify-center items-center"
         sx={{
-          backgroundColor: 'background.default',
+          backgroundColor: '#111827',
         }}
-      ></Box>
+      >
+        {' '}
+        <div className="logo">
+          <img width="200" src="assets/images/logo/logo.png" alt="logo" />
+        </div>
+      </Box>
       <div className="relative flex flex-col flex-auto items-center px-24 sm:px-48">
         <div className="w-full">
-          <div className="flex flex-auto items-end -mt-64" style={{ justifyContent: 'center' }}>
+          <div className="flex flex-auto items-end -mt-64">
             <Controller
               control={control}
               name="avatar"
@@ -270,21 +291,31 @@ const ContactForm = () => {
         sx={{ backgroundColor: 'background.default' }}
       >
         {id !== 'new' && (
-          <Button color="error" onClick={handleRemoveContact}>
+          <Button variant="contained" color="secondary" onClick={() => setShowConfirmDeleteModal(true)}>
             Vymazať
           </Button>
         )}
-        <Button className="ml-auto" component={NavLinkAdapter} to={-1}>
-          Zrušiť
-        </Button>
+        <ConfirmModal
+          open={showConfirmDeleteModal}
+          onClose={() => setShowConfirmDeleteModal(false)}
+          onConfirm={handleRemoveContact}
+          title={'Vymazanie kontaktu'}
+          message={`Pozor, táto akcia je nezvratná, naozaj si želáte vymazať účet používateľa ${form.name} ?`}
+          confirmText={'Vymazať'}
+          cancelText={'Zrušiť'}
+        />
+
         <Button
-          className="ml-8"
+          className="ml-auto"
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={_.isEmpty(dirtyFields) || !isValid}
           onClick={handleSubmit(onSubmit)}
         >
-          Pridať
+          Uložiť
+        </Button>
+        <Button className="ml-8" component={NavLinkAdapter} to={-1}>
+          Zrušiť
         </Button>
       </Box>
     </>
