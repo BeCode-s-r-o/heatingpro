@@ -39,7 +39,9 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   useEffect(() => {
     setRows(defaultRows);
   }, [boiler]);
-
+  const wasCreatedDailyNote = (notes, date) => {
+    return notes.some((note) => note.date === date);
+  };
   const filterRowsByDate = (e) => {
     let { value } = e.target;
     let showAllRecords = !value;
@@ -50,7 +52,27 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
-    const lastUpdate = { field: 'lastUpdate', sortable: false, flex: 1, minWidth: 160, headerName: 'Dátum' };
+    const lastUpdate = {
+      field: 'lastUpdate',
+      sortable: false,
+      flex: 1,
+      minWidth: 160,
+      headerName: 'Dátum',
+      renderCell: (params) => {
+        const isCreatedDailyNotes = wasCreatedDailyNote(boiler?.notes, params.value.slice(0, 10));
+        return (
+          <Tooltip
+            title={isCreatedDailyNotes ? 'V daný deň bol vykonaný zápis' : 'V daný deň nebol vykonaný zápis'}
+            placement="top"
+          >
+            <div className="flex gap-8">
+              <div className={`rounded-full w-10 h-10 ${isCreatedDailyNotes ? 'bg-green' : 'bg-red'} `}></div>
+              <p>{params.value}</p>
+            </div>
+          </Tooltip>
+        );
+      },
+    };
     const generatedColumns = sortedData.map((item) => {
       return {
         field: item.accessor,
