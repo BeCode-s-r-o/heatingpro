@@ -5,11 +5,13 @@ import interactionPlugin from '@fullcalendar/interaction';
 import skLocale from '@fullcalendar/core/locales/sk';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { Navigate } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CalendarAppEventContent from './CalendarAppEventContent';
+import { selectUser } from 'app/store/userSlice';
 import CalendarAppSidebar from './CalendarAppSidebar';
 import CalendarHeader from './CalendarHeader';
 import EventDialog from './dialogs/event/EventDialog';
@@ -157,8 +159,9 @@ function CalendarApp(props) {
   function handleToggleLeftSidebar() {
     setLeftSidebarOpen(!leftSidebarOpen);
   }
-
-  return (
+  const user = useSelector(selectUser);
+  const allowedRoles = [];
+  return allowedRoles.includes(user.role) ? (
     <>
       <Root
         header={
@@ -201,6 +204,8 @@ function CalendarApp(props) {
       <EventDialog />
       <LabelsDialog />
     </>
+  ) : (
+    <Navigate to="/" />
   );
 }
 
