@@ -37,6 +37,20 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     setNewPeriod(boiler?.period);
   }, [boiler]);
 
+  const onBoilerReset = async () => {
+    const data = {
+      phoneNumber: boiler?.phoneNumber,
+      boilerId: boiler?.id,
+    };
+    try {
+      await axios.post('https://api.monitoringpro.sk/reset-boiler', data);
+      dispatch(showMessage({ message: 'Kazeta bola úspešne resetovaná.' }));
+      dispatch(getBoiler(boiler?.id || ''));
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    }
+  };
+
   const sendSMSToGetData = async () => {
     const data = {
       phoneNumber: boiler?.phoneNumber,
@@ -151,9 +165,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   heroicons-outline:rss
                 </FuseSvgIcon>
               }
-              onClick={() => {
-                alert('Na mne sa ešte pracuje :)');
-              }}
+              onClick={onBoilerReset}
             >
               Reset Kotolne
             </Button>

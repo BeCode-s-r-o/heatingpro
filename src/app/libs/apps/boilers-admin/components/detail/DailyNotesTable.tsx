@@ -30,6 +30,7 @@ import { selectBoilerById } from '../../store/boilersSlice';
 import { formatDateToSK } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import HandleSignature from './modals/HandleSignature';
+import moment from 'moment';
 
 export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -115,8 +116,12 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
       headerName: `Pridal`,
       flex: 1,
     },
+    {
+      field: 'confirmedBy',
+      headerName: `Potvrdil`,
+      flex: 1,
+    },
 
-    { field: 'confirmedBy', hide: true }, //this two columns just holds value, which is used down in action detail column
     { field: 'signatureImgURL', hide: true },
     {
       field: 'action',

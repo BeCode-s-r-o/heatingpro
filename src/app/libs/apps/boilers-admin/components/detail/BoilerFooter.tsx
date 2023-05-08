@@ -27,7 +27,7 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
       period: '0',
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/get-data', data);
+      await axios.post('https://api.monitoringpro.sk/delete-boiler', data);
       dispatch(showMessage({ message: 'Kotolňa bola vymazaná.' }));
       //todo - vymazat boiler z DB alebo mu nastavit ze disabled a nezobrazovat v appke
     } catch (error) {
@@ -72,7 +72,7 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
           )}
         </Box>
         {availableColumns.length > 0 && (
-          <Box style={{ width: '50%', maxHeight: '35vh', overflow: 'scroll' }}>
+          <Box style={{ width: '50%', maxHeight: '25vh', overflow: 'scroll' }}>
             <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
               <strong>Vysvetlivky k stĺpcom:</strong>
             </Typography>

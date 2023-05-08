@@ -1,6 +1,5 @@
 import withRouter from '@app/core/withRouter';
 import _ from '@lodash';
-import ClickAwayListener from '@mui/material/ClickAwayListener';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
@@ -9,7 +8,6 @@ import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
-import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import match from 'autosuggest-highlight/match';
 import parse from 'autosuggest-highlight/parse';
@@ -343,66 +341,7 @@ function FuseSearch(props) {
       );
     }
     case 'full': {
-      return (
-        <Root className={clsx('flex', props.className)}>
-          <Tooltip title="Vyhľadávanie" placement="bottom">
-            <div onClick={showSearch} onKeyDown={showSearch} role="button" tabIndex={0} ref={buttonNode}>
-              {props.trigger}
-            </div>
-          </Tooltip>
-
-          {state.opened && (
-            <ClickAwayListener onClickAway={handleClickAway}>
-              <Paper className="absolute left-0 right-0 top-0 h-full z-9999 shadow-0" square>
-                <div className="flex items-center w-full h-full" ref={popperNode}>
-                  <Autosuggest
-                    {...autosuggestProps}
-                    inputProps={{
-                      placeholder: props.placeholder,
-                      value: state.searchText,
-                      onChange: handleChange,
-                      InputLabelProps: {
-                        shrink: true,
-                      },
-                      autoFocus: true,
-                    }}
-                    theme={{
-                      container: 'flex flex-1 w-full',
-                      suggestionsList: 'FuseSearch-suggestionsList',
-                      suggestion: 'FuseSearch-suggestion',
-                    }}
-                    renderSuggestionsContainer={(options) => (
-                      <Popper
-                        anchorEl={popperNode.current}
-                        open={Boolean(options.children) || state.noSuggestions}
-                        popperOptions={{ positionFixed: true }}
-                        className="z-9999"
-                      >
-                        <div ref={suggestionsNode}>
-                          <Paper
-                            className="shadow-lg"
-                            square
-                            {...options.containerProps}
-                            style={{
-                              width: popperNode.current ? popperNode.current.clientWidth : null,
-                            }}
-                          >
-                            {options.children}
-                            {state.noSuggestions && <Typography className="px-16 py-12">{props.noResults}</Typography>}
-                          </Paper>
-                        </div>
-                      </Popper>
-                    )}
-                  />
-                  <IconButton onClick={hideSearch} className="mx-8" size="large">
-                    <FuseSvgIcon>heroicons-outline:x</FuseSvgIcon>
-                  </IconButton>
-                </div>
-              </Paper>
-            </ClickAwayListener>
-          )}
-        </Root>
-      );
+      return <Root className={clsx('flex', props.className)} />;
     }
     default: {
       return null;

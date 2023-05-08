@@ -78,7 +78,7 @@ const Toolbar = (props) => {
             <QuickPanelToggleButton />
              */}
 
-            <NotificationPanelToggleButton />
+            {/* <NotificationPanelToggleButton /> */}
 
             <UserMenu />
           </div>

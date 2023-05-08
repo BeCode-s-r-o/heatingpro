@@ -104,7 +104,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
         Mesačné odpisy stavu spotreby {id}
       </Typography>
       <div className="relative">
-        <div className="w-fit border p-10">
+        {/* <div className="w-fit border p-10">
           <label htmlFor="start">Vyberte mesiac: </label>
           <input
             type="month"
@@ -114,7 +114,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             min="2023-01"
             onChange={filterRowsByDate}
           />
-        </div>
+        </div> */}
         <div className="flex mx-4 absolute right-0 top-0 show-on-print">
           <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
             {user?.data?.name[0]}

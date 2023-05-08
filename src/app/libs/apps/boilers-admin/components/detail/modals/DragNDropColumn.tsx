@@ -58,7 +58,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         {/* @ts-ignore */}
         {column.value}
       </Typography>
-      <TextField
+      <TextField //TODO spravit na select - VLADO
         type="text"
         label="Názov"
         value={column.columnName}
