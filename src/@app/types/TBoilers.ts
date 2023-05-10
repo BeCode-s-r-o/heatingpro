@@ -11,7 +11,16 @@ export type TBoiler = {
   header: TBoilerInfo;
   notes: TBoilerNote[];
   monthTable: { columns: any; rows: any };
+  contactsForNotification: TContactForNotification[];
 };
+export type TContactForNotification = {
+  name: string;
+  phone: string;
+  sendPhone: boolean;
+  email: string;
+  sendEmail: boolean;
+};
+
 export type TBoilerNote = {
   id: string;
   note: String;
