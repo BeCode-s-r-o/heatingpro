@@ -1,23 +1,23 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { TBoiler, TBoilerColumn } from '@app/types/TBoilers';
-import Avatar from '@mui/material/Avatar';
+import { TBoiler } from '@app/types/TBoilers';
+import { TContact } from '@app/types/TContact';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import axios from 'axios';
-import { showMessage } from 'app/store/slices/messageSlice';
-import ConfirmModal from './modals/ConfirmModal';
-import BoilerInfoModal from './modals/BoilerInfoModal';
-import { TContact } from '@app/types/TContact';
 import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { getBoiler } from '../../store/boilersSlice';
+import BoilerInfoModal from './modals/BoilerInfoModal';
+import ChangeNotifications from './modals/ChangeNotfications';
+import ConfirmModal from './modals/ConfirmModal';
 
-const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: any; user: TContact | undefined }) => {
+const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: any; user: TContact | undefined }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showChangeNotifications, setShowChangeNotifications] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   const deleteBoiler = async () => {
@@ -71,14 +71,35 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
             </Typography>
           )}
         </Box>
+        <Box style={{ width: '30%', maxHeight: '25vh', overflow: 'scroll' }}>
+          <Button
+            onClick={() => setShowChangeNotifications(true)}
+            startIcon={
+              <FuseSvgIcon className="text-48" size={24} color="primary">
+                heroicons-outline:bell
+              </FuseSvgIcon>
+            }
+          >
+            Upozornenia
+          </Button>
+          {boiler?.contactsForNotification.map((notificationContact, i) => {
+            return (
+              <Typography className="text-lg pt-7 font-light tracking-tight leading-6 truncate" key={i}>
+                <strong className="font-semibold">{notificationContact.name}</strong> : {notificationContact.phone}{' '}
+                {' ' + notificationContact.email}
+              </Typography>
+            );
+          })}
+        </Box>
         {availableColumns.length > 0 && (
-          <Box style={{ width: '50%', maxHeight: '25vh', overflow: 'scroll' }}>
+          <Box style={{ width: '20%', maxHeight: '25vh', overflow: 'scroll' }}>
             <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
               <strong>Vysvetlivky k stĺpcom:</strong>
             </Typography>
-            {availableColumns?.map((column) => {
+
+            {availableColumns?.map((column, i) => {
               return (
-                <Typography className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
+                <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
                   <strong className="font-semibold">
                     {column.name} {column.unit ? `(${column.unit})` : null}
                   </strong>{' '}
@@ -123,6 +144,12 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
         isOpen={isModalOpen}
         toggleOpen={() => setIsModalOpen((prev) => !prev)}
       />
+      <ChangeNotifications
+        isOpen={showChangeNotifications}
+        close={() => setShowChangeNotifications(false)}
+        deviceID={boiler.id}
+        notificationsContacts={boiler.contactsForNotification}
+      />
       <ConfirmModal
         open={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
@@ -136,4 +163,4 @@ const BoilerFooter = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef:
   );
 };
 
-export default BoilerFooter;
+export default BoilerInfo;

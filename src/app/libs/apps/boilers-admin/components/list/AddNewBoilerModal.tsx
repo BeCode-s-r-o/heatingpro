@@ -44,6 +44,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     notes: [],
     monthTable: { columns: [], rows: [] },
     columns: [],
+    contactsForNotification: [],
   });
 
   const handleChange = (setValue) => (e) => {
