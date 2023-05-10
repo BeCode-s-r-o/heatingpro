@@ -12,7 +12,7 @@ import { useReactToPrint } from 'react-to-print';
 import { container, item } from '../../constants';
 import { boilersSlice, getBoilers, selectBoilerById } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
-import BoilerFooter from './BoilerFooter';
+import BoilerFooter from './BoilerInfo';
 import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 import { DailyNotesTable } from './DailyNotesTable';
