@@ -202,7 +202,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
             variant="contained"
             color="primary"
             startIcon={
-              <FuseSvgIcon className="text-48 text-white" size={24}>
+              <FuseSvgIcon className="text-48 text-white" size={24} color="action">
                 heroicons-solid:cog
               </FuseSvgIcon>
             }
