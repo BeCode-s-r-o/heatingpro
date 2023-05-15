@@ -32,10 +32,26 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [newPeriod, setNewPeriod] = useState<string>();
   const [showConfirmModalPeriodChange, setShowConfirmModalChange] = useState(false);
   const [showPeriodSetting, setShowPeriodSetting] = useState(false);
+  const [countDown, setCountDown] = useState(30);
+  const [isTimerActive, setIstimerActive] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     setNewPeriod(boiler?.period);
   }, [boiler]);
+
+  useEffect(() => {
+    if (isTimerActive && countDown === 1) {
+      setCountDown(30);
+      setIstimerActive(false);
+      dispatch(getBoiler(boiler?.id));
+    } else if (isTimerActive) {
+      const timer = setTimeout(() => {
+        setCountDown((prev) => prev - 1);
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  });
 
   const onBoilerReset = async () => {
     const data = {
@@ -59,7 +75,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     try {
       await axios.post('https://api.monitoringpro.sk/get-data', data);
       dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
-      dispatch(getBoiler(boiler?.id || ''));
+      setIstimerActive(true);
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
@@ -153,8 +169,9 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                 </FuseSvgIcon>
               }
               onClick={sendSMSToGetData}
+              disabled={isTimerActive}
             >
-              Vyžiadať data
+              {isTimerActive ? `Dáta sa zobrazia automaticky za: ${countDown}` : 'Vyžiadať data'}
             </Button>
             <Button
               className="whitespace-nowrap"
