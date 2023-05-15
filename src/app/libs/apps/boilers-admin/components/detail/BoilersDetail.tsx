@@ -12,11 +12,11 @@ import { useReactToPrint } from 'react-to-print';
 import { container, item } from '../../constants';
 import { boilersSlice, getBoilers, selectBoilerById } from '../../store/boilersSlice';
 import { Wrapper } from '../styled/BoilersStyled';
-import BoilerFooter from './BoilerInfo';
 import { BoilersDetailHeader } from './BoilersDetailHeader';
 import { BoilersDetailTable } from './BoilersDetailTable';
 import { DailyNotesTable } from './DailyNotesTable';
 import { ManualBoilerTable } from './ManualBoilerTable';
+import BoilerInfo from './BoilerInfo';
 
 const BoilersDetail = () => {
   const { id } = useParams();
@@ -114,7 +114,7 @@ const BoilersDetail = () => {
             animate="show"
           >
             <m.div variants={item} className="sm:col-span-6">
-              {boiler && <BoilerFooter boiler={boiler} headerRef={headerRef} user={user} />}
+              {boiler && <BoilerInfo boiler={boiler} headerRef={headerRef} user={user} />}
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
               <BoilersDetailTable
