@@ -29,13 +29,9 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
     });
   };
 
-  const handleSwitchChange = (event, index) => {
-    let { name, checked } = event.target;
-    setFormFields((prevFormFields) => {
-      const actualFormFields = [...prevFormFields];
-      actualFormFields[index] = { ...actualFormFields[index], [name]: checked };
-      return actualFormFields;
-    });
+  const handleClose = () => {
+    setFormFields(notificationsContacts);
+    close();
   };
   const submit = (e) => {
     e.preventDefault();
@@ -70,7 +66,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
   };
 
   return (
-    <Drawer anchor="right" open={isOpen} onClose={close}>
+    <Drawer anchor="right" open={isOpen} onClose={handleClose}>
       <List className="w-[350px]">
         <ListItem>
           <ListItemText primary="Priraďovanie notifikácií" />
@@ -79,7 +75,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
           {formFields.map((contact, index) => (
             <ListItem key={index} className="flex flex-wrap gap-12 border-b">
               <TextField
-                className="mx-auto"
+                className="mx-auto w-full"
                 name="name"
                 label="Meno"
                 onChange={(e) => handleChange(e, index, e.target.value)}
@@ -88,7 +84,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
               />
 
               <TextField
-                className="mx-auto"
+                className="mx-auto  w-full"
                 name="phone"
                 label="Tel.číslo"
                 onChange={(e) => handleChange(e, index, e.target.value)}
@@ -108,7 +104,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
               />
 
               <TextField
-                className="mx-auto"
+                className="mx-auto w-full"
                 name="email"
                 label="Email"
                 onChange={(e) => handleChange(e, index, e.target.value)}
@@ -142,7 +138,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
           <Button variant="contained" onClick={submit} color="primary">
             Uložiť
           </Button>
-          <Button variant="contained" onClick={close} color="secondary">
+          <Button variant="contained" onClick={handleClose} color="secondary">
             Zrušiť
           </Button>
         </ListItem>

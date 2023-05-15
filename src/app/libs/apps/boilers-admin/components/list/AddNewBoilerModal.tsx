@@ -24,8 +24,7 @@ interface Props {
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [pageNumber, setPageNumber] = useState(1);
-  const [header, setHeader] = useState({
+  const initialHeaderState = {
     avatar: '',
     name: '',
     location: '',
@@ -34,9 +33,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     maintenance: '',
     staff1: '',
     staff2: '',
-  });
-  const [address, setAddress] = useState({ city: '', zip: '', street: '' });
-  const [newBoiler, setNewBoiler] = useState({
+  };
+  const initialAddressState = { city: '', zip: '', street: '' };
+  const initialNewBoilerState = {
     phoneNumber: '',
     assignedTo: '',
     id: '',
@@ -45,8 +44,17 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     monthTable: { columns: [], rows: [] },
     columns: [],
     contactsForNotification: [],
-  });
+  };
+  const [pageNumber, setPageNumber] = useState(1);
+  const [header, setHeader] = useState(initialHeaderState);
+  const [address, setAddress] = useState(initialAddressState);
+  const [newBoiler, setNewBoiler] = useState(initialNewBoilerState);
 
+  const resetForm = () => {
+    setHeader(initialHeaderState);
+    setAddress(initialAddressState);
+    setNewBoiler(initialNewBoilerState);
+  };
   const handleChange = (setValue) => (e) => {
     const { name, value } = e.target;
     setValue((prev) => ({
@@ -203,7 +211,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               type="text"
               label="Prevádzkovateľ  *"
               value={header.operator}
-              name="assignedTo"
+              name="operator"
               onChange={handleHeaderChange}
             />
           </ListItem>
@@ -269,6 +277,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       createBoilerOnBackend(newBoiler.phoneNumber, newBoiler.id);
       toggleOpen();
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
+      resetForm();
       dispatch(getBoilers());
     } catch (error) {
       toggleOpen();
