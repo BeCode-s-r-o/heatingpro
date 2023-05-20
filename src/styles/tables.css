@@ -74,3 +74,11 @@ table.simple.borderless tbody tr td {
 table.simple.borderless thead tr th {
   border: none;
 }
+
+.react-datepicker__month {
+  font-size: 1.4rem !important;
+}
+
+.react-datepicker__header {
+  font-size: 1.3rem !important;
+}

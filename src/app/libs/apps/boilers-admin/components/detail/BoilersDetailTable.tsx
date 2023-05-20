@@ -1,5 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Avatar, Button, Tooltip } from '@mui/material';
+import { Avatar, Button, TextFieldProps, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -16,12 +16,14 @@ import { compareDates } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import 'react-datepicker/dist/react-datepicker.css';
+import DatePicker from 'react-datepicker';
 
 export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
-
+  const [startDate, setStartDate] = useState<Date>();
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
@@ -42,16 +44,23 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   const wasCreatedDailyNote = (notes, date) => {
     return notes.some((note) => note.date === date);
   };
-  const filterRowsByDate = (e) => {
-    let { value } = e.target;
-    let showAllRecords = !value;
-    showAllRecords ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(sms.lastUpdate, value)));
+
+  const filterRowsByDate = (date) => {
+    setStartDate(date);
+    console.log(date);
+    !date ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(date, sms.lastUpdate)));
+  };
+  const handleCleanCalendar = () => {
+    setRows(defaultRows);
+    setStartDate(undefined);
   };
   const nubmerIsInInterval = (min, max, number) => {
     return number >= min && number <= max;
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
+    console.log(sortedData);
+    console.log([...(boiler?.sms || [])].sort((a, b) => b.timestamp.unix - a.timestamp.unix));
     const lastUpdate = {
       field: 'lastUpdate',
       sortable: false,
@@ -126,11 +135,22 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Prevádzkový denník {id}
       </Typography>
+
       {user.role !== 'staff' && (
         <div className="relative">
-          <div className="w-fit border p-10">
-            <label htmlFor="start">Vyberte mesiac: </label>
-            <input type="month" id="start" name="start" min="2023-01" onChange={filterRowsByDate} />
+          <div className="border p-4 relative flex items-center justify-center w-fit">
+            <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
+              material-twotone:calendar_today
+            </FuseSvgIcon>
+            <DatePicker
+              onChange={filterRowsByDate}
+              selected={startDate}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+              placeholderText="Vyber mesiac"
+              className="w-[10rem] cursor-pointer"
+            />
+            <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
           </div>
           <div className="flex mx-4 absolute right-0 top-0 show-on-print">
             <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
