@@ -89,9 +89,13 @@ const ContactForm = () => {
   }
 
   function handleRemoveContact() {
-    dispatch(removeContact(id || '')).then(() => {
-      navigate('/pouzivatelia');
-    });
+    dispatch(removeContact(id || ''))
+      .then(() => {
+        navigate('/pouzivatelia');
+      })
+      .catch((error) => {
+        dispatch(showMessage({ message: `Ups, vyskytla sa chyba: ${error}` }));
+      });
   }
 
   if (_.isEmpty(form) || !contact) {

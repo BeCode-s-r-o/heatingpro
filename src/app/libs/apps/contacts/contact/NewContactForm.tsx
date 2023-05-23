@@ -29,7 +29,6 @@ import { selectUser } from 'app/store/userSlice';
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
   email: yup.string().email().required('Toto nieje platný email'),
-  password: yup.string().required('Brácho ta dajaké heslo zadaj'),
   phone: yup.string().required('You must enter a name'),
 });
 
@@ -40,7 +39,6 @@ const NewContactForm = () => {
     avatar: '',
     phone: '',
     email: '',
-    password: '',
     role: 'staff',
     heaters: [],
   });
@@ -230,7 +228,7 @@ const NewContactForm = () => {
             />
           )}
         />
-        <Controller
+        {/* <Controller
           control={control}
           name="password"
           render={({ field }) => (
@@ -267,7 +265,7 @@ const NewContactForm = () => {
               }}
             />
           )}
-        />
+        /> */}
         <Controller
           control={control}
           name="phone"
