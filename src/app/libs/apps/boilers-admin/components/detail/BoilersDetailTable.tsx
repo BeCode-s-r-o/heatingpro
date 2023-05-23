@@ -7,17 +7,19 @@ import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDates } from './functions/datesOperations';
+import { compareDates, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
 import 'react-datepicker/dist/react-datepicker.css';
 import DatePicker from 'react-datepicker';
+import axios from 'axios';
+import { showMessage } from 'app/store/slices/messageSlice';
 
 export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,13 +43,13 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   useEffect(() => {
     setRows(defaultRows);
   }, [boiler]);
+
   const wasCreatedDailyNote = (notes, date) => {
     return notes.some((note) => note.date === date);
   };
 
   const filterRowsByDate = (date) => {
     setStartDate(date);
-    console.log(date);
     !date ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(date, sms.lastUpdate)));
   };
   const handleCleanCalendar = () => {
@@ -59,7 +61,6 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
-    console.log(sortedData);
     console.log([...(boiler?.sms || [])].sort((a, b) => b.timestamp.unix - a.timestamp.unix));
     const lastUpdate = {
       field: 'lastUpdate',
@@ -82,6 +83,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         );
       },
     };
+
     const generatedColumns = sortedData.map((item) => {
       return {
         field: item.accessor,
@@ -103,24 +105,54 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
 
   const generateRows = (data: TBoiler['sms']) => {
-    return data
-      ?.sort((a, b) => b.timestamp.unix - a.timestamp.unix)
-      .map(
-        (i) =>
-          i.body?.inputData?.reduce(
-            (acc, curr, idx) => ({
-              lastUpdate: i.body?.timestamp.display,
-              id: i.messageID,
-              ...acc,
-              [String(idx)]: curr || '-',
-            }),
-            {}
-          ) || {}
+    return data?.map((i) => {
+      const inputData = i.body?.inputData || [];
+      const digitalInput = i.body?.digitalInput || [];
+      const mergedData = [...inputData, ...digitalInput];
+
+      return mergedData.reduce(
+        (acc, curr, idx) => ({
+          lastUpdate: i.body?.timestamp.display,
+          id: i.messageID,
+          ...acc,
+          [String(idx)]: curr || '-',
+        }),
+        {}
       );
+    });
   };
 
-  const columns = generateColumns([...(boiler?.columns || [])]);
-  const defaultRows: any = generateRows([...(boiler?.sms || [])]);
+  const sortedSMS = useMemo(
+    () => [...(boiler?.sms || [])].sort((a, b) => b.timestamp.unix - a.timestamp.unix),
+    [boiler]
+  );
+
+  const getPDF = async () => {
+    let data = {
+      tableRows: rows,
+      tableColumns: boiler?.columns,
+      boilerID: boiler?.id,
+      user: user,
+      date: getCurrentDate(),
+    };
+
+    dispatch(showMessage({ message: 'PDF sa generuje...' }));
+    try {
+      const response = await axios.post('http://localhost:5500/pdf', data, {
+        responseType: 'blob', // Set the response type to 'blob'
+      });
+      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
+      link.click();
+    } catch (error) {
+      dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
+    }
+  };
+
+  const columns = useMemo(() => generateColumns([...(boiler?.columns || [])]), [boiler]);
+  const defaultRows: any = useMemo(() => generateRows(sortedSMS), [sortedSMS]);
 
   const deleteSelectedRows = () => {
     var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
@@ -135,7 +167,6 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Prevádzkový denník {id}
       </Typography>
-
       {user.role !== 'staff' && (
         <div className="relative">
           <div className="border p-4 relative flex items-center justify-center w-fit">
@@ -240,7 +271,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               className="whitespace-nowrap w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
-              onClick={generatePDF}
+              onClick={getPDF}
             >
               <FuseSvgIcon className="text-48 mr-6 text-white" size={24}>
                 material-outline:picture_as_pdf
@@ -277,6 +308,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
                 toggleOpen={() => {
                   setIsSettingsModalOpen((prev) => !prev);
                 }}
+                columnsValues={[...(sortedSMS[0]?.body?.inputData || []), ...(sortedSMS[0]?.body?.digitalInput || [])]}
               />
             )}
           </>

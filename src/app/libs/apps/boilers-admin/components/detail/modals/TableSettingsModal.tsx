@@ -16,28 +16,15 @@ interface Props {
   boiler: TBoiler;
   isOpen: boolean;
   toggleOpen: () => void;
+  columnsValues: any[];
 }
-function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
+function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   const dispatch = useDispatch<AppDispatch>();
 
   const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
 
-  const [digitalInput, setDigitalInput] = useState<any>([]);
-  const [digitalOutput, setDigitalOutput] = useState<any>([]);
-  const [inputData, setInputData] = useState<any>([]);
-
-  useEffect(() => {
-    if (boiler.sms?.length > 0) {
-      setDigitalInput(boiler.sms[0].body?.digitalInput);
-      setDigitalOutput(boiler.sms[0].body?.digitalOutput);
-      setInputData(boiler.sms[0].body?.inputData);
-    }
-  }, [boiler]);
-
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
-
-  const allInputsValuesArray = digitalInput.concat(digitalOutput, inputData);
 
   const handleSort = () => {
     let _tableColums = [...tableColumns];
@@ -88,7 +75,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen }: Props) {
         </ListItem>
         {tableColumns?.map((column, index) => (
           <DragNDropColumn
-            valueFromPlaceInSms={allInputsValuesArray[Number(column.accessor)]}
+            valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
             key={index}
             column={column}
             index={index}
