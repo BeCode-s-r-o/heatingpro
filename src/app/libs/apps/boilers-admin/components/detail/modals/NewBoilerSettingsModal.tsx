@@ -25,13 +25,11 @@ interface Props {
 }
 function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
   const [digitalInput, setDigitalInput] = useState<any>([]);
-  const [digitalOutput, setDigitalOutput] = useState<any>([]);
   const [inputData, setInputData] = useState<any>([]);
 
   useEffect(() => {
     if (boiler.sms?.length > 0) {
       setDigitalInput(initializeNewColumns(boiler.sms[0].body?.digitalInput));
-      setDigitalOutput(initializeNewColumns(boiler.sms[0].body?.digitalOutput));
       setInputData(initializeNewColumns(boiler.sms[0].body?.inputData));
     }
   }, [boiler]);
@@ -61,9 +59,8 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
     );
   };
 
-  const handleInChange = useCallback(createHandleChange(setDigitalInput), []);
-  const handleOutChange = useCallback(createHandleChange(setDigitalOutput), []);
   const handleDataChange = useCallback(createHandleChange(setInputData), []);
+  const handleInChange = useCallback(createHandleChange(setDigitalInput), []);
 
   const saveColumnsForBoilerInFirebase = (columns) => {
     try {
@@ -85,25 +82,21 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
         <ListItem>
           <ListItemText primary="Nastavenie stĺpcov" />
         </ListItem>
+        <Typography className="text-lg font-bold text-center border-b my-12">Dáta zo vstupu</Typography>
+        {inputData.map((item, index) => (
+          <SettingsModalColumn key={index} item={item} handleChange={handleDataChange} />
+        ))}
         <Typography className="text-lg font-bold text-center border-b my-12">Digitálny vstup</Typography>
 
         {digitalInput.map((item, index) => (
           <SettingsModalColumn key={index} item={item} handleChange={handleInChange} />
-        ))}
-        <Typography className="text-lg font-bold text-center border-b my-12">Digitálny výstup</Typography>
-        {digitalOutput.map((item, index) => (
-          <SettingsModalColumn key={index} item={item} handleChange={handleOutChange} />
-        ))}
-        <Typography className="text-lg font-bold text-center border-b my-12">Dáta zo vstupu</Typography>
-        {inputData.map((item, index) => (
-          <SettingsModalColumn key={index} item={item} handleChange={handleDataChange} />
         ))}
         <ListItem className="flex justify-end gap-12">
           <Button
             className="whitespace-nowrap"
             variant="contained"
             color="primary"
-            onClick={() => saveColumnsForBoilerInFirebase([...digitalInput, ...digitalOutput, ...inputData])}
+            onClick={() => saveColumnsForBoilerInFirebase([...inputData, ...digitalInput])}
           >
             Uložiť
           </Button>
