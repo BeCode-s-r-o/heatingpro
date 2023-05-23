@@ -55,8 +55,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
     >
       {' '}
       <Typography className="text-lg font-bold mr-8">
-        {/* @ts-ignore */}
-        {column.value}
+        {valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
       </Typography>
       <TextField //TODO spravit na select - VLADO
         type="text"

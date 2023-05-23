@@ -203,6 +203,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                     toggleOpen={() => {
                       setIsSettingsModalOpen((prev) => !prev);
                     }}
+                    columnsValues={[]}
                   />
                 )}
               </>
