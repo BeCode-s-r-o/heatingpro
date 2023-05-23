@@ -7,6 +7,7 @@ import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 
 import { secondaryApp } from 'src/firebase-config';
 import FuseUtils from '@app/utils/FuseUtils';
 import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
 export const selectSearchText = (state: RootState) => state.contacts.searchText;
 
 export const getContacts = createAsyncThunk('contacts/getContacts', async () => {
@@ -26,35 +27,42 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
   }
 });
 
-export const addContact = createAsyncThunk(
-  'contactsApp/contacts/addContact',
-  async (contact: TContact & { password: string }) => {
-    try {
-      const sAuth = getAuth(secondaryApp);
-      const userCredential = await createUserWithEmailAndPassword(sAuth, contact.email, contact.password);
-      const id = userCredential.user.uid;
-      const customerRef = doc(getFirestore(), 'users', id);
-      await setDoc(customerRef, { ...contact, id });
-      /* await sendPasswordResetEmail(sAuth, contact.email); */
-    } catch (error) {
-      throw error;
-    }
+export const addContact = createAsyncThunk('contactsApp/contacts/addContact', async (contact: TContact) => {
+  try {
+    const sAuth = getAuth(secondaryApp);
+    const userCredential = await createUserWithEmailAndPassword(sAuth, contact.email, self.crypto.randomUUID());
+    const id = userCredential.user.uid;
+    const customerRef = doc(getFirestore(), 'users', id);
+    await setDoc(customerRef, { ...contact, id });
+    await sendPasswordResetEmail(sAuth, contact.email);
+  } catch (error) {
+    throw error;
   }
-);
+});
 
 export const updateContact = createAsyncThunk('contactsApp/contacts/updateContact', async (contact: TContact) => {
   const customerRef = doc(getFirestore(), 'users', contact.id);
   setDoc(customerRef, contact)
     .then(() => {})
-    .catch((error) => {});
+    .catch((error) => {
+      throw error;
+    });
 });
 
 export const removeContact = createAsyncThunk('contactsApp/contacts/removeContact', async (id: string) => {
-  const customerRef = doc(getFirestore(), 'users', `${id}`);
-
-  deleteDoc(customerRef)
-    .then(() => {})
-    .catch((error) => {});
+  const contactRef = doc(getFirestore(), 'users', `${id}`);
+  axios
+    .delete('https://api.monitoringpro.sk/delete-user', { data: { uid: id } })
+    .then((response) => {
+      deleteDoc(contactRef)
+        .then(() => {})
+        .catch((error) => {
+          throw error;
+        });
+    })
+    .catch((error) => {
+      throw error;
+    });
 });
 
 const contactsAdapter: EntityAdapter<TContact> = createEntityAdapter();
