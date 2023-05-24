@@ -58,6 +58,8 @@ export interface TSms {
 }
 
 export interface TBoilerInfo {
+  serialNumber: string;
+  instalationDate: string;
   period: number;
   name: string;
   location: string;
