@@ -265,7 +265,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             >
               Export
             </Button>
-            <Button
+            {/*             <Button
               className="whitespace-nowrap w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
@@ -277,7 +277,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
               }
             >
               Tlač
-            </Button>
+            </Button> */}
           </>
         )}
       </div>

@@ -245,7 +245,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
         >
           Export
         </Button>
-        <Button
+        {/*         <Button
           className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
@@ -257,7 +257,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           }
         >
           Tlač
-        </Button>
+        </Button> */}
       </div>
       {/* Confirm Delete */}
       <ConfirmModal

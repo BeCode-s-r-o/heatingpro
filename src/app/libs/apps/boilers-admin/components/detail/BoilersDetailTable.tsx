@@ -138,7 +138,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
     try {
-      const response = await axios.post('http://localhost:5500/pdf', data, {
+      const response = await axios.post('https://api.monitoringpro.sk/pdf', data, {
         responseType: 'blob', // Set the response type to 'blob'
       });
       const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
@@ -278,7 +278,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
               </FuseSvgIcon>{' '}
               Export
             </Button>
-            <Button
+            {/*             <Button
               className="whitespace-nowrap w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
@@ -288,7 +288,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
                 material-outline:local_printshop
               </FuseSvgIcon>
               Tlač
-            </Button>
+            </Button> */}
           </>
         )}
         {boiler && (
