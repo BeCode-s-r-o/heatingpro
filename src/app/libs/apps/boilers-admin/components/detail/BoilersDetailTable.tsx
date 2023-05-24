@@ -162,13 +162,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
     });
     setShowConfirmModal(false);
   };
-  const renderHeader = (params) => {
-    return (
-      <div>
-        <span>{params.colDef.headerName}</span>
-      </div>
-    );
-  };
+
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
