@@ -264,8 +264,8 @@ const ContactForm = () => {
             <TextField
               className="mt-32"
               {...field}
-              label="Tel. číslo"
-              placeholder="Tel. číslo"
+              label="Tel. čísl"
+              placeholder="+421"
               id="phone"
               required
               error={!!errors.company}
