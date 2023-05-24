@@ -61,7 +61,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
-    console.log([...(boiler?.sms || [])].sort((a, b) => b.timestamp.unix - a.timestamp.unix));
+
     const lastUpdate = {
       field: 'lastUpdate',
       sortable: false,
@@ -90,6 +90,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         headerName: `${item.columnName} (${item.unit})`,
         hide: item.hide,
         flex: 1,
+        sortable: false,
         renderCell: (params) => {
           return (
             <Tooltip title={item.desc === '' ? 'Bez popisu' : item.desc} placement="top">
@@ -161,7 +162,13 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
     });
     setShowConfirmModal(false);
   };
-
+  const renderHeader = (params) => {
+    return (
+      <div>
+        <span>{params.colDef.headerName}</span>
+      </div>
+    );
+  };
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
@@ -197,6 +204,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
         <DataGrid
           rows={rows}
           columns={columns}
+          disableColumnMenu
           pageSize={15}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
