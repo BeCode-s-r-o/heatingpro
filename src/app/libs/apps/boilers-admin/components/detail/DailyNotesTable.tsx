@@ -56,8 +56,8 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
   const [newRecord, setNewRecord] = useState({
     date: todayDate,
     note: '',
-    confirmedBy: user.data.name,
     createdBy: user.data.name,
+    confirmedBy: '',
     signatureImgURL: null,
     id: self.crypto.randomUUID(),
   });
@@ -118,7 +118,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
     },
     {
       field: 'confirmedBy',
-      headerName: `Potvrdil`,
+      headerName: `Kompetentná osoba`,
       flex: 1,
     },
 
@@ -192,7 +192,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             }}
             startIcon={
               !isEditRows && (
-                <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+                <FuseSvgIcon className="text-48 text-white" size={24}>
                   material-outline:edit
                 </FuseSvgIcon>
               )
@@ -209,7 +209,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             color="secondary"
             onClick={handleClickOpen}
             startIcon={
-              <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+              <FuseSvgIcon className="text-48 text-white" size={24}>
                 material-outline:delete
               </FuseSvgIcon>
             }
@@ -218,14 +218,14 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           </Button>
         )}
         <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
+          className="whitespace-nowrap w-fit mb-2 dont-print text-white"
           variant="contained"
           color="primary"
           onClick={() => {
             setShowNewNoteModal(true);
           }}
           startIcon={
-            <FuseSvgIcon className="text-48 text-white" size={24} color="action">
+            <FuseSvgIcon className="text-48" size={24}>
               heroicons-outline:plus-sm
             </FuseSvgIcon>
           }
@@ -238,7 +238,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           color="primary"
           onClick={generatePDF}
           startIcon={
-            <FuseSvgIcon className="text-48 text-white " size={24} color="action">
+            <FuseSvgIcon className="text-48 text-white" size={24}>
               material-outline:picture_as_pdf
             </FuseSvgIcon>
           }
@@ -318,7 +318,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           <ListItem className="w-full">
             <TextField
               aria-label="minimum height"
-              label="Zapísal"
+              label="Pridal"
               name="createdBy"
               disabled
               value={newRecord.createdBy}
@@ -326,21 +326,28 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
               className="border w-full"
             />
           </ListItem>
+
           <ListItem className="w-full">
             <TextField
               aria-label="minimum height"
-              label="Zaevidoval (podpis kompetentnej osoby)"
+              label="Meno kompetentnej osoby"
               name="confirmedBy"
               value={newRecord.confirmedBy}
+              placeholder="Nepoviné pole"
               onChange={handleChange}
               className="border w-full"
             />
           </ListItem>
+          <ListItem className="-mt-10 mb-8">
+            <Typography className="text-gray text-sm">Vypĺňať iba ak sa nezhoduje s osobou ktorá zapisuje</Typography>
+          </ListItem>
+
           <ListItem className="w-full">
             <TextareaAutosize
               aria-label="minimum height"
               minRows={15}
               name="note"
+              placeholder="Miesto pre vašu poznámku"
               value={newRecord.note}
               onChange={handleChange}
               className="border w-full p-12"
@@ -355,11 +362,6 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
               variant="contained"
               color="primary"
               disabled={!newRecord.date || !newRecord.note}
-              startIcon={
-                <FuseSvgIcon className="text-48 text-white" size={24} color="action">
-                  feather:save
-                </FuseSvgIcon>
-              }
               onClick={() => setShowRecordConfirmModal(true)}
             >
               Uložiť

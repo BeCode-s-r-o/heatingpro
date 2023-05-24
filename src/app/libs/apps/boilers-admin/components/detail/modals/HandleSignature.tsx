@@ -25,7 +25,7 @@ function HandleSignature({ imageURL, setImageURL }: Props) {
       {imageURL && <img src={imageURL} alt="signature" className="signature mx-auto" />}
 
       <br />
-      <Button variant="outlined" onClick={() => setOpenModal(true)}>
+      <Button variant="outlined" onClick={() => setOpenModal(true)} className="w-full">
         Podpísať
       </Button>
       {imageURL !== null && <Button onClick={deleteImg}>Odstrániť podpis</Button>}
