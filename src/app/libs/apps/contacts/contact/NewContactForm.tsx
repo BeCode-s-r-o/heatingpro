@@ -274,7 +274,7 @@ const NewContactForm = () => {
               className="mt-32"
               {...field}
               label="Tel. číslo"
-              placeholder="Tel. číslo"
+              placeholder="+421"
               id="phone"
               required
               error={!!errors.company}
