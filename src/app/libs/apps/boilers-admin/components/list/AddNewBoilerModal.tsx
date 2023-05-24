@@ -25,6 +25,8 @@ interface Props {
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
   const initialHeaderState = {
+    serialNumber: '',
+    instalationDate: '',
     avatar: '',
     name: '',
     location: '',
@@ -131,6 +133,28 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
                 {header.name.charAt(0)}
               </Avatar>
             </Box>
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Sériové číslo *"
+              value={header.serialNumber}
+              placeholder="Sériové číslo"
+              name="serialNumber"
+              onChange={handleHeaderChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Dátum inštalácie *"
+              value={header.instalationDate}
+              placeholder="DD.MM.YYYY"
+              name="instalationDate"
+              onChange={handleHeaderChange}
+            />
           </ListItem>
           <ListItem>
             <TextField

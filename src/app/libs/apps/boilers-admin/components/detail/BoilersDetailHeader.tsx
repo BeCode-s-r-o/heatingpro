@@ -151,8 +151,8 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                       material-outline:settings
                     </FuseSvgIcon>
                   </Typography>
-                  <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                    {' '}
+                  <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    Verzia softvéru: ?
                   </Typography>
                 </div>
               </div>

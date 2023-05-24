@@ -47,6 +47,12 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
       <Box className="flex jusitfy-between" style={{ width: '100%', justifyContent: 'space-between' }}>
         <Box>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
+          </Typography>
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong className="font-semibold">Dátum inštalácie:</strong> {boiler?.header.instalationDate}
+          </Typography>
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">ID zariadenia:</strong> {boiler?.id}
           </Typography>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
