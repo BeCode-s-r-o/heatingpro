@@ -140,7 +140,10 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
     try {
       const response = await axios.post('https://api.monitoringpro.sk/pdf', data, {
-        responseType: 'blob', // Set the response type to 'blob'
+        responseType: 'blob',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+        },
       });
       const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
