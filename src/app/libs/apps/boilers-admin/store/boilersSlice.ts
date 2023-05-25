@@ -4,7 +4,7 @@ import { collection, doc, getDoc, getDocs, getFirestore, query, where } from 'fi
 import { RootState } from '../../../../store/index';
 
 export const userAssignedHeaters = (heaters: TBoiler[], ids: string[]) => {
-  let allAsignedHeatersData = heaters.filter((heater) => ids.includes(heater.id));
+  let allAsignedHeatersData = heaters.filter((heater) => ids.includes(heater.id) && !heater.disabled);
   return allAsignedHeatersData as TBoiler[];
 };
 
