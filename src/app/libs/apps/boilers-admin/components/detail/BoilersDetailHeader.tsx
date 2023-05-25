@@ -90,6 +90,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     try {
       await axios.post('https://api.monitoringpro.sk/change-period', data);
       dispatch(showMessage({ message: 'Perióda bola úspšene zmenená' }));
+      //zmenit periodu na BE + redux
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     } finally {
@@ -113,6 +114,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     { value: 7, period: '2', smsPerDay: 12 },
     { value: 8, period: '1', smsPerDay: 24 },
     { value: 9, period: '0.5', smsPerDay: 48 },
+    { value: 0, period: '0', smsPerDay: 0 },
   ];
 
   return (
