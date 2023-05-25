@@ -12,6 +12,7 @@ export type TBoiler = {
   notes: TBoilerNote[];
   monthTable: { columns: any; rows: any };
   contactsForNotification: TContactForNotification[];
+  disabled?: boolean;
 };
 export type TContactForNotification = {
   name: string;

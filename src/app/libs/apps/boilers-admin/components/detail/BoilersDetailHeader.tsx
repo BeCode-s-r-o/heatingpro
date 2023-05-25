@@ -129,10 +129,12 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   sx={{ width: 80, height: 80 }}
                 />
                 <div>
-                  <Typography className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                    {boiler?.name}
+                  <Typography
+                    className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate"
+                    style={{ color: boiler?.disabled ? 'red' : 'black' }}
+                  >
+                    Bojler {boiler?.name} {boiler?.disabled && '- vymazaná'}
                   </Typography>
-
                   <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Perióda: {boiler?.period} (
                     <small style={{ marginTop: '4px' }}>
