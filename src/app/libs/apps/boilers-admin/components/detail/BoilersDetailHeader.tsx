@@ -156,7 +156,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                     </FuseSvgIcon>
                   </Typography>
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                    Verzia softvéru: ?
+                    Verzia softvéru: {boiler?.header.softwareVersion}
                   </Typography>
                 </div>
               </div>
