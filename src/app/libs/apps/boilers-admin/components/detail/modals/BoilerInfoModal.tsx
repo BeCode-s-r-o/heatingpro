@@ -124,6 +124,40 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
           <TextField
             className="w-full"
             type="text"
+            label="Sériové číslo"
+            value={headerData.serialNumber}
+            name="serialNumber"
+            onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            className="w-full"
+            type="text"
+            label="Dátum inštalácie"
+            value={headerData.instalationDate}
+            name="instalationDate"
+            onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
+          />
+        </ListItem>
+        <ListItem>
+          <TextField
+            className="w-full"
+            type="text"
+            label="Verzia softvéru"
+            value={headerData.softwareVersion}
+            name="softwareVersion"
+            onChange={handleChange}
+            disabled={user?.role === 'obsluha' || user?.role === 'user'}
+          />
+        </ListItem>
+
+        <ListItem>
+          <TextField
+            className="w-full"
+            type="text"
             label="Umiestnenie"
             value={headerData.location}
             name="location"
