@@ -15,6 +15,9 @@ Basic Table Styles
 .MuiTablePagination-actions {
   transform: rotate(90deg) !important;
 }
+.MuiTablePagination-actions > button {
+  padding: 0px;
+}
 .muiltr-78c6dr-MuiToolbar-root-MuiTablePagination-toolbar .MuiTablePagination-actions {
   transform: rotate(90deg) !important;
   margin-left: 0;
