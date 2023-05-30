@@ -77,7 +77,6 @@ export interface TBoilerInfo {
 interface Body {
   deviceID: string;
   digitalInput: Array<number | null>;
-  digitalOutput: Array<number>;
   inputData: Array<number | null>;
   timestamp: {
     display: string;
