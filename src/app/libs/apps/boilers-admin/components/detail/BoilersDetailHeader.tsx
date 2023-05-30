@@ -175,6 +175,20 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               onClick={sendSMSToGetData}
               disabled={isTimerActive}
             >
+              Vyžiadať INF SMS
+            </Button>
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="primary"
+              startIcon={
+                <FuseSvgIcon className="text-48 text-white " size={24}>
+                  heroicons-outline:upload
+                </FuseSvgIcon>
+              }
+              onClick={sendSMSToGetData}
+              disabled={isTimerActive}
+            >
               {isTimerActive ? `Dáta sa zobrazia automaticky za: ${countDown}` : 'Vyžiadať data'}
             </Button>
             <Button
