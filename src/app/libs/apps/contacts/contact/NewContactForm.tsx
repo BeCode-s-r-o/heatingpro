@@ -65,9 +65,8 @@ const NewContactForm = () => {
 
   function onSubmit(data) {
     try {
-      dispatch(addContact(data))
-        //TODO handle error when email already exists
-        .dispatch(showMessage({ message: 'Používateľ bol úspešne vytvorený' }));
+      dispatch(addContact(data));
+      //TODO handle error when email already exists
     } catch (error) {
       dispatch(showMessage({ messagge: 'Ups, vyskytla sa chyba' + error }));
     }
