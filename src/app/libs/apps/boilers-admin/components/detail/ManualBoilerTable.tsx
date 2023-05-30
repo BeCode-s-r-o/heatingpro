@@ -131,6 +131,15 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
             { field: 'date', headerName: 'Dátum' },
             ...columns,
             {
+              field: 'ucinnost',
+              headerName: 'Účinnosť kotolne',
+              id: 'asdasd',
+              renderCell: () => {
+                //TODO
+                return '123';
+              },
+            },
+            {
               field: 'id',
               headerName: 'Upraviť',
               id: 'ahskjahsf',

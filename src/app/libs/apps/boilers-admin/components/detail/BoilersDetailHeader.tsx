@@ -169,10 +169,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               color="primary"
               startIcon={
                 <FuseSvgIcon className="text-48 text-white " size={24}>
-                  heroicons-outline:upload
+                  heroicons-outline:tag
                 </FuseSvgIcon>
               }
-              onClick={sendSMSToGetData}
+              onClick={() => ({})} //TODO
               disabled={isTimerActive}
             >
               Vyžiadať INF SMS

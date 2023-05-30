@@ -5,7 +5,7 @@ const ContactModel = (data) =>
     avatar: null,
     background: null,
     name: '',
-    role: 'Zákazník',
+    role: 'Klient',
     email: '',
     tags: '',
     birthNumber: '',

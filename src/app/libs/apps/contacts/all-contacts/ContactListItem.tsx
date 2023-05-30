@@ -10,7 +10,7 @@ function ContactListItem(props) {
   const { contact } = props;
   const roles = {
     admin: 'Admin',
-    user: 'Zákazník',
+    user: 'Klient',
     staff: 'Kurič',
     obsluha: 'Obsluha kotolne',
     instalater: 'Inštalatér',

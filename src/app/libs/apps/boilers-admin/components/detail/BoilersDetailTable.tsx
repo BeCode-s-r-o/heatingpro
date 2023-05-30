@@ -59,6 +59,7 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   const nubmerIsInInterval = (min, max, number) => {
     return number >= min && number <= max;
   };
+
   const generateColumns = (data: TBoiler['columns']) => {
     const sortedData = data.sort((i) => i.order);
 
@@ -106,20 +107,22 @@ export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }
   };
 
   const generateRows = (data: TBoiler['sms']) => {
+    console.log(data);
     return data?.map((i) => {
       const inputData = i.body?.inputData || [];
       const digitalInput = i.body?.digitalInput || [];
       const mergedData = [...inputData, ...digitalInput];
-
-      return mergedData.reduce(
+      const reduce = mergedData.reduce(
         (acc, curr, idx) => ({
-          lastUpdate: i.body?.timestamp.display,
+          lastUpdate: new Date(i.body?.timestamp.unix || '').toLocaleString(),
           id: i.messageID,
           ...acc,
-          [String(idx)]: curr || '-',
+          [String(idx)]: curr ?? '-',
         }),
         {}
       );
+
+      return reduce;
     });
   };
 

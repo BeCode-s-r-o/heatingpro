@@ -201,7 +201,7 @@ const ContactForm = () => {
             <RadioGroup row {...field} name="role">
               <FormControlLabel value="admin" control={<Radio />} label="Admin" />
               <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
-              <FormControlLabel value="user" control={<Radio />} label="Zákazník" />
+              <FormControlLabel value="user" control={<Radio />} label="Klient" />
               <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
               <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
             </RadioGroup>
