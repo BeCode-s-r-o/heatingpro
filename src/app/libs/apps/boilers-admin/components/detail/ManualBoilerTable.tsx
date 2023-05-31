@@ -10,6 +10,10 @@ import {
   TextField,
   Typography,
   Paper,
+  InputLabel,
+  MenuItem,
+  Select,
+  FormControl,
 } from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
@@ -54,7 +58,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
-
+  console.log(columns);
   const deleteSelectedRows = () => {
     const boilerRef = doc(db, 'boilers', id);
     const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
@@ -310,6 +314,9 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
                     onChange={handleRowChange}
                     fullWidth
                     margin="normal"
+                    InputProps={{
+                      endAdornment: <Typography>{columns.find((item) => item.headerName === key)?.unit}</Typography>,
+                    }}
                   />
                 )
             )}

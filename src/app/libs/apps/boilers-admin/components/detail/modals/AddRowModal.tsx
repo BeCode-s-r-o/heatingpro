@@ -1,4 +1,4 @@
-import { Drawer, List, ListItem, ListItemText, TextField, Button } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, TextField, Button, Typography } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from 'src/firebase-config';
@@ -12,7 +12,7 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    setNewRow(columns.map((column) => ({ [column.field]: '', name: column.field })));
+    setNewRow(columns.map((column) => ({ [column.field]: '', name: column.field, unit: column.unit })));
   }, [columns]);
 
   const handleChange = (e) => {
@@ -61,11 +61,15 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
               return (
                 <ListItem key={index}>
                   <TextField
+                    className="w-full"
                     name={column.name}
                     label={column.name}
                     onChange={handleChange}
                     value={column[column.name]}
                     required
+                    InputProps={{
+                      endAdornment: <Typography>{column.unit}</Typography>,
+                    }}
                   />
                 </ListItem>
               );

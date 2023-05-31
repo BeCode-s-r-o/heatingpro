@@ -1,4 +1,15 @@
-import { Drawer, List, ListItem, ListItemText, TextField, Button } from '@mui/material';
+import {
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from '@mui/material';
 import { useEffect, useState } from 'react';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { useDispatch } from 'react-redux';
@@ -10,18 +21,18 @@ import { AppDispatch } from 'app/store/index';
 interface Props {
   isOpen: boolean;
   close: () => void;
-  columns: { field: string; headerName: string }[];
+  columns: { field: string; headerName: string; unit: string }[];
   rows: {}[];
   deviceID: string;
 }
 
 function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
-  const [formFields, setFormFields] = useState<{ name: string }[]>([{ name: '' }]);
+  const [formFields, setFormFields] = useState<{ name: string; unit: string }[]>([{ name: '', unit: '' }]);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (columns.length > 0) {
-      setFormFields(columns.map((column) => ({ name: column.headerName })));
+      setFormFields(columns.map((column) => ({ name: column.headerName, unit: column.unit })));
     }
   }, [columns]);
 
@@ -31,11 +42,14 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     actualFormFields[index][name] = value;
     setFormFields(actualFormFields);
   };
-
+  const handleUnitChange = (event) => {
+    let { name, value } = event.target;
+    setFormFields((prev) => prev.map((column) => (column.name === name ? { ...column, unit: value } : column)));
+  };
   const submit = (e) => {
     e.preventDefault();
 
-    const newColumns = formFields.map((column) => ({ field: column.name, headerName: column.name }));
+    const newColumns = formFields.map((column) => ({ field: column.name, headerName: column.name, unit: column.unit }));
     if (existDuplicateColumn(newColumns)) {
       dispatch(showMessage({ message: 'Vyskytol sa duplicitný stĺpec' }));
       return;
@@ -54,6 +68,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
   const addFields = () => {
     let object = {
       name: '',
+      unit: '',
     };
 
     setFormFields([...formFields, object]);
@@ -91,7 +106,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={close}>
-      <List className="w-[300px]">
+      <List className="w-[350px]">
         <ListItem>
           <ListItemText primary="Upravovanie stĺpcov" />
         </ListItem>
@@ -105,7 +120,25 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
                 onChange={(event) => hanldeChange(event, index)}
                 value={field.name}
                 required
+                className="w-full"
               />
+
+              <FormControl fullWidth>
+                <InputLabel id="choice-label">Jednotka</InputLabel>
+                <Select
+                  labelId="choice-label"
+                  id="choice"
+                  label="Jednotka"
+                  name={field.name}
+                  value={field.unit}
+                  onChange={(e) => handleUnitChange(e)}
+                >
+                  <MenuItem value="mwh">MWh</MenuItem>
+                  <MenuItem value="kwh">kWh</MenuItem>
+                  <MenuItem value="gj">GJ</MenuItem>
+                  <MenuItem value="m3">m³</MenuItem>
+                </Select>
+              </FormControl>
 
               <Button onClick={() => removeFields(index)}>
                 <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
