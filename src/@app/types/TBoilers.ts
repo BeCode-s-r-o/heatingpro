@@ -17,9 +17,12 @@ export type TBoiler = {
 export type TContactForNotification = {
   name: string;
   phone: string;
-  sendPhone: boolean;
   email: string;
-  sendEmail: boolean;
+  sendSmsAlarm: boolean;
+  sendSmsMissingRecord: boolean;
+  sendEmailMonthlyReport: boolean;
+  sendEmailAlarm: boolean;
+  sendEmailMissingRecord: boolean;
 };
 
 export type TBoilerNote = {
