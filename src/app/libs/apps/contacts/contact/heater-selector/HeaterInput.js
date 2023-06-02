@@ -22,7 +22,7 @@ function HeaterInput(props) {
   const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '' });
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch();
-  const isAdmin = user.role === 'admin';
+  const isAdmin = user?.role === 'admin';
   useEffect(() => {
     if (arrayOfAllBoilers.length > 0) {
       setActualHeaterInfo(
@@ -31,7 +31,7 @@ function HeaterInput(props) {
           : arrayOfAllBoilers.find((boiler) => boiler.id === value)
       );
     }
-  }, [dispatch]);
+  }, [arrayOfAllBoilers]);
 
   useEffect(() => {
     dispatch(getBoilers());
@@ -60,8 +60,9 @@ function HeaterInput(props) {
   return (
     <>
       <h1 className="text-center pb-12">Kotolňa</h1>
-      <form className="flex space-x-16 mb-16">
+      <form className="flex flex-wrap gap-y-16 sm:gap-y-16 sm:flex-nowrap sm:space-x-16  mb-16">
         <Autocomplete
+          className="w-full"
           disablePortal
           options={boilersForOptions}
           getOptionLabel={(option) => option.id}
@@ -107,7 +108,7 @@ function HeaterInput(props) {
           }}
         />
         {!hideRemove && (
-          <IconButton onClick={props.onRemove}>
+          <IconButton onClick={props.onRemove} className="mx-auto sm:mx-0">
             <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
           </IconButton>
         )}
