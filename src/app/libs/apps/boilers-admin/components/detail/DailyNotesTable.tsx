@@ -27,10 +27,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { selectBoilerById } from '../../store/boilersSlice';
-import { formatDateToSK } from './functions/datesOperations';
+import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import HandleSignature from './modals/HandleSignature';
 import moment from 'moment';
+import axios from 'axios';
 
 export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -154,7 +155,27 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
       },
     },
   ];
+  const getPDF = async () => {
+    let data = {
+      boilerID: boiler?.id,
+      user: user,
+      date: getCurrentDate(),
+    };
 
+    dispatch(showMessage({ message: 'PDF sa generuje...' }));
+    try {
+      const response = await axios.post('https://api.monitoringpro.sk/pdf-zapisy', data, {
+        responseType: 'blob',
+      });
+      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
+      link.click();
+    } catch (error) {
+      dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
+    }
+  };
   const rolesEnabledEdit = ['admin'];
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden" ref={componentRef}>
@@ -172,6 +193,11 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
             setSelectedRowsIds(ids);
           }}
           rowsPerPageOptions={[10]}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'date', sort: 'desc' }],
+            },
+          }}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">
@@ -236,7 +262,7 @@ export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) =
           className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
-          onClick={generatePDF}
+          onClick={getPDF}
           startIcon={
             <FuseSvgIcon className="text-48 text-white" size={24}>
               material-outline:picture_as_pdf
