@@ -1,5 +1,16 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Button, Drawer, InputAdornment, List, ListItem, ListItemText, Switch, TextField } from '@mui/material';
+import { TContactForNotification } from '@app/types/TBoilers';
+import {
+  Button,
+  Checkbox,
+  Drawer,
+  FormControlLabel,
+  List,
+  ListItem,
+  ListItemText,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { doc, updateDoc } from 'firebase/firestore';
@@ -7,7 +18,6 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
-import { TContactForNotification } from '@app/types/TBoilers';
 
 interface Props {
   isOpen: boolean;
@@ -33,6 +43,8 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
     setFormFields(notificationsContacts);
     close();
   };
+  const isRequiredFieldsFilled = formFields.every((contact) => contact.phone !== '' && contact.email !== '');
+
   const submit = (e) => {
     e.preventDefault();
 
@@ -51,9 +63,12 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
     let contact = {
       name: '',
       phone: '',
-      sendPhone: true,
       email: '',
-      sendEmail: true,
+      sendSmsAlarm: true,
+      sendSmsMissingRecord: true,
+      sendEmailMonthlyReport: true,
+      sendEmailAlarm: true,
+      sendEmailMissingRecord: true,
     };
 
     setFormFields((prev) => [...prev, contact]);
@@ -73,7 +88,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
         </ListItem>
         <form onSubmit={submit}>
           {formFields.map((contact, index) => (
-            <ListItem key={index} className="flex flex-wrap gap-12 border-b">
+            <ListItem key={index} className="flex flex-wrap gap-12 border-b-[12px] pt-20 ">
               <TextField
                 className="mx-auto w-full"
                 name="name"
@@ -81,8 +96,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
                 onChange={(e) => handleChange(e, index, e.target.value)}
                 value={contact.name}
                 required
-              />
-
+              />{' '}
               <TextField
                 className="mx-auto  w-full"
                 name="phone"
@@ -90,19 +104,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
                 onChange={(e) => handleChange(e, index, e.target.value)}
                 value={contact.phone}
                 required
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Switch
-                        name="sendPhone"
-                        onChange={(e) => handleChange(e, index, e.target.checked)}
-                        checked={contact.sendPhone}
-                      />
-                    </InputAdornment>
-                  ),
-                }}
               />
-
               <TextField
                 className="mx-auto w-full"
                 name="email"
@@ -110,18 +112,64 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
                 onChange={(e) => handleChange(e, index, e.target.value)}
                 value={contact.email}
                 required
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <Switch
-                        name="sendEmail"
-                        onChange={(e) => handleChange(e, index, e.target.checked)}
-                        checked={contact.sendEmail}
-                      />
-                    </InputAdornment>
-                  ),
-                }}
               />
+              <Typography className="mx-auto">SMS</Typography>
+              <div className="flex  border-b-2 pb-10">
+                <FormControlLabel control={<Checkbox disabled />} label="Mesačný report" />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sendSmsAlarm"
+                      checked={contact.sendSmsAlarm}
+                      onChange={(e) => handleChange(e, index, e.target.checked)}
+                    />
+                  }
+                  label="Alarmy"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sendSmsMissingRecord"
+                      checked={contact.sendSmsMissingRecord}
+                      onChange={(e) => handleChange(e, index, e.target.checked)}
+                    />
+                  }
+                  label="Chýbajúci zápis"
+                />
+              </div>
+              <Typography className="mx-auto">Email</Typography>
+              <div className="flex border-b-2 pb-10">
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sendEmailMonthlyReport"
+                      checked={contact.sendEmailMonthlyReport}
+                      onChange={(e) => handleChange(e, index, e.target.checked)}
+                    />
+                  }
+                  label="Mesačný report"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sendEmailAlarm"
+                      checked={contact.sendEmailAlarm}
+                      onChange={(e) => handleChange(e, index, e.target.checked)}
+                    />
+                  }
+                  label="Alarmy"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="sendEmailMissingRecord"
+                      checked={contact.sendEmailMissingRecord}
+                      onChange={(e) => handleChange(e, index, e.target.checked)}
+                    />
+                  }
+                  label="Chýbajúci zápis"
+                />
+              </div>
               <Button onClick={() => removeField(index)} className="mx-auto">
                 <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
               </Button>
@@ -135,7 +183,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
         </ListItem>
         <br />
         <ListItem className="flex justify-end gap-12">
-          <Button variant="contained" onClick={submit} color="primary">
+          <Button variant="contained" onClick={submit} color="primary" disabled={!isRequiredFieldsFilled}>
             Uložiť
           </Button>
           <Button variant="contained" onClick={handleClose} color="secondary">
