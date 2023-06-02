@@ -23,6 +23,9 @@ import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
 import { Box } from '@mui/system';
+import { db } from 'src/firebase-config';
+import { doc, updateDoc } from 'firebase/firestore';
+
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -89,11 +92,14 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     };
     try {
       await axios.post('https://api.monitoringpro.sk/change-period', data);
+      const boilerRef = doc(db, 'boilers', boiler?.id || '');
+      updateDoc(boilerRef, { period: newPeriod });
       dispatch(showMessage({ message: 'Perióda bola úspšene zmenená' }));
       //zmenit periodu na BE + redux
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     } finally {
+      dispatch(getBoiler(boiler?.id));
       setShowConfirmModalChange(false);
       setShowPeriodSetting(false);
     }
