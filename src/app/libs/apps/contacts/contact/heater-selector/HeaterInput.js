@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { selectUser } from 'app/store/userSlice';
 import { getBoilers, selectAllBoilers } from '../../../boilers-admin/store/boilersSlice';
 
 const schema = yup.object().shape({
@@ -19,16 +20,18 @@ function HeaterInput(props) {
   const { value, hideRemove } = props;
   const arrayOfAllBoilers = useSelector(selectAllBoilers);
   const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '' });
-
+  const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch();
+  const isAdmin = user.role === 'admin';
   useEffect(() => {
-    arrayOfAllBoilers.length > 0 &&
+    if (arrayOfAllBoilers.length > 0) {
       setActualHeaterInfo(
-        value === undefined // when you are adding new boiler
+        value === undefined
           ? { id: '', name: '', phoneNumber: '' }
           : arrayOfAllBoilers.find((boiler) => boiler.id === value)
       );
-  }, [arrayOfAllBoilers]);
+    }
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getBoilers());
@@ -37,7 +40,7 @@ function HeaterInput(props) {
   const defaultValues = '';
   const { control, formState, handleSubmit, reset, watch } = useForm({
     mode: 'onChange',
-    defaultValues: defaultValues,
+    defaultValues,
     resolver: yupResolver(schema),
   });
   const form = watch();
@@ -51,16 +54,18 @@ function HeaterInput(props) {
     props.onChange(data.id);
     setActualHeaterInfo(data);
   }
-
+  const boilersForOptions = isAdmin
+    ? arrayOfAllBoilers
+    : arrayOfAllBoilers.filter((boiler) => !user?.boilers.includes(boiler.id));
   return (
     <>
       <h1 className="text-center pb-12">Kotolňa</h1>
       <form className="flex space-x-16 mb-16">
         <Autocomplete
           disablePortal
-          options={arrayOfAllBoilers}
+          options={boilersForOptions}
           getOptionLabel={(option) => option.id}
-          isOptionEqualToValue={(option, value) => option.id === value.id}
+          isOptionEqualToValue={(option, choice) => option.id === choice.id}
           value={actualHeaterInfo}
           renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
           onChange={(event, newValue) => {

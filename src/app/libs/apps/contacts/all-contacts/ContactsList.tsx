@@ -13,11 +13,12 @@ import withReducer from 'app/store/withReducer';
 import { getBoilers, boilersSlice } from '../../boilers-admin/store/boilersSlice';
 import { useEffect } from 'react';
 import { AppDispatch } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 
 const ContactsList = () => {
   const filteredData = useSelector(selectFilteredContacts);
   const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
-
+  const { data: user } = useSelector(selectUser);
   if (!filteredData) {
     return null;
   }
@@ -32,6 +33,8 @@ const ContactsList = () => {
     );
   }
 
+  const userBoilers = user?.heaters;
+  const isAdmin = user?.role === 'admin';
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -47,9 +50,15 @@ const ContactsList = () => {
             <Divider />
             <List className="w-full m-0 p-0">
               {/* @ts-ignore */}
-              {group.children.map((item) => (
-                <ContactListItem key={item.id} contact={item} />
-              ))}
+              {group.children.map((item) => {
+                const hasMatchingHeater = item.heaters.some((heater) => userBoilers?.includes(heater));
+
+                if (hasMatchingHeater || isAdmin) {
+                  return <ContactListItem key={item.id} contact={item} />;
+                } else {
+                  return null;
+                }
+              })}
             </List>
           </div>
         );
