@@ -36,7 +36,7 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
 
   const initializeNewColumns = useMemo(
     () => (data) => {
-      const emptyColumn = { columnName: '', desc: '', hide: false, max: 0, min: 0, unit: '' };
+      const emptyColumn = { columnName: '', desc: '', hide: false, max: 99, min: 0, unit: '' };
       return data.map((value, index) => ({
         ...emptyColumn,
         accessor: self.crypto.randomUUID(),
