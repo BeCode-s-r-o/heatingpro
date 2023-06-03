@@ -33,7 +33,7 @@ import HandleSignature from './modals/HandleSignature';
 import moment from 'moment';
 import axios from 'axios';
 
-export const DailyNotesTable = ({ id, printTable, generatePDF, componentRef }) => {
+export const DailyNotesTable = ({ id, printTable, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));

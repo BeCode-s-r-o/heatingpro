@@ -21,7 +21,7 @@ import DatePicker from 'react-datepicker';
 import axios from 'axios';
 import { showMessage } from 'app/store/slices/messageSlice';
 
-export const BoilersDetailTable = ({ id, componentRef, generatePDF, printTable }) => {
+export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
