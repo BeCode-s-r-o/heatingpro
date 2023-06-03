@@ -31,7 +31,7 @@ import { selectUser } from 'app/store/userSlice';
 import ConfirmModal from './modals/ConfirmModal';
 import { compareDates } from './functions/datesOperations';
 
-export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef }) => {
+export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
@@ -269,7 +269,7 @@ export const ManualBoilerTable = ({ id, generatePDF, printTable, componentRef })
               className="whitespace-nowrap w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
-              onClick={generatePDF}
+              onClick={() => {}} //TODO call api to create pdf
               startIcon={
                 <FuseSvgIcon className="text-48 text-white " size={24} color="action">
                   material-outline:picture_as_pdf

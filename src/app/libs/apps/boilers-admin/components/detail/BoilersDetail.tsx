@@ -67,46 +67,12 @@ const BoilersDetail = () => {
       return printElem;
     },
   });
-  const generatePDF = async (tableRef) => {
-    // @ts-ignore
-    const header = headerRef.current.cloneNode(true);
-    // @ts-ignore
-    const table = tableRef.current.cloneNode(true);
-
-    const container = document.createElement('div');
-    container.appendChild(header);
-    container.appendChild(table);
-    container.style.maxWidth = '1570px';
-    container.querySelectorAll('.dont-print').forEach((button) => button.remove());
-    document.body.appendChild(container);
-
-    const canvas = await htmlToImage.toCanvas(container);
-    const imgData = canvas.toDataURL('image/svg+xml', 1.0);
-    const report = new jsPDF({
-      orientation: 'landscape',
-      unit: 'px',
-      precision: 16,
-    });
-    report.addImage(
-      imgData,
-      'SVG',
-      0,
-      0,
-      report.internal.pageSize.width,
-      report.internal.pageSize.height - 70,
-      '',
-      'FAST'
-    );
-
-    report.save('report.pdf');
-    document.body.removeChild(container);
-  };
 
   return (
     <Wrapper
       header={<BoilersDetailHeader boiler={boiler} />}
       content={
-        <div className="w-full p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
+        <div className="w-full sm:p-12 pt-16 sm:pt-24 lg:ltr:pr-0 lg:rtl:pl-0">
           <m.div
             className="grid grid-cols-1 sm:grid-cols-6 gap-24 w-full min-w-0 p-24"
             variants={container}
@@ -117,28 +83,13 @@ const BoilersDetail = () => {
               {boiler && <BoilerInfo boiler={boiler} headerRef={headerRef} user={user} />}
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <BoilersDetailTable
-                id={id}
-                componentRef={boilerDetailTableRef}
-                generatePDF={() => generatePDF(boilerDetailTableRef)}
-                printTable={printBoilerDetailTable}
-              />
+              <BoilersDetailTable id={id} componentRef={boilerDetailTableRef} printTable={printBoilerDetailTable} />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <DailyNotesTable
-                id={id}
-                printTable={printDailyNotesTable}
-                componentRef={dailyNotesTableRef}
-                generatePDF={() => generatePDF(dailyNotesTableRef)}
-              />
+              <DailyNotesTable id={id} printTable={printDailyNotesTable} componentRef={dailyNotesTableRef} />
             </m.div>
             <m.div variants={item} className="sm:col-span-6">
-              <ManualBoilerTable
-                id={id}
-                generatePDF={() => generatePDF(manualBoilerTableRef)}
-                printTable={printManualBoilerTable}
-                componentRef={manualBoilerTableRef}
-              />
+              <ManualBoilerTable id={id} printTable={printManualBoilerTable} componentRef={manualBoilerTableRef} />
             </m.div>
           </m.div>
         </div>
