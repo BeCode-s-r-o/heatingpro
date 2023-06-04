@@ -91,6 +91,8 @@ const ContactForm = () => {
   function handleRemoveContact() {
     dispatch(removeContact(id || ''))
       .then(() => {
+        dispatch(showMessage({ message: 'Užívateľ bol úspešne odstránený' }));
+        dispatch(getContacts());
         navigate('/pouzivatelia');
       })
       .catch((error) => {

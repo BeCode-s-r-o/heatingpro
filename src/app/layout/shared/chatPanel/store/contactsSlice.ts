@@ -51,18 +51,13 @@ export const updateContact = createAsyncThunk('contactsApp/contacts/updateContac
 
 export const removeContact = createAsyncThunk('contactsApp/contacts/removeContact', async (id: string) => {
   const contactRef = doc(getFirestore(), 'users', `${id}`);
-  axios
-    .delete('https://api.monitoringpro.sk/delete-user', { data: { uid: id } })
-    .then((response) => {
-      deleteDoc(contactRef)
-        .then(() => {})
-        .catch((error) => {
-          throw error;
-        });
-    })
-    .catch((error) => {
-      throw error;
-    });
+  const data = { uid: id };
+  try {
+    await axios.delete('https://api.monitoringpro.sk/delete-user', { data });
+    await deleteDoc(contactRef);
+  } catch (error) {
+    throw error;
+  }
 });
 
 const contactsAdapter: EntityAdapter<TContact> = createEntityAdapter();
