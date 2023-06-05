@@ -25,7 +25,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
-  const [startDate, setStartDate] = useState<Date>();
+  const [filterDate, setFilterDate] = useState<Date>();
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
@@ -49,12 +49,13 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   };
 
   const filterRowsByDate = (date) => {
-    setStartDate(date);
+    setFilterDate(date);
+    console.log(date);
     !date ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(date, sms.lastUpdate)));
   };
   const handleCleanCalendar = () => {
     setRows(defaultRows);
-    setStartDate(undefined);
+    setFilterDate(undefined);
   };
   const nubmerIsInInterval = (min, max, number) => {
     return number >= min && number <= max;
@@ -136,6 +137,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       boilerID: boiler?.id,
       user: user,
       date: getCurrentDate(),
+      dateForFilter: filterDate ? filterDate : 'all',
     };
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
@@ -177,7 +179,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
             </FuseSvgIcon>
             <DatePicker
               onChange={filterRowsByDate}
-              selected={startDate}
+              selected={filterDate}
               dateFormat="MM/yyyy"
               showMonthYearPicker
               placeholderText="Vyber mesiac"
