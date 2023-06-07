@@ -1,23 +1,18 @@
-import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  TextField,
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from '@mui/material';
-import { useEffect, useState } from 'react';
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { useDispatch } from 'react-redux';
+import {
+  Button, Drawer, FormControl,
+  InputLabel, List,
+  ListItem,
+  ListItemText, MenuItem,
+  Select, TextField
+} from '@mui/material';
+import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { doc, updateDoc } from 'firebase/firestore';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
-import { AppDispatch } from 'app/store/index';
 interface Props {
   isOpen: boolean;
   close: () => void;
@@ -80,7 +75,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
       var updatedRow = { ...rows[i] };
       for (let j = 0; j < newColumns.length; j++) {
         if (updatedRow[newColumns[j]] !== '-' && updatedRow[newColumns[j]] === undefined) {
-          console.log(updatedRow[newColumns[j]]);
+
           updatedRow[newColumns[j]] = '-';
         }
       }

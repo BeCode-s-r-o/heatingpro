@@ -1,13 +1,17 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Avatar, Button, TextFieldProps, Tooltip } from '@mui/material';
+import { Avatar, Button, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
+import axios from 'axios';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import React, { useEffect, useMemo, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
@@ -16,10 +20,6 @@ import { compareDates, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import 'react-datepicker/dist/react-datepicker.css';
-import DatePicker from 'react-datepicker';
-import axios from 'axios';
-import { showMessage } from 'app/store/slices/messageSlice';
 
 export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -50,7 +50,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
 
   const filterRowsByDate = (date) => {
     setFilterDate(date);
-    console.log(date);
+
     !date ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(date, sms.lastUpdate)));
   };
   const handleCleanCalendar = () => {
@@ -108,7 +108,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   };
 
   const generateRows = (data: TBoiler['sms']) => {
-    console.log(data);
+
     return data?.map((i) => {
       const inputData = i.body?.inputData || [];
       const digitalInput = i.body?.digitalInput || [];

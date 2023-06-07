@@ -4,32 +4,24 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  TextField,
-  Typography,
-  Paper,
-  InputLabel,
-  MenuItem,
-  Select,
-  FormControl,
+  DialogContent, DialogTitle, Paper, TextField,
+  Typography
 } from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
 import { doc, updateDoc } from 'firebase/firestore';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
+import { compareDates } from './functions/datesOperations';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
-import { selectUser } from 'app/store/userSlice';
 import ConfirmModal from './modals/ConfirmModal';
-import { compareDates } from './functions/datesOperations';
 
 export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -58,7 +50,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
-  console.log(columns);
+
   const deleteSelectedRows = () => {
     const boilerRef = doc(db, 'boilers', id);
     const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
