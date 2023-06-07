@@ -4,8 +4,11 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent, DialogTitle, Paper, TextField,
-  Typography
+  DialogContent,
+  DialogTitle,
+  Paper,
+  TextField,
+  Typography,
 } from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
@@ -13,6 +16,7 @@ import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
 import { doc, updateDoc } from 'firebase/firestore';
+import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
@@ -44,9 +48,31 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
   const [rows, setRows] = React.useState<any[]>([]);
 
+  //todo
+  const constantUpdateDate = moment().endOf('month').subtract(1, 'weeks');
+
   useEffect(() => {
-    setRows(defaultRows);
+    const rowsWithEfficiency = defaultRows.map((row, index) => {
+      const prevRow = defaultRows[index - 1];
+      const effectivityConstant = row.effectivityConstant;
+
+      if (prevRow && effectivityConstant) {
+        const rozdielVO1 = row['V01'] - prevRow['V01'];
+        const rozdielVO2 = row['V02'] - prevRow['V02'];
+        const rozdielPlynomer = row['Plynomer'] - prevRow['Plynomer'];
+
+        const ucinnost = (rozdielVO1 + rozdielVO2) / (rozdielPlynomer * effectivityConstant);
+
+        return { ...row, ucinnost };
+      }
+      if (!effectivityConstant && !!prevRow) {
+        return { ...row, ucinnost: 'Chýbajúca konštanta' };
+      }
+      return { ...row, ucinnost: 'Nedá sa vypočítať' };
+    });
+    setRows(rowsWithEfficiency);
   }, [boiler]);
+
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
@@ -94,6 +120,46 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     dispatch(getBoiler(id || ''));
   };
 
+  const cols = [
+    { field: 'date', headerName: 'Dátum' },
+    ...columns,
+    {
+      field: 'ucinnost',
+      headerName: 'Účinnosť kotolne',
+      id: 'asdasd',
+    },
+    {
+      field: 'id',
+      headerName: 'Upraviť',
+      id: 'ahskjahsf',
+      sortable: false,
+      renderCell: (params) => {
+        const onClick = (e) => {
+          e.stopPropagation(); // don't select this row after clicking
+
+          const api = params.api;
+          const thisRow = {};
+
+          api
+            .getAllColumns()
+            .filter((c) => c.field !== '__check__' && !!c)
+            .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
+          //@ts-ignore
+          setRowForEdit(thisRow);
+          setShowEditRow(true);
+        };
+
+        return (
+          <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
+            material-outline:edit
+          </FuseSvgIcon>
+        );
+      },
+    },
+  ].map((i) => ({ ...i, flex: 1 }));
+
+  const saveEfficiencyConstant = (e) => {};
+
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
@@ -123,47 +189,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
-          columns={[
-            { field: 'date', headerName: 'Dátum' },
-            ...columns,
-            {
-              field: 'ucinnost',
-              headerName: 'Účinnosť kotolne',
-              id: 'asdasd',
-              renderCell: () => {
-                //TODO
-                return '123';
-              },
-            },
-            {
-              field: 'id',
-              headerName: 'Upraviť',
-              id: 'ahskjahsf',
-              sortable: false,
-              renderCell: (params) => {
-                const onClick = (e) => {
-                  e.stopPropagation(); // don't select this row after clicking
-
-                  const api = params.api;
-                  const thisRow = {};
-
-                  api
-                    .getAllColumns()
-                    .filter((c) => c.field !== '__check__' && !!c)
-                    .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
-                  //@ts-ignore
-                  setRowForEdit(thisRow);
-                  setShowEditRow(true);
-                };
-
-                return (
-                  <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
-                    material-outline:edit
-                  </FuseSvgIcon>
-                );
-              },
-            },
-          ].map((i) => ({ ...i, flex: 1 }))}
+          columns={cols}
           pageSize={10}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
@@ -295,9 +321,10 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         <DialogTitle>Upraviť záznam</DialogTitle>
         <form onSubmit={saveEditedRow}>
           <DialogContent>
-            {Object.keys(rowForEdit).map(
-              (key) =>
-                key != 'id' && (
+            {Object.keys(rowForEdit).reduce<any>((acc, key) => {
+              if (key !== 'ucinnost' && key !== 'date' && key !== 'id' && key !== 'effectivityConstant') {
+                return [
+                  ...acc,
                   <TextField
                     key={key}
                     label={key}
@@ -309,9 +336,20 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
                     InputProps={{
                       endAdornment: <Typography>{columns.find((item) => item.headerName === key)?.unit}</Typography>,
                     }}
-                  />
-                )
-            )}
+                  />,
+                ];
+              }
+              return acc;
+            }, [])}
+            <TextField
+              key={'effectivityConstant'}
+              label={'Konštanta účinnosti'}
+              name={'effectivityConstant'}
+              value={rowForEdit['effectivityConstant']}
+              onChange={handleRowChange}
+              fullWidth
+              margin="normal"
+            />
           </DialogContent>
           <DialogActions>
             <Button className="whitespace-nowrap w-fit mb-2 mr-8" variant="contained" color="primary" type="submit">
