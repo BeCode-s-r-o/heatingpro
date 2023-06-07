@@ -32,6 +32,8 @@ import {
   updateContact,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ConfirmModal from '../../boilers-admin/components/detail/modals/ConfirmModal';
+import { selectUser } from 'app/store/userSlice';
+import { Typography } from '@mui/material';
 
 const schema = yup.object().shape({
   name: yup.string().required('You must enter a name'),
@@ -40,7 +42,7 @@ const schema = yup.object().shape({
 const ContactForm = () => {
   const { id } = useParams();
   const contact: TContact | undefined = useSelector((state: RootState) => selectContactById(state, id || ''));
-
+  const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
@@ -283,7 +285,6 @@ const ContactForm = () => {
             />
           )}
         />
-
         {form.role !== 'admin' && (
           <Controller
             control={control}

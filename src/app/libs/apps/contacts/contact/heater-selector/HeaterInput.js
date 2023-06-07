@@ -56,7 +56,7 @@ function HeaterInput(props) {
   }
   const boilersForOptions = isAdmin
     ? arrayOfAllBoilers
-    : arrayOfAllBoilers.filter((boiler) => !user?.boilers.includes(boiler.id));
+    : arrayOfAllBoilers.filter((boiler) => !user?.boilers.includes(boiler.id) || !boiler.disabled);
   return (
     <>
       <h1 className="text-center pb-12">Kotolňa</h1>

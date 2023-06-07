@@ -17,6 +17,7 @@ import { useParams } from 'react-router-dom';
 import { getContact, selectContactById } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import { getBoilers, selectAllBoilers, userAssignedHeaters } from '../../boilers-admin/store/boilersSlice';
 import { TBoiler } from '@app/types/TBoilers';
+import { selectUser } from 'app/store/userSlice';
 
 const ContactView = () => {
   const { id } = useParams();
@@ -24,7 +25,7 @@ const ContactView = () => {
   const allBoilers = useSelector(selectAllBoilers);
   const userBoilers = userAssignedHeaters(allBoilers, contact?.heaters || []);
   const dispatch = useDispatch<AppDispatch>();
-
+  const { data: user } = useSelector(selectUser);
   useEffect(() => {
     dispatch(getBoilers());
   }, [dispatch]);
@@ -106,34 +107,33 @@ const ContactView = () => {
               </div>
             )}
 
-            {userBoilers.length && userBoilers.some((item) => item.id.length > 0) ? (
+            {userBoilers.length > 0 ? (
               <div className="flex">
                 <WhatshotIcon />
                 <div className="min-w-0 ml-24 space-y-4">
-                  {userBoilers.map(
-                    (boiler) =>
-                      boiler.id !== '' && (
-                        <div className="flex items-center leading-6" key={boiler.id}>
-                          {boiler.id}
+                  {userBoilers.map((boiler) =>
+                    user?.role === 'admin' || !boiler.disabled ? (
+                      <div className="flex items-center leading-6" key={boiler.id}>
+                        {boiler.id}
 
-                          {boiler.name && (
-                            <>
-                              <Typography className="text-md truncate" color="text.secondary">
-                                <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{boiler.name}</span>
-                              </Typography>
-                            </>
-                          )}
-                          {boiler.phoneNumber && (
-                            <>
-                              <Typography className="text-md truncate" color="text.secondary">
-                                <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{boiler.phoneNumber}</span>
-                              </Typography>
-                            </>
-                          )}
-                        </div>
-                      )
+                        {boiler.name && (
+                          <>
+                            <Typography className="text-md truncate" color="text.secondary">
+                              <span className="mx-8">&bull;</span>
+                              <span className="font-medium">{boiler.name}</span>
+                            </Typography>
+                          </>
+                        )}
+                        {boiler.phoneNumber && (
+                          <>
+                            <Typography className="text-md truncate" color="text.secondary">
+                              <span className="mx-8">&bull;</span>
+                              <span className="font-medium">{boiler.phoneNumber}</span>
+                            </Typography>
+                          </>
+                        )}
+                      </div>
+                    ) : null
                   )}
                 </div>
               </div>
