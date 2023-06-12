@@ -1,10 +1,15 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import {
-  Button, Drawer, FormControl,
-  InputLabel, List,
+  Button,
+  Drawer,
+  FormControl,
+  InputLabel,
+  List,
   ListItem,
-  ListItemText, MenuItem,
-  Select, TextField
+  ListItemText,
+  MenuItem,
+  Select,
+  TextField,
 } from '@mui/material';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
@@ -75,7 +80,6 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
       var updatedRow = { ...rows[i] };
       for (let j = 0; j < newColumns.length; j++) {
         if (updatedRow[newColumns[j]] !== '-' && updatedRow[newColumns[j]] === undefined) {
-
           updatedRow[newColumns[j]] = '-';
         }
       }
@@ -108,7 +112,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
         <form onSubmit={submit}>
           {formFields.map((field, index) => (
             <ListItem key={index}>
-              <TextField
+              {/*         <TextField
                 name="name"
                 label="Názov"
                 placeholder={field.name !== '' ? field.name : 'Názov'}
@@ -116,8 +120,35 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
                 value={field.name}
                 required
                 className="w-full"
-              />
-
+              /> */}
+              <FormControl fullWidth>
+                <InputLabel id="choice-label">Názov</InputLabel>
+                <Select
+                  labelId="choice-label"
+                  id="choice"
+                  label="Jednotka"
+                  name="name"
+                  value={field.name}
+                  onChange={(event) => hanldeChange(event, index)}
+                >
+                  <MenuItem value="VO1">VO1</MenuItem>
+                  <MenuItem value="VO2">VO2</MenuItem>
+                  <MenuItem value="VO3">VO3</MenuItem>
+                  <MenuItem value="VO4">VO4</MenuItem>
+                  <MenuItem value="VO5">VO5</MenuItem>
+                  <MenuItem value="VO6">VO6</MenuItem>
+                  <MenuItem value="VO7">VO7</MenuItem>
+                  <MenuItem value="VO8">VO8</MenuItem>
+                  <MenuItem value="MT TUV">MT TUV</MenuItem>
+                  <MenuItem value="vpv TUV">vpv TUV</MenuItem>
+                  <MenuItem value="VnDVS">VnDVS</MenuItem>
+                  <MenuItem value="VCH">VCH</MenuItem>
+                  <MenuItem value="VpZ">VpZ</MenuItem>
+                  <MenuItem value="MT VZT">MT VZT</MenuItem>
+                  <MenuItem value="Elektro">Elektro</MenuItem>
+                  <MenuItem value="Plyn">Plyn</MenuItem>
+                </Select>
+              </FormControl>
               <FormControl fullWidth>
                 <InputLabel id="choice-label">Jednotka</InputLabel>
                 <Select
