@@ -81,7 +81,8 @@ table.simple.borderless thead tr th {
   border: none;
 }
 
-.react-datepicker__month {
+.react-datepicker__month,
+.react-datepicker__year {
   font-size: 1.4rem !important;
 }
 

@@ -10,6 +10,8 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -22,7 +24,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDates } from './functions/datesOperations';
+import { compareDates, compareDatesYears } from './functions/datesOperations';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
@@ -39,6 +41,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const rolesEnabledAddRecord = ['admin', 'staff'];
   const rolesEnabledExportAndPrint = ['admin', 'instalater', 'user'];
 
+  const [filterDate, setFilterDate] = React.useState<Date>();
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
@@ -99,8 +102,14 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     }));
   };
 
-  const filterRowsByDate = (e) => {
-    !e.target.value ? setRows(defaultRows) : setRows(defaultRows.filter((i) => compareDates(i.date, e.target.value)));
+  const filterRowsByDate = (date) => {
+    setFilterDate(date);
+
+    !date ? setRows(defaultRows) : setRows(defaultRows.filter((row) => compareDatesYears(date, row.date)));
+  };
+  const handleCleanCalendar = () => {
+    setRows(defaultRows);
+    setFilterDate(undefined);
   };
   const saveEditedRow = (e) => {
     e.preventDefault();
@@ -116,7 +125,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       return;
     }
     setShowEditRow(false);
-    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+    dispatch(showMessage({ message: 'Záznam úspešné uložený' }));
     dispatch(getBoiler(id || ''));
   };
 
@@ -128,7 +137,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       headerName: 'Účinnosť kotolne',
       id: 'asdasd',
     },
-    {
+    rolesEnabledEdit.includes(user.role) && {
       field: 'id',
       headerName: 'Upraviť',
       id: 'ahskjahsf',
@@ -166,17 +175,20 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         Mesačné odpisy stavu spotreby {id}
       </Typography>
       <div className="relative">
-        {/* <div className="w-fit border p-10">
-          <label htmlFor="start">Vyberte mesiac: </label>
-          <input
-            type="month"
-            className="cursor-pointer"
-            id="start"
-            name="start"
-            min="2023-01"
+        <div className="border p-4 relative flex items-center justify-center w-fit">
+          <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
+            material-twotone:calendar_today
+          </FuseSvgIcon>
+          <DatePicker
             onChange={filterRowsByDate}
+            selected={filterDate}
+            dateFormat="yyyy"
+            showYearPicker
+            placeholderText="Vyber mesiac"
+            className="w-[10rem] cursor-pointer"
           />
-        </div> */}
+          <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
+        </div>
         <div className="flex mx-4 absolute right-0 top-0 show-on-print">
           <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
             {user?.data?.name[0]}

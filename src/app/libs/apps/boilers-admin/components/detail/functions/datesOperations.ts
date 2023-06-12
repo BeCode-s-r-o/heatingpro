@@ -5,7 +5,12 @@ export const compareDates = (date1, date2) => {
   const d2 = moment(date2, 'DD.MM.YYYY HH:mm:ss');
   return d1.isSame(d2, 'month') && d1.isSame(d2, 'year');
 };
-
+export const compareDatesYears = (date1, date2) => {
+  console.log(date2);
+  const d1 = moment(date1, 'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
+  const d2 = moment(date2, 'D.M.YYYY');
+  return d1.isSame(d2, 'year');
+};
 export const getCurrentDate = () => {
   const date = new Date();
   let day = date.getDate();
