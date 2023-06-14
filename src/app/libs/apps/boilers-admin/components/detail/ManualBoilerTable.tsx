@@ -50,9 +50,13 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const [showEditRow, setShowEditRow] = React.useState(false);
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
   const [rows, setRows] = React.useState<any[]>([]);
+  const [effectivityConstant, setEffectivityConstant] = React.useState();
 
   //todo
   const constantUpdateDate = moment().endOf('month').subtract(1, 'weeks');
+  useEffect(() => {
+    setEffectivityConstant(rows.find((row) => row.id === rowForEdit.id)?.effectivityConstant || 0);
+  }, [rowForEdit]);
 
   useEffect(() => {
     const rowsWithEfficiency = defaultRows.map((row, index) => {
@@ -106,6 +110,11 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
 
   const handleRowChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'effectivityConstant') {
+      setEffectivityConstant(value);
+      return;
+    }
     setRowForEdit((prev) => ({
       ...prev,
       [name]: value,
@@ -124,8 +133,9 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
-    const updatedRows = rows.map((row) => (row.id === rowForEdit.id ? rowForEdit : row));
-
+    const updatedRows = rows.map((row) =>
+      row.id === rowForEdit.id ? { ...rowForEdit, effectivityConstant: effectivityConstant } : row
+    );
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
     } catch (error) {
@@ -135,6 +145,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       return;
     }
     setShowEditRow(false);
+    setRows(updatedRows);
     dispatch(showMessage({ message: 'Záznam úspešné uložený' }));
     dispatch(getBoiler(id || ''));
   };
@@ -154,7 +165,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       sortable: false,
       renderCell: (params) => {
         const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
+          e.stopPropagation();
 
           const api = params.api;
           const thisRow = {};
@@ -163,9 +174,11 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             .getAllColumns()
             .filter((c) => c.field !== '__check__' && !!c)
             .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
-          //@ts-ignore
-          setRowForEdit(thisRow);
           setShowEditRow(true);
+          setRowForEdit(
+            //@ts-ignore
+            rows.find((row) => row.id === thisRow.id)
+          );
         };
 
         return (
@@ -349,10 +362,9 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
               return acc;
             }, [])}
             <TextField
-              key={'effectivityConstant'}
               label={'Konštanta účinnosti'}
               name={'effectivityConstant'}
-              value={rowForEdit['effectivityConstant']}
+              value={effectivityConstant}
               onChange={handleRowChange}
               fullWidth
               margin="normal"
