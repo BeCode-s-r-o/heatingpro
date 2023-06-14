@@ -10,8 +10,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -20,11 +18,13 @@ import { selectUser } from 'app/store/userSlice';
 import { doc, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDates, compareDatesYears } from './functions/datesOperations';
+import { compareDatesYears } from './functions/datesOperations';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
@@ -60,19 +60,29 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       const effectivityConstant = row.effectivityConstant;
 
       if (prevRow && effectivityConstant) {
-        const rozdielVO1 = row['V01'] - prevRow['V01'];
-        const rozdielVO2 = row['V02'] - prevRow['V02'];
-        const rozdielPlynomer = row['Plynomer'] - prevRow['Plynomer'];
+        let sumOfRozdielVOs = 0;
+        for (let i = 1; i <= 8; i++) {
+          const voKey = 'VO' + i;
+          if (
+            row.hasOwnProperty(voKey) &&
+            prevRow.hasOwnProperty(voKey) &&
+            row[voKey] !== '-' &&
+            prevRow[voKey] !== '-'
+          ) {
+            const rozdielVO = row[voKey] - prevRow[voKey];
 
-        const ucinnost = (rozdielVO1 + rozdielVO2) / (rozdielPlynomer * effectivityConstant);
+            sumOfRozdielVOs += rozdielVO;
+          }
+        }
+        const rozdielPlynomer = row['Plyn'] - prevRow['Plyn'];
+
+        const ucinnost = sumOfRozdielVOs / (rozdielPlynomer * Number(effectivityConstant));
 
         return { ...row, ucinnost };
       }
-      if (!effectivityConstant && !!prevRow) {
-        return { ...row, ucinnost: 'Chýbajúca konštanta' };
-      }
       return { ...row, ucinnost: 'Nedá sa vypočítať' };
     });
+
     setRows(rowsWithEfficiency);
   }, [boiler]);
 
@@ -166,8 +176,6 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       },
     },
   ].map((i) => ({ ...i, flex: 1 }));
-
-  const saveEfficiencyConstant = (e) => {};
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -308,19 +316,6 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             >
               Export
             </Button>
-            {/*             <Button
-              className="whitespace-nowrap w-fit mb-2 dont-print"
-              variant="contained"
-              color="primary"
-              onClick={printTable}
-              startIcon={
-                <FuseSvgIcon className="text-48 text-white " size={24} color="action">
-                  material-outline:local_printshop
-                </FuseSvgIcon>
-              }
-            >
-              Tlač
-            </Button> */}
           </>
         )}
       </div>
