@@ -68,7 +68,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       field: 'lastUpdate',
       sortable: false,
       flex: 1,
-      minWidth: 160,
+      minWidth: 170,
       headerName: 'Dátum',
       renderCell: (params) => {
         const isCreatedDailyNotes = wasCreatedDailyNote(boiler?.notes, params.value.slice(0, 10));
@@ -93,6 +93,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         hide: item.hide,
         flex: 1,
         sortable: false,
+        minWidth: 90,
         renderCell: (params) => {
           return (
             <Tooltip title={item.desc === '' ? 'Bez popisu' : item.desc} placement="top">
@@ -108,7 +109,6 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   };
 
   const generateRows = (data: TBoiler['sms']) => {
-
     return data?.map((i) => {
       const inputData = i.body?.inputData || [];
       const digitalInput = i.body?.digitalInput || [];
