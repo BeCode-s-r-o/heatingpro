@@ -124,14 +124,6 @@ const ContactView = () => {
                             </Typography>
                           </>
                         )}
-                        {boiler.phoneNumber && (
-                          <>
-                            <Typography className="text-md truncate" color="text.secondary">
-                              <span className="mx-8">&bull;</span>
-                              <span className="font-medium">{boiler.phoneNumber}</span>
-                            </Typography>
-                          </>
-                        )}
                       </div>
                     ) : null
                   )}
