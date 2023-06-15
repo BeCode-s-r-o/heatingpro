@@ -131,10 +131,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             <div className="flex flex-col min-w-0 mx-16">
               <div className="flex gap-12">
                 <Avatar
-                  className="my-auto"
+                  className="my-auto "
                   variant="rounded"
                   src={boiler?.header.avatar}
-                  sx={{ width: 80, height: 80 }}
+                  sx={{ width: 120, height: 80, objectFit: 'fill' }}
                 />
                 <div>
                   <Typography
