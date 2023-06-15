@@ -66,9 +66,10 @@ const NewContactForm = () => {
   function onSubmit(data) {
     try {
       dispatch(addContact(data));
+      dispatch(showMessage({ message: `Prihlasovacie údaje vám boli zaslané na ${data.email}` }));
       //TODO handle error when email already exists
     } catch (error) {
-      dispatch(showMessage({ messagge: 'Ups, vyskytla sa chyba' + error }));
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' + error }));
     }
     reset();
   }
