@@ -17,7 +17,7 @@ const schema = yup.object().shape({
 });
 
 function HeaterInput(props) {
-  const { value, hideRemove } = props;
+  const { value, hideRemove, onRemove } = props;
   const arrayOfAllBoilers = useSelector(selectAllBoilers);
   const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '' });
   const { data: user } = useSelector(selectUser);
@@ -31,7 +31,7 @@ function HeaterInput(props) {
           : arrayOfAllBoilers.find((boiler) => boiler.id === value)
       );
     }
-  }, [arrayOfAllBoilers]);
+  }, [arrayOfAllBoilers, value]);
 
   useEffect(() => {
     dispatch(getBoilers());
