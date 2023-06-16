@@ -195,7 +195,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           rowsPerPageOptions={[10]}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'date', sort: 'desc' }],
+              sortModel: [{ field: 'date', sort: 'asc' }],
             },
           }}
           components={{
