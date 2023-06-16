@@ -116,9 +116,9 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           </Box>
         )}
       </Box>
-      <Box className="flex mt-16 gap-12">
+      <Box className="flex mt-16 gap-12 flex-wrap">
         <Button
-          className="whitespace-nowrap w-fit dont-print  "
+          className="whitespace-nowrap w-full sm:w-fit dont-print  "
           variant="contained"
           color="primary"
           startIcon={
@@ -132,12 +132,12 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         </Button>
         {user?.role === 'admin' && (
           <Button
-            className="whitespace-nowrap w-fit dont-print "
+            className="whitespace-nowrap  w-full sm:w-fit dont-print "
             variant="contained"
             color="secondary"
             onClick={() => setShowConfirmModal(true)}
           >
-            <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
+            <FuseSvgIcon className="text-32 sm:text-48 text-white mr-6" size={24} color="action">
               material-outline:cancel
             </FuseSvgIcon>
             Vymazať kotolňu

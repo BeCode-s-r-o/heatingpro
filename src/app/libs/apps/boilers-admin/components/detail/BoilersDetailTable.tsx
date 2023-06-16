@@ -173,7 +173,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       </Typography>
       {user.role !== 'staff' && (
         <div className="relative">
-          <div className="border p-4 relative flex items-center justify-center w-fit">
+          <div className="border p-4 relative flex items-center justify-center w-fit my-16 mx-auto md:mx-0">
             <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
               material-twotone:calendar_today
             </FuseSvgIcon>
@@ -183,17 +183,9 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
               dateFormat="MM/yyyy"
               showMonthYearPicker
               placeholderText="Vyber mesiac"
-              className="w-[10rem] cursor-pointer"
+              className="w-[6rem] sm:w-[10rem] cursor-pointer"
             />
             <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
-          </div>
-          <div className="flex mx-4 absolute right-0 top-0 show-on-print">
-            <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
-              {user?.data?.name[0]}
-            </Avatar>
-            <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
-              {user?.data?.name}
-            </Typography>
           </div>
         </div>
       )}
@@ -217,10 +209,10 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
           }}
         />
       </div>
-      <div className="flex gap-16 dont-print">
+      <div className="flex gap-16 flex-wrap dont-print">
         {rolesEnableDelete.includes(user.role) && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="primary"
             onClick={() => {
@@ -238,7 +230,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
 
         {isEditRows && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap w-full sm:w-fit mb-2  dont-print"
             variant="contained"
             color="secondary"
             onClick={() => setShowConfirmModal(true)}
@@ -254,7 +246,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         )}
         {rolesEnableEditColumns.includes(user.role) && (
           <Button
-            className="whitespace-nowrap dont-print"
+            className="whitespace-nowrap w-full sm:w-fit dont-print"
             variant="contained"
             color="primary"
             startIcon={
@@ -273,7 +265,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         {rolesEnabledExportAndPrint.includes(user.role) && (
           <>
             <Button
-              className="whitespace-nowrap w-fit mb-2 dont-print"
+              className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
               onClick={getPDF}
