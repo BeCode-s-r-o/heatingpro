@@ -82,115 +82,117 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={handleClose}>
-      <List className="w-[350px]">
-        <ListItem>
-          <ListItemText primary="Priraďovanie notifikácií" />
-        </ListItem>
-        <form onSubmit={submit}>
-          {formFields.map((contact, index) => (
-            <ListItem key={index} className="flex flex-wrap gap-12 border-b-[12px] pt-20 ">
-              <TextField
-                className="mx-auto w-full"
-                name="name"
-                label="Meno"
-                onChange={(e) => handleChange(e, index, e.target.value)}
-                value={contact.name}
-                required
-              />{' '}
-              <TextField
-                className="mx-auto  w-full"
-                name="phone"
-                label="Tel.číslo"
-                onChange={(e) => handleChange(e, index, e.target.value)}
-                value={contact.phone}
-                required
-              />
-              <TextField
-                className="mx-auto w-full"
-                name="email"
-                label="Email"
-                onChange={(e) => handleChange(e, index, e.target.value)}
-                value={contact.email}
-                required
-              />
-              <Typography className="mx-auto">SMS</Typography>
-              <div className="flex  border-b-2 pb-10">
-                <FormControlLabel control={<Checkbox disabled />} label="Mesačný report" />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="sendSmsAlarm"
-                      checked={contact.sendSmsAlarm}
-                      onChange={(e) => handleChange(e, index, e.target.checked)}
-                    />
-                  }
-                  label="Alarmy"
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[350px]">
+          <ListItem>
+            <ListItemText primary="Priraďovanie notifikácií" />
+          </ListItem>
+          <form onSubmit={submit}>
+            {formFields.map((contact, index) => (
+              <ListItem key={index} className="flex flex-wrap gap-12 border-b-[12px] pt-20 ">
+                <TextField
+                  className="mx-auto w-full"
+                  name="name"
+                  label="Meno"
+                  onChange={(e) => handleChange(e, index, e.target.value)}
+                  value={contact.name}
+                  required
+                />{' '}
+                <TextField
+                  className="mx-auto  w-full"
+                  name="phone"
+                  label="Tel.číslo"
+                  onChange={(e) => handleChange(e, index, e.target.value)}
+                  value={contact.phone}
+                  required
                 />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="sendSmsMissingRecord"
-                      checked={contact.sendSmsMissingRecord}
-                      onChange={(e) => handleChange(e, index, e.target.checked)}
-                    />
-                  }
-                  label="Chýbajúci zápis"
+                <TextField
+                  className="mx-auto w-full"
+                  name="email"
+                  label="Email"
+                  onChange={(e) => handleChange(e, index, e.target.value)}
+                  value={contact.email}
+                  required
                 />
-              </div>
-              <Typography className="mx-auto">Email</Typography>
-              <div className="flex border-b-2 pb-10">
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="sendEmailMonthlyReport"
-                      checked={contact.sendEmailMonthlyReport}
-                      onChange={(e) => handleChange(e, index, e.target.checked)}
-                    />
-                  }
-                  label="Mesačný report"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="sendEmailAlarm"
-                      checked={contact.sendEmailAlarm}
-                      onChange={(e) => handleChange(e, index, e.target.checked)}
-                    />
-                  }
-                  label="Alarmy"
-                />
-                <FormControlLabel
-                  control={
-                    <Checkbox
-                      name="sendEmailMissingRecord"
-                      checked={contact.sendEmailMissingRecord}
-                      onChange={(e) => handleChange(e, index, e.target.checked)}
-                    />
-                  }
-                  label="Chýbajúci zápis"
-                />
-              </div>
-              <Button onClick={() => removeField(index)} className="mx-auto">
-                <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
-              </Button>
-            </ListItem>
-          ))}
-        </form>
-        <ListItem>
-          <Button onClick={addField} className="mx-auto">
-            <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
-          </Button>
-        </ListItem>
-        <br />
-        <ListItem className="flex justify-end gap-12">
-          <Button variant="contained" onClick={submit} color="primary" disabled={!isRequiredFieldsFilled}>
-            Uložiť
-          </Button>
-          <Button variant="contained" onClick={handleClose} color="secondary">
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+                <Typography className="mx-auto">SMS</Typography>
+                <div className="flex  border-b-2 pb-10">
+                  <FormControlLabel control={<Checkbox disabled />} label="Mesačný report" />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="sendSmsAlarm"
+                        checked={contact.sendSmsAlarm}
+                        onChange={(e) => handleChange(e, index, e.target.checked)}
+                      />
+                    }
+                    label="Alarmy"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="sendSmsMissingRecord"
+                        checked={contact.sendSmsMissingRecord}
+                        onChange={(e) => handleChange(e, index, e.target.checked)}
+                      />
+                    }
+                    label="Chýbajúci zápis"
+                  />
+                </div>
+                <Typography className="mx-auto">Email</Typography>
+                <div className="flex border-b-2 pb-10">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="sendEmailMonthlyReport"
+                        checked={contact.sendEmailMonthlyReport}
+                        onChange={(e) => handleChange(e, index, e.target.checked)}
+                      />
+                    }
+                    label="Mesačný report"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="sendEmailAlarm"
+                        checked={contact.sendEmailAlarm}
+                        onChange={(e) => handleChange(e, index, e.target.checked)}
+                      />
+                    }
+                    label="Alarmy"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        name="sendEmailMissingRecord"
+                        checked={contact.sendEmailMissingRecord}
+                        onChange={(e) => handleChange(e, index, e.target.checked)}
+                      />
+                    }
+                    label="Chýbajúci zápis"
+                  />
+                </div>
+                <Button onClick={() => removeField(index)} className="mx-auto">
+                  <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
+                </Button>
+              </ListItem>
+            ))}
+          </form>
+          <ListItem>
+            <Button onClick={addField} className="mx-auto">
+              <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
+            </Button>
+          </ListItem>
+          <br />
+          <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
+            <Button variant="contained" onClick={submit} color="primary" disabled={!isRequiredFieldsFilled}>
+              Uložiť
+            </Button>
+            <Button variant="contained" onClick={handleClose} color="secondary">
+              Zrušiť
+            </Button>
+          </ListItem>
+        </List>
+      </div>
     </Drawer>
   );
 }

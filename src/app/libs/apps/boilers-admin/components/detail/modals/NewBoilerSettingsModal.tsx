@@ -78,33 +78,35 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-[700px]">
-        <ListItem>
-          <ListItemText primary="Nastavenie stĺpcov" />
-        </ListItem>
-        <Typography className="text-lg font-bold text-center border-b my-12">Dáta zo vstupu</Typography>
-        {inputData.map((item, index) => (
-          <SettingsModalColumn key={index} item={item} handleChange={handleDataChange} />
-        ))}
-        <Typography className="text-lg font-bold text-center border-b my-12">Digitálny vstup</Typography>
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[700px]">
+          <ListItem>
+            <ListItemText primary="Nastavenie stĺpcov" />
+          </ListItem>
+          <Typography className="text-lg font-bold text-center border-b my-12">Dáta zo vstupu</Typography>
+          {inputData.map((item, index) => (
+            <SettingsModalColumn key={index} item={item} handleChange={handleDataChange} />
+          ))}
+          <Typography className="text-lg font-bold text-center border-b my-12">Digitálny vstup</Typography>
 
-        {digitalInput.map((item, index) => (
-          <SettingsModalColumn key={index} item={item} handleChange={handleInChange} />
-        ))}
-        <ListItem className="flex justify-end gap-12">
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="primary"
-            onClick={() => saveColumnsForBoilerInFirebase([...inputData, ...digitalInput])}
-          >
-            Uložiť
-          </Button>
-          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+          {digitalInput.map((item, index) => (
+            <SettingsModalColumn key={index} item={item} handleChange={handleInChange} />
+          ))}
+          <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="primary"
+              onClick={() => saveColumnsForBoilerInFirebase([...inputData, ...digitalInput])}
+            >
+              Uložiť
+            </Button>
+            <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
+              Zrušiť
+            </Button>
+          </ListItem>
+        </List>
+      </div>
     </Drawer>
   );
 }

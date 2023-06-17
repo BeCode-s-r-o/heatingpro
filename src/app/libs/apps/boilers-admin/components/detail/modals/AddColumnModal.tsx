@@ -105,14 +105,15 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={close}>
-      <List className="w-[350px]">
-        <ListItem>
-          <ListItemText primary="Upravovanie stĺpcov" />
-        </ListItem>
-        <form onSubmit={submit}>
-          {formFields.map((field, index) => (
-            <ListItem key={index}>
-              {/*         <TextField
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[350px]">
+          <ListItem>
+            <ListItemText primary="Upravovanie stĺpcov" />
+          </ListItem>
+          <form onSubmit={submit}>
+            {formFields.map((field, index) => (
+              <ListItem key={index}>
+                {/*         <TextField
                 name="name"
                 label="Názov"
                 placeholder={field.name !== '' ? field.name : 'Názov'}
@@ -121,72 +122,73 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
                 required
                 className="w-full"
               /> */}
-              <FormControl fullWidth>
-                <InputLabel id="choice-label">Názov</InputLabel>
-                <Select
-                  labelId="choice-label"
-                  id="choice"
-                  label="Jednotka"
-                  name="name"
-                  value={field.name}
-                  onChange={(event) => hanldeChange(event, index)}
-                >
-                  <MenuItem value="VO1">VO1</MenuItem>
-                  <MenuItem value="VO2">VO2</MenuItem>
-                  <MenuItem value="VO3">VO3</MenuItem>
-                  <MenuItem value="VO4">VO4</MenuItem>
-                  <MenuItem value="VO5">VO5</MenuItem>
-                  <MenuItem value="VO6">VO6</MenuItem>
-                  <MenuItem value="VO7">VO7</MenuItem>
-                  <MenuItem value="VO8">VO8</MenuItem>
-                  <MenuItem value="MT TUV">MT TUV</MenuItem>
-                  <MenuItem value="vpv TUV">vpv TUV</MenuItem>
-                  <MenuItem value="VnDVS">VnDVS</MenuItem>
-                  <MenuItem value="VCH">VCH</MenuItem>
-                  <MenuItem value="VpZ">VpZ</MenuItem>
-                  <MenuItem value="MT VZT">MT VZT</MenuItem>
-                  <MenuItem value="Elektro">Elektro</MenuItem>
-                  <MenuItem value="Plyn">Plyn</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl fullWidth>
-                <InputLabel id="choice-label">Jednotka</InputLabel>
-                <Select
-                  labelId="choice-label"
-                  id="choice"
-                  label="Jednotka"
-                  name={field.name}
-                  value={field.unit}
-                  onChange={(e) => handleUnitChange(e)}
-                >
-                  <MenuItem value="mwh">MWh</MenuItem>
-                  <MenuItem value="kwh">kWh</MenuItem>
-                  <MenuItem value="gj">GJ</MenuItem>
-                  <MenuItem value="m3">m³</MenuItem>
-                </Select>
-              </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="choice-label">Názov</InputLabel>
+                  <Select
+                    labelId="choice-label"
+                    id="choice"
+                    label="Jednotka"
+                    name="name"
+                    value={field.name}
+                    onChange={(event) => hanldeChange(event, index)}
+                  >
+                    <MenuItem value="VO1">VO1</MenuItem>
+                    <MenuItem value="VO2">VO2</MenuItem>
+                    <MenuItem value="VO3">VO3</MenuItem>
+                    <MenuItem value="VO4">VO4</MenuItem>
+                    <MenuItem value="VO5">VO5</MenuItem>
+                    <MenuItem value="VO6">VO6</MenuItem>
+                    <MenuItem value="VO7">VO7</MenuItem>
+                    <MenuItem value="VO8">VO8</MenuItem>
+                    <MenuItem value="MT TUV">MT TUV</MenuItem>
+                    <MenuItem value="vpv TUV">vpv TUV</MenuItem>
+                    <MenuItem value="VnDVS">VnDVS</MenuItem>
+                    <MenuItem value="VCH">VCH</MenuItem>
+                    <MenuItem value="VpZ">VpZ</MenuItem>
+                    <MenuItem value="MT VZT">MT VZT</MenuItem>
+                    <MenuItem value="Elektro">Elektro</MenuItem>
+                    <MenuItem value="Plyn">Plyn</MenuItem>
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth>
+                  <InputLabel id="choice-label">Jednotka</InputLabel>
+                  <Select
+                    labelId="choice-label"
+                    id="choice"
+                    label="Jednotka"
+                    name={field.name}
+                    value={field.unit}
+                    onChange={(e) => handleUnitChange(e)}
+                  >
+                    <MenuItem value="mwh">MWh</MenuItem>
+                    <MenuItem value="kwh">kWh</MenuItem>
+                    <MenuItem value="gj">GJ</MenuItem>
+                    <MenuItem value="m3">m³</MenuItem>
+                  </Select>
+                </FormControl>
 
-              <Button onClick={() => removeFields(index)}>
-                <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
-              </Button>
-            </ListItem>
-          ))}
-        </form>
-        <ListItem>
-          <Button onClick={addFields} className="mx-auto">
-            <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
-          </Button>
-        </ListItem>
-        <br />
-        <ListItem className="flex justify-end gap-12">
-          <Button variant="contained" onClick={submit} color="primary">
-            Uložiť
-          </Button>
-          <Button variant="contained" onClick={close} color="secondary">
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+                <Button onClick={() => removeFields(index)}>
+                  <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
+                </Button>
+              </ListItem>
+            ))}
+          </form>
+          <ListItem>
+            <Button onClick={addFields} className="mx-auto">
+              <FuseSvgIcon size={20}>heroicons-solid:plus-circle</FuseSvgIcon>
+            </Button>
+          </ListItem>
+          <br />
+          <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
+            <Button variant="contained" onClick={submit} color="primary">
+              Uložiť
+            </Button>
+            <Button variant="contained" onClick={close} color="secondary">
+              Zrušiť
+            </Button>
+          </ListItem>
+        </List>
+      </div>
     </Drawer>
   );
 }

@@ -310,23 +310,25 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-[500px]">
-        <ListItem>
-          <ListItemText primary="Pridať nový systém" className="text-center" />
-        </ListItem>
-        {pages.map((page, i) => (
-          <div key={i}>{page.number === pageNumber && page.content}</div>
-        ))}
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[500px]">
+          <ListItem>
+            <ListItemText primary="Pridať nový systém" className="text-center" />
+          </ListItem>
+          {pages.map((page, i) => (
+            <div key={i}>{page.number === pageNumber && page.content}</div>
+          ))}
 
-        <ListItem className="flex  justify-end gap-12">
-          <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={saveNewBoiler}>
-            Vytvoriť
-          </Button>
-          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+          <ListItem className="flex  justify-end gap-12">
+            <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={saveNewBoiler}>
+              Vytvoriť
+            </Button>
+            <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
+              Zrušiť
+            </Button>
+          </ListItem>
+        </List>
+      </div>
     </Drawer>
   );
 };

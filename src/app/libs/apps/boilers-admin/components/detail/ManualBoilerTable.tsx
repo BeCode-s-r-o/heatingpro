@@ -151,7 +151,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   };
 
   const cols = [
-    { field: 'date', headerName: 'Dátum' },
+    { field: 'date', headerName: 'Dátum', minWidth: 100 },
     ...columns,
     {
       field: 'ucinnost',
@@ -195,7 +195,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Mesačné odpisy stavu spotreby {id}
       </Typography>
-      <div className="relative">
+      <div className="relative my-16 ">
         <div className="border p-4 relative flex items-center justify-center w-fit">
           <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
             material-twotone:calendar_today
@@ -209,14 +209,6 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             className="w-[10rem] cursor-pointer"
           />
           <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
-        </div>
-        <div className="flex mx-4 absolute right-0 top-0 show-on-print">
-          <Avatar variant="rounded" src={user?.data?.avatar || undefined}>
-            {user?.data?.name[0]}
-          </Avatar>
-          <Typography component="span" className="font-semibold my-auto mx-8 md:mx-16  ">
-            {user?.data?.name}
-          </Typography>
         </div>
       </div>
       <div style={{ height: 300, width: '100%' }}>
@@ -238,10 +230,10 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           }}
         />
       </div>
-      <div className="flex gap-16">
+      <div className="flex gap-16 mt-20 flex-wrap md:flex-nowrap">
         {rolesEnabledEdit.includes(user.role) && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="primary"
             onClick={() => {
@@ -261,7 +253,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={handleClickOpen}
@@ -276,7 +268,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         )}
         {rolesEnabledAddColumn.includes(user.role) && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="primary"
             onClick={() => setShowAddColumn(true)}
@@ -294,7 +286,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         />
         {rolesEnabledAddRecord.includes(user.role) && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="primary"
             onClick={() => setShowAddRow(true)}
@@ -317,7 +309,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         {rolesEnabledExportAndPrint.includes(user.role) && (
           <>
             <Button
-              className="whitespace-nowrap w-fit mb-2 dont-print"
+              className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
               onClick={() => {}} //TODO call api to create pdf

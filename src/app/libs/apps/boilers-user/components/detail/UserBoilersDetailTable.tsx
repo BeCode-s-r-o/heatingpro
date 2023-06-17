@@ -74,7 +74,7 @@ export const BoilersDetailTable = ({ boiler, id, generatePDF, printTable }: Prop
           }}
         />
       </div>
-      <div className="flex gap-16 dont-print mt-12">
+      <div className="flex gap-16 mt-20 dont-print ">
         <Button
           className="whitespace-nowrap w-fit mb-2 dont-print"
           variant="contained"

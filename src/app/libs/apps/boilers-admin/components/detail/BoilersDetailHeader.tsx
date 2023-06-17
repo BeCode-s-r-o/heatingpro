@@ -126,10 +126,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   return (
     <>
       <div className="flex flex-col w-full px-24 sm:px-32">
-        <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
+        <div className="flex flex-col md:flex-row gap-20 lg:gap-0 flex-auto flex-wrap lg:flex-nowrap md:items-center min-w-0 my-32 sm:my-48">
           <div className="flex flex-auto items-center min-w-0">
             <div className="flex flex-col min-w-0 mx-16">
-              <div className="flex gap-12">
+              <div className="flex gap-12 flex-wrap sm:flex-nowrap justify-center sm:justify-start">
                 <Avatar
                   className="my-auto "
                   variant="rounded"
@@ -145,7 +145,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   </Typography>
                   <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Perióda: {boiler?.period} (
-                    <small style={{ marginTop: '4px' }}>
+                    <small className="mt-0 sm:mt-[4px]">
                       {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay} SMS/deň
                     </small>
                     )
@@ -168,9 +168,9 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center mt-24 sm:mt-0 sm:mx-8 space-x-12">
+          <div className="flex items-center flex-wrap md:flex-nowrap gap-12 mt-24 sm:mt-0 sm:mx-8 md:space-x-12">
             <Button
-              className="whitespace-nowrap"
+              className="whitespace-nowrap w-full mx-20 sm:w-fit"
               variant="contained"
               color="primary"
               startIcon={
@@ -178,13 +178,13 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   heroicons-outline:tag
                 </FuseSvgIcon>
               }
-              onClick={() => ({})} //TODO
+              onClick={() => alert('Na mne sa ešte pracuje')} //TODO
               disabled={isTimerActive}
             >
               Vyžiadať INF SMS
             </Button>
             <Button
-              className="whitespace-nowrap"
+              className="whitespace-nowrap w-full mx-20 sm:w-fit"
               variant="contained"
               color="primary"
               startIcon={
@@ -198,7 +198,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               {isTimerActive ? `Dáta sa zobrazia automaticky za: ${countDown}` : 'Vyžiadať data'}
             </Button>
             <Button
-              className="whitespace-nowrap"
+              className="whitespace-nowrap w-full mx-20 sm:w-fit"
               variant="contained"
               color="secondary"
               startIcon={

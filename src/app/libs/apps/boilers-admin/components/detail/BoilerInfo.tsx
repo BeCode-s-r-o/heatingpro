@@ -44,7 +44,10 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
 
   return (
     <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
-      <Box className="flex jusitfy-between" style={{ width: '100%', justifyContent: 'space-between' }}>
+      <Box
+        className="flex jusitfy-between flex-wrap gap-20 lg:gap-0 overflow-x-scroll"
+        style={{ width: '100%', justifyContent: 'space-between' }}
+      >
         <Box>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
@@ -77,7 +80,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
             </Typography>
           )}
         </Box>
-        <Box style={{ width: '30%', maxHeight: '25vh', overflow: 'scroll' }}>
+        <Box className="w-full lg:w-[30%] max-h-25vh overflow-scroll">
           <Button
             onClick={() => setShowChangeNotifications(true)}
             startIcon={
@@ -98,7 +101,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           })}
         </Box>
         {availableColumns.length > 0 && (
-          <Box style={{ width: '20%', maxHeight: '25vh', overflow: 'scroll' }}>
+          <Box className="w-full lg:w-[30%] max-h-25vh overflow-scroll">
             <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
               <strong>Vysvetlivky k stĺpcom:</strong>
             </Typography>

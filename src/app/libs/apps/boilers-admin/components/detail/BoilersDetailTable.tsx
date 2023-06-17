@@ -172,8 +172,8 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         Prevádzkový denník {id}
       </Typography>
       {user.role !== 'staff' && (
-        <div className="relative">
-          <div className="border p-4 relative flex items-center justify-center w-fit my-16 mx-auto md:mx-0">
+        <div className="relative my-16">
+          <div className="border p-4 relative flex items-center justify-center w-fit  ">
             <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
               material-twotone:calendar_today
             </FuseSvgIcon>
@@ -209,7 +209,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
           }}
         />
       </div>
-      <div className="flex gap-16 flex-wrap dont-print">
+      <div className="flex gap-16 mt-20 flex-wrap dont-print">
         {rolesEnableDelete.includes(user.role) && (
           <Button
             className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"

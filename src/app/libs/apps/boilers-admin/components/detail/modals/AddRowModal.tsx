@@ -49,44 +49,46 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={close}>
-      <List className="w-[300px]">
-        <ListItem>
-          <ListItemText
-            primary={newRow?.length !== 0 ? 'Pridávanie záznamu' : 'Pre pridanie záznamu musíte pridať stĺpce'}
-          />
-        </ListItem>
-        {newRow && (
-          <form onSubmit={submit}>
-            {newRow.map((column, index) => {
-              return (
-                <ListItem key={index}>
-                  <TextField
-                    className="w-full"
-                    name={column.name}
-                    label={column.name}
-                    onChange={handleChange}
-                    value={column[column.name]}
-                    required
-                    InputProps={{
-                      endAdornment: <Typography>{column.unit}</Typography>,
-                    }}
-                  />
-                </ListItem>
-              );
-            })}
-          </form>
-        )}
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[300px]">
+          <ListItem>
+            <ListItemText
+              primary={newRow?.length !== 0 ? 'Pridávanie záznamu' : 'Pre pridanie záznamu musíte pridať stĺpce'}
+            />
+          </ListItem>
+          {newRow && (
+            <form onSubmit={submit}>
+              {newRow.map((column, index) => {
+                return (
+                  <ListItem key={index}>
+                    <TextField
+                      className="w-full"
+                      name={column.name}
+                      label={column.name}
+                      onChange={handleChange}
+                      value={column[column.name]}
+                      required
+                      InputProps={{
+                        endAdornment: <Typography>{column.unit}</Typography>,
+                      }}
+                    />
+                  </ListItem>
+                );
+              })}
+            </form>
+          )}
 
-        <br />
-        <ListItem className="flex justify-end gap-12">
-          <Button variant="contained" onClick={submit} color="primary">
-            Pridať
-          </Button>
-          <Button variant="contained" onClick={close} color="secondary">
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+          <br />
+          <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
+            <Button variant="contained" onClick={submit} color="primary">
+              Pridať
+            </Button>
+            <Button variant="contained" onClick={close} color="secondary">
+              Zrušiť
+            </Button>
+          </ListItem>
+        </List>
+      </div>
     </Drawer>
   );
 }

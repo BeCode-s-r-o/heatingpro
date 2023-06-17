@@ -111,16 +111,19 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
       field: 'note',
       headerName: `Poznámka`,
       flex: 2,
+      minWidth: 200,
     },
     {
       field: 'createdBy',
       headerName: `Pridal`,
       flex: 1,
+      minWidth: 150,
     },
     {
       field: 'confirmedBy',
       headerName: `Kompetentná osoba`,
       flex: 1,
+      minWidth: 150,
     },
 
     { field: 'signatureImgURL', hide: true },
@@ -207,10 +210,10 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           }}
         />
       </div>
-      <div className="flex gap-16">
+      <div className="flex flex-wrap sm:flex-nowrap gap-16 mt-20">
         {rolesEnabledEdit.includes(user.role) && (
           <Button
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="primary"
             onClick={() => {
@@ -230,7 +233,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
         {isEditRows && (
           <Button
             disabled={selectedRowsIds.length < 1}
-            className="whitespace-nowrap w-fit mb-2 dont-print"
+            className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
             variant="contained"
             color="secondary"
             onClick={handleClickOpen}
@@ -244,7 +247,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           </Button>
         )}
         <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print text-white"
+          className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print text-white"
           variant="contained"
           color="primary"
           onClick={() => {
@@ -259,7 +262,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           Pridať záznam
         </Button>
         <Button
-          className="whitespace-nowrap w-fit mb-2 dont-print"
+          className="whitespace-nowrap w-full sm:w-fit mb-2 dont-print"
           variant="contained"
           color="primary"
           onClick={getPDF}
@@ -323,87 +326,89 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
         </DialogContent>
       </Dialog>
       <Drawer anchor="right" open={showNewNoteModal} onClose={() => setShowNewNoteModal(false)}>
-        <List className="w-[300px] ">
-          <ListItem>
-            <ListItemText primary="Pridanie záznamu" className="text-center" />
-          </ListItem>
+        <div className="max-w-[98vw] overflow-x-scroll">
+          <List className="w-[300px] ">
+            <ListItem>
+              <ListItemText primary="Pridanie záznamu" className="text-center" />
+            </ListItem>
 
-          <ListItem className="flex justify-center items-center gap-8">
-            <InputLabel htmlFor="dateForNote">Dátum:</InputLabel>
-            <Input
-              type="date"
-              id="dateForNote"
-              name="date"
-              readOnly={user.role !== 'admin'}
-              value={newRecord.date}
-              inputProps={{ min: '2018-01-01', max: todayDate }}
-              onChange={handleChange}
-            />
-          </ListItem>
+            <ListItem className="flex justify-center items-center gap-8">
+              <InputLabel htmlFor="dateForNote">Dátum:</InputLabel>
+              <Input
+                type="date"
+                id="dateForNote"
+                name="date"
+                readOnly={user.role !== 'admin'}
+                value={newRecord.date}
+                inputProps={{ min: '2018-01-01', max: todayDate }}
+                onChange={handleChange}
+              />
+            </ListItem>
 
-          <ListItem className="w-full">
-            <TextField
-              aria-label="minimum height"
-              label="Pridal"
-              name="createdBy"
-              disabled
-              value={newRecord.createdBy}
-              onChange={handleChange}
-              className="border w-full"
-            />
-          </ListItem>
+            <ListItem className="w-full">
+              <TextField
+                aria-label="minimum height"
+                label="Pridal"
+                name="createdBy"
+                disabled
+                value={newRecord.createdBy}
+                onChange={handleChange}
+                className="border w-full"
+              />
+            </ListItem>
 
-          <ListItem className="w-full">
-            <TextField
-              aria-label="minimum height"
-              label="Meno kompetentnej osoby"
-              name="confirmedBy"
-              value={newRecord.confirmedBy}
-              placeholder="Nepoviné pole"
-              onChange={handleChange}
-              className="border w-full"
-            />
-          </ListItem>
-          <ListItem className="-mt-10 mb-8">
-            <Typography className="text-gray text-sm">Vypĺňať iba ak sa nezhoduje s osobou ktorá zapisuje</Typography>
-          </ListItem>
+            <ListItem className="w-full">
+              <TextField
+                aria-label="minimum height"
+                label="Meno kompetentnej osoby"
+                name="confirmedBy"
+                value={newRecord.confirmedBy}
+                placeholder="Nepoviné pole"
+                onChange={handleChange}
+                className="border w-full"
+              />
+            </ListItem>
+            <ListItem className="-mt-10 mb-8">
+              <Typography className="text-gray text-sm">Vypĺňať iba ak sa nezhoduje s osobou ktorá zapisuje</Typography>
+            </ListItem>
 
-          <ListItem className="w-full">
-            <TextareaAutosize
-              aria-label="minimum height"
-              minRows={15}
-              name="note"
-              placeholder="Miesto pre vašu poznámku"
-              value={newRecord.note}
-              onChange={handleChange}
-              className="border w-full p-12"
-            />
-          </ListItem>
-          <ListItem>
-            <HandleSignature imageURL={newRecord.signatureImgURL} setImageURL={setNewRecord} />
-          </ListItem>
-          <ListItem className="flex justify-end gap-12">
-            <Button
-              className="whitespace-nowrap"
-              variant="contained"
-              color="primary"
-              disabled={!newRecord.date || !newRecord.note}
-              onClick={() => setShowRecordConfirmModal(true)}
-            >
-              Uložiť
-            </Button>
-            <Button
-              className="whitespace-nowrap"
-              variant="contained"
-              color="secondary"
-              onClick={() => {
-                setShowNewNoteModal(false);
-              }}
-            >
-              Zrušiť
-            </Button>
-          </ListItem>
-        </List>
+            <ListItem className="w-full">
+              <TextareaAutosize
+                aria-label="minimum height"
+                minRows={15}
+                name="note"
+                placeholder="Miesto pre vašu poznámku"
+                value={newRecord.note}
+                onChange={handleChange}
+                className="border w-full p-12"
+              />
+            </ListItem>
+            <ListItem>
+              <HandleSignature imageURL={newRecord.signatureImgURL} setImageURL={setNewRecord} />
+            </ListItem>
+            <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
+              <Button
+                className="whitespace-nowrap"
+                variant="contained"
+                color="primary"
+                disabled={!newRecord.date || !newRecord.note}
+                onClick={() => setShowRecordConfirmModal(true)}
+              >
+                Uložiť
+              </Button>
+              <Button
+                className="whitespace-nowrap"
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setShowNewNoteModal(false);
+                }}
+              >
+                Zrušiť
+              </Button>
+            </ListItem>
+          </List>
+        </div>
       </Drawer>
       <ConfirmModal
         open={showRecordConfirmModal}

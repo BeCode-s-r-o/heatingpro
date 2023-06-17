@@ -101,37 +101,39 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
 
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
-      <List className="w-[700px]">
-        <ListItem>
-          <ListItemText primary="Nastavenie stĺpcov" />
-        </ListItem>
-        {tableColumns?.map((column, index) => (
-          <DragNDropColumn
-            valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
-            key={index}
-            column={column}
-            index={index}
-            onChange={handleChange}
-            onDragStart={() => (dragItem.current = index)}
-            onDragEnter={() => (dragOverItem.current = index)}
-            onDragEnd={handleSort}
-          />
-        ))}
+      <div className="max-w-[98vw] overflow-x-scroll">
+        <List className="w-[700px]">
+          <ListItem>
+            <ListItemText primary="Nastavenie stĺpcov" />
+          </ListItem>
+          {tableColumns?.map((column, index) => (
+            <DragNDropColumn
+              valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
+              key={index}
+              column={column}
+              index={index}
+              onChange={handleChange}
+              onDragStart={() => (dragItem.current = index)}
+              onDragEnter={() => (dragOverItem.current = index)}
+              onDragEnd={handleSort}
+            />
+          ))}
 
-        <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
-          <Button
-            className="whitespace-nowrap"
-            variant="contained"
-            color="primary"
-            onClick={() => saveColumnsForBoilerInFirebase(tableColumns)}
-          >
-            Uložiť
-          </Button>
-          <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
-            Zrušiť
-          </Button>
-        </ListItem>
-      </List>
+          <div className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white ">
+            <Button
+              className="whitespace-nowrap"
+              variant="contained"
+              color="primary"
+              onClick={() => saveColumnsForBoilerInFirebase(tableColumns)}
+            >
+              Uložiť
+            </Button>
+            <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
+              Zrušiť
+            </Button>
+          </div>
+        </List>
+      </div>
     </Drawer>
   );
 }
