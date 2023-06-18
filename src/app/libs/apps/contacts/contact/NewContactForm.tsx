@@ -19,12 +19,15 @@ import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { addContact } from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import { addContact, getContacts, selectAllContacts } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { boilersSlice, getBoilers } from '../../boilers-admin/store/boilersSlice';
 import withReducer from 'app/store/withReducer';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
+import { useDeepCompareEffect } from '@app/hooks';
+
+import { contactsReducers } from '../../../../layout/shared/chatPanel/store';
 
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
@@ -49,7 +52,12 @@ const NewContactForm = () => {
     dispatch(getBoilers());
   }, [dispatch]);
 
-  const [showPassword, setShowPassword] = useState(false);
+  useDeepCompareEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
+
+  const contacts = useSelector(selectAllContacts);
+
   const { control, watch, reset, handleSubmit, formState } = useForm({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -59,6 +67,7 @@ const NewContactForm = () => {
 
   const form = watch();
 
+  const emailIsAlredyExisting = contacts?.some((user) => user.email === form.email);
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
@@ -165,7 +174,7 @@ const NewContactForm = () => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              {user.role === 'user' ? (
+              {user?.role === 'user' ? (
                 <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               ) : (
                 <>
@@ -190,7 +199,8 @@ const NewContactForm = () => {
               label="Meno a priezvisko"
               placeholder="Meno a priezvisko"
               id="name"
-              error={!!errors.name}
+              error={!!errors.name} //@ts-ignore
+              helperText={errors?.name?.message}
               variant="outlined"
               required
               fullWidth
@@ -214,7 +224,9 @@ const NewContactForm = () => {
               label="Email"
               placeholder="Email"
               id="email"
-              error={!!errors.email}
+              error={!!errors.email || emailIsAlredyExisting}
+              //@ts-ignore
+              helperText={errors?.email?.message || (emailIsAlredyExisting && 'Tento email je už použitý')}
               type="email"
               variant="outlined"
               required
@@ -309,7 +321,7 @@ const NewContactForm = () => {
           className="ml-auto"
           variant="contained"
           color="primary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          disabled={_.isEmpty(dirtyFields) || !isValid || emailIsAlredyExisting}
           onClick={handleSubmit(onSubmit)}
         >
           Pridať
@@ -322,4 +334,7 @@ const NewContactForm = () => {
   );
 };
 
-export default withReducer('adminBoilers', boilersSlice.reducer)(NewContactForm);
+export default withReducer(
+  'adminBoilers',
+  boilersSlice.reducer
+)(withReducer('contacts', contactsReducers)(NewContactForm));

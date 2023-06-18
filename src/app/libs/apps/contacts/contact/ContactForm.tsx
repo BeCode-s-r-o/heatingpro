@@ -22,21 +22,25 @@ import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as yup from 'yup';
-
+import { contactsReducers } from '../../../../layout/shared/chatPanel/store';
 import {
   addContact,
   getContact,
   getContacts,
   removeContact,
+  selectAllContacts,
   selectContactById,
   updateContact,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ConfirmModal from '../../boilers-admin/components/detail/modals/ConfirmModal';
 import { selectUser } from 'app/store/userSlice';
 import { Typography } from '@mui/material';
+import withReducer from 'app/store/withReducer';
 
 const schema = yup.object().shape({
-  name: yup.string().required('You must enter a name'),
+  name: yup.string().required('Zadajte prosím meno'),
+  email: yup.string().email().required('Toto nieje platný email'),
+  phone: yup.string().required('You must enter a name'),
 });
 
 const ContactForm = () => {
@@ -52,7 +56,7 @@ const ContactForm = () => {
   });
 
   const { isValid, dirtyFields, errors } = formState;
-
+  const contacts = useSelector(selectAllContacts);
   const form = watch();
 
   useEffect(() => {
@@ -66,6 +70,7 @@ const ContactForm = () => {
   useEffect(() => {
     reset({ ...contact });
   }, [contact, reset]);
+  const emailIsAlredyExisting = contacts?.some((person) => person.email === form.email && person.id !== contact?.id);
 
   function onSubmit(data) {
     if (id === 'new') {
@@ -218,10 +223,11 @@ const ContactForm = () => {
             <TextField
               className="mt-32"
               {...field}
-              label="Meno"
-              placeholder="Meno"
+              label="Meno a priezvisko"
+              placeholder="Meno a priezvisko"
               id="name"
-              error={!!errors.name}
+              error={!!errors.name} //@ts-ignore
+              helperText={errors?.name?.message}
               variant="outlined"
               required
               fullWidth
@@ -245,8 +251,11 @@ const ContactForm = () => {
               {...field}
               label="Email"
               placeholder="Email"
-              id="title"
-              error={!!errors.title}
+              id="email"
+              error={!!errors.email || emailIsAlredyExisting}
+              //@ts-ignore
+              helperText={errors?.email?.message || (emailIsAlredyExisting && 'Tento email je už použitý')}
+              type="email"
               variant="outlined"
               required
               fullWidth
@@ -316,7 +325,7 @@ const ContactForm = () => {
           className="ml-auto"
           variant="contained"
           color="primary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          disabled={_.isEmpty(dirtyFields) || !isValid || emailIsAlredyExisting}
           onClick={handleSubmit(onSubmit)}
         >
           Uložiť
@@ -329,4 +338,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default withReducer('contacts', contactsReducers)(ContactForm);
