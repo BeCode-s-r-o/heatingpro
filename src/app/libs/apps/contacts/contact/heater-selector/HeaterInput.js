@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { selectUser } from 'app/store/userSlice';
+import { Tooltip } from '@mui/material';
 import { getBoilers, selectAllBoilers } from '../../../boilers-admin/store/boilersSlice';
 
 const schema = yup.object().shape({
@@ -19,7 +20,7 @@ const schema = yup.object().shape({
 function HeaterInput(props) {
   const { value, hideRemove, onRemove } = props;
   const arrayOfAllBoilers = useSelector(selectAllBoilers);
-  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '' });
+  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '', disabled: false });
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch();
   const isAdmin = user?.role === 'admin';
@@ -57,9 +58,15 @@ function HeaterInput(props) {
   const boilersForOptions = isAdmin
     ? arrayOfAllBoilers
     : arrayOfAllBoilers.filter((boiler) => !user?.boilers.includes(boiler.id) || !boiler.disabled);
+
   return (
     <>
-      <h1 className="text-center pb-12">Kotolňa</h1>
+      <Tooltip title={actualHeaterInfo.disabled ? 'Kotolňa je vymazaná' : 'Kotolňa je dostupná'} placement="top">
+        <div className="flex gap-8 justify-center align-items-center">
+          <div className={`rounded-full mt-10 w-10 h-10 ${actualHeaterInfo.disabled ? 'bg-red' : 'bg-green'} `} />
+          <h1 className="text-center pb-12">Kotolňa</h1>
+        </div>
+      </Tooltip>
       <form className="flex flex-wrap gap-y-16 sm:gap-y-16 sm:flex-nowrap sm:space-x-16  mb-16">
         <Autocomplete
           className="w-full"
@@ -68,7 +75,18 @@ function HeaterInput(props) {
           getOptionLabel={(option) => option.id}
           isOptionEqualToValue={(option, choice) => option.id === choice.id}
           value={actualHeaterInfo}
-          renderOption={(_props, option) => <li {..._props}>{option.id}</li>}
+          renderOption={(_props, option) => (
+            <Tooltip title={option.disabled ? 'Kotolňa je vymazaná' : 'Kotolňa je dostupná'} placement="top">
+              <li
+                {..._props}
+                className={`p-6  cursor-pointer ${
+                  option.disabled ? 'bg-red-300 hover:bg-red' : 'bg-green-300 hover:bg-green'
+                }`}
+              >
+                {option.id}
+              </li>
+            </Tooltip>
+          )}
           onChange={(event, newValue) => {
             onSubmit(newValue);
           }}

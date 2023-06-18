@@ -18,6 +18,7 @@ import { getContact, selectContactById } from '../../../../layout/shared/chatPan
 import { getBoilers, selectAllBoilers, userAssignedHeaters } from '../../boilers-admin/store/boilersSlice';
 import { TBoiler } from '@app/types/TBoilers';
 import { selectUser } from 'app/store/userSlice';
+import { Tooltip } from '@mui/material';
 
 const ContactView = () => {
   const { id } = useParams();
@@ -110,21 +111,32 @@ const ContactView = () => {
             {userBoilers.length > 0 ? (
               <div className="flex">
                 <WhatshotIcon />
+
                 <div className="min-w-0 ml-24 space-y-4">
                   {userBoilers.map((boiler) =>
                     user?.role === 'admin' || !boiler.disabled ? (
-                      <div className="flex items-center leading-6" key={boiler.id}>
-                        {boiler.id}
-
-                        {boiler.name && (
-                          <>
-                            <Typography className="text-md truncate" color="text.secondary">
-                              <span className="mx-8">&bull;</span>
-                              <span className="font-medium">{boiler.name}</span>
-                            </Typography>
-                          </>
-                        )}
-                      </div>
+                      <Tooltip
+                        key={boiler.id}
+                        title={boiler.disabled ? 'Kotolňa je vymazaná' : 'Kotolňa je dostupná'}
+                        placement="top"
+                      >
+                        <div className="flex items-center leading-6">
+                          <div className="flex gap-8 justify-center align-items-center">
+                            <div
+                              className={`rounded-full mt-6 w-10 h-10 ${boiler.disabled ? 'bg-red' : 'bg-green'} `}
+                            />
+                            {boiler.id}
+                          </div>
+                          {boiler.name && (
+                            <>
+                              <Typography className="text-md truncate" color="text.secondary">
+                                <span className="mx-8">&bull;</span>
+                                <span className="font-medium">{boiler.name}</span>
+                              </Typography>
+                            </>
+                          )}{' '}
+                        </div>
+                      </Tooltip>
                     ) : null
                   )}
                 </div>
