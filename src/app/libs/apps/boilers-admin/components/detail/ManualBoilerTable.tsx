@@ -24,10 +24,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDatesYears } from './functions/datesOperations';
+import { compareDatesYears, getCurrentDate } from './functions/datesOperations';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
+import axios from 'axios';
 
 export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -130,6 +131,28 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     setRows(defaultRows);
     setFilterDate(undefined);
   };
+  const getPDF = async () => {
+    let data = {
+      boilerID: boiler?.id,
+      user: user,
+      date: getCurrentDate(),
+    };
+
+    dispatch(showMessage({ message: 'PDF sa generuje...' }));
+    try {
+      const response = await axios.post('https://api.monitoringpro.sk/pdf-vykonnost', data, {
+        responseType: 'blob',
+      });
+      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
+      link.click();
+    } catch (error) {
+      dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
+    }
+  };
+
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
@@ -312,7 +335,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
               className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
-              onClick={() => {}} //TODO call api to create pdf
+              onClick={getPDF} //TODO call api to create pdf
               startIcon={
                 <FuseSvgIcon className="text-48 text-white " size={24} color="action">
                   material-outline:picture_as_pdf
