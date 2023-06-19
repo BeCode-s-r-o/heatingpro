@@ -48,7 +48,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         className="flex jusitfy-between flex-wrap gap-20 lg:gap-0 overflow-x-scroll"
         style={{ width: '100%', justifyContent: 'space-between' }}
       >
-        <Box>
+        <Box className="w-full lg:w-[50%]">
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
           </Typography>
@@ -80,44 +80,21 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
             </Typography>
           )}
         </Box>
-        <Box className="w-full lg:w-[30%] max-h-25vh overflow-scroll">
-          <Button
-            onClick={() => setShowChangeNotifications(true)}
-            startIcon={
-              <FuseSvgIcon className="text-48" size={24} color="primary">
-                heroicons-outline:bell
-              </FuseSvgIcon>
-            }
-          >
-            Upozornenia
-          </Button>
-          {boiler?.contactsForNotification.map((notificationContact, i) => {
-            return (
-              <Typography className="text-lg pt-7 font-light tracking-tight leading-6 truncate" key={i}>
-                <strong className="font-semibold">{notificationContact.name}</strong> : {notificationContact.phone}{' '}
-                {' ' + notificationContact.email}
-              </Typography>
-            );
-          })}
-        </Box>
-        {availableColumns.length > 0 && (
-          <Box className="w-full lg:w-[30%] max-h-25vh overflow-scroll">
-            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-              <strong>Vysvetlivky k stĺpcom:</strong>
-            </Typography>
 
-            {availableColumns?.map((column, i) => {
-              return (
-                <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
-                  <strong className="font-semibold">
-                    {column.name} {column.unit ? `(${column.unit})` : null}
-                  </strong>{' '}
-                  - {column.description}
-                </Typography>
-              );
-            })}
-          </Box>
-        )}
+        <Box className="w-full lg:w-[50%]  max-h-25vh overflow-scroll">
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong>Vysvetlivky k stĺpcom:</strong>
+          </Typography>
+          {availableColumns?.length > 0 &&
+            availableColumns.map((column, i) => (
+              <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
+                <strong className="font-semibold">
+                  {column.name} {column.unit ? `(${column.unit})` : null}
+                </strong>{' '}
+                - {column.description}
+              </Typography>
+            ))}
+        </Box>
       </Box>
       <Box className="flex mt-16 gap-12 flex-wrap">
         <Button
@@ -132,6 +109,20 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           onClick={() => setIsModalOpen(true)}
         >
           Nastaviť info
+        </Button>
+
+        <Button
+          className="whitespace-nowrap  w-full sm:w-fit dont-print "
+          onClick={() => setShowChangeNotifications(true)}
+          variant="contained"
+          color="primary"
+          startIcon={
+            <FuseSvgIcon className="text-48" size={24}>
+              heroicons-outline:bell
+            </FuseSvgIcon>
+          }
+        >
+          Upozornenia
         </Button>
         {user?.role === 'admin' && (
           <Button
