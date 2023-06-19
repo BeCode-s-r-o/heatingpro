@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
-function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText, cancelText }) {
+function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText = '', cancelText }) {
   const confirmActionAndClose = () => {
     onConfirm();
     onClose();
@@ -21,15 +19,17 @@ function ConfirmModal({ open, onClose, onConfirm, title, message, confirmText, c
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          className="whitespace-nowrap w-fit mb-2 mr-8"
-          variant="contained"
-          color="primary"
-          autoFocus
-          onClick={confirmActionAndClose}
-        >
-          {confirmText}
-        </Button>
+        {confirmText && (
+          <Button
+            className="whitespace-nowrap w-fit mb-2 mr-8"
+            variant="contained"
+            color="primary"
+            autoFocus
+            onClick={confirmActionAndClose}
+          >
+            {confirmText}
+          </Button>
+        )}
         <Button className="whitespace-nowrap w-fit mb-2 mr-4" variant="contained" color="secondary" onClick={onClose}>
           {cancelText}
         </Button>

@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
+import moment from 'moment';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import BoilerInfoModal from './modals/BoilerInfoModal';
@@ -18,7 +19,15 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showChangeNotifications, setShowChangeNotifications] = useState(false);
+  const [showInfSmsData, setShowInfSmsData] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+
+  const getMinutesString = () => {
+    const minutes = moment().diff(moment(boiler?.infSMS?.lastUpdate), 'minutes');
+    if (minutes === 1) return 'pred 1 minútou';
+    if (minutes > 1 && minutes < 5) return 'pred ' + minutes + ' minútami';
+    else return '';
+  };
 
   const deleteBoiler = async () => {
     const data = {
@@ -124,6 +133,26 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         >
           Upozornenia
         </Button>
+        {boiler?.infSMS?.body && (
+          <Button
+            className="whitespace-nowrap  w-full sm:w-fit dont-print "
+            onClick={() => setShowInfSmsData(true)}
+            variant="contained"
+            color="primary"
+            startIcon={
+              <FuseSvgIcon className="text-48" size={24}>
+                heroicons-solid:tag
+              </FuseSvgIcon>
+            }
+          >
+            Informácie o kotolni{' '}
+            {boiler?.infSMS?.lastUpdate &&
+            moment().diff(moment(boiler.infSMS.lastUpdate), 'minutes') < 5 &&
+            moment().diff(moment(boiler.infSMS.lastUpdate), 'minutes') > 0
+              ? `- nové dáta (${getMinutesString()})`
+              : ''}
+          </Button>
+        )}
         {user?.role === 'admin' && (
           <Button
             className="whitespace-nowrap  w-full sm:w-fit dont-print "
@@ -158,6 +187,18 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         message="Táto akcia je nezvratná"
         confirmText="Zmazať"
         cancelText="Zrušiť"
+      />
+      <ConfirmModal
+        open={showInfSmsData}
+        onConfirm={() => setShowInfSmsData(false)}
+        onClose={() => setShowInfSmsData(false)}
+        title="Dáta z informačnej SMS"
+        message={
+          JSON.stringify(boiler?.infSMS?.body || '', null, 2) +
+          '<br/><br/> Naposledy aktualizované: ' +
+          moment(boiler?.infSMS?.lastUpdate).format('DD.MM.YYYY HH:mm:ss')
+        }
+        cancelText="Zavrieť"
       />
     </Paper>
   );

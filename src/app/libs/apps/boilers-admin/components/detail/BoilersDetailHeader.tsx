@@ -13,18 +13,18 @@ import {
 } from '@mui/material';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { Box } from '@mui/system';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { db } from 'src/firebase-config';
 import { getBoiler } from '../../store/boilersSlice';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import { Box } from '@mui/system';
-import { db } from 'src/firebase-config';
-import { doc, updateDoc } from 'firebase/firestore';
 
 interface Props {
   boiler: TBoiler | undefined;
@@ -37,6 +37,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [showPeriodSetting, setShowPeriodSetting] = useState(false);
   const [countDown, setCountDown] = useState(30);
   const [isTimerActive, setIstimerActive] = useState(false);
+  const [isInfSmsTimerActive, setIsInfSmsTimerActive] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -44,9 +45,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   }, [boiler]);
 
   useEffect(() => {
-    if (isTimerActive && countDown === 1) {
+    if ((isTimerActive || isInfSmsTimerActive) && countDown === 1) {
       setCountDown(30);
       setIstimerActive(false);
+      setIsInfSmsTimerActive(false);
       dispatch(getBoiler(boiler?.id));
     } else if (isTimerActive) {
       const timer = setTimeout(() => {
@@ -63,7 +65,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     };
     try {
       await axios.post('https://api.monitoringpro.sk/reset-boiler', data);
-      dispatch(showMessage({ message: 'Kazeta bola úspešne resetovaná.' }));
+      dispatch(showMessage({ message: 'Kotolňa bola úspešne resetovaná.' }));
       dispatch(getBoiler(boiler?.id || ''));
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
@@ -79,6 +81,20 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       await axios.post('https://api.monitoringpro.sk/get-data', data);
       dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
       setIstimerActive(true);
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    }
+  };
+
+  const sendSMSToGetInf = async () => {
+    const data = {
+      phoneNumber: boiler?.phoneNumber,
+      boilerId: boiler?.id,
+    };
+    try {
+      await axios.post('https://api.monitoringpro.sk/boiler-info', data);
+      dispatch(showMessage({ message: 'Informačná SMS bola úspešne vyžiadaná, zobrazí sa do 30 sekúnd.' }));
+      setIsInfSmsTimerActive(true);
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
@@ -170,7 +186,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
           </div>
           <div className="flex items-center flex-wrap md:flex-nowrap gap-12 mt-24 sm:mt-0 sm:mx-8 md:space-x-12">
             <Button
-              className="whitespace-nowrap w-full mx-20 sm:w-fit"
+              className="whitespace-nowrap w-full sm:w-fit"
               variant="contained"
               color="primary"
               startIcon={
@@ -178,10 +194,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   heroicons-outline:tag
                 </FuseSvgIcon>
               }
-              onClick={() => alert('Na mne sa ešte pracuje')} //TODO
-              disabled={isTimerActive}
+              onClick={sendSMSToGetInf}
+              disabled={isInfSmsTimerActive}
             >
-              Vyžiadať INF SMS
+              {isInfSmsTimerActive ? `Dáta sa zobrazia automaticky v časti Informácie o kotolni` : 'Vyžiadať INF SMS'}
             </Button>
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"
