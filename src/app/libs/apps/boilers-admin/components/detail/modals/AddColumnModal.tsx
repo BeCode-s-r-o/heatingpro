@@ -69,6 +69,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     let object = {
       name: '',
       unit: '',
+      sortable: false,
     };
 
     setFormFields([...formFields, object]);
