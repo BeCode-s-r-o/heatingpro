@@ -131,6 +131,17 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             <TextField
               className="w-full"
               type="text"
+              label="Názov Kotolne"
+              value={headerData.name}
+              name="name"
+              onChange={handleChange}
+              disabled={user?.role !== 'admin'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
               label="Sériové číslo"
               value={headerData.serialNumber}
               name="serialNumber"
@@ -199,7 +210,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             <TextField
               className="w-full"
               type="text"
-              label="Kurič 1"
+              label="Kurič 1, Meno + tel. číslo"
               value={headerData.staff1}
               name="staff1"
               onChange={handleChange}
@@ -209,7 +220,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             <TextField
               className="w-full"
               type="text"
-              label="Kurič 2"
+              label="Kurič 2, Meno + tel. číslo"
               value={headerData.staff2}
               name="staff2"
               onChange={handleChange}
