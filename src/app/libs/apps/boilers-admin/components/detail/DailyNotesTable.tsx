@@ -106,24 +106,28 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
       headerName: `Dátum`,
       minWidth: 100,
       flex: 0,
+      sortable: false,
     },
     {
       field: 'note',
       headerName: `Poznámka`,
       flex: 2,
       minWidth: 200,
+      sortable: false,
     },
     {
       field: 'createdBy',
       headerName: `Pridal`,
       flex: 1,
       minWidth: 150,
+      sortable: false,
     },
     {
       field: 'confirmedBy',
       headerName: `Kompetentná osoba`,
       flex: 1,
       minWidth: 150,
+      sortable: false,
     },
 
     { field: 'signatureImgURL', hide: true },
@@ -192,6 +196,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           columns={columns}
           pageSize={10}
           checkboxSelection={isEditRows}
+          disableColumnMenu
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
