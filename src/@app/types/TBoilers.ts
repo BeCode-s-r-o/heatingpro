@@ -14,6 +14,19 @@ export type TBoiler = {
   contactsForNotification: TContactForNotification[];
   disabled?: boolean;
   effectivityConstant?: number;
+  infSMS?: {
+    body: {
+      cisloZariadenia: string;
+      pin: string;
+      verziaSw: string;
+      gate1: string;
+      perioda: number;
+      pocetSms: number;
+      alarmy: string;
+      seq: string;
+    };
+    lastUpdate: number;
+  };
 };
 export type TContactForNotification = {
   name: string;
