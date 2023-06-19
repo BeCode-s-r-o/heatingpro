@@ -135,7 +135,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
                         onChange={(e) => handleChange(e, index, e.target.checked)}
                       />
                     }
-                    label="Chýbajúci zápis"
+                    label="Odpis spotreby"
                   />
                 </div>
                 <Typography className="mx-auto">Email</Typography>
@@ -168,7 +168,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
                         onChange={(e) => handleChange(e, index, e.target.checked)}
                       />
                     }
-                    label="Chýbajúci zápis"
+                    label="Odpis spotreby"
                   />
                 </div>
                 <Button onClick={() => removeField(index)} className="mx-auto">

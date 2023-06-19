@@ -228,7 +228,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             selected={filterDate}
             dateFormat="yyyy"
             showYearPicker
-            placeholderText="Vyber mesiac"
+            placeholderText="Vyber rok"
             className="w-[10rem] cursor-pointer"
           />
           <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
@@ -239,6 +239,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           rows={rows}
           columns={cols}
           pageSize={10}
+          disableColumnMenu
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
