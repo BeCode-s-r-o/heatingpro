@@ -1,4 +1,5 @@
 import themesConfig from 'app/config/themesConfig';
+import { authRoles } from '../auth/authRoles';
 
 export const settingsConfig = {
   layout: {
@@ -13,6 +14,6 @@ export const settingsConfig = {
     toolbar: themesConfig.default,
     footer: themesConfig.defaultDark,
   },
-  defaultAuth: ['admin', 'user', 'guest', 'staff'],
+  defaultAuth: authRoles.allRoles,
   loginRedirectUrl: '/',
 };
