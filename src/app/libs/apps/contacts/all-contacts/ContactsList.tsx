@@ -42,11 +42,21 @@ const ContactsList = () => {
       className="flex flex-col flex-auto w-full max-h-full"
     >
       {Object.entries(groupedFilteredContacts).map(([key, group]) => {
+        //@ts-ignore
+        const hasMatchingHeaterInGroup = group.children.some((item) =>
+          item.heaters.some((heater) => userBoilers?.includes(heater))
+        );
+
+        if (!hasMatchingHeaterInGroup && !isAdmin) {
+          return null;
+        }
+
         return (
           <div key={key} className="relative">
             <Typography color="text.secondary" className="px-32 py-4 text-14 font-medium">
               {key}
             </Typography>
+
             <Divider />
             <List className="w-full m-0 p-0">
               {/* @ts-ignore */}
