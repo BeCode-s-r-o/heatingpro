@@ -50,7 +50,7 @@ export const BoilersListTable = ({ data }: Props) => {
                     className="font-semibold text-12 whitespace-nowrap flex gap-6 items-center"
                     style={{ color: row.disabled ? 'red' : 'inherit' }}
                   >
-                    {row.name} {row.disabled && <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>}
+                    {row.header.name} {row.disabled && <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>}
                   </Typography>
                 </TableCell>
                 <TableCell>
