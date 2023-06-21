@@ -43,6 +43,13 @@ const ContactView = () => {
     return <FuseLoading />;
   }
 
+  const isEditDisabled = () => {
+    if (contact?.role === 'admin' && user?.role !== 'admin') {
+      return true;
+    } else if (user?.role === 'user' && contact?.role !== 'staff') {
+      return true;
+    }
+  };
   return (
     <>
       <Box
@@ -74,7 +81,13 @@ const ContactView = () => {
               {contact.name.charAt(0)}
             </Avatar>
             <div className="flex items-center ml-auto mb-4">
-              <Button variant="contained" color="primary" component={NavLinkAdapter} to="edit">
+              <Button
+                variant="contained"
+                color="primary"
+                component={NavLinkAdapter}
+                to="edit"
+                disabled={isEditDisabled()}
+              >
                 <FuseSvgIcon size={20}>heroicons-outline:pencil-alt</FuseSvgIcon>
                 <span className="mx-8">Upraviť</span>
               </Button>

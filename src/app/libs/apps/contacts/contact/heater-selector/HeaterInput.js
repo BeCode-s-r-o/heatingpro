@@ -55,9 +55,10 @@ function HeaterInput(props) {
     props.onChange(data.id);
     setActualHeaterInfo(data);
   }
+
   const boilersForOptions = isAdmin
     ? arrayOfAllBoilers
-    : arrayOfAllBoilers.filter((boiler) => !user?.boilers.includes(boiler.id) || !boiler.disabled);
+    : arrayOfAllBoilers?.filter((boiler) => !user?.heaters.includes(boiler.id) || !boiler.disabled);
 
   return (
     <>
