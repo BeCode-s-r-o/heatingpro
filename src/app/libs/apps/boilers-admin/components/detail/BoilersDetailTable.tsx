@@ -316,7 +316,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         open={showConfirmModal}
         onClose={() => setShowConfirmModal(false)}
         onConfirm={deleteSelectedRows}
-        title="Želáte si zmazať danné záznamy?"
+        title="Želáte si zmazať dané záznamy?"
         message="Táto akcia je nezvratná"
         confirmText="Zmazať"
         cancelText="Zrušiť"

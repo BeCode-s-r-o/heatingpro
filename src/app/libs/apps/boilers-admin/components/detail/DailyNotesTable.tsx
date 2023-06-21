@@ -298,7 +298,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
         open={showDeletRowsConfirmModal}
         onClose={() => setShowDeleteRowsConfirmModal(false)}
         onConfirm={deleteSelectedRows}
-        title="Želáte si zmazať danné záznamy?"
+        title="Želáte si zmazať dané záznamy?"
         message="Táto akcia je nezvratná"
         confirmText="Zmazať"
         cancelText="Zrušiť"
