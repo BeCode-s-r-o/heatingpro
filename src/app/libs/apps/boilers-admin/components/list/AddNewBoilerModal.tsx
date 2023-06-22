@@ -24,6 +24,7 @@ interface Props {
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const dispatch = useDispatch<AppDispatch>();
+  const [error, setError] = useState<string>('');
   const initialHeaderState = {
     serialNumber: '',
     instalationDate: '',
@@ -57,6 +58,18 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     setAddress(initialAddressState);
     setNewBoiler(initialNewBoilerState);
   };
+  const filledRequiredFields = () => {
+    if (
+      newBoiler.id === '' ||
+      header.name === '' ||
+      newBoiler.phoneNumber === '' ||
+      Object.values(address).some((value) => value === '')
+    ) {
+      return false;
+    }
+
+    return true;
+  };
   const handleChange = (setValue) => (e) => {
     const { name, value } = e.target;
     setValue((prev) => ({
@@ -64,7 +77,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       [name]: value,
     }));
   };
-
+  const isValidated = () => {
+    return;
+  };
   const handleHeaderChange = handleChange(setHeader);
   const handleAddressChange = handleChange(setAddress);
   const handleBoilerChange = handleChange(setNewBoiler);
@@ -138,7 +153,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Sériové číslo *"
+              label="Sériové číslo"
               value={header.serialNumber}
               placeholder="Sériové číslo"
               name="serialNumber"
@@ -149,7 +164,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Dátum inštalácie *"
+              label="Dátum inštalácie"
               value={header.instalationDate}
               placeholder="DD.MM.YYYY"
               name="instalationDate"
@@ -218,22 +233,12 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               onChange={handleBoilerChange}
             />
           </ListItem>
-          <ListItem>
-            {/* TODO - spravit select podla -> https://firebasestorage.googleapis.com/v0/b/heating-pro.appspot.com/o/Screenshot%202023-04-13%20at%2018.05.05.png?alt=media&token=4c184209-92f6-4c57-b5fd-7d728181161b */}
-            <TextField
-              className="w-[500px]"
-              type="text"
-              label="Perióda  *"
-              value={newBoiler.period}
-              name="period"
-              onChange={handleBoilerChange}
-            />
-          </ListItem>
+
           <ListItem>
             <TextField
               className="w-[500px]"
               type="text"
-              label="Prevádzkovateľ  *"
+              label="Prevádzkovateľ"
               value={header.operator}
               name="operator"
               onChange={handleHeaderChange}
@@ -243,7 +248,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Umiestnenie v objekte  *"
+              label="Umiestnenie v objekte"
               value={header.location}
               name="location"
               onChange={handleHeaderChange}
@@ -263,7 +268,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Kurič 1 *"
+              label="Kurič 1"
               placeholder="Meno + tel. číslo"
               value={header.staff1}
               name="staff1"
@@ -295,6 +300,11 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     } catch (error) {}
   };
   const saveNewBoiler = () => {
+    if (!filledRequiredFields()) {
+      setError('Vyplnte prosím všetky povinné polia *');
+      return;
+    }
+    setError('');
     try {
       const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
@@ -318,7 +328,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
           {pages.map((page, i) => (
             <div key={i}>{page.number === pageNumber && page.content}</div>
           ))}
-
+          <ListItem>
+            <Typography color="error">{error}</Typography>
+          </ListItem>
           <ListItem className="flex  justify-end gap-12">
             <Button className="whitespace-nowrap" variant="contained" color="primary" onClick={saveNewBoiler}>
               Vytvoriť
