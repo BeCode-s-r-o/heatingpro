@@ -28,18 +28,26 @@ interface Props {
 function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: Props) {
   const [image, setImage] = useState(boilerInfo.avatar || '');
   const [headerData, setHeaderData] = useState(boilerInfo);
+  const [boilerAddress, setBoilerAddress] = useState(boilerData.address);
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
 
-  const handleChange = (e) => {
+  const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
 
-    setHeaderData((prev) => ({
+    setState((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
+  const handleChange = (e) => {
+    handleInputChange(e, setHeaderData);
+  };
+
+  const handleAddressChange = (e) => {
+    handleInputChange(e, setBoilerAddress);
+  };
   const uptadeHeaderInfo = (id, data) => {
     const newBoilerRef = doc(db, 'boilers', id);
     updateDoc(newBoilerRef, data);
@@ -48,7 +56,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
   const updateBoilerDocument = () => {
     try {
       const { sms, ...boiler } = boilerData;
-      const data = { header: { ...headerData, avatar: image } };
+      const data = { header: { ...headerData, avatar: image }, address: boilerAddress };
       uptadeHeaderInfo(boilerData.id, data);
       dispatch(getBoiler(boilerData.id || ''));
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
@@ -158,6 +166,39 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               name="instalationDate"
               onChange={handleChange}
               disabled={user?.role === 'obsluha' || user?.role === 'user'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Mesto"
+              value={boilerAddress.city}
+              name="city"
+              onChange={handleAddressChange}
+              disabled={user?.role !== 'admin'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Ulica"
+              value={boilerAddress.street}
+              name="street"
+              onChange={handleAddressChange}
+              disabled={user?.role !== 'admin'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="PSČ"
+              value={boilerAddress.zip}
+              name="zip"
+              onChange={handleAddressChange}
+              disabled={user?.role !== 'admin'}
             />
           </ListItem>
           <ListItem>
