@@ -244,6 +244,11 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
+          initialState={{
+            sorting: {
+              sortModel: [{ field: 'date', sort: 'desc' }],
+            },
+          }}
           rowsPerPageOptions={[12]}
           components={{
             NoRowsOverlay: () => (
