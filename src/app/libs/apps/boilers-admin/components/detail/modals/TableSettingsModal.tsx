@@ -25,7 +25,33 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
-
+  const columnOptions = [
+    { name: 'K1', desc: 'Kotol 1', unit: '0/1' },
+    { name: 'K2', desc: 'Kotol 2', unit: '0/1' },
+    { name: 'K3', desc: 'Kotol 3', unit: '0/1' },
+    { name: 'K4', desc: 'Kotol 4', unit: '0/1' },
+    { name: 'K5', desc: 'Kotol 5', unit: '0/1' },
+    { name: 'VO6', desc: 'Vykurovací okruh prívod 1', unit: '°C' },
+    { name: 'VO7', desc: 'Vykurovací okruh spiatočka 1', unit: '°C' },
+    { name: 'VO8', desc: 'Vykurovací okruh prívod 2', unit: '°C' },
+    { name: 'MT TUV', desc: 'Vykurovací okruh spiatočka 2', unit: '°C' },
+    { name: 'VnDVS', desc: 'Vykurovací okruh prívod 3', unit: '°C' },
+    { name: 'VCH', desc: 'Vykurovací okruh spiatočka 3', unit: '°C' },
+    { name: 'VpZ', desc: 'Vykurovací okruh prívod 4', unit: '°C' },
+    { name: 'MT VZT', desc: 'Vykurovací okruh spiatočka 4', unit: '°C' },
+    { name: 'Elektro', desc: 'Vykurovací okruh prívod 5', unit: '°C' },
+    { name: 'Plyn', desc: 'Vykurovací okruh spiatočka 5', unit: '°C' },
+    { name: 'TPP', desc: 'Teplota prívod primár', unit: '°C' },
+    { name: 'TSP', desc: 'Teplota spiatočka primár', unit: '°C' },
+    { name: 'VT', desc: 'Vonkajšia teplota', unit: '°C' },
+    { name: 'T TUV', desc: 'teplota teplej užitkovej vody', unit: '°C' },
+    { name: 'CO2', desc: 'Snímač CO2', unit: 'ppm' },
+    { name: 'TV', desc: 'Snímač tlaku vykurovania', unit: 'kPa' },
+    { name: 'TP', desc: 'Snímač tlaku plynu', unit: 'kPa' },
+    { name: 'U', desc: 'Snímač zaplavenia kotolne', unit: '0/1' },
+    { name: 'UP', desc: 'Snímač úniku plynu', unit: '0/1' },
+    { name: 'SPK', desc: 'Sumárna porucha kotolne', unit: '0/1' },
+  ];
   const handleSort = () => {
     let _tableColums = [...tableColumns];
 
@@ -48,6 +74,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
           ? {
               ...column,
               [attribute]: value,
+              ...(attribute === 'columnName' && columnOptions.find((option) => option.name === value)),
             }
           : column
       )
@@ -108,6 +135,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
           </ListItem>
           {tableColumns?.map((column, index) => (
             <DragNDropColumn
+              columnOptions={columnOptions}
               valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
               key={index}
               column={column}

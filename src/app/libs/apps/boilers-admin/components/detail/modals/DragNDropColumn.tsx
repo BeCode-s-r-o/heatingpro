@@ -17,9 +17,10 @@ import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 import HeightIcon from '@mui/icons-material/Height';
 import React from 'react';
-import { Typography } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 interface SettingsColumnProps {
+  columnOptions: { name: string; unit: string; desc: string }[];
   valueFromPlaceInSms: string | null;
   column: TBoilerColumn;
   index: number;
@@ -41,6 +42,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
   onDragEnd,
   onChange,
   valueFromPlaceInSms,
+  columnOptions,
 }: SettingsColumnProps) {
   return (
     <ListItem
@@ -57,14 +59,23 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       <Typography className="text-lg font-bold mr-8">
         {valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
       </Typography>
-      <TextField //TODO spravit na select - VLADO
-        type="text"
-        label="Názov"
-        value={column.columnName}
-        name={column.accessor}
-        onChange={(e) => onChange(e, 'columnName', e.target.value)}
-        className="w-[165px] "
-      />
+      <FormControl className="w-[165px] ">
+        <InputLabel id="choice-label">Názov</InputLabel>
+        <Select
+          labelId="choice-label"
+          id="choice"
+          label="Názov"
+          name={column.accessor}
+          value={column.columnName} //@ts-ignore
+          onChange={(e) => onChange(e, 'columnName', e.target.value)}
+        >
+          {columnOptions.map((option, index) => (
+            <MenuItem key={index} value={option.name}>
+              {option.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <TextField
         type="text"
         label="Vysvetlivka"
