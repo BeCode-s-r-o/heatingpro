@@ -159,10 +159,17 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   const defaultRows: any = useMemo(() => generateRows(sortedSMS), [sortedSMS]);
 
   const deleteSelectedRows = () => {
-    var deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
-    getDocs(deleteQuery).then((querySnapshot) => {
-      querySnapshot.forEach((doc) => deleteDoc(doc.ref));
-    });
+    const deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
+
+    try {
+      getDocs(deleteQuery).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => deleteDoc(doc.ref));
+      });
+    } catch (error) {
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    }
+    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' })); //@ts-ignore
+    setRows((prev) => prev.filter((row) => !selectedRowsIds.includes(row.id)));
     setShowConfirmModal(false);
   };
 
