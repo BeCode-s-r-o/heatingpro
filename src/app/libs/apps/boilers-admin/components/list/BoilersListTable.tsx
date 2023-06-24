@@ -10,12 +10,21 @@ import { TBoiler, TBoilers } from 'src/@app/types/TBoilers';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import { selectUser } from 'app/store/userSlice';
+import { useSelector } from 'react-redux';
 interface Props {
   data: TBoilers;
 }
 
 export const BoilersListTable = ({ data }: Props) => {
-  const columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
+  const user = useSelector(selectUser);
+  const rolesEnabledSeePhone = ['admin', 'instalater'];
+  let columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
+
+  if (!rolesEnabledSeePhone.includes(user.role)) {
+    columns = columns.filter((column) => column !== 'Telefónne číslo SIM');
+  }
+
   const rows: any = data;
   const selectBoilerState = (boiler) => {
     if (boiler.columns.length === 0) {
@@ -63,11 +72,13 @@ export const BoilersListTable = ({ data }: Props) => {
                     {row.id}
                   </Typography>
                 </TableCell>
-                <TableCell>
-                  <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
-                    {row.phoneNumber}
-                  </Typography>
-                </TableCell>
+                {rolesEnabledSeePhone.includes(user?.role) && (
+                  <TableCell>
+                    <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
+                      {row.phoneNumber}
+                    </Typography>
+                  </TableCell>
+                )}
                 <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
                     {/* alarm */}

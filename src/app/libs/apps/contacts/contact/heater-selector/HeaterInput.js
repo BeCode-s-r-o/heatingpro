@@ -24,6 +24,7 @@ function HeaterInput(props) {
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch();
   const isAdmin = user?.role === 'admin';
+  const rolesEnabledSeePhoneNumber = ['admin', 'instalater'];
   useEffect(() => {
     if (arrayOfAllBoilers.length > 0) {
       setActualHeaterInfo(
@@ -112,20 +113,22 @@ function HeaterInput(props) {
           }}
         />
 
-        <TextField
-          disabled
-          readOnly
-          className=""
-          label="Tel.číslo"
-          value={actualHeaterInfo.phoneNumber}
-          placeholder="Tel.číslo"
-          variant="outlined"
-          fullWidth
-          helperText={errors?.phone?.message}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
+        {rolesEnabledSeePhoneNumber.includes(user?.role) && (
+          <TextField
+            disabled
+            readOnly
+            className=""
+            label="Tel.číslo"
+            value={actualHeaterInfo.phoneNumber}
+            placeholder="Tel.číslo"
+            variant="outlined"
+            fullWidth
+            helperText={errors?.phone?.message}
+            InputProps={{
+              readOnly: true,
+            }}
+          />
+        )}
         {!hideRemove && (
           <IconButton onClick={props.onRemove} className="mx-auto sm:mx-0">
             <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
