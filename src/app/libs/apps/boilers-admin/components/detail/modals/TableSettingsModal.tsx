@@ -102,7 +102,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <div className="max-w-[98vw] overflow-x-scroll">
-        <List className="w-[700px]">
+        <List className="w-[750px]">
           <ListItem>
             <ListItemText primary="Nastavenie stĺpcov" />
           </ListItem>

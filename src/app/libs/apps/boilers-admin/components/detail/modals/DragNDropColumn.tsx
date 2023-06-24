@@ -104,9 +104,10 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
           onChange(e, 'hide', !e.target.checked);
         }}
       />
-      <ListItemSecondaryAction className="mx-12 cursor-move -z-10">
+      <ListItemSecondaryAction className="pr-16 cursor-move -z-10 ">
         <HeightIcon />
       </ListItemSecondaryAction>
+      <Typography className="text-lg font-bold ml-20">{column.accessor}</Typography>
     </ListItem>
   );
 });
