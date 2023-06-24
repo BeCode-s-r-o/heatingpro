@@ -67,7 +67,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
   };
 
   useEffect(() => setRows(boiler?.notes || []), [boiler]);
-
+  console.log(newRecord.date);
   const addNewRecord = () => {
     let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
     let newRecordRef = doc(db, 'boilers', id);
@@ -203,7 +203,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           rowsPerPageOptions={[10]}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'date', sort: 'asc' }],
+              sortModel: [{ field: 'date', sort: 'desc' }],
             },
           }}
           components={{
