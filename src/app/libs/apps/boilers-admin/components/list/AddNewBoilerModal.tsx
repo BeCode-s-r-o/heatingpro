@@ -6,7 +6,7 @@ import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
 import { setDoc, doc } from 'firebase/firestore';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { Typography } from '@mui/material';
@@ -15,7 +15,7 @@ import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
-import { getBoilers } from '../../store/boilersSlice';
+import { getBoilers, selectAllBoilers } from '../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 interface Props {
   isOpen: boolean;
@@ -23,6 +23,7 @@ interface Props {
 }
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
+  const boilers = useSelector(selectAllBoilers);
   const dispatch = useDispatch<AppDispatch>();
   const [error, setError] = useState<string>('');
   const initialHeaderState = {
@@ -77,9 +78,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       [name]: value,
     }));
   };
-  const isValidated = () => {
-    return;
-  };
+
   const handleHeaderChange = handleChange(setHeader);
   const handleAddressChange = handleChange(setAddress);
   const handleBoilerChange = handleChange(setNewBoiler);
@@ -102,6 +101,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const handleRemove = () => {
     setHeader((prev) => ({ ...prev, avatar: '' }));
   };
+
   const pages = [
     {
       number: 1,
@@ -290,6 +290,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       ),
     },
   ];
+  const existBoilerID = (id) => {
+    return boilers?.some((boiler) => boiler.id === id);
+  };
   const createBoilerOnBackend = async (boilerPhoneNumber, boilerID) => {
     const data = {
       phoneNumber: boilerPhoneNumber,
@@ -302,6 +305,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const saveNewBoiler = () => {
     if (!filledRequiredFields()) {
       setError('Vyplnte prosím všetky povinné polia *');
+      return;
+    }
+    if (existBoilerID(newBoiler.id)) {
+      setError('Kotolňa s týmto ID už existuje');
       return;
     }
     setError('');
