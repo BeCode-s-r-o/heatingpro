@@ -203,26 +203,24 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <Controller
-          control={control}
-          name="role"
-          render={({ field }) => (
-            <RadioGroup row {...field} name="role">
-              {rolesEnabledEditOnlyKurica.includes(user?.role || '') ? (
-                <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
-              ) : (
+        {user?.role === 'admin' && (
+          <Controller
+            control={control}
+            name="role"
+            render={({ field }) => (
+              <RadioGroup row {...field} name="role">
                 <>
-                  {' '}
+                  <FormControlLabel value="staff" control={<Radio />} label="Kurič" />{' '}
                   <FormControlLabel value="admin" control={<Radio />} label="Admin" />
                   <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
                   <FormControlLabel value="user" control={<Radio />} label="Klient" />
                   <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
                   <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />{' '}
                 </>
-              )}
-            </RadioGroup>
-          )}
-        />
+              </RadioGroup>
+            )}
+          />
+        )}
         <Controller
           control={control}
           name="name"
