@@ -115,7 +115,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       const mergedData = [...inputData, ...digitalInput];
       const reduce = mergedData.reduce(
         (acc, curr, idx) => ({
-          lastUpdate: new Date(i.body?.timestamp.unix || '').toLocaleString(),
+          lastUpdate: i.body?.timestamp.display,
           id: i.messageID,
           ...acc,
           [String(idx)]: curr ?? '-',
