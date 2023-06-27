@@ -1,18 +1,18 @@
+import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { TBoiler } from '@app/types/TBoilers';
 import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
 import { DragNDropColumn } from './DragNDropColumn';
-import axios from 'axios';
 interface Props {
   boiler: TBoiler;
   isOpen: boolean;
@@ -31,25 +31,25 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     { name: 'K3', desc: 'Kotol 3', unit: '0/1' },
     { name: 'K4', desc: 'Kotol 4', unit: '0/1' },
     { name: 'K5', desc: 'Kotol 5', unit: '0/1' },
-    { name: 'VO6', desc: 'Vykurovací okruh prívod 1', unit: '°C' },
-    { name: 'VO7', desc: 'Vykurovací okruh spiatočka 1', unit: '°C' },
-    { name: 'VO8', desc: 'Vykurovací okruh prívod 2', unit: '°C' },
-    { name: 'MT TUV', desc: 'Vykurovací okruh spiatočka 2', unit: '°C' },
-    { name: 'VnDVS', desc: 'Vykurovací okruh prívod 3', unit: '°C' },
-    { name: 'VCH', desc: 'Vykurovací okruh spiatočka 3', unit: '°C' },
-    { name: 'VpZ', desc: 'Vykurovací okruh prívod 4', unit: '°C' },
-    { name: 'MT VZT', desc: 'Vykurovací okruh spiatočka 4', unit: '°C' },
-    { name: 'Elektro', desc: 'Vykurovací okruh prívod 5', unit: '°C' },
-    { name: 'Plyn', desc: 'Vykurovací okruh spiatočka 5', unit: '°C' },
+    { name: 'VOP1', desc: 'Vykurovací okruh prívod 1', unit: '°C' },
+    { name: 'VOS1', desc: 'Vykurovací okruh spiatočka 1', unit: '°C' },
+    { name: 'VOP2', desc: 'Vykurovací okruh prívod 2', unit: '°C' },
+    { name: 'VOS2', desc: 'Vykurovací okruh spiatočka 2', unit: '°C' },
+    { name: 'VOP3', desc: 'Vykurovací okruh prívod 3', unit: '°C' },
+    { name: 'VOS3', desc: 'Vykurovací okruh spiatočka 3', unit: '°C' },
+    { name: 'VOP4', desc: 'Vykurovací okruh prívod 4', unit: '°C' },
+    { name: 'VOS4', desc: 'Vykurovací okruh spiatočka 4', unit: '°C' },
+    { name: 'VOP5', desc: 'Vykurovací okruh prívod 5', unit: '°C' },
+    { name: 'VOS5', desc: 'Vykurovací okruh spiatočka 5', unit: '°C' },
     { name: 'TPP', desc: 'Teplota prívod primár', unit: '°C' },
     { name: 'TSP', desc: 'Teplota spiatočka primár', unit: '°C' },
     { name: 'VT', desc: 'Vonkajšia teplota', unit: '°C' },
-    { name: 'T TUV', desc: 'teplota teplej užitkovej vody', unit: '°C' },
-    { name: 'CO2', desc: 'Snímač CO2', unit: 'ppm' },
-    { name: 'TV', desc: 'Snímač tlaku vykurovania', unit: 'kPa' },
-    { name: 'TP', desc: 'Snímač tlaku plynu', unit: 'kPa' },
-    { name: 'U', desc: 'Snímač zaplavenia kotolne', unit: '0/1' },
-    { name: 'UP', desc: 'Snímač úniku plynu', unit: '0/1' },
+    { name: 'T TUV', desc: 'Teplota teplej užitkovej vody', unit: '°C' },
+    { name: 'S CO2', desc: 'Snímač CO2', unit: '0/1' },
+    { name: 'S TV', desc: 'Snímač tlaku vykurovania', unit: 'bary' },
+    { name: 'S TP', desc: 'Snímač úniku plynu', unit: 'bary' },
+    { name: 'S ZK', desc: 'Snímač zaplavenia kotolne', unit: '0/1' },
+    { name: 'S UP', desc: 'Snímač úniku plynu', unit: '0/1' },
     { name: 'SPK', desc: 'Sumárna porucha kotolne', unit: '0/1' },
   ];
   const handleSort = () => {
@@ -65,12 +65,10 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     setTableColumns(_tableColums);
   };
 
-  const handleChange = useCallback((e, attribute, value) => {
-    const columnName = e.target.name;
-
+  const handleChange = useCallback((columnID, attribute, value) => {
     setTableColumns((prevColumns) =>
       prevColumns.map((column) =>
-        String(column.accessor) === columnName
+        String(column.accessor) === columnID
           ? {
               ...column,
               [attribute]: value,
@@ -81,7 +79,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     );
 
     if (attribute === 'min' || attribute === 'max') {
-      setArrayOfLimits((prevLimits) => (prevLimits.includes(columnName) ? prevLimits : [...prevLimits, columnName]));
+      setArrayOfLimits((prevLimits) => (prevLimits.includes(columnID) ? prevLimits : [...prevLimits, columnID]));
     }
   }, []);
 
