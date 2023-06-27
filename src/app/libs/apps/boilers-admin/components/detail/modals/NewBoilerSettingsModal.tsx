@@ -1,26 +1,19 @@
-import { useRef, useState, useEffect, useCallback, useMemo } from 'react';
-import { showMessage } from 'app/store/slices/messageSlice';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
 import ListItemText from '@mui/material/ListItemText';
-import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
-import { doc, updateDoc, getDoc } from 'firebase/firestore';
+import Typography from '@mui/material/Typography';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { doc, updateDoc } from 'firebase/firestore';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { db } from 'src/firebase-config';
 import { TBoiler } from '@app/types/TBoilers';
-import { useDispatch } from 'react-redux';
-import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
-import HeightIcon from '@mui/icons-material/Height';
+import { useDispatch } from 'react-redux';
+import { db } from 'src/firebase-config';
+import { getBoiler } from '../../../store/boilersSlice';
 import SettingsModalColumn from '../modals/SettingsModalColumn';
-import Select from '@mui/material/Select';
-import FormControl from '@mui/material/FormControl';
-import MenuItem from '@mui/material/MenuItem';
 
 interface Props {
   boiler: TBoiler;
@@ -34,25 +27,25 @@ const columnOptions = [
   { name: 'K3', desc: 'Kotol 3', unit: '0/1' },
   { name: 'K4', desc: 'Kotol 4', unit: '0/1' },
   { name: 'K5', desc: 'Kotol 5', unit: '0/1' },
-  { name: 'VO6', desc: 'Vykurovací okruh prívod 1', unit: '°C' },
-  { name: 'VO7', desc: 'Vykurovací okruh spiatočka 1', unit: '°C' },
-  { name: 'VO8', desc: 'Vykurovací okruh prívod 2', unit: '°C' },
-  { name: 'MT TUV', desc: 'Vykurovací okruh spiatočka 2', unit: '°C' },
-  { name: 'VnDVS', desc: 'Vykurovací okruh prívod 3', unit: '°C' },
-  { name: 'VCH', desc: 'Vykurovací okruh spiatočka 3', unit: '°C' },
-  { name: 'VpZ', desc: 'Vykurovací okruh prívod 4', unit: '°C' },
-  { name: 'MT VZT', desc: 'Vykurovací okruh spiatočka 4', unit: '°C' },
-  { name: 'Elektro', desc: 'Vykurovací okruh prívod 5', unit: '°C' },
-  { name: 'Plyn', desc: 'Vykurovací okruh spiatočka 5', unit: '°C' },
+  { name: 'VOP1', desc: 'Vykurovací okruh prívod 1', unit: '°C' },
+  { name: 'VOS1', desc: 'Vykurovací okruh spiatočka 1', unit: '°C' },
+  { name: 'VOP2', desc: 'Vykurovací okruh prívod 2', unit: '°C' },
+  { name: 'VOS2', desc: 'Vykurovací okruh spiatočka 2', unit: '°C' },
+  { name: 'VOP3', desc: 'Vykurovací okruh prívod 3', unit: '°C' },
+  { name: 'VOS3', desc: 'Vykurovací okruh spiatočka 3', unit: '°C' },
+  { name: 'VOP4', desc: 'Vykurovací okruh prívod 4', unit: '°C' },
+  { name: 'VOS4', desc: 'Vykurovací okruh spiatočka 4', unit: '°C' },
+  { name: 'VOP5', desc: 'Vykurovací okruh prívod 5', unit: '°C' },
+  { name: 'VOS5', desc: 'Vykurovací okruh spiatočka 5', unit: '°C' },
   { name: 'TPP', desc: 'Teplota prívod primár', unit: '°C' },
   { name: 'TSP', desc: 'Teplota spiatočka primár', unit: '°C' },
   { name: 'VT', desc: 'Vonkajšia teplota', unit: '°C' },
-  { name: 'T TUV', desc: 'teplota teplej užitkovej vody', unit: '°C' },
-  { name: 'CO2', desc: 'Snímač CO2', unit: 'ppm' },
-  { name: 'TV', desc: 'Snímač tlaku vykurovania', unit: 'kPa' },
-  { name: 'TP', desc: 'Snímač tlaku plynu', unit: 'kPa' },
-  { name: 'U', desc: 'Snímač zaplavenia kotolne', unit: '0/1' },
-  { name: 'UP', desc: 'Snímač úniku plynu', unit: '0/1' },
+  { name: 'T TUV', desc: 'Teplota teplej užitkovej vody', unit: '°C' },
+  { name: 'S CO2', desc: 'Snímač CO2', unit: '0/1' },
+  { name: 'S TV', desc: 'Snímač tlaku vykurovania', unit: 'bary' },
+  { name: 'S TP', desc: 'Snímač úniku plynu', unit: 'bary' },
+  { name: 'S ZK', desc: 'Snímač zaplavenia kotolne', unit: '0/1' },
+  { name: 'S UP', desc: 'Snímač úniku plynu', unit: '0/1' },
   { name: 'SPK', desc: 'Sumárna porucha kotolne', unit: '0/1' },
 ];
 
