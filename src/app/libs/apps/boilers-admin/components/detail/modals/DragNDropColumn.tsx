@@ -17,6 +17,7 @@ import { getBoiler } from '../../../store/boilersSlice';
 import { AppDispatch } from 'app/store/index';
 import HeightIcon from '@mui/icons-material/Height';
 import React from 'react';
+import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import { FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 interface SettingsColumnProps {
@@ -27,11 +28,7 @@ interface SettingsColumnProps {
   onDragStart: (index: number) => void;
   onDragEnter: (index: number) => void;
   onDragEnd: () => void;
-  onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    attribute: string,
-    value: string | number | boolean
-  ) => void;
+  onChange: (e: any, attribute: string, value: string | number | boolean) => void;
 }
 
 export const DragNDropColumn = React.memo(function SettingsColumn({
@@ -44,6 +41,11 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
   valueFromPlaceInSms,
   columnOptions,
 }: SettingsColumnProps) {
+  const actualColumnOption = columnOptions.find((item) => item.name === column.columnName) || {
+    name: column.columnName,
+    desc: column.desc,
+    unit: column.unit,
+  };
   return (
     <ListItem
       key={index}
@@ -59,29 +61,26 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       <Typography className="text-lg font-bold mr-8">
         {valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
       </Typography>
-      <FormControl className="w-[165px] ">
-        <InputLabel id="choice-label">Názov</InputLabel>
-        <Select
-          labelId="choice-label"
-          id="choice"
-          label="Názov"
-          name={column.accessor}
-          value={column.columnName} //@ts-ignore
-          onChange={(e) => onChange(e, 'columnName', e.target.value)}
-        >
-          {columnOptions.map((option, index) => (
-            <MenuItem key={index} value={option.name}>
-              {option.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControl>
+      <Autocomplete
+        className="w-[165px] "
+        disablePortal
+        freeSolo
+        options={columnOptions} //@ts-ignore
+        getOptionLabel={(option) => option.name} //@ts-ignore
+        value={actualColumnOption}
+        inputValue={column.columnName}
+        onInputChange={(event, value) => {
+          onChange(column.accessor, 'columnName', value);
+        }}
+        renderOption={(_props, option) => <li {..._props}>{option.name}</li>}
+        renderInput={(params) => <TextField {...params} label="Názov" name={column.accessor} />}
+      />
       <TextField
         type="text"
         label="Vysvetlivka"
         value={column.desc}
         name={column.accessor}
-        onChange={(e) => onChange(e, 'desc', e.target.value)}
+        onChange={(e) => onChange(column.accessor, 'desc', e.target.value)}
         className="w-[255px] "
       />
       <TextField
@@ -89,7 +88,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         label="Jednotka"
         value={column.unit}
         name={column.accessor}
-        onChange={(e) => onChange(e, 'unit', e.target.value)}
+        onChange={(e) => onChange(column.accessor, 'unit', e.target.value)}
         className="w-[80px] px-6"
       />
       <TextField
@@ -97,7 +96,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         label="Min."
         value={column.min}
         name={column.accessor}
-        onChange={(e) => onChange(e, 'min', Number(e.target.value))}
+        onChange={(e) => onChange(column.accessor, 'min', Number(e.target.value))}
         className="w-[70px] pr-6"
       />
       <TextField
@@ -105,14 +104,14 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         label="Max."
         value={column.max}
         name={column.accessor}
-        onChange={(e) => onChange(e, 'max', Number(e.target.value))}
+        onChange={(e) => onChange(column.accessor, 'max', Number(e.target.value))}
         className="w-[70px]"
       />
       <Switch
         checked={!column.hide}
         name={column.accessor}
         onChange={(e) => {
-          onChange(e, 'hide', !e.target.checked);
+          onChange(column.accessor, 'hide', !e.target.checked);
         }}
       />
       <ListItemSecondaryAction className="pr-16 cursor-move -z-10 ">
