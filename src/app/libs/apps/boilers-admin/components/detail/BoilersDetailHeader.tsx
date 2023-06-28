@@ -19,12 +19,13 @@ import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../store/boilersSlice';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import { selectUser } from 'app/store/userSlice';
 
 interface Props {
   boiler: TBoiler | undefined;
@@ -38,6 +39,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [countDown, setCountDown] = useState(30);
   const [isTimerActive, setIstimerActive] = useState(false);
   const [isInfSmsTimerActive, setIsInfSmsTimerActive] = useState(false);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -165,17 +167,19 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                       {periodOptions.find((option) => option.period === boiler?.period)?.smsPerDay} SMS/deň
                     </small>
                     )
-                    <FuseSvgIcon
-                      className="text-48 cursor-pointer "
-                      size={24}
-                      color="action"
-                      style={{ marginTop: '4px' }}
-                      onClick={() => {
-                        setShowPeriodSetting(true);
-                      }}
-                    >
-                      material-outline:settings
-                    </FuseSvgIcon>
+                    {user?.role === 'admin' && (
+                      <FuseSvgIcon
+                        className="text-48 cursor-pointer "
+                        size={24}
+                        color="action"
+                        style={{ marginTop: '4px' }}
+                        onClick={() => {
+                          setShowPeriodSetting(true);
+                        }}
+                      >
+                        material-outline:settings
+                      </FuseSvgIcon>
+                    )}
                   </Typography>
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Verzia softvéru: {boiler?.header.softwareVersion}
