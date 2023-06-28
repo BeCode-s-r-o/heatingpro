@@ -183,7 +183,7 @@ const NewContactForm = () => {
                   <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
                   <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
                   <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />
-                  <FormControlLabel value="admin" control={<Radio />} label="Admin" />{' '}
+                  {user?.role === 'admin' && <FormControlLabel value="admin" control={<Radio />} label="Admin" />}
                 </>
               )}
             </RadioGroup>

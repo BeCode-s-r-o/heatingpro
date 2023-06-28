@@ -207,15 +207,19 @@ const ContactForm = () => {
           <Controller
             control={control}
             name="role"
-            render={({ field }) => (
-              <RadioGroup row {...field} name="role">
-                <FormControlLabel value="admin" control={<Radio />} label="Admin" />
-                <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
-                <FormControlLabel value="user" control={<Radio />} label="Klient" />
-                <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
-                <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />{' '}
-              </RadioGroup>
-            )}
+            render={({ field }) =>
+              user?.id !== contact?.id ? (
+                <RadioGroup row {...field} name="role">
+                  <FormControlLabel value="admin" control={<Radio />} label="Admin" />
+                  <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
+                  <FormControlLabel value="user" control={<Radio />} label="Klient" />
+                  <FormControlLabel value="instalater" control={<Radio />} label="Inštalatér" />
+                  <FormControlLabel value="obsluha" control={<Radio />} label="Obsluha kotolne" />{' '}
+                </RadioGroup>
+              ) : (
+                <></>
+              )
+            }
           />
         )}
         <Controller
