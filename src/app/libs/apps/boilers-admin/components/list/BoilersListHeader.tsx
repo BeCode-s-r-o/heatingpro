@@ -8,10 +8,12 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddNewBoilerModal from './AddNewBoilerModal';
 import { TUserRoles } from '@app/types/TContact';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 export const BoilersListHeader = () => {
   const { data: user } = useSelector(selectUser);
   const [showAddNewBoilerModal, setShowAddNewBoilerModal] = useState(false);
+  const [showWarning, setShowWarning] = useState(false);
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
       <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
@@ -32,7 +34,10 @@ export const BoilersListHeader = () => {
               variant="contained"
               color="primary"
               startIcon={<FuseSvgIcon size={20}>heroicons-solid:plus</FuseSvgIcon>}
-              onClick={() => setShowAddNewBoilerModal(true)}
+              onClick={() => {
+                setShowAddNewBoilerModal(true);
+                setShowWarning(true);
+              }}
             >
               Pridať systém
             </Button>
@@ -42,6 +47,52 @@ export const BoilersListHeader = () => {
             isOpen={showAddNewBoilerModal}
             toggleOpen={() => setShowAddNewBoilerModal((prev) => !prev)}
           />
+          <Dialog
+            open={showWarning}
+            onClose={() => setShowWarning(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">Pozor</DialogTitle>
+            <DialogContent>
+              <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
+                <p className="mb-10">
+                  Pre úspešnú inštaláciu je potrebné aby ste mali k dispozícií <strong>adresu </strong> a{' '}
+                  <strong>telefónne číslo </strong>SIM karty kotolne.
+                </p>
+                <p className="mb-10">
+                  Ako prvý krok pred pridaním systému do aplikácie je potrebné aby ste nakonfigurovali manuálne ID
+                  kotolne, teda pridelili novej kotolni ID podľa dohodnutého systému evidencie na linku{' '}
+                  <a
+                    className="font-bold"
+                    href="https://docs.google.com/spreadsheets/d/1rg0WZDZ892C6qCJua1AiJwu9qS-3-t_l/edit#gid=817262613"
+                  >
+                    TU
+                  </a>
+                  . To spravíte tak, že napíšete SMS na telefónne číslo kotolne v tvare: **0000*dns*0015A* s tým, že
+                  0000 je ID kotolne od výrobcu vždy rovnaké a 0015A je príklad nového ID ktoré mu pridelíte na základe
+                  tabuľky evidencie ID kotolní. Po použití vybraného ID je potrebné aby ste{' '}
+                  <strong>vyznačili v tabuľke ID ako obsadené</strong>. Po zmene ID kotolne vám príde z kotolne
+                  potvrdzovacia SMS na základe čoho môžete už pristúpiť k vyplneniu formuláru s novonakonfigurovaným ID.
+                </p>
+                <p>
+                  {' '}
+                  <strong className="text-red">Upozornenie: </strong>Pozor pri zadávaní ID a telefónneho čísla kotolne (
+                  <strong> vypĺňať v tvare +421</strong> ) ktoré už nie je po pridaní systému možné meniť.
+                </p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className="whitespace-nowrap w-fit mb-2 mr-8"
+                color="primary"
+                autoFocus
+                onClick={() => setShowWarning(false)}
+              >
+                Zatvoriť
+              </Button>
+            </DialogActions>
+          </Dialog>
           {/*           <Link to="/nastavenia/">
             <Button
               className="whitespace-nowrap"
