@@ -20,7 +20,12 @@ const schema = yup.object().shape({
 function HeaterInput(props) {
   const { value, hideRemove, onRemove } = props;
   const arrayOfAllBoilers = useSelector(selectAllBoilers);
-  const [actualHeaterInfo, setActualHeaterInfo] = useState({ id: '', name: '', phoneNumber: '', disabled: false });
+  const [actualHeaterInfo, setActualHeaterInfo] = useState({
+    id: '',
+    header: { name: '' },
+    phoneNumber: '',
+    disabled: false,
+  });
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch();
   const isAdmin = user?.role === 'admin';
@@ -29,7 +34,7 @@ function HeaterInput(props) {
     if (arrayOfAllBoilers.length > 0) {
       setActualHeaterInfo(
         value === undefined
-          ? { id: '', name: '', phoneNumber: '' }
+          ? { id: '', header: { name: '' }, phoneNumber: '', disabled: false }
           : arrayOfAllBoilers.find((boiler) => boiler.id === value)
       );
     }
@@ -101,7 +106,7 @@ function HeaterInput(props) {
         <TextField
           disabled
           readOnly
-          value={actualHeaterInfo.name}
+          value={actualHeaterInfo.header.name}
           className=""
           label="Názov"
           placeholder="Názov"

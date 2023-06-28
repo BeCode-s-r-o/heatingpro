@@ -140,11 +140,11 @@ const ContactView = () => {
                             />
                             {boiler.id}
                           </div>
-                          {boiler.name && (
+                          {boiler.header.name && (
                             <>
                               <Typography className="text-md truncate" color="text.secondary">
                                 <span className="mx-8">&bull;</span>
-                                <span className="font-medium">{boiler.name}</span>
+                                <span className="font-medium">{boiler.header.name}</span>
                               </Typography>
                             </>
                           )}{' '}
