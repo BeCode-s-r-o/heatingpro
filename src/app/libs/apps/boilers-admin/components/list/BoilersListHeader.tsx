@@ -66,6 +66,8 @@ export const BoilersListHeader = () => {
                   <a
                     className="font-bold"
                     href="https://docs.google.com/spreadsheets/d/1rg0WZDZ892C6qCJua1AiJwu9qS-3-t_l/edit#gid=817262613"
+                    target="_blank"
+                    style={{ background: '#fff', color: 'red' }}
                   >
                     TU
                   </a>
