@@ -21,12 +21,13 @@ import { getBoiler } from '../../../store/boilersSlice';
 interface Props {
   isOpen: boolean;
   close: () => void;
+  setColumns: React.Dispatch<any>;
   columns: { field: string; headerName: string; unit: string }[];
   rows: {}[];
   deviceID: string;
 }
 
-function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
+function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: Props) {
   const [formFields, setFormFields] = useState<{ name: string; unit: string }[]>([{ name: '', unit: '' }]);
   const dispatch = useDispatch<AppDispatch>();
 
@@ -56,7 +57,9 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows }: Props) {
     }
     try {
       const boilerRef = doc(db, 'boilers', deviceID);
-      updateDoc(boilerRef, { monthTable: { columns: [...newColumns], rows: addEmptyValueForRows() } });
+      const updatedColumnsArray = [...newColumns];
+      updateDoc(boilerRef, { monthTable: { columns: updatedColumnsArray, rows: addEmptyValueForRows() } });
+      setColumns(updatedColumnsArray);
       close();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));

@@ -35,13 +35,12 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
 
-  const columns = boiler?.monthTable.columns || [];
   const defaultRows = boiler?.monthTable.rows || [];
   const rolesEnabledEdit = ['admin'];
   const rolesEnabledAddColumn = ['admin', 'instalater'];
   const rolesEnabledAddRecord = ['admin', 'staff'];
   const rolesEnabledExportAndPrint = ['admin', 'instalater', 'user'];
-
+  const [columns, setColumns] = React.useState(boiler?.monthTable.columns || []);
   const [filterDate, setFilterDate] = React.useState<Date>();
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
@@ -55,6 +54,9 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
 
   //todo
   const constantUpdateDate = moment().endOf('month').subtract(1, 'weeks');
+  useEffect(() => {
+    setColumns(boiler?.monthTable.columns || []);
+  }, [boiler]);
   useEffect(() => {
     setEffectivityConstant(rows.find((row) => row.id === rowForEdit.id)?.effectivityConstant || 0);
   }, [rowForEdit]);
@@ -312,6 +314,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           columns={columns}
           rows={rows}
           deviceID={id}
+          setColumns={setColumns}
         />
         {rolesEnabledAddRecord.includes(user.role) && (
           <Button
