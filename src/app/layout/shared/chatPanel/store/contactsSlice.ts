@@ -50,13 +50,14 @@ export const updateContact = createAsyncThunk('contactsApp/contacts/updateContac
 });
 
 export const removeContact = createAsyncThunk('contactsApp/contacts/removeContact', async (id: string) => {
-  const contactRef = doc(getFirestore(), 'users', `${id}`);
+  const contactRef = doc(getFirestore(), 'users', id);
   const data = { uid: id };
   try {
     await axios.delete('https://api.monitoringpro.sk/delete-user', { data });
     await deleteDoc(contactRef);
+    return Promise.resolve();
   } catch (error) {
-    throw error;
+    return Promise.reject(error);
   }
 });
 

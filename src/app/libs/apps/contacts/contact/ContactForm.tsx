@@ -95,17 +95,16 @@ const ContactForm = () => {
     }
   }
 
-  function handleRemoveContact() {
-    dispatch(removeContact(id || ''))
-      .then(() => {
-        dispatch(showMessage({ message: 'Užívateľ bol úspešne odstránený' }));
-        dispatch(getContacts());
-        navigate('/pouzivatelia');
-      })
-      .catch((error) => {
-        dispatch(showMessage({ message: `Ups, vyskytla sa chyba: ${error}` }));
-      });
-  }
+  const handleRemoveContact = async () => {
+    try {
+      await dispatch(removeContact(id || ''));
+      dispatch(showMessage({ message: 'Užívateľ bol úspešne odstránený' }));
+      dispatch(getContacts());
+      navigate('/pouzivatelia');
+    } catch (error) {
+      dispatch(showMessage({ message: `Ups, vyskytla sa chyba: ${error}` }));
+    }
+  };
 
   if (_.isEmpty(form) || !contact) {
     return <FuseLoading />;
