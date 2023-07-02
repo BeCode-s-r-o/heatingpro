@@ -27,10 +27,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
 import { selectBoilerById } from '../../store/boilersSlice';
-import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
+import { compareDates, formatDateToSK, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import HandleSignature from './modals/HandleSignature';
 import moment from 'moment';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 
 export const DailyNotesTable = ({ id, printTable, componentRef }) => {
@@ -38,6 +40,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user: any = useSelector(selectUser);
+  const [filterDate, setFilterDate] = useState<Date>();
   const [isEditRows, setIsEditRows] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowId[]>([]);
   const [showDeletRowsConfirmModal, setShowDeleteRowsConfirmModal] = useState(false);
@@ -65,9 +68,9 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
   const handleClickOpen = () => {
     setShowDeleteRowsConfirmModal(true);
   };
+  const defaultRows = boiler?.notes || [];
 
-  useEffect(() => setRows(boiler?.notes || []), [boiler]);
-  console.log(newRecord.date);
+  useEffect(() => setRows(defaultRows), [boiler]);
   const addNewRecord = () => {
     let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
     let newRecordRef = doc(db, 'boilers', id);
@@ -162,6 +165,16 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
       },
     },
   ];
+  const handleCleanCalendar = () => {
+    setRows(defaultRows);
+    setFilterDate(undefined);
+  };
+
+  const filterRowsByDate = (date) => {
+    setFilterDate(date);
+
+    !date ? setRows(defaultRows) : setRows(defaultRows.filter((row) => compareDates(date, row.date)));
+  };
   const getPDF = async () => {
     let data = {
       boilerID: boiler?.id,
@@ -189,7 +202,24 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Zápisy z dňa {id}
       </Typography>
-
+      {user.role !== 'staff' && (
+        <div className="relative my-16">
+          <div className="border p-4 relative flex items-center justify-center w-fit  ">
+            <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
+              material-twotone:calendar_today
+            </FuseSvgIcon>
+            <DatePicker
+              onChange={filterRowsByDate}
+              selected={filterDate}
+              dateFormat="MM/yyyy"
+              showMonthYearPicker
+              placeholderText="Vyber mesiac"
+              className="w-[6rem] sm:w-[10rem] cursor-pointer"
+            />
+            <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
+          </div>
+        </div>
+      )}
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
