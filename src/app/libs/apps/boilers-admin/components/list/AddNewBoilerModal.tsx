@@ -4,7 +4,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
-import { setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
@@ -16,7 +16,10 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import axios from 'axios';
 import { getBoilers, selectAllBoilers } from '../../store/boilersSlice';
-import { AppDispatch } from 'app/store/index';
+import { AppDispatch, RootState } from 'app/store/index';
+import { selectContactById, updateContact } from 'app/theme-layouts/shared/chatPanel/store/contactsSlice';
+import { TContact } from '@app/types/TContact';
+import { selectUser } from 'app/store/userSlice';
 interface Props {
   isOpen: boolean;
   toggleOpen: () => void;
@@ -24,6 +27,7 @@ interface Props {
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const boilers = useSelector(selectAllBoilers);
+  const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
   const [error, setError] = useState<string>('');
   const initialHeaderState = {
@@ -302,6 +306,17 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       await axios.post('https://api.monitoringpro.sk/config-boiler', data);
     } catch (error) {}
   };
+  const assignBoilerToUser = (userID, boilers) => {
+    const userRef = doc(getFirestore(), 'users', userID);
+    updateDoc(userRef, {
+      boilers: boilers,
+    })
+      .then(() => {})
+      .catch((error) => {
+        throw error;
+      });
+  };
+
   const saveNewBoiler = () => {
     if (!filledRequiredFields()) {
       setError('Vyplnte prosím všetky povinné polia *');
@@ -313,6 +328,8 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     }
     setError('');
     try {
+      user?.role === 'instalater' && assignBoilerToUser(user?.data?.id, [...(user?.data?.heaters || []), newBoiler.id]);
+
       const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
       createBoilerOnBackend(newBoiler.phoneNumber, newBoiler.id);
@@ -325,6 +342,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <div className="max-w-[98vw] overflow-x-scroll">
