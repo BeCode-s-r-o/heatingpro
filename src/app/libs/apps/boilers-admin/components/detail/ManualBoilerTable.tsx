@@ -176,12 +176,13 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   };
 
   const cols = [
-    { field: 'date', headerName: 'Dátum', minWidth: 100 },
-    ...columns,
+    { field: 'date', headerName: 'Dátum', minWidth: 100, sortable: false },
+    ...columns.map((column) => ({ ...column, sortable: false })),
     {
       field: 'ucinnost',
       headerName: 'Účinnosť kotolne',
       id: 'asdasd',
+      sortable: false,
     },
     rolesEnabledEdit.includes(user.role) && {
       field: 'id',
