@@ -46,6 +46,7 @@ const schema = yup.object().shape({
 const ContactForm = () => {
   const { id } = useParams();
   const contact: TContact | undefined = useSelector((state: RootState) => selectContactById(state, id || ''));
+
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -94,7 +95,8 @@ const ContactForm = () => {
         });
     }
   }
-
+  const isLastAdmin =
+    user?.role === 'admin' && !contacts.some((contact) => contact.role === 'admin' && contact.id !== user?.id);
   const handleRemoveContact = async () => {
     try {
       await dispatch(removeContact(id || ''));
@@ -306,13 +308,21 @@ const ContactForm = () => {
             render={({ field }) => <ContactHeaterSelector className="mt-32" {...field} />}
           />
         )}
+        {isLastAdmin && (
+          <Typography color="error"> Používateľa nieje možné vymazať, lebo je to posledný admin aplikácie</Typography>
+        )}
       </div>
       <Box
         className="flex items-center mt-40 py-14 pr-16 pl-4 sm:pr-48 sm:pl-36 border-t"
         sx={{ backgroundColor: 'background.default' }}
       >
         {id !== 'new' && (
-          <Button variant="contained" color="secondary" onClick={() => setShowConfirmDeleteModal(true)}>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setShowConfirmDeleteModal(true)}
+            disabled={isLastAdmin}
+          >
             Vymazať
           </Button>
         )}
