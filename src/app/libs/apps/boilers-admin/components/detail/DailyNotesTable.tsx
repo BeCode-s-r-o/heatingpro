@@ -180,6 +180,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
       boilerID: boiler?.id,
       user: user,
       date: getCurrentDate(),
+      dateForFilter: filterDate ? filterDate : 'all',
     };
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));

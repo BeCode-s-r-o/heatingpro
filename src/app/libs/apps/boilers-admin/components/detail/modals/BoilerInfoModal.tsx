@@ -7,7 +7,7 @@ import TextField from '@mui/material/TextField';
 import { showMessage } from 'app/store/slices/messageSlice';
 import 'firebase/firestore';
 import Avatar from '@mui/material/Avatar';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import IconButton from '@mui/material/IconButton';
 import FuseSvgIcon from '@app/core/SvgIcon';
@@ -18,6 +18,7 @@ import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
 import Box from '@mui/material/Box';
 import { selectUser } from 'app/store/userSlice';
+import { getCurrentDate } from '../functions/datesOperations';
 interface Props {
   boilerInfo: TBoilerInfo;
   boilerData: TBoiler;
@@ -53,11 +54,32 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
     updateDoc(newBoilerRef, data);
   };
 
+  const addChangeToHeaderHistory = async (newData, id) => {
+    try {
+      const headerHistoryRef = doc(db, 'headers-history', id);
+      const headerHistoryDoc = await getDoc(headerHistoryRef);
+      const headerHistoryData = headerHistoryDoc.data();
+
+      const updatedHistory = headerHistoryData?.history?.filter(
+        (record) => record.dateOfChange !== newData.dateOfChange
+      );
+
+      const updatedData = {
+        history: [newData, ...updatedHistory],
+      };
+
+      await updateDoc(headerHistoryRef, updatedData);
+    } catch (error) {
+      throw error;
+    }
+  };
+
   const updateBoilerDocument = () => {
     try {
       const { sms, ...boiler } = boilerData;
       const data = { header: { ...headerData, avatar: image }, address: boilerAddress };
       uptadeHeaderInfo(boilerData.id, data);
+      addChangeToHeaderHistory({ dateOfChange: getCurrentDate(), header: headerData }, boilerData.id);
       dispatch(getBoiler(boilerData.id || ''));
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
       toggleOpen();
