@@ -19,6 +19,7 @@ import { getBoiler } from '../../../store/boilersSlice';
 import Box from '@mui/material/Box';
 import { selectUser } from 'app/store/userSlice';
 import { getCurrentDate } from '../functions/datesOperations';
+import { Switch, Typography } from '@mui/material';
 interface Props {
   boilerInfo: TBoilerInfo;
   boilerData: TBoiler;
@@ -187,8 +188,24 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               value={headerData.instalationDate}
               name="instalationDate"
               onChange={handleChange}
-              disabled={user?.role === 'obsluha' || user?.role === 'user'}
+              disabled={user?.role === 'obsluha' || user?.role === 'user'} //todo who can edit this?
             />
+          </ListItem>
+          <ListItem className="flex flex-col">
+            <Typography className="font-bold">Schéma kotolne</Typography>
+            <Box className="flex flex-row justify-center items-center">
+              <Typography>S obsluhou</Typography>
+              <Switch
+                checked={headerData.withService}
+                name="withService"
+                onChange={(e) =>
+                  setHeaderData((prev) => ({
+                    ...prev,
+                    withService: e.target.checked,
+                  }))
+                }
+              />
+            </Box>
           </ListItem>
           <ListItem>
             <TextField

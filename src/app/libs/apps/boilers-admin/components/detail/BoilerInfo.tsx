@@ -68,6 +68,10 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
             <strong className="font-semibold">ID zariadenia:</strong> {boiler?.id}
           </Typography>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong className="font-semibold">Schéma kotolne:</strong>{' '}
+            {boiler?.header.withService ? 'S obsluhou' : 'Bez obsluhy'}
+          </Typography>
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Adresa:</strong>{' '}
             {boiler?.address.street + ', ' + boiler?.address.city + ', ' + boiler?.address.zip}
           </Typography>

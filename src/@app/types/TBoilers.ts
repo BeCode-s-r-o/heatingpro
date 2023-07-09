@@ -89,6 +89,7 @@ export interface TBoilerInfo {
   staff2: string;
   monitoringDeviceID: string;
   avatar: string;
+  withService: boolean;
 }
 
 interface Body {
