@@ -350,7 +350,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       user?.role === 'instalater' && assignBoilerToUser(user?.id, [...(user?.heaters || []), newBoiler.id]);
 
       const boilerRef = doc(db, 'boilers', newBoiler.id);
+
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });
+      const boilerHeaderHistoryRef = doc(db, 'headers-history', newBoiler.id);
+      setDoc(boilerHeaderHistoryRef, { history: [] });
       createBoilerOnBackend(newBoiler.phoneNumber, newBoiler.id);
       toggleOpen();
       dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
