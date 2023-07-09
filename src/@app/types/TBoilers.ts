@@ -10,6 +10,7 @@ export type TBoiler = {
   sms: TSms[];
   header: TBoilerInfo;
   notes: TBoilerNote[];
+  requestedSMS: { dateOfRequest: string }[];
   monthTable: { columns: any; rows: any };
   contactsForNotification: TContactForNotification[];
   disabled?: boolean;

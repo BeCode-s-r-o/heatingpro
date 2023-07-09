@@ -53,6 +53,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     monthTable: { columns: [], rows: [] },
     columns: [],
     contactsForNotification: [],
+    requestedSMS: [],
   };
   const [pageNumber, setPageNumber] = useState(1);
   const [header, setHeader] = useState(initialHeaderState);
