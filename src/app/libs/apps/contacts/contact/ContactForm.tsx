@@ -34,7 +34,7 @@ import {
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import ConfirmModal from '../../boilers-admin/components/detail/modals/ConfirmModal';
 import { selectUser } from 'app/store/userSlice';
-import { Typography } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
 import withReducer from 'app/store/withReducer';
 
 const schema = yup.object().shape({
@@ -204,6 +204,17 @@ const ContactForm = () => {
             />
           </div>
         </div>
+        <Controller
+          control={control}
+          name="isPaid"
+          render={({ field }) => (
+            <FormControlLabel
+              control={<Switch {...field} checked={field.value} onChange={(e) => field.onChange(e.target.checked)} />}
+              label="Zaplatené"
+              labelPlacement="end"
+            />
+          )}
+        />
         {user?.role === 'admin' && (
           <Controller
             control={control}
