@@ -50,6 +50,7 @@ const ContactView = () => {
       return true;
     }
   };
+
   return (
     <>
       <Box
@@ -93,7 +94,11 @@ const ContactView = () => {
               </Button>
             </div>
           </div>
-
+          {contact?.isPaid ? (
+            <Typography className="text-green font-bold">Zaplatené</Typography>
+          ) : (
+            <Typography className="text-red font-bold">Nezaplatené</Typography>
+          )}
           <Typography className="mt-12 text-4xl font-bold truncate">{contact.name}</Typography>
 
           <div className="flex flex-wrap items-center mt-8">
