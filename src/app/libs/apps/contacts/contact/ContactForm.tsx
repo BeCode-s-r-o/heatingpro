@@ -209,7 +209,14 @@ const ContactForm = () => {
           name="isPaid"
           render={({ field }) => (
             <FormControlLabel
-              control={<Switch {...field} checked={field.value} onChange={(e) => field.onChange(e.target.checked)} />}
+              control={
+                <Switch
+                  {...field}
+                  checked={field.value}
+                  onChange={(e) => field.onChange(e.target.checked)}
+                  disabled={user?.role !== 'admin'}
+                />
+              }
               label="Zaplatené"
               labelPlacement="end"
             />

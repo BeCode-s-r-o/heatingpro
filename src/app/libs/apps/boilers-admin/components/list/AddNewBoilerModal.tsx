@@ -27,7 +27,7 @@ interface Props {
 
 const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const boilers = useSelector(selectAllBoilers);
-  const user = useSelector(selectUser);
+  const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
   const [error, setError] = useState<string>('');
   const initialHeaderState = {
@@ -53,6 +53,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     monthTable: { columns: [], rows: [] },
     columns: [],
     contactsForNotification: [],
+    requestedSMS: [],
   };
   const [pageNumber, setPageNumber] = useState(1);
   const [header, setHeader] = useState(initialHeaderState);
@@ -167,6 +168,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
                     withService: e.target.checked,
                   }))
                 }
+                disabled={!(user?.role === 'instalater' || user?.role === 'admin')}
               />
             </Box>
           </ListItem>
@@ -345,7 +347,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     }
     setError('');
     try {
-      user?.role === 'instalater' && assignBoilerToUser(user?.data?.id, [...(user?.data?.heaters || []), newBoiler.id]);
+      user?.role === 'instalater' && assignBoilerToUser(user?.id, [...(user?.heaters || []), newBoiler.id]);
 
       const boilerRef = doc(db, 'boilers', newBoiler.id);
       setDoc(boilerRef, { ...newBoiler, name: header.name, address: address, header: header });

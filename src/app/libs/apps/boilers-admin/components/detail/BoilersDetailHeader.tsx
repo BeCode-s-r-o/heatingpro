@@ -26,6 +26,7 @@ import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
 import { selectUser } from 'app/store/userSlice';
+import { getCurrentDate } from './functions/datesOperations';
 
 interface Props {
   boiler: TBoiler | undefined;
@@ -79,12 +80,18 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       phoneNumber: boiler?.phoneNumber,
       boilerId: boiler?.id,
     };
-    try {
-      await axios.post('https://api.monitoringpro.sk/get-data', data);
-      dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
-      setIstimerActive(true);
-    } catch (error) {
-      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    if (numberOfDailySMS === 3 && !(user.role === 'admin' || user.role === 'instalater')) {
+      dispatch(showMessage({ message: 'SMS nebolo možné poslať, lebo ste dosiahli svoj denný limit SMS' }));
+      return;
+    } else {
+      try {
+        !(user.role === 'admin' || user.role === 'instalater') && increaseNumberOfSendDailySMS();
+        await axios.post('https://api.monitoringpro.sk/get-data', data);
+        dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
+        setIstimerActive(true);
+      } catch (error) {
+        dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+      }
     }
   };
 
@@ -100,6 +107,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
+  };
+  const increaseNumberOfSendDailySMS = () => {
+    const boilerRef = doc(db, 'boilers', boiler?.id || '');
+    const newArrayOfRequestedSMS = boiler?.requestedSMS.filter((item) => item.dateOfRequest === today) || [];
+    updateDoc(boilerRef, { requestedSMS: [{ dateOfRequest: today }, ...newArrayOfRequestedSMS] });
   };
 
   const sendSmsToChangePeriod = async () => {
@@ -140,7 +152,8 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     { value: 9, period: '0.5', smsPerDay: 48 },
     { value: 0, period: '0', smsPerDay: 0 },
   ];
-
+  const today = getCurrentDate();
+  const numberOfDailySMS = boiler?.requestedSMS?.filter((item) => item.dateOfRequest === today).length;
   return (
     <>
       <div className="flex flex-col w-full px-24 sm:px-32">
@@ -180,6 +193,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                         material-outline:settings
                       </FuseSvgIcon>
                     )}
+                  </Typography>
+                  <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    Počet vyžiadaných SMS: {numberOfDailySMS}
+                    /3 za deň
                   </Typography>
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Verzia softvéru: {boiler?.header.softwareVersion}
