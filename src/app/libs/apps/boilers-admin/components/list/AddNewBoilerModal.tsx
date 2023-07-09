@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { showMessage } from 'app/store/slices/messageSlice';
-import { Typography } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { Box } from '@mui/system';
 import Avatar from '@mui/material/Avatar';
@@ -41,6 +41,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     maintenance: '',
     staff1: '',
     staff2: '',
+    withService: true,
   };
   const initialAddressState = { city: '', zip: '', street: '' };
   const initialNewBoilerState = {
@@ -151,6 +152,22 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               >
                 {header.name.charAt(0)}
               </Avatar>
+            </Box>
+          </ListItem>
+          <ListItem className="flex flex-col">
+            <Typography className="font-bold">Schéma kotolne</Typography>
+            <Box className="flex flex-row justify-center items-center">
+              <Typography>S obsluhou</Typography>
+              <Switch
+                checked={header.withService}
+                name="withService"
+                onChange={(e) =>
+                  setHeader((prev) => ({
+                    ...prev,
+                    withService: e.target.checked,
+                  }))
+                }
+              />
             </Box>
           </ListItem>
           <ListItem>
