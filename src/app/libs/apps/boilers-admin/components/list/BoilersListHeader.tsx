@@ -3,7 +3,7 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { selectUser } from 'app/store/userSlice';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddNewBoilerModal from './AddNewBoilerModal';
@@ -14,6 +14,11 @@ export const BoilersListHeader = () => {
   const { data: user } = useSelector(selectUser);
   const [showAddNewBoilerModal, setShowAddNewBoilerModal] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
+  const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
+  useEffect(() => {
+    !user?.isPaid && setShowMissingPaymentModal(true);
+  }, [user]);
+
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
       <div className="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-32 sm:my-48">
@@ -95,16 +100,48 @@ export const BoilersListHeader = () => {
               </Button>
             </DialogActions>
           </Dialog>
-          {/*           <Link to="/nastavenia/">
+          <Dialog
+            open={showMissingPaymentModal}
+            onClose={() => setShowMissingPaymentModal(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title" color="error">
+              Pozor
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
+                <p className="mb-10">
+                  Pre vaše konto <strong>neevidujeme</strong> v našom systéme úspešnú platbu, pre pokračovanie prosím
+                  uhradte čo najkôr faktúrú a pošlite nám potvrdenie mailom na{' '}
+                  <a href="mailto:info@monitoringpro.sk" style={{ background: '#fff', color: 'red' }}>
+                    info@monitoringpro.sk
+                  </a>
+                </p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className="whitespace-nowrap w-fit mb-2 mr-8"
+                color="primary"
+                autoFocus
+                onClick={() => setShowMissingPaymentModal(false)}
+              >
+                Zatvoriť
+              </Button>
+            </DialogActions>
+          </Dialog>
+          <Link to="/nastavenia/">
             <Button
               className="whitespace-nowrap"
               variant="contained"
               color="secondary"
+              onClick={() => alert('Na mne sa ešte pracuje :)')}
               startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
             >
               Nastavenia
             </Button>
-          </Link> */}
+          </Link>
         </div>
       </div>
     </div>
