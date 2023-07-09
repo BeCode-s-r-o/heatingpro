@@ -158,6 +158,22 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               </Avatar>
             </Box>
           </ListItem>
+          <ListItem className="flex flex-col">
+            <Typography className="font-bold">Schéma kotolne</Typography>
+            <Box className="flex flex-row justify-center items-center">
+              <Typography>S obsluhou</Typography>
+              <Switch
+                checked={headerData.withService}
+                name="withService"
+                onChange={(e) =>
+                  setHeaderData((prev) => ({
+                    ...prev,
+                    withService: e.target.checked,
+                  }))
+                }
+              />
+            </Box>
+          </ListItem>
           <ListItem>
             <TextField
               className="w-full"
@@ -191,22 +207,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               disabled={user?.role === 'obsluha' || user?.role === 'user'} //todo who can edit this?
             />
           </ListItem>
-          <ListItem className="flex flex-col">
-            <Typography className="font-bold">Schéma kotolne</Typography>
-            <Box className="flex flex-row justify-center items-center">
-              <Typography>S obsluhou</Typography>
-              <Switch
-                checked={headerData.withService}
-                name="withService"
-                onChange={(e) =>
-                  setHeaderData((prev) => ({
-                    ...prev,
-                    withService: e.target.checked,
-                  }))
-                }
-              />
-            </Box>
-          </ListItem>
+
           <ListItem>
             <TextField
               className="w-full"

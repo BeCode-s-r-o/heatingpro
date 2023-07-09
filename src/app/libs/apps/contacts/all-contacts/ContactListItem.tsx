@@ -1,4 +1,5 @@
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
+import { Tooltip } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import ListItem from '@mui/material/ListItem';
@@ -25,6 +26,10 @@ function ContactListItem(props) {
         component={NavLinkAdapter}
         to={`/pouzivatelia/${contact.id}`}
       >
+        {' '}
+        <Tooltip title={contact.isPaid ? 'Zaplatené' : 'Nezaplatené'} placement="top" className="mr-10">
+          <div className={`rounded-full w-12 h-12 ${contact.isPaid ? 'bg-green' : 'bg-red'} `}></div>
+        </Tooltip>
         <ListItemAvatar>
           <Avatar alt={contact.name} src={contact.avatar || undefined} />
         </ListItemAvatar>
