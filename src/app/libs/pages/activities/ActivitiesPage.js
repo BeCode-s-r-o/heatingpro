@@ -5,12 +5,15 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { showMessage } from 'app/store/slices/messageSlice';
 import { collection, doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 function ActivitiesPage() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
   const [effectivityConstant, setEffectivityConstant] = useState(0);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getEffectivityConstant = async () => {
@@ -24,6 +27,7 @@ function ActivitiesPage() {
   const handleSaveEffectivityConstant = async () => {
     const effectivityRef = collection(getFirestore(), 'effectivityConstant');
     setDoc(doc(effectivityRef, 'data'), { effectivityConstant });
+    dispatch(showMessage({ message: 'Spalné teplo zemného plynu bolo uložené' }));
   };
 
   return (

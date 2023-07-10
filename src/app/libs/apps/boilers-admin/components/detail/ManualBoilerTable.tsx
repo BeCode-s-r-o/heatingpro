@@ -80,7 +80,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         }
         const rozdielPlynomer = row['Plyn'] - prevRow['Plyn'];
 
-        const ucinnost = sumOfRozdielVOs / (rozdielPlynomer * Number(effectivityConstant));
+        const ucinnost = Number(sumOfRozdielVOs / (rozdielPlynomer * Number(effectivityConstant))).toFixed(4);
 
         return { ...row, ucinnost };
       }
@@ -166,9 +166,15 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     dispatch(getBoiler(id || ''));
   };
 
+  const formatNumberWithSpaces = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
   const cols = [
     { field: 'date', headerName: 'Dátum', minWidth: 100, sortable: false },
-    ...columns.map((column) => ({ ...column, sortable: false })),
+    ...columns.map((column) => ({
+      ...column,
+      sortable: false,
+      renderCell: (params) => formatNumberWithSpaces(params.value),
+    })),
     {
       field: 'ucinnost',
       headerName: 'Účinnosť kotolne',
