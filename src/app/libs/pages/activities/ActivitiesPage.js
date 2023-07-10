@@ -97,14 +97,13 @@ function ActivitiesPage() {
                         return (
                           <ListItem key={`${year}-${monthIndex}`}>
                             <TextField
-                              className="w-full"
+                              className={`w-full ${!value ? 'red-color' : ''}`}
                               type="text"
-                              style={value ? { color: 'red' } : {}}
                               label={`Spalné teplo zemného plynu - ${moment
                                 .months()
                                 [parseInt(monthIndex, 10)].toUpperCase()} ${year}`}
                               value={value}
-                              name="name"
+                              name={`${year}-${monthIndex}`}
                               disabled={isPast}
                               onChange={({ target: { value: val } }) => {
                                 const newEffectivityConstant = { ...effectivityConstant };

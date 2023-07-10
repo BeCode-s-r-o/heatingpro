@@ -1,22 +1,31 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { selectUser } from 'app/store/userSlice';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AddNewBoilerModal from './AddNewBoilerModal';
-import { TUserRoles } from '@app/types/TContact';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
 
 export const BoilersListHeader = () => {
   const { data: user } = useSelector(selectUser);
   const [showAddNewBoilerModal, setShowAddNewBoilerModal] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
+  const [effectivityConstant, setEffectivityConstant] = useState<any>('loading');
   useEffect(() => {
     !user?.isPaid && setShowMissingPaymentModal(true);
+    const getEffectivityConstant = async () => {
+      const docSnap = await getDoc(doc(getFirestore(), 'effectivityConstant', moment().year().toString()));
+      const data = docSnap.data();
+      setEffectivityConstant(data?.[moment().month()]);
+    };
+
+    getEffectivityConstant();
   }, [user]);
 
   return (
@@ -117,6 +126,35 @@ export const BoilersListHeader = () => {
                   <a href="mailto:info@monitoringpro.sk" style={{ background: '#fff', color: 'red' }}>
                     info@monitoringpro.sk
                   </a>
+                </p>
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button
+                className="whitespace-nowrap w-fit mb-2 mr-8"
+                color="primary"
+                autoFocus
+                onClick={() => setShowMissingPaymentModal(false)}
+              >
+                Zatvoriť
+              </Button>
+            </DialogActions>
+          </Dialog>
+
+          <Dialog
+            open={effectivityConstant != 'loading' && !effectivityConstant}
+            onClose={() => setEffectivityConstant('loading')}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title" color="error">
+              Pozor
+            </DialogTitle>
+            <DialogContent>
+              <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
+                <p className="mb-10">Chýbajúca konštanta spalného tepla zemného plynu pre tento mesiac</p>
+                <p className="mb-10">
+                  Prosíme zadajte konštantu v <a href="/nastavenia">nastaveniach</a>
                 </p>
               </DialogContentText>
             </DialogContent>
