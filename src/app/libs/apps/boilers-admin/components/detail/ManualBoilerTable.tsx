@@ -6,7 +6,7 @@ import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
 import axios from 'axios';
-import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
+import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -41,19 +41,25 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
   const [rows, setRows] = React.useState<any[]>([]);
 
-  const [effectivityConstant, setEffectivityConstant] = React.useState(0);
+  const [effectivityConstant, setEffectivityConstant] = React.useState({});
 
   useEffect(() => {
     const getEffectivityConstant = async () => {
-      const docRef = doc(getFirestore(), 'effectivityConstant', 'data');
-      const docSnap = await getDoc(docRef);
-      setEffectivityConstant(docSnap.data()?.effectivityConstant);
+      const docSnap = await getDocs(collection(getFirestore(), 'effectivityConstant'));
+
+      let data = {};
+      docSnap.forEach((document) => {
+        data = {
+          ...data,
+          [document.id]: document.data(),
+        };
+      });
+
+      setEffectivityConstant(data);
     };
+
     getEffectivityConstant();
   }, []);
-
-  //todo
-  const constantUpdateDate = moment().endOf('month').subtract(1, 'weeks');
 
   useEffect(() => {
     setColumns(boiler?.monthTable.columns || []);
@@ -74,13 +80,19 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             prevRow[voKey] !== '-'
           ) {
             const rozdielVO = row[voKey] - prevRow[voKey];
-
             sumOfRozdielVOs += rozdielVO;
           }
         }
+
         const rozdielPlynomer = row['Plyn'] - prevRow['Plyn'];
 
-        const ucinnost = Number(sumOfRozdielVOs / (rozdielPlynomer * Number(effectivityConstant))).toFixed(4);
+        const date = moment(row.date, 'D.M.YYYY');
+        const year = date.year();
+        const month = date.month();
+
+        const monthEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
+
+        const ucinnost = Number(sumOfRozdielVOs / (rozdielPlynomer * Number(monthEffectivityConstant))).toFixed(4);
 
         return { ...row, ucinnost };
       }
@@ -88,7 +100,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     });
 
     setRows(rowsWithEfficiency);
-  }, [boiler]);
+  }, [boiler, effectivityConstant]); // add effectivityConstant as a dependency
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
