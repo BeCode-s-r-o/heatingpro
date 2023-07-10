@@ -6,15 +6,17 @@ import ListItem from '@mui/material/ListItem';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
 import { collection, doc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import moment from 'moment';
 import 'moment/locale/sk';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 moment.locale('sk');
 
 function ActivitiesPage() {
+  const { data: user } = useSelector(selectUser);
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down('lg'));
   const [effectivityConstant, setEffectivityConstant] = useState({});
   const dispatch = useDispatch();
@@ -26,19 +28,16 @@ function ActivitiesPage() {
     const filledData = { ...data };
     const firstYear = parseInt(Object.keys(filledData).sort((a, b) => a - b)[0], 10);
 
-    // Create years only from firstYear to currentYear
     for (let year = firstYear; year <= currentYear; year += 1) {
       if (!filledData[year]) {
         filledData[year] = {};
       }
 
-      // If it's the firstYear, start from the month in the data or from January if it's not
       const startMonth =
         year === firstYear ? parseInt(Object.keys(filledData[year]).sort((a, b) => a - b)[0] || '0', 10) : 0;
-      // If it's the currentYear, stop at currentMonth, else go up to December
+
       const endMonth = year === currentYear ? currentMonth : 11;
 
-      // Fill in the missing months
       for (let month = startMonth; month <= endMonth; month += 1) {
         if (filledData[year][month] === undefined) {
           filledData[year][month] = 0;
@@ -104,7 +103,7 @@ function ActivitiesPage() {
                                 [parseInt(monthIndex, 10)].toUpperCase()} ${year}`}
                               value={value}
                               name={`${year}-${monthIndex}`}
-                              disabled={isPast}
+                              disabled={isPast && user?.role !== 'admin'}
                               onChange={({ target: { value: val } }) => {
                                 const newEffectivityConstant = { ...effectivityConstant };
                                 newEffectivityConstant[year][monthIndex] = Number(val);

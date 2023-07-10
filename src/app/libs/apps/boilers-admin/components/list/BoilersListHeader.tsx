@@ -30,7 +30,9 @@ export const BoilersListHeader = () => {
       }
     };
 
-    getEffectivityConstant();
+    if (moment().day() > 3) {
+      getEffectivityConstant();
+    }
   }, []);
 
   console.log(showEffectivityConstant);
