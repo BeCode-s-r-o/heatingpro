@@ -159,6 +159,6 @@ input:-webkit-autofill:active {
   height: 1px !important;
 }
 
-.muiltr-1pqm26d-MuiAvatar-img {
+#avatar-header>img{
   object-fit: fill !important;
 }
