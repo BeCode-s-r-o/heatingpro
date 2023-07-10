@@ -30,12 +30,10 @@ export const BoilersListHeader = () => {
       }
     };
 
-    if (moment().day() > 3) {
+    if (moment().date() > 3) {
       getEffectivityConstant();
     }
   }, []);
-
-  console.log(showEffectivityConstant);
 
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
