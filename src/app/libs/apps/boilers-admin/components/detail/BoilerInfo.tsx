@@ -12,6 +12,7 @@ import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getBoilers } from '../../store/boilersSlice';
 import BoilerInfoModal from './modals/BoilerInfoModal';
 import ChangeNotifications from './modals/ChangeNotfications';
 import ConfirmModal from './modals/ConfirmModal';
@@ -41,6 +42,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
       dispatch(showMessage({ message: 'Kotolňa bola vymazaná.' }));
       const boilerRef = doc(getFirestore(), 'boilers', boiler?.id || '');
       updateDoc(boilerRef, { disabled: true });
+      dispatch(getBoilers());
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
