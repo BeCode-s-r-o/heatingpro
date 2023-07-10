@@ -16,17 +16,24 @@ export const BoilersListHeader = () => {
   const [showAddNewBoilerModal, setShowAddNewBoilerModal] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
   const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
-  const [effectivityConstant, setEffectivityConstant] = useState<any>('loading');
+  const [showEffectivityConstant, setShowEffectivityConstant] = useState<any>(false);
   useEffect(() => {
     !user?.isPaid && setShowMissingPaymentModal(true);
+  }, [user]);
+
+  useEffect(() => {
     const getEffectivityConstant = async () => {
       const docSnap = await getDoc(doc(getFirestore(), 'effectivityConstant', moment().year().toString()));
       const data = docSnap.data();
-      setEffectivityConstant(data?.[moment().month()]);
+      if (user?.role === 'admin') {
+        setShowEffectivityConstant(!data?.[moment().month()]);
+      }
     };
 
     getEffectivityConstant();
-  }, [user]);
+  }, []);
+
+  console.log(showEffectivityConstant);
 
   return (
     <div className="flex flex-col w-full px-24 sm:px-32">
@@ -142,8 +149,8 @@ export const BoilersListHeader = () => {
           </Dialog>
 
           <Dialog
-            open={effectivityConstant != 'loading' && !effectivityConstant}
-            onClose={() => setEffectivityConstant('loading')}
+            open={showEffectivityConstant}
+            onClose={() => setShowEffectivityConstant(false)}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
@@ -163,7 +170,7 @@ export const BoilersListHeader = () => {
                 className="whitespace-nowrap w-fit mb-2 mr-8"
                 color="primary"
                 autoFocus
-                onClick={() => setShowMissingPaymentModal(false)}
+                onClick={() => setShowEffectivityConstant(false)}
               >
                 Zatvoriť
               </Button>
