@@ -85,6 +85,13 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         );
       },
     };
+    const prefix = {
+      field: 'prefix',
+      sortable: false,
+      flex: 1,
+      minWidth: 70,
+      headerName: 'Prefix',
+    };
 
     const generatedColumns = sortedData.map((item) => {
       return {
@@ -105,13 +112,16 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         },
       };
     });
-    return [lastUpdate, ...generatedColumns];
+    return defaultRows[0]?.prefix !== '-'
+      ? [lastUpdate, prefix, ...generatedColumns]
+      : [lastUpdate, ...generatedColumns];
   };
 
   const generateRows = (data: TBoiler['sms']) => {
     return data?.map((i) => {
       const inputData = i.body?.inputData || [];
       const digitalInput = i.body?.digitalInput || [];
+      const prefix = i.body?.prefix || null;
       const mergedData = [...inputData, ...digitalInput];
       const reduce = mergedData.reduce(
         (acc, curr, idx) => ({
@@ -123,7 +133,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         {}
       );
 
-      return reduce;
+      return { prefix: prefix ? prefix : '-', ...reduce };
     });
   };
 
@@ -154,9 +164,8 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
     }
   };
-
-  const columns = useMemo(() => generateColumns([...(boiler?.columns || [])]), [boiler]);
   const defaultRows: any = useMemo(() => generateRows(sortedSMS), [sortedSMS]);
+  const columns = useMemo(() => generateColumns([...(boiler?.columns || [])]), [boiler]);
 
   const deleteSelectedRows = () => {
     const deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));

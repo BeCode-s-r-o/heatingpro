@@ -97,6 +97,7 @@ interface Body {
   deviceID: string;
   digitalInput: Array<number | null>;
   inputData: Array<number | null>;
+  prefix: string | null;
   timestamp: {
     display: string;
     original: string;

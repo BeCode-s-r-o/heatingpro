@@ -61,7 +61,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         className="flex jusitfy-between flex-wrap gap-20 lg:gap-0 overflow-x-scroll"
         style={{ width: '100%', justifyContent: 'space-between' }}
       >
-        <Box className="w-full lg:w-[50%]">
+        <Box className="w-full lg:w-[40%]">
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
           </Typography>
@@ -98,19 +98,21 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           )}
         </Box>
 
-        <Box className="w-full lg:w-[50%]  max-h-25vh overflow-scroll">
-          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+        <Box className="w-full lg:w-[50%] max-h-25vh overflow-scroll">
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate ">
             <strong>Vysvetlivky k stĺpcom:</strong>
           </Typography>
-          {availableColumns?.length > 0 &&
-            availableColumns.map((column, i) => (
-              <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
-                <strong className="font-semibold">
-                  {column.name} {column.unit ? `(${column.unit})` : null}
-                </strong>{' '}
-                - {column.description}
-              </Typography>
-            ))}
+          <Box className="grid grid-cols-1 sm:grid-cols-2">
+            {availableColumns?.length > 0 &&
+              availableColumns.map((column, i) => (
+                <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
+                  <strong className="font-semibold">
+                    {column.name} {column.unit ? `(${column.unit})` : null}
+                  </strong>{' '}
+                  - {column.description}
+                </Typography>
+              ))}
+          </Box>
         </Box>
       </Box>
       <Box className="flex mt-16 gap-12 flex-wrap">
