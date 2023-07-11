@@ -8,9 +8,11 @@ import Typography from '@mui/material/Typography';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
+import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { getBoilers } from '../../store/boilersSlice';
 import BoilerInfoModal from './modals/BoilerInfoModal';
 import ChangeNotifications from './modals/ChangeNotfications';
 import ConfirmModal from './modals/ConfirmModal';
@@ -38,7 +40,9 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
     try {
       await axios.post('https://api.monitoringpro.sk/delete-boiler', data);
       dispatch(showMessage({ message: 'Kotolňa bola vymazaná.' }));
-      //todo - vymazat boiler z DB alebo mu nastavit ze disabled a nezobrazovat v appke
+      const boilerRef = doc(getFirestore(), 'boilers', boiler?.id || '');
+      updateDoc(boilerRef, { disabled: true });
+      dispatch(getBoilers());
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
@@ -200,7 +204,9 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         onClose={() => setShowInfSmsData(false)}
         title="Dáta z informačnej SMS"
         message={
-          JSON.stringify(boiler?.infSMS?.body || '', null, 2) +
+          JSON.stringify(boiler?.infSMS?.body || '', null, 2)
+            .replace('{', '')
+            .replace('}', '') +
           '<br/><br/> Naposledy aktualizované: ' +
           moment(boiler?.infSMS?.lastUpdate).format('DD.MM.YYYY HH:mm:ss')
         }

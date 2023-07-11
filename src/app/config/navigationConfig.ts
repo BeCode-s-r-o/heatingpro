@@ -19,36 +19,10 @@ const navigationConfig = [
       },
     ],
   },
-  /*   {
-    id: 'dashboard-user',
-    title: 'Vaše aplikácie',
-    type: 'group',
-    auth: authRoles.onlyUser,
-    icon: 'heroicons-outline:home',
-    translate: 'VAŠE APLIKÁCIE',
-
-    children: [
-      {
-        id: 'dashboards.project',
-        title: 'Vaše kotolne',
-        type: 'item',
-        icon: 'developer_board',
-        url: '/pouzivatelske-systemy/',
-      },
-
-      {
-        id: 'dashboards.errors',
-        title: 'Alarmy',
-        type: 'item',
-        icon: 'heroicons-outline:exclamation-circle',
-        url: '/pouzivatelske-alarmy/',
-      },
-    ],
-  }, */
   {
     id: 'apps',
-    title: 'Aplikácie',
-    subtitle: 'Všetky aplikácie, ktoré ponúka systém',
+    title: 'Správa používateľov',
+    subtitle: 'Viditelné len pre administrátora',
     type: 'group',
     auth: authRoles.rolesEnabledAddPeople,
     icon: 'heroicons-outline:cube',
@@ -70,23 +44,23 @@ const navigationConfig = [
       },
     ],
   },
-  // {
-  //   id: 'settings',
-  //   title: 'Nastavenia',
-  //   subtitle: 'Nastavenia aplikácie',
-  //   type: 'group',
-  //   auth: authRoles.admin,
-  //   icon: 'heroicons-outline:document',
-  //   children: [
-  //     {
-  //       id: 'pages.activities',
-  //       title: 'Nastavenia',
-  //       type: 'item',
-  //       icon: 'heroicons-outline:cog',
-  //       url: '/nastavenia',
-  //     },
-  //   ],
-  // },
+  {
+    id: 'settings',
+    title: 'Nastavenia',
+    subtitle: 'Nastavenia aplikácie',
+    type: 'group',
+    auth: authRoles.admin,
+    icon: 'heroicons-outline:document',
+    children: [
+      {
+        id: 'pages.activities',
+        title: 'Nastavenia',
+        type: 'item',
+        icon: 'heroicons-outline:cog',
+        url: '/nastavenia',
+      },
+    ],
+  },
 ];
 
 export default navigationConfig;

@@ -1,21 +1,12 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import {
-  Avatar,
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Paper,
-  TextField,
-  Typography,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import { doc, updateDoc } from 'firebase/firestore';
+import axios from 'axios';
+import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
@@ -28,7 +19,6 @@ import { compareDatesYears, getCurrentDate } from './functions/datesOperations';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
-import axios from 'axios';
 
 export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -50,21 +40,34 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const [showEditRow, setShowEditRow] = React.useState(false);
   const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
   const [rows, setRows] = React.useState<any[]>([]);
-  const [effectivityConstant, setEffectivityConstant] = React.useState();
 
-  //todo
-  const constantUpdateDate = moment().endOf('month').subtract(1, 'weeks');
+  const [effectivityConstant, setEffectivityConstant] = React.useState({});
+
+  useEffect(() => {
+    const getEffectivityConstant = async () => {
+      const docSnap = await getDocs(collection(getFirestore(), 'effectivityConstant'));
+
+      let data = {};
+      docSnap.forEach((document) => {
+        data = {
+          ...data,
+          [document.id]: document.data(),
+        };
+      });
+
+      setEffectivityConstant(data);
+    };
+
+    getEffectivityConstant();
+  }, []);
+
   useEffect(() => {
     setColumns(boiler?.monthTable.columns || []);
   }, [boiler]);
-  useEffect(() => {
-    setEffectivityConstant(rows.find((row) => row.id === rowForEdit.id)?.effectivityConstant || 0);
-  }, [rowForEdit]);
 
   useEffect(() => {
     const rowsWithEfficiency = defaultRows.map((row, index) => {
       const prevRow = defaultRows[index - 1];
-      const effectivityConstant = row.effectivityConstant;
 
       if (prevRow && effectivityConstant) {
         let sumOfRozdielVOs = 0;
@@ -77,13 +80,19 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
             prevRow[voKey] !== '-'
           ) {
             const rozdielVO = row[voKey] - prevRow[voKey];
-
             sumOfRozdielVOs += rozdielVO;
           }
         }
+
         const rozdielPlynomer = row['Plyn'] - prevRow['Plyn'];
 
-        const ucinnost = sumOfRozdielVOs / (rozdielPlynomer * Number(effectivityConstant));
+        const date = moment(row.date, 'D.M.YYYY');
+        const year = date.year();
+        const month = date.month();
+
+        const monthEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
+
+        const ucinnost = Number(sumOfRozdielVOs / (rozdielPlynomer * Number(monthEffectivityConstant))).toFixed(4);
 
         return { ...row, ucinnost };
       }
@@ -91,7 +100,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     });
 
     setRows(rowsWithEfficiency);
-  }, [boiler]);
+  }, [boiler, effectivityConstant]); // add effectivityConstant as a dependency
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
@@ -114,10 +123,6 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const handleRowChange = (e) => {
     const { name, value } = e.target;
 
-    if (name === 'effectivityConstant') {
-      setEffectivityConstant(value);
-      return;
-    }
     setRowForEdit((prev) => ({
       ...prev,
       [name]: value,
@@ -158,9 +163,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
-    const updatedRows = rows.map((row) =>
-      row.id === rowForEdit.id ? { ...rowForEdit, effectivityConstant: effectivityConstant } : row
-    );
+    const updatedRows = rows.map((row) => (row.id === rowForEdit.id ? { ...rowForEdit } : row));
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
     } catch (error) {
@@ -175,9 +178,15 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     dispatch(getBoiler(id || ''));
   };
 
+  const formatNumberWithSpaces = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+
   const cols = [
     { field: 'date', headerName: 'Dátum', minWidth: 100, sortable: false },
-    ...columns.map((column) => ({ ...column, sortable: false })),
+    ...columns.map((column) => ({
+      ...column,
+      sortable: false,
+      renderCell: (params) => formatNumberWithSpaces(params.value),
+    })),
     {
       field: 'ucinnost',
       headerName: 'Účinnosť kotolne',
@@ -367,7 +376,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
         <form onSubmit={saveEditedRow}>
           <DialogContent>
             {Object.keys(rowForEdit).reduce<any>((acc, key) => {
-              if (key !== 'ucinnost' && key !== 'date' && key !== 'id' && key !== 'effectivityConstant') {
+              if (key !== 'ucinnost' && key !== 'date' && key !== 'id') {
                 return [
                   ...acc,
                   <TextField
@@ -386,14 +395,6 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
               }
               return acc;
             }, [])}
-            <TextField
-              label={'Konštanta účinnosti'}
-              name={'effectivityConstant'}
-              value={effectivityConstant}
-              onChange={handleRowChange}
-              fullWidth
-              margin="normal"
-            />
           </DialogContent>
           <DialogActions>
             <Button className="whitespace-nowrap w-fit mb-2 mr-8" variant="contained" color="primary" type="submit">
