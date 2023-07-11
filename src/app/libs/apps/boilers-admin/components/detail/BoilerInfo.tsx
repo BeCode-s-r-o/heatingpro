@@ -98,7 +98,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate ">
             <strong>Vysvetlivky k stĺpcom:</strong>
           </Typography>
-          <Box style={{ columnCount: 2 }}>
+          <Box className="grid grid-cols-1 sm:grid-cols-2">
             {availableColumns?.length > 0 &&
               availableColumns.map((column, i) => (
                 <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
