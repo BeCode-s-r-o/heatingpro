@@ -178,7 +178,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
     dispatch(getBoiler(id || ''));
   };
 
-  const formatNumberWithSpaces = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+  const formatNumberWithSpaces = (num) => (num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '');
 
   const cols = [
     { field: 'date', headerName: 'Dátum', minWidth: 100, sortable: false },
