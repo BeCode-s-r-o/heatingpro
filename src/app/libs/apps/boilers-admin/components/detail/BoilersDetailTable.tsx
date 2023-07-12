@@ -91,7 +91,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       sortable: false,
       flex: 1,
       minWidth: 70,
-      headerName: 'Prefix',
+      headerName: 'Typ',
     };
 
     const generatedColumns = sortedData.map((item) => {
