@@ -30,7 +30,7 @@ import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
 
-export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
+export const ManualBoilerTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);

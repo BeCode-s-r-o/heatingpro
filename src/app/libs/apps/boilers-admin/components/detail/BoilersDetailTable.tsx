@@ -22,7 +22,7 @@ import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
 import moment from 'moment';
 
-export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
+export const BoilersDetailTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);

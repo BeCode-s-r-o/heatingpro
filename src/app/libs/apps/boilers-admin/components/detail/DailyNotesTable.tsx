@@ -35,7 +35,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import axios from 'axios';
 
-export const DailyNotesTable = ({ id, printTable, componentRef }) => {
+export const DailyNotesTable = ({ id, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
