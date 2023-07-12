@@ -104,7 +104,9 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
         const monthEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
 
-        const ucinnost = Number(sumOfRozdielVOs / (rozdielPlynomer * Number(monthEffectivityConstant))).toFixed(4);
+        const ucinnost = Number((sumOfRozdielVOs / (rozdielPlynomer * Number(monthEffectivityConstant))) * 100).toFixed(
+          4
+        );
 
         return { ...row, ucinnost };
       }
