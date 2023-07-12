@@ -70,7 +70,14 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
   };
   const defaultRows = boiler?.notes || [];
 
-  useEffect(() => setRows(defaultRows), [boiler]);
+  useEffect(
+    () =>
+      setRows(
+        [...defaultRows].sort((a, b) => moment(b.date, 'DD.MM.YYYY').valueOf() - moment(a.date, 'DD.MM.YYYY').valueOf())
+      ),
+    [boiler]
+  );
+
   const addNewRecord = () => {
     let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
     let newRecordRef = doc(db, 'boilers', id);
@@ -221,6 +228,7 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           </div>
         </div>
       )}
+
       <div style={{ height: 300, width: '100%' }}>
         <DataGrid
           rows={rows}
@@ -237,11 +245,6 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
             },
           }}
           rowsPerPageOptions={[10]}
-          initialState={{
-            sorting: {
-              sortModel: [{ field: 'date', sort: 'desc' }],
-            },
-          }}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">
