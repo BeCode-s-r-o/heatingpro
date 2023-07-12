@@ -20,6 +20,7 @@ import { compareDates, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import moment from 'moment';
 
 export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -112,9 +113,11 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
         },
       };
     });
-    return defaultRows[0]?.prefix !== '-'
-      ? [lastUpdate, prefix, ...generatedColumns]
-      : [lastUpdate, ...generatedColumns];
+
+    const allRows =
+      defaultRows[0]?.prefix !== '-' ? [lastUpdate, prefix, ...generatedColumns] : [lastUpdate, ...generatedColumns];
+
+    return allRows;
   };
 
   const generateRows = (data: TBoiler['sms']) => {
@@ -125,7 +128,7 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
       const mergedData = [...inputData, ...digitalInput];
       const reduce = mergedData.reduce(
         (acc, curr, idx) => ({
-          lastUpdate: i.body?.timestamp.display,
+          lastUpdate: moment(i.timestamp.unix).format('DD.MM.YYYY HH:mm:ss'),
           id: i.messageID,
           ...acc,
           [String(idx)]: curr ?? '-',
