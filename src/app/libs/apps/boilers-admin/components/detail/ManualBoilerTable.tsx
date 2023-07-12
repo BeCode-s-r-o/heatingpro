@@ -1,5 +1,15 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, TextField, Typography } from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Paper,
+  TextField,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -66,8 +76,10 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
   }, [boiler]);
 
   useEffect(() => {
-    const rowsWithEfficiency = defaultRows.map((row, index) => {
-      const prevRow = defaultRows[index - 1];
+    const rowsSortedAsc = [...defaultRows].sort((a, b) => a.id - b.id);
+
+    const rowsWithEfficiency = rowsSortedAsc.map((row, index) => {
+      const prevRow = rowsSortedAsc[index - 1];
 
       if (prevRow && effectivityConstant) {
         let sumOfRozdielVOs = 0;
@@ -99,8 +111,8 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       return { ...row, ucinnost: '-' };
     });
 
-    setRows(rowsWithEfficiency);
-  }, [boiler, effectivityConstant]); // add effectivityConstant as a dependency
+    setRows(rowsWithEfficiency.sort((a, b) => a.id - b.id));
+  }, [boiler, effectivityConstant]);
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
@@ -192,6 +204,13 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
       headerName: 'Účinnosť kotolne',
       id: 'asdasd',
       sortable: false,
+      renderCell: (params) => {
+        return (
+          <Tooltip title={params.value} placement="top">
+            <Typography>{params.value !== '-' ? `${params.value * 100}%` : '-'}</Typography>
+          </Tooltip>
+        );
+      },
     },
     rolesEnabledEdit.includes(user.role) && {
       field: 'id',
@@ -258,7 +277,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           }}
           initialState={{
             sorting: {
-              sortModel: [{ field: 'date', sort: 'desc' }],
+              sortModel: [{ field: 'id', sort: 'desc' }],
             },
           }}
           localeText={{
