@@ -96,7 +96,7 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
 
         return { ...row, ucinnost };
       }
-      return { ...row, ucinnost: 'Nedá sa vypočítať' };
+      return { ...row, ucinnost: '-' };
     });
 
     setRows(rowsWithEfficiency);
@@ -259,6 +259,11 @@ export const ManualBoilerTable = ({ id, printTable, componentRef }) => {
           initialState={{
             sorting: {
               sortModel: [{ field: 'date', sort: 'desc' }],
+            },
+          }}
+          localeText={{
+            MuiTablePagination: {
+              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
             },
           }}
           rowsPerPageOptions={[12]}

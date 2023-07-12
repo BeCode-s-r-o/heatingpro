@@ -97,7 +97,7 @@ function ActivitiesPage() {
                           <ListItem key={`${year}-${monthIndex}`}>
                             <TextField
                               className={`w-full ${!value ? 'red-color' : ''}`}
-                              type="text"
+                              type="number"
                               label={`Spalné teplo zemného plynu - ${moment
                                 .months()
                                 [parseInt(monthIndex, 10)].toUpperCase()} ${year}`}
@@ -106,7 +106,8 @@ function ActivitiesPage() {
                               disabled={isPast && user?.role !== 'admin'}
                               onChange={({ target: { value: val } }) => {
                                 const newEffectivityConstant = { ...effectivityConstant };
-                                newEffectivityConstant[year][monthIndex] = Number(val);
+                                const parsedFloat = parseFloat(val);
+                                newEffectivityConstant[year][monthIndex] = parsedFloat;
                                 setEffectivityConstant(newEffectivityConstant);
                               }}
                             />

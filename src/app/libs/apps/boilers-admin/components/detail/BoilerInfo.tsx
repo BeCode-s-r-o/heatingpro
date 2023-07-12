@@ -31,6 +31,21 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
     else return '';
   };
 
+  const infSms = boiler?.infSMS?.body || '';
+
+  const infSmsData = infSms
+    ? `${infSms.alarmy ? 'Alarmy: ' + infSms.alarmy : ''}
+    ${infSms.cisloZariadenia ? 'ID zariadenia: ' + infSms.cisloZariadenia : ''}
+    ${infSms.gate1 ? 'GSM brána: ' + infSms.gate1 : ''}
+    ${infSms.perioda ? 'Perióda: ' + infSms.perioda : ''}
+    ${infSms.pin ? 'Pin: ' + infSms.pin : ''}
+    ${infSms.pocetSms ? 'Počet SMS: ' + infSms.pocetSms : ''}
+    ${infSms.verziaSw ? 'Verzia sotfvéru: ' + infSms.verziaSw : ''}
+    ${infSms.seq ? 'SEQ: ' + infSms.seq : ''}`
+        .replace('{', '')
+        .replace('}', '')
+    : '';
+
   const deleteBoiler = async () => {
     const data = {
       phoneNumber: boiler?.phoneNumber,
@@ -204,9 +219,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
         onClose={() => setShowInfSmsData(false)}
         title="Dáta z informačnej SMS"
         message={
-          JSON.stringify(boiler?.infSMS?.body || '', null, 2)
-            .replace('{', '')
-            .replace('}', '') +
+          infSmsData +
           '<br/><br/> Naposledy aktualizované: ' +
           moment(boiler?.infSMS?.lastUpdate).format('DD.MM.YYYY HH:mm:ss')
         }

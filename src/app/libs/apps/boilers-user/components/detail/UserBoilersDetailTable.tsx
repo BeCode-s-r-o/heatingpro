@@ -61,6 +61,11 @@ export const BoilersDetailTable = ({ boiler, id, generatePDF, printTable }: Prop
           disableColumnMenu
           hideFooter
           rows={rows}
+          localeText={{
+            MuiTablePagination: {
+              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
+            },
+          }}
           columns={columns}
           getRowId={(row) => Math.random()}
           components={{

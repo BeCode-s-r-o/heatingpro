@@ -176,12 +176,11 @@ export const BoilersListHeader = () => {
               </Button>
             </DialogActions>
           </Dialog>
-          <Link to="/nastavenia/">
+          <Link to="/nastavenia">
             <Button
               className="whitespace-nowrap"
               variant="contained"
               color="secondary"
-              onClick={() => alert('Na mne sa ešte pracuje :)')}
               startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
             >
               Nastavenia

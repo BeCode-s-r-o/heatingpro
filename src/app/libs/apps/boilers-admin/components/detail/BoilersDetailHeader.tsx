@@ -218,7 +218,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               onClick={sendSMSToGetInf}
               disabled={isInfSmsTimerActive}
             >
-              {isInfSmsTimerActive ? `Dáta sa zobrazia automaticky v časti Informácie o kotolni` : 'Vyžiadať INF SMS'}
+              {isInfSmsTimerActive ? `INF SMS vyžiadaná` : 'Vyžiadať INF SMS'}
             </Button>
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"
@@ -232,7 +232,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               onClick={sendSMSToGetData}
               disabled={isTimerActive}
             >
-              {isTimerActive ? `Dáta sa zobrazia automaticky za: ${countDown}` : 'Vyžiadať data'}
+              {isTimerActive ? `Dáta vyžiadané` : 'Vyžiadať data'}
             </Button>
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"

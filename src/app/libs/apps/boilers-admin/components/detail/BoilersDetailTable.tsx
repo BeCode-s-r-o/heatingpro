@@ -1,5 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Avatar, Button, Tooltip } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
@@ -216,6 +216,11 @@ export const BoilersDetailTable = ({ id, componentRef, printTable }) => {
             setSelectedRowsIds(ids);
           }}
           rowsPerPageOptions={[15]}
+          localeText={{
+            MuiTablePagination: {
+              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
+            },
+          }}
           components={{
             NoRowsOverlay: () => (
               <Stack height="100%" alignItems="center" justifyContent="center">

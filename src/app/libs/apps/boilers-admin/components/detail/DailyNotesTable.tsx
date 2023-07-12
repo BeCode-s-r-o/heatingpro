@@ -231,6 +231,11 @@ export const DailyNotesTable = ({ id, printTable, componentRef }) => {
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
+          localeText={{
+            MuiTablePagination: {
+              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
+            },
+          }}
           rowsPerPageOptions={[10]}
           initialState={{
             sorting: {
