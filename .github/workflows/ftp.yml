@@ -7,10 +7,10 @@ on:
     branches:
       - main
 
-name: 🚀 Nahrať na FTP server - TEST
+name: 🚀 Nahrať na FTP server
 jobs:
   web-deploy:
-    name: 🚀 Nahrať na FTP server - TEST
+    name: 🚀 Nahrať na FTP server
     runs-on: ubuntu-latest
 
     steps:
