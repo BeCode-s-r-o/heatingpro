@@ -1,11 +1,11 @@
 on:
   push:
     branches:
-      - 'devel'
+      - 'main'
   pull_request:
     types: [closed]
     branches:
-      - devel
+      - main
 
 name: 🚀 Nahrať na FTP server - TEST
 jobs:
@@ -50,4 +50,4 @@ jobs:
           server-dir: ${{secrets.FTP_SERVER}}/sub/portal/
           port: 21
           protocol: ftp
-          timeout: 100000
+          timeout: 200000
