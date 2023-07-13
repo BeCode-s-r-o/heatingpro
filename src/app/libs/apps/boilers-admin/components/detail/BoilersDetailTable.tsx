@@ -9,6 +9,7 @@ import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
 import axios from 'axios';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
+import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -20,7 +21,6 @@ import { compareDates, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import moment from 'moment';
 
 export const BoilersDetailTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -208,7 +208,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           </div>
         </div>
       )}
-      <div style={{ height: 400, width: '100%' }}>
+      <div style={{ height: 650, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={columns}

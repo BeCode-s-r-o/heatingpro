@@ -1,15 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Paper,
-  TextField,
-  Tooltip,
-  Typography,
-} from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, TextField, Typography } from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -75,42 +65,49 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
     setColumns(boiler?.monthTable.columns || []);
   }, [boiler]);
 
-  useEffect(() => {
-    const rowsSortedAsc = [...defaultRows].sort((a, b) => a.id - b.id);
+  // helper function
+  const hasPropertiesAndNotDash = (a, b, key) =>
+    a.hasOwnProperty(key) && b.hasOwnProperty(key) && a[key] !== '-' && b[key] !== '-';
 
-    const rowsWithEfficiency = rowsSortedAsc.map((row, index) => {
-      const prevRow = rowsSortedAsc[index - 1];
+  // abstract computation to function
+  const computeEfficiency = (row, prevRow, monthlyEffectivityConstant) => {
+    let sumOfDiffs = 0;
 
-      if (prevRow && effectivityConstant) {
-        let sumOfRozdielVOs = 0;
-        for (let i = 1; i <= 8; i++) {
-          const voKey = 'VO' + i;
-          if (
-            row.hasOwnProperty(voKey) &&
-            prevRow.hasOwnProperty(voKey) &&
-            row[voKey] !== '-' &&
-            prevRow[voKey] !== '-'
-          ) {
-            const rozdielVO = row[voKey] - prevRow[voKey];
-            sumOfRozdielVOs += rozdielVO;
-          }
-        }
+    for (let i = 1; i <= 8; i++) {
+      const voKey = `VO${i}`;
 
-        const rozdielPlynomer = row['Plyn'] - prevRow['Plyn'];
-
-        const date = moment(row.date, 'D.M.YYYY');
-        const year = date.year();
-        const month = date.month();
-
-        const monthEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
-
-        const ucinnost = Number((sumOfRozdielVOs / (rozdielPlynomer * Number(monthEffectivityConstant))) * 100).toFixed(
-          4
-        );
-
-        return { ...row, ucinnost };
+      if (hasPropertiesAndNotDash(row, prevRow, voKey)) {
+        sumOfDiffs += row[voKey] - prevRow[voKey];
       }
-      return { ...row, ucinnost: '-' };
+    }
+
+    if (hasPropertiesAndNotDash(row, prevRow, 'MT TUV')) {
+      sumOfDiffs += row['MT TUV'] - prevRow['MT TUV'];
+    }
+
+    const gasDiff = row['Plyn'] - prevRow['Plyn'];
+
+    const voDiffInKwh = sumOfDiffs * 277.778; // 1GJ = 277.778 kWh
+    const gasDiffInKwh = gasDiff * 10.55; // 1m3 = 10.55 kWh
+
+    const efficiency = Number((voDiffInKwh / (gasDiffInKwh * monthlyEffectivityConstant)) * 10).toFixed(4);
+
+    return { ...row, ucinnost: efficiency };
+  };
+
+  useEffect(() => {
+    const sortedRows = [...defaultRows].sort((a, b) => a.id - b.id);
+    const momentDate = moment();
+    const year = momentDate.year();
+    const month = momentDate.month();
+
+    const monthlyEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
+
+    const rowsWithEfficiency = sortedRows.map((row, index) => {
+      const prevRow = sortedRows[index - 1];
+      if (!prevRow || !monthlyEffectivityConstant) return { ...row, ucinnost: '-' };
+
+      return computeEfficiency(row, prevRow, monthlyEffectivityConstant);
     });
 
     setRows(rowsWithEfficiency.sort((a, b) => a.id - b.id));
@@ -207,10 +204,11 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
       id: 'asdasd',
       sortable: false,
       renderCell: (params) => {
+        const color = params.value > 0.8 ? 'green' : params.value > 0.7 ? 'orange' : 'red';
         return (
-          <Tooltip title={params.value} placement="top">
-            <Typography>{params.value !== '-' ? `${params.value * 100}%` : '-'}</Typography>
-          </Tooltip>
+          <Typography fontWeight="bold" color={color}>
+            {params.value !== '-' ? `${params.value * 100}%` : '-'}
+          </Typography>
         );
       },
     },
@@ -267,11 +265,11 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
           <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
         </div>
       </div>
-      <div style={{ height: 300, width: '100%' }}>
+      <div style={{ height: 450, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={cols}
-          pageSize={10}
+          pageSize={12}
           disableColumnMenu
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
