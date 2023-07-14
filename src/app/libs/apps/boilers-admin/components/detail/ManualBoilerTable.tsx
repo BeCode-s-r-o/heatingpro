@@ -265,7 +265,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
           <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
         </div>
       </div>
-      <div style={{ height: 450, width: '100%' }}>
+      <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
           columns={cols}
