@@ -1,5 +1,15 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Paper, TextField, Typography } from '@mui/material';
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Paper,
+  TextField,
+  Typography,
+} from '@mui/material';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import { AppDispatch, RootState } from 'app/store/index';
@@ -249,22 +259,40 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Mesačné odpisy stavu spotreby {id}
       </Typography>
-      <div className="relative my-16 ">
-        <div className="border p-4 relative flex items-center justify-center w-fit">
-          <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
-            material-twotone:calendar_today
-          </FuseSvgIcon>
-          <DatePicker
-            onChange={filterRowsByDate}
-            selected={filterDate}
-            dateFormat="yyyy"
-            showYearPicker
-            placeholderText="Vyber rok"
-            className="w-[10rem] cursor-pointer"
-          />
-          <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
+      <div className="relative my-16 flex flex-wrap">
+        <div className="w-full lg:w-[50%]">
+          <div className="border p-4 relative flex items-center justify-center w-fit">
+            <FuseSvgIcon className="text-48 pr-4" size={24} color="action">
+              material-twotone:calendar_today
+            </FuseSvgIcon>
+            <DatePicker
+              onChange={filterRowsByDate}
+              selected={filterDate}
+              dateFormat="yyyy"
+              showYearPicker
+              placeholderText="Vyber rok"
+              className="w-[10rem] cursor-pointer"
+            />
+            <Button onClick={handleCleanCalendar}>Vyčistiť</Button>
+          </div>
         </div>
       </div>
+      <Box className="w-full lg:w-[50%] max-h-25vh overflow-scroll">
+        <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate ">
+          <strong>Vysvetlivky k stĺpcom:</strong>
+        </Typography>
+        <Box className="grid grid-cols-1 sm:grid-cols-2">
+          {columns?.length > 0 &&
+            columns.map((column, i) => (
+              <Typography key={i} className="text-sm pt-7 font-light tracking-tight leading-6 truncate">
+                <strong className="font-semibold">
+                  {column.headerName} {column.unit ? `(${column.unit})` : null}
+                </strong>{' '}
+                - {column.description ? column.description : 'Na mne sa ešte pracuje'}
+              </Typography>
+            ))}
+        </Box>
+      </Box>
       <div style={{ height: 400, width: '100%' }}>
         <DataGrid
           rows={rows}
