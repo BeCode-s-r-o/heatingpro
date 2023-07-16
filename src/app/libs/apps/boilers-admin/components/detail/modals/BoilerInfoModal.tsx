@@ -295,6 +295,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               value={headerData.staff1}
               name="staff1"
               onChange={handleChange}
+              disabled={user?.role === 'user' && headerData.withService}
             />
           </ListItem>
           <ListItem>
@@ -305,6 +306,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               value={headerData.staff2}
               name="staff2"
               onChange={handleChange}
+              disabled={user?.role === 'user' && headerData.withService}
             />
           </ListItem>
           <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
