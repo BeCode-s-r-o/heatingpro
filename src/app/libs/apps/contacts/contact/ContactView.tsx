@@ -82,16 +82,18 @@ const ContactView = () => {
               {contact.name.charAt(0)}
             </Avatar>
             <div className="flex items-center ml-auto mb-4">
-              <Button
-                variant="contained"
-                color="primary"
-                component={NavLinkAdapter}
-                to="edit"
-                disabled={isEditDisabled()}
-              >
-                <FuseSvgIcon size={20}>heroicons-outline:pencil-alt</FuseSvgIcon>
-                <span className="mx-8">Upraviť</span>
-              </Button>
+              {contact.role === 'staff' && user?.role === 'obsluha' && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={NavLinkAdapter}
+                  to="edit"
+                  disabled={isEditDisabled()}
+                >
+                  <FuseSvgIcon size={20}>heroicons-outline:pencil-alt</FuseSvgIcon>
+                  <span className="mx-8">Upraviť</span>
+                </Button>
+              )}
             </div>
           </div>
           {contact?.isPaid ? (

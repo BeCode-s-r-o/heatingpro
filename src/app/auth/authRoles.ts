@@ -6,7 +6,7 @@ export const authRoles = {
   instalater: ['admin', 'staff', 'instalater'],
   staff: ['admin', 'staff'],
   allRoles: ['admin', 'staff', 'instalater', 'user', 'obsluha'],
-  rolesEnabledAddPeople: ['admin', 'instalater', 'user'],
+  rolesEnabledAddPeople: ['admin', 'instalater', 'user', 'obsluha'],
   kuric: [],
   obsluha: [],
   user: ['admin', 'user'],
