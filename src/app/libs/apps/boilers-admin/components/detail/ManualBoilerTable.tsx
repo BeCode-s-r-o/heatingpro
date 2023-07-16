@@ -164,6 +164,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
       boilerID: boiler?.id,
       user: user,
       date: getCurrentDate(),
+      dateForFilter: filterDate ? filterDate : 'last12months',
     };
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
