@@ -207,7 +207,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
           </div>
           <div className="flex items-center flex-wrap md:flex-nowrap gap-12 mt-24 sm:mt-0 sm:mx-8 md:space-x-12">
             <Button
-              className="whitespace-nowrap w-full mx-20 sm:w-fit"
+              className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
               color="primary"
               startIcon={

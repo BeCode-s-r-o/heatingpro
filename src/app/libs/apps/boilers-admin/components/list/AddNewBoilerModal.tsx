@@ -46,7 +46,6 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const initialAddressState = { city: '', zip: '', street: '' };
   const initialNewBoilerState = {
     phoneNumber: '',
-    assignedTo: '',
     id: '',
     period: '24',
     notes: [],

@@ -154,7 +154,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
                 src={image}
                 alt={boilerData.name}
               >
-                {boilerData.name.charAt(0)}
+                {boilerData.name?.charAt(0)}
               </Avatar>
             </Box>
           </ListItem>
