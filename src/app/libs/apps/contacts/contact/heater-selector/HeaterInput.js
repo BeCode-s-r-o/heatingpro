@@ -61,16 +61,20 @@ function HeaterInput(props) {
     props.onChange(data.id);
     setActualHeaterInfo(data);
   }
-
   const boilersForOptions = isAdmin
     ? arrayOfAllBoilers
-    : arrayOfAllBoilers?.filter(
-        (boiler) =>
-          !user?.heaters.includes(boiler.id) ||
-          !boiler.disabled ||
-          (user?.role !== 'user' && !boiler.header.withService)
-      );
-
+    : arrayOfAllBoilers?.filter((boiler) => {
+        if (!boiler.disabled) {
+          if (user?.heaters.includes(boiler.id)) {
+            return true;
+          }
+          if (user?.role !== 'user' && !boiler.header.withService) {
+            return true;
+          }
+        }
+        return false;
+      });
+  console.log(user);
   return (
     <>
       <Tooltip title={actualHeaterInfo.disabled ? 'Kotolňa je vymazaná' : 'Kotolňa je dostupná'} placement="top">
