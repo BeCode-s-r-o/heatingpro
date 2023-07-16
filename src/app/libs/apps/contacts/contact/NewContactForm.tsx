@@ -174,7 +174,7 @@ const NewContactForm = () => {
           name="role"
           render={({ field }) => (
             <RadioGroup row {...field} name="role">
-              {user?.role === 'user' ? (
+              {user?.role === 'user' || user?.role === 'obsluha' ? (
                 <FormControlLabel value="staff" control={<Radio />} label="Kurič" />
               ) : (
                 <>

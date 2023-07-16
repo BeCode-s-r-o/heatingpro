@@ -289,7 +289,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
                 <strong className="font-semibold">
                   {column.headerName} {column.unit ? `(${column.unit})` : null}
                 </strong>{' '}
-                - {column.description ? column.description : 'Na mne sa ešte pracuje'}
+                - {column.desc}
               </Typography>
             ))}
         </Box>

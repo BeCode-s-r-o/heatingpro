@@ -24,7 +24,7 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 const ContactsApp = () => {
   const dispatch = useDispatch<AppDispatch>();
   const user: TUserState = useSelector(selectUser);
-  const allowedRoles = ['admin', 'instalater', 'user'];
+  const allowedRoles = ['admin', 'instalater', 'user', 'obsluha'];
   const pageLayout = useRef(null);
   const routeParams = useParams();
   const [rightSidebarOpen, setRightSidebarOpen] = useState(false);
