@@ -32,7 +32,6 @@ import { contactsReducers } from '../../../../layout/shared/chatPanel/store';
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
   email: yup.string().email().required('Toto nieje platný email'),
-  phone: yup.string().required('You must enter a name'),
 });
 
 const NewContactForm = () => {
