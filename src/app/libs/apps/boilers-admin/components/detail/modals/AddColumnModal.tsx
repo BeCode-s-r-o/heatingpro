@@ -1,5 +1,6 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import {
+  Autocomplete,
   Button,
   Drawer,
   FormControl,
@@ -22,26 +23,59 @@ interface Props {
   isOpen: boolean;
   close: () => void;
   setColumns: React.Dispatch<any>;
-  columns: { field: string; headerName: string; unit: string }[];
+  columns: { id: string; field: string; headerName: string; unit: string; desc: string }[];
   rows: {}[];
   deviceID: string;
 }
 
 function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: Props) {
-  const [formFields, setFormFields] = useState<{ name: string; unit: string }[]>([{ name: '', unit: '' }]);
+  const [formFields, setFormFields] = useState<{ name: string; desc: string; unit: string; id: string }[]>([
+    { name: '', desc: '', unit: '', id: '' },
+  ]);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (columns.length > 0) {
-      setFormFields(columns.map((column) => ({ name: column.headerName, unit: column.unit })));
+      setFormFields(columns.map((column) => ({ ...column, name: column.headerName, unit: column.unit })));
     }
   }, [columns]);
+  const columnOptions = [
+    { name: 'VO1', desc: 'Merač tepla (VO1)' },
+    { name: 'VO2', desc: 'Merač tepla (VO2)' },
+    { name: 'VO3', desc: 'Merač tepla (VO3)' },
+    { name: 'VO4', desc: 'Merač tepla (VO4)' },
+    { name: 'VO5', desc: 'Merač tepla (VO5)' },
+    { name: 'VO6', desc: 'Merač tepla (VO6)' },
+    { name: 'VO7', desc: 'Merač tepla (VO7)' },
+    { name: 'VO8', desc: 'Merač tepla (VO8)' },
+    { name: 'MT TUV', desc: 'Merač tepla pre TUV' },
+    { name: 'vpv TUV', desc: 'Vodomer pre výrobu TUV' },
+    { name: 'VnDVS', desc: 'Vodomer na dopúťanie vykurovacieho systému' },
+    { name: 'VCH', desc: 'Vodomer chladenia' },
+    { name: 'VpZ', desc: 'Vodomer pre záhradu' },
+    { name: 'MT VZT', desc: 'Merač tepla VZT' },
+    { name: 'Elektro', desc: 'Elektromer' },
+    { name: 'Plyn', desc: 'Plynomer' },
+  ];
 
   const hanldeChange = (event, index) => {
     let { name, value } = event.target;
     let actualFormFields = [...formFields];
     actualFormFields[index][name] = value;
     setFormFields(actualFormFields);
+  };
+  const onChange = (columnID, attribute, value) => {
+    setFormFields((prevColumns) =>
+      prevColumns.map((column) =>
+        column.id === columnID
+          ? {
+              ...column,
+              [attribute]: value,
+              ...(attribute === 'name' && columnOptions.find((option) => option.name === value)),
+            }
+          : column
+      )
+    );
   };
   const handleUnitChange = (event) => {
     let { name, value } = event.target;
@@ -50,7 +84,13 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
   const submit = (e) => {
     e.preventDefault();
 
-    const newColumns = formFields.map((column) => ({ field: column.name, headerName: column.name, unit: column.unit }));
+    const newColumns = formFields.map((column) => ({
+      id: column.id,
+      field: column.name,
+      headerName: column.name,
+      unit: column.unit,
+      desc: column.desc,
+    }));
     if (existDuplicateColumn(newColumns)) {
       dispatch(showMessage({ message: 'Vyskytol sa duplicitný stĺpec' }));
       return;
@@ -70,8 +110,10 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
 
   const addFields = () => {
     let object = {
+      id: crypto.randomUUID(),
       name: '',
       unit: '',
+      desc: '',
       sortable: false,
     };
 
@@ -109,73 +151,66 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
   };
   return (
     <Drawer anchor="right" open={isOpen} onClose={close}>
-      <div className="max-w-[98vw] overflow-x-scroll">
-        <List className="w-[350px]">
+      <div className="max-w-[98vw] overflow-x-scroll min-h-full">
+        <List className="w-[550px]">
           <ListItem>
             <ListItemText primary="Upravovanie stĺpcov" />
           </ListItem>
           <form onSubmit={submit}>
-            {formFields.map((field, index) => (
-              <ListItem key={index}>
-                {/*         <TextField
-                name="name"
-                label="Názov"
-                placeholder={field.name !== '' ? field.name : 'Názov'}
-                onChange={(event) => hanldeChange(event, index)}
-                value={field.name}
-                required
-                className="w-full"
-              /> */}
-                <FormControl fullWidth>
-                  <InputLabel id="choice-label">Názov</InputLabel>
-                  <Select
-                    labelId="choice-label"
-                    id="choice"
-                    label="Jednotka"
-                    name="name"
-                    value={field.name}
-                    onChange={(event) => hanldeChange(event, index)}
-                  >
-                    <MenuItem value="VO1">VO1</MenuItem>
-                    <MenuItem value="VO2">VO2</MenuItem>
-                    <MenuItem value="VO3">VO3</MenuItem>
-                    <MenuItem value="VO4">VO4</MenuItem>
-                    <MenuItem value="VO5">VO5</MenuItem>
-                    <MenuItem value="VO6">VO6</MenuItem>
-                    <MenuItem value="VO7">VO7</MenuItem>
-                    <MenuItem value="VO8">VO8</MenuItem>
-                    <MenuItem value="MT TUV">MT TUV</MenuItem>
-                    <MenuItem value="vpv TUV">vpv TUV</MenuItem>
-                    <MenuItem value="VnDVS">VnDVS</MenuItem>
-                    <MenuItem value="VCH">VCH</MenuItem>
-                    <MenuItem value="VpZ">VpZ</MenuItem>
-                    <MenuItem value="MT VZT">MT VZT</MenuItem>
-                    <MenuItem value="Elektro">Elektro</MenuItem>
-                    <MenuItem value="Plyn">Plyn</MenuItem>
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth>
-                  <InputLabel id="choice-label">Jednotka</InputLabel>
-                  <Select
-                    labelId="choice-label"
-                    id="choice"
-                    label="Jednotka"
-                    name={field.name}
-                    value={field.unit}
-                    onChange={(e) => handleUnitChange(e)}
-                  >
-                    <MenuItem value="mwh">MWh</MenuItem>
-                    <MenuItem value="kwh">kWh</MenuItem>
-                    <MenuItem value="gj">GJ</MenuItem>
-                    <MenuItem value="m3">m³</MenuItem>
-                  </Select>
-                </FormControl>
+            {formFields.map((field, index) => {
+              const actualColumnOption = columnOptions.find((item) => item.name === field.name) || {
+                name: field.name,
+                desc: 'todo',
+                unit: field.unit,
+              };
+              return (
+                <ListItem key={index}>
+                  <Autocomplete
+                    className="w-[165px] "
+                    disablePortal
+                    freeSolo
+                    options={columnOptions} //@ts-ignore
+                    getOptionLabel={(option) => option.name} //@ts-ignore
+                    value={actualColumnOption}
+                    inputValue={field.name}
+                    onInputChange={(event, value) => {
+                      onChange(field.id, 'name', value);
+                    }}
+                    renderOption={(_props, option) => <li {..._props}>{option.name}</li>}
+                    renderInput={(params) => <TextField {...params} label="Názov" name={field.name} />}
+                  />
 
-                <Button onClick={() => removeFields(index)}>
-                  <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
-                </Button>
-              </ListItem>
-            ))}
+                  <TextField
+                    type="text"
+                    label="Vysvetlivka"
+                    value={field.desc || ''}
+                    name={field.desc}
+                    onChange={(e) => onChange(field.id, 'desc', e.target.value)}
+                    className="w-[255px] "
+                  />
+                  <FormControl className="w-[9rem]">
+                    <InputLabel id="choice-label">Jednotka</InputLabel>
+                    <Select
+                      labelId="choice-label"
+                      id="choice"
+                      label="Jednotka"
+                      name={field.name}
+                      value={field.unit}
+                      onChange={(e) => handleUnitChange(e)}
+                    >
+                      <MenuItem value="mwh">MWh</MenuItem>
+                      <MenuItem value="kwh">kWh</MenuItem>
+                      <MenuItem value="gj">GJ</MenuItem>
+                      <MenuItem value="m3">m³</MenuItem>
+                    </Select>
+                  </FormControl>
+
+                  <Button onClick={() => removeFields(index)}>
+                    <FuseSvgIcon size={20}>heroicons-solid:trash</FuseSvgIcon>
+                  </Button>
+                </ListItem>
+              );
+            })}
           </form>
           <ListItem>
             <Button onClick={addFields} className="mx-auto">
