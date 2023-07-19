@@ -82,7 +82,7 @@ const ContactView = () => {
               {contact.name.charAt(0)}
             </Avatar>
             <div className="flex items-center ml-auto mb-4">
-              {contact.role === 'staff' && user?.role === 'obsluha' && (
+              {(user?.role === 'admin' || (contact.role === 'staff' && user?.role === 'obsluha')) && (
                 <Button
                   variant="contained"
                   color="primary"
