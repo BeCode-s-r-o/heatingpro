@@ -74,7 +74,7 @@ function HeaterInput(props) {
         }
         return false;
       });
-  console.log(user);
+
   return (
     <>
       <Tooltip title={actualHeaterInfo.disabled ? 'Kotolňa je vymazaná' : 'Kotolňa je dostupná'} placement="top">
@@ -107,9 +107,18 @@ function HeaterInput(props) {
             onSubmit(newValue);
           }}
           fullWidth
-          renderInput={(params) => (
-            <TextField {...params} variant="outlined" fullWidth label="ID Zariadenia" placeholder="ID Zariadenia" />
-          )}
+          renderInput={(params) => {
+            return (
+              <TextField
+                {...params}
+                disabled={params.inputProps.value}
+                variant="outlined"
+                fullWidth
+                label="ID Zariadenia"
+                placeholder="ID Zariadenia"
+              />
+            );
+          }}
         />
 
         <TextField
