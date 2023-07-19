@@ -159,8 +159,8 @@ input:-webkit-autofill:active {
   height: 1px !important;
 }
 
-.muiltr-1pqm26d-MuiAvatar-img,#avatar-header>img{
-  object-fit: fill !important;
+.muiltr-1pqm26d-MuiAvatar-img, #avatar-header>img{
+  object-fit: contain !important;
 }
 
 .red-color input, .red-color label{
