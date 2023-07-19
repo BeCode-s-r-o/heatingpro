@@ -164,6 +164,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                 <Avatar
                   className="my-auto "
                   variant="rounded"
+                  id="avatar-header"
                   src={boiler?.header.avatar}
                   sx={{ width: 120, height: 80, objectFit: 'fill' }}
                 />
