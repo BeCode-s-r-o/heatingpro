@@ -289,7 +289,6 @@ const NewContactForm = () => {
               label="Tel. číslo"
               placeholder="+421"
               id="phone"
-              required
               error={!!errors.company}
               variant="outlined"
               fullWidth

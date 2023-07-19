@@ -6,7 +6,6 @@ export const compareDates = (date1, date2) => {
   return d1.isSame(d2, 'month') && d1.isSame(d2, 'year');
 };
 export const compareDatesYears = (date1, date2) => {
-  console.log(date2);
   const d1 = moment(date1, 'ddd MMM DD YYYY HH:mm:ss [GMT]ZZ');
   const d2 = moment(date2, 'D.M.YYYY');
   return d1.isSame(d2, 'year');
