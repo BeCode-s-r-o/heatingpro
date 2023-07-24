@@ -5,6 +5,7 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
+import * as Sentry from '@sentry/react';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
@@ -59,6 +60,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
       updateDoc(boilerRef, { disabled: true });
       dispatch(getBoilers());
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
