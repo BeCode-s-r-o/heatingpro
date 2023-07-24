@@ -76,7 +76,6 @@ const NewContactForm = () => {
     try {
       dispatch(addContact(data));
       dispatch(showMessage({ message: `Prihlasovacie údaje vám boli zaslané na ${data.email}` }));
-      //TODO handle error when email already exists
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba' + error }));
     }
