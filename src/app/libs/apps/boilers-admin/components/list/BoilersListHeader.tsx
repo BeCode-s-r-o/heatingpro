@@ -15,11 +15,7 @@ export const BoilersListHeader = () => {
   const { data: user } = useSelector(selectUser);
   const [showAddNewBoilerModal, setShowAddNewBoilerModal] = useState(false);
   const [showWarning, setShowWarning] = useState(false);
-  const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
   const [showEffectivityConstant, setShowEffectivityConstant] = useState<any>(false);
-  useEffect(() => {
-    !user?.isPaid && setShowMissingPaymentModal(true);
-  }, [user]);
 
   useEffect(() => {
     const getEffectivityConstant = async () => {
@@ -111,37 +107,6 @@ export const BoilersListHeader = () => {
                 color="primary"
                 autoFocus
                 onClick={() => setShowWarning(false)}
-              >
-                Zatvoriť
-              </Button>
-            </DialogActions>
-          </Dialog>
-          <Dialog
-            open={showMissingPaymentModal}
-            onClose={() => setShowMissingPaymentModal(false)}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description"
-          >
-            <DialogTitle id="alert-dialog-title" color="error">
-              Pozor
-            </DialogTitle>
-            <DialogContent>
-              <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
-                <p className="mb-10">
-                  Pre vaše konto <strong>neevidujeme</strong> v našom systéme úspešnú platbu, pre pokračovanie prosím
-                  uhradte čo najkôr faktúrú a pošlite nám potvrdenie mailom na{' '}
-                  <a href="mailto:info@monitoringpro.sk" style={{ background: '#fff', color: 'red' }}>
-                    info@monitoringpro.sk
-                  </a>
-                </p>
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button
-                className="whitespace-nowrap w-fit mb-2 mr-8"
-                color="primary"
-                autoFocus
-                onClick={() => setShowMissingPaymentModal(false)}
               >
                 Zatvoriť
               </Button>

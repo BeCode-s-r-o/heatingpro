@@ -203,24 +203,7 @@ const ContactForm = () => {
             />
           </div>
         </div>
-        <Controller
-          control={control}
-          name="isPaid"
-          render={({ field }) => (
-            <FormControlLabel
-              control={
-                <Switch
-                  {...field}
-                  checked={field.value}
-                  onChange={(e) => field.onChange(e.target.checked)}
-                  disabled={user?.role !== 'admin'}
-                />
-              }
-              label="Zaplatené"
-              labelPlacement="end"
-            />
-          )}
-        />
+
         {user?.role === 'admin' && (
           <Controller
             control={control}

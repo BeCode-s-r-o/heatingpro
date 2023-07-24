@@ -42,7 +42,6 @@ const NewContactForm = () => {
     phone: '',
     email: '',
     role: 'staff',
-    isPaid: true,
     heaters: [],
   });
   const dispatch = useDispatch<AppDispatch>();

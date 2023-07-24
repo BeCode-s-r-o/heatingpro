@@ -16,5 +16,4 @@ export interface TContact {
   email: string;
   role: TUserRoles;
   heaters: string[];
-  isPaid: boolean;
 }
