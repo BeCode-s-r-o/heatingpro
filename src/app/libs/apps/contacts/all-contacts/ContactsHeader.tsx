@@ -1,25 +1,30 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  selectFilteredContacts,
+  selectGroupedFilteredContacts,
+  selectSearchText,
+  setContactsSearchText,
+} from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
 import Button from '@mui/material/Button';
 import Input from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
-import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  selectFilteredContacts,
-  selectSearchText,
-  setContactsSearchText,
-} from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import { AppDispatch } from 'app/store/index';
+import { selectUser } from 'app/store/userSlice';
 
 const ContactsHeader = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const searchText = useSelector(selectSearchText);
   const filteredData = useSelector(selectFilteredContacts);
+  const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
 
   const getUsersCountLabel = (count) => {
     if (count === 0) {
-      return 'Žiadni používatelia';
+      return 'Žiadny používatelia';
     }
     if (count === 1) {
       return 'používateľ';
@@ -29,7 +34,27 @@ const ContactsHeader = () => {
     }
     return 'používateľov';
   };
+  const { data: user } = useSelector(selectUser);
 
+  const isAdmin = user?.role === 'admin';
+  const filteredContacts: any[] = [];
+
+  Object.entries(groupedFilteredContacts).forEach(([key, group]: [any, any]) => {
+    const hasMatchingHeaterInGroup = group.children.some((item) =>
+      item.heaters.some((heater) => user?.heaters.includes(heater))
+    );
+
+    if (hasMatchingHeaterInGroup || isAdmin) {
+      const filteredGroup = group.children.filter((item) =>
+        item.heaters.some((heater) => user?.heaters.includes(heater))
+      );
+
+      if (filteredGroup.length > 0 || isAdmin) {
+        filteredContacts.push({ key, data: filteredGroup });
+      }
+    }
+  });
+  const countOfContacts = filteredContacts.reduce((count, { data }) => count + data.length, 0);
   return (
     <div className="p-24 sm:p-32 w-full border-b-1">
       <div className="flex flex-col items-center sm:items-start">
@@ -37,7 +62,7 @@ const ContactsHeader = () => {
           Používatelia
         </Typography>
         <Typography component={motion.span} className="text-14 font-medium ml-2" color="text.secondary">
-          {`${filteredData.length > 0 ? filteredData.length : ''} ${getUsersCountLabel(filteredData.length)}`}
+          {`${countOfContacts > 0 ? countOfContacts : ''} ${getUsersCountLabel(countOfContacts)}`}
         </Typography>
       </div>
       <div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center mt-16 -mx-8">
