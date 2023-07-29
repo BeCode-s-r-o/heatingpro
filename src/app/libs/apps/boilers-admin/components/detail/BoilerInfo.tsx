@@ -78,8 +78,14 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
       >
         <Box className="w-full lg:w-[40%]">
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+            <strong className={`font-semibold ${boiler?.header.isPaid ? 'text-green' : 'text-red'}`}>
+              {boiler?.header.isPaid ? 'Zaplatené' : 'Nezaplatené'}
+            </strong>
+          </Typography>
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
           </Typography>
+
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Dátum inštalácie:</strong> {boiler?.header.instalationDate}
           </Typography>

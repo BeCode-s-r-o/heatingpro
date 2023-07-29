@@ -91,6 +91,7 @@ export interface TBoilerInfo {
   monitoringDeviceID: string;
   avatar: string;
   withService: boolean;
+  isPaid: boolean;
 }
 
 interface Body {

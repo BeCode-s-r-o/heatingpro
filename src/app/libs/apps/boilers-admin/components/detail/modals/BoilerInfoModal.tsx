@@ -159,6 +159,23 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             </Box>
           </ListItem>
           <ListItem className="flex flex-col">
+            <Typography className="font-bold">Upozornenie o nezaplatení</Typography>
+            <Box className="flex flex-row justify-center items-center">
+              <Typography>Zaplatené</Typography>
+              <Switch
+                checked={headerData.isPaid}
+                name="isPaid"
+                readOnly={user?.role !== 'admin'}
+                onChange={(e) =>
+                  setHeaderData((prev) => ({
+                    ...prev,
+                    isPaid: e.target.checked,
+                  }))
+                }
+              />
+            </Box>
+          </ListItem>
+          <ListItem className="flex flex-col">
             <Typography className="font-bold">Schéma kotolne</Typography>
             <Box className="flex flex-row justify-center items-center">
               <Typography>S obsluhou</Typography>
