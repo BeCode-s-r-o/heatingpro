@@ -42,6 +42,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     staff1: '',
     staff2: '',
     withService: true,
+    isPaid: true,
   };
   const initialAddressState = { city: '', zip: '', street: '' };
   const initialNewBoilerState = {
