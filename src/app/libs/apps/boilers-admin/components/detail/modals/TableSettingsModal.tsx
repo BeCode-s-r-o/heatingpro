@@ -132,8 +132,15 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
       <div className="max-w-[98vw] overflow-x-scroll">
         <List className="w-[750px]">
           <ListItem>
-            <ListItemText primary="Nastavenie stĺpcov" />
+            <ListItemText
+              primary="Nastavenie stĺpcov"
+              secondary=" Pri nastavovaní limitov (minimum a maximum) je technicky možné nastaviť maximálne 15 stĺpcov naraz, teda 15
+            riadkom viete nastaviť zvlášť 15 minimum a 15 maximum hodnôt. V prípade, že nastavujete viac ako 15tim
+            riadkom limity naraz, po zmene prvých 15 kliknite na uložiť a potom pristúpte k nastaveniu ďalších
+            znovukliknutím na tlačidlo Nastaviť stĺpce."
+            />
           </ListItem>
+
           {tableColumns?.map((column, index) => (
             <DragNDropColumn
               columnOptions={columnOptions}

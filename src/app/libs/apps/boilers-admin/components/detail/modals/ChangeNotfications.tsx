@@ -62,7 +62,7 @@ function ChangeNotifications({ isOpen, close, deviceID, notificationsContacts }:
   const addField = () => {
     let contact = {
       name: '',
-      phone: '',
+      phone: '+421',
       email: '',
       sendSmsAlarm: true,
       sendSmsMissingRecord: true,
