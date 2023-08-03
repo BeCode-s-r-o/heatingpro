@@ -24,7 +24,8 @@ export type TBoiler = {
       perioda: number;
       pocetSms: number;
       alarmy: string;
-      seq: string;
+      'seq.': string;
+      set: string;
     };
     lastUpdate: number;
   };
