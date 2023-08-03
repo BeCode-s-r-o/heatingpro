@@ -153,7 +153,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     { value: 6, period: '3', smsPerDay: 8 },
     { value: 7, period: '2', smsPerDay: 12 },
     { value: 8, period: '1', smsPerDay: 24 },
-    { value: 9, period: '0.5', smsPerDay: 48 },
+    { value: 9, period: '0.5', smsPerDay: '288 (každých 5 minút)' },
     { value: 0, period: '0', smsPerDay: 0 },
   ];
   const today = getCurrentDate();

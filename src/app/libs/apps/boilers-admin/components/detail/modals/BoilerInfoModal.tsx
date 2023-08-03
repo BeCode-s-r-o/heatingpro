@@ -1,25 +1,25 @@
+import FuseSvgIcon from '@app/core/SvgIcon';
+import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
+import { Switch, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
+import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
 import 'firebase/firestore';
-import Avatar from '@mui/material/Avatar';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
-import IconButton from '@mui/material/IconButton';
-import FuseSvgIcon from '@app/core/SvgIcon';
-import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
-import { AppDispatch } from 'app/store/index';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
-import Box from '@mui/material/Box';
-import { selectUser } from 'app/store/userSlice';
 import { getCurrentDate } from '../functions/datesOperations';
-import { Switch, Typography } from '@mui/material';
 interface Props {
   boilerInfo: TBoilerInfo;
   boilerData: TBoiler;
@@ -266,7 +266,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               value={headerData.softwareVersion}
               name="softwareVersion"
               onChange={handleChange}
-              disabled={user?.role === 'obsluha' || user?.role === 'user'}
+              disabled
             />
           </ListItem>
 
