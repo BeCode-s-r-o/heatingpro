@@ -3,7 +3,12 @@ import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, Ent
 import { RootState } from 'app/store/index';
 import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import history from '@history';
-import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  sendPasswordResetEmail,
+  fetchSignInMethodsForEmail,
+} from 'firebase/auth';
 import { secondaryApp } from 'src/firebase-config';
 import FuseUtils from '@app/utils/FuseUtils';
 import { showMessage } from 'app/store/slices/messageSlice';
@@ -30,6 +35,11 @@ export const getContact = createAsyncThunk('contactsApp/task/getContact', async 
 export const addContact = createAsyncThunk('contactsApp/contacts/addContact', async (contact: TContact) => {
   try {
     const sAuth = getAuth(secondaryApp);
+    // Check if the email already exists in Firebase Authentication
+    const signInMethods = await fetchSignInMethodsForEmail(sAuth, contact.email);
+    if (signInMethods.length > 0) {
+      throw new Error('Email already exists');
+    }
     const userCredential = await createUserWithEmailAndPassword(sAuth, contact.email, self.crypto.randomUUID());
     const id = userCredential.user.uid;
     const customerRef = doc(getFirestore(), 'users', id);
