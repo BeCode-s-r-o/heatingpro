@@ -15,12 +15,14 @@ import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import { AppDispatch } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
+import { TContact } from '@app/types/TContact';
 
 const ContactsHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const searchText = useSelector(selectSearchText);
   const filteredData = useSelector(selectFilteredContacts);
-  const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
+  const groupedFilteredContacts: { [key: string]: { children: TContact[] } } =
+    useSelector(selectGroupedFilteredContacts);
 
   const getUsersCountLabel = (count) => {
     if (count === 0) {
@@ -45,8 +47,8 @@ const ContactsHeader = () => {
     );
 
     if (hasMatchingHeaterInGroup || isAdmin) {
-      const filteredGroup = group.children.filter((item) =>
-        item.heaters.some((heater) => user?.heaters.includes(heater))
+      const filteredGroup = group.children.filter(
+        (item) => item.heaters.some((heater) => user?.heaters.includes(heater)) || isAdmin
       );
 
       if (filteredGroup.length > 0 || isAdmin) {

@@ -10,10 +10,12 @@ import {
   selectGroupedFilteredContacts,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
 import { selectUser } from 'app/store/userSlice';
+import { TContact } from '@app/types/TContact';
 
 const ContactsList = () => {
-  const filteredData = useSelector(selectFilteredContacts);
-  const groupedFilteredContacts = useSelector(selectGroupedFilteredContacts);
+  const filteredData: TContact[] = useSelector(selectFilteredContacts);
+  const groupedFilteredContacts: { [key: string]: { children: TContact[] } } =
+    useSelector(selectGroupedFilteredContacts);
   const { data: user } = useSelector(selectUser);
 
   if (!filteredData) {
@@ -40,8 +42,8 @@ const ContactsList = () => {
     );
 
     if (hasMatchingHeaterInGroup || isAdmin) {
-      const filteredGroup = group.children.filter((item) =>
-        item.heaters.some((heater) => userBoilers?.includes(heater))
+      const filteredGroup = group.children.filter(
+        (item) => item.heaters.some((heater) => userBoilers?.includes(heater)) || isAdmin
       );
 
       if (filteredGroup.length > 0 || isAdmin) {
