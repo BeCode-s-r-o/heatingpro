@@ -4,6 +4,7 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
+import * as Sentry from '@sentry/react';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
@@ -164,6 +165,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
       link.click();
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
     }
   };

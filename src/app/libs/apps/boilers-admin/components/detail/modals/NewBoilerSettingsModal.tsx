@@ -132,7 +132,13 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
       <div className="max-w-[98vw] overflow-x-scroll">
         <List className="w-[700px]">
           <ListItem>
-            <ListItemText primary="Nastavenie stĺpcov" />
+            <ListItemText
+              primary="Nastavenie stĺpcov"
+              secondary=" Pri nastavovaní limitov (minimum a maximum) je technicky možné nastaviť maximálne 15 stĺpcov naraz, teda 15
+            riadkom viete nastaviť zvlášť 15 minimum a 15 maximum hodnôt. V prípade, že nastavujete viac ako 15tim
+            riadkom limity naraz, po zmene prvých 15 kliknite na uložiť a potom pristúpte k nastaveniu ďalších
+            znovukliknutím na tlačidlo Nastaviť stĺpce."
+            />
           </ListItem>
           <Typography className="text-lg font-bold text-center border-b my-12">Dáta zo vstupu</Typography>
           {inputData.map((item, index) => (

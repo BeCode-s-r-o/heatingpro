@@ -18,11 +18,16 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
+import * as Sentry from '@sentry/react';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
+import axios from 'axios';
 import { doc, updateDoc } from 'firebase/firestore';
-import React, { useEffect, useState } from 'react';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
 import { db } from 'src/firebase-config';
@@ -30,10 +35,6 @@ import { selectBoilerById } from '../../store/boilersSlice';
 import { compareDates, formatDateToSK, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import HandleSignature from './modals/HandleSignature';
-import moment from 'moment';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import axios from 'axios';
 
 export const DailyNotesTable = ({ id, componentRef }) => {
   const todayDate = new Date().toISOString().split('T')[0];
@@ -201,6 +202,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
       link.click();
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
     }
   };

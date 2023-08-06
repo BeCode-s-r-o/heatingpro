@@ -14,20 +14,20 @@ import {
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
+import * as Sentry from '@sentry/react';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
 import axios from 'axios';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../store/boilersSlice';
+import { getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import { selectUser } from 'app/store/userSlice';
-import { getCurrentDate } from './functions/datesOperations';
-
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -71,6 +71,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Kotolňa bola úspešne resetovaná.' }));
       dispatch(getBoiler(boiler?.id || ''));
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
@@ -90,6 +91,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
         dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
         setIstimerActive(true);
       } catch (error) {
+        Sentry.captureException(error);
         dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
       }
     }
@@ -105,6 +107,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Informačná SMS bola úspešne vyžiadaná, zobrazí sa do 30 sekúnd.' }));
       setIsInfSmsTimerActive(true);
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
@@ -127,6 +130,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Perióda bola úspešne zmenená' }));
       //zmenit periodu na BE + redux
     } catch (error) {
+      Sentry.captureException(error);
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     } finally {
       dispatch(getBoiler(boiler?.id));
@@ -149,7 +153,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     { value: 6, period: '3', smsPerDay: 8 },
     { value: 7, period: '2', smsPerDay: 12 },
     { value: 8, period: '1', smsPerDay: 24 },
-    { value: 9, period: '0.5', smsPerDay: 48 },
+    { value: 9, period: '0.5', smsPerDay: '288 (každých 5 minút)' },
     { value: 0, period: '0', smsPerDay: 0 },
   ];
   const today = getCurrentDate();

@@ -4,6 +4,7 @@ import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
+import * as Sentry from '@sentry/react';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
@@ -13,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
 import { DragNDropColumn } from './DragNDropColumn';
+
 interface Props {
   boiler: TBoiler;
   isOpen: boolean;
@@ -92,7 +94,8 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     try {
       await axios.post('https://api.monitoringpro.sk/change-limits', data);
     } catch (error) {
-      throw error;
+      Sentry.captureException(error);
+      dispatch(showMessage({ message: 'Vyskytla sa chyba pri nastavovaní periódy!' }));
     }
   };
 
@@ -129,8 +132,15 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
       <div className="max-w-[98vw] overflow-x-scroll">
         <List className="w-[750px]">
           <ListItem>
-            <ListItemText primary="Nastavenie stĺpcov" />
+            <ListItemText
+              primary="Nastavenie stĺpcov"
+              secondary=" Pri nastavovaní limitov (minimum a maximum) je technicky možné nastaviť maximálne 15 stĺpcov naraz, teda 15
+            riadkom viete nastaviť zvlášť 15 minimum a 15 maximum hodnôt. V prípade, že nastavujete viac ako 15tim
+            riadkom limity naraz, po zmene prvých 15 kliknite na uložiť a potom pristúpte k nastaveniu ďalších
+            znovukliknutím na tlačidlo Nastaviť stĺpce."
+            />
           </ListItem>
+
           {tableColumns?.map((column, index) => (
             <DragNDropColumn
               columnOptions={columnOptions}

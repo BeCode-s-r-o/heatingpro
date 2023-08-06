@@ -1,25 +1,25 @@
+import FuseSvgIcon from '@app/core/SvgIcon';
+import { Switch, Typography } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
-import { setDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { Box } from '@mui/system';
+import * as Sentry from '@sentry/react';
+import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
+import axios from 'axios';
+import { doc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { Switch, Typography } from '@mui/material';
-import FuseSvgIcon from '@app/core/SvgIcon';
-import { Box } from '@mui/system';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import axios from 'axios';
 import { getBoilers, selectAllBoilers } from '../../store/boilersSlice';
-import { AppDispatch, RootState } from 'app/store/index';
-import { selectContactById, updateContact } from 'app/theme-layouts/shared/chatPanel/store/contactsSlice';
-import { TContact } from '@app/types/TContact';
-import { selectUser } from 'app/store/userSlice';
+
 interface Props {
   isOpen: boolean;
   toggleOpen: () => void;
@@ -323,7 +323,10 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
     };
     try {
       await axios.post('https://api.monitoringpro.sk/config-boiler', data);
-    } catch (error) {}
+    } catch (error) {
+      Sentry.captureException(error);
+      dispatch(showMessage({ message: 'Vyskytla sa chyba pri vytváraní kotolne!' }));
+    }
   };
   const assignBoilerToUser = (userID, boilers) => {
     const userRef = doc(getFirestore(), 'users', userID);

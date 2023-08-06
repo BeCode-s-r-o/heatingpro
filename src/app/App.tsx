@@ -2,6 +2,7 @@ import FuseAuthorization from '@app/core/Authorization';
 import FuseTheme from '@app/core/Theme';
 import createCache from '@emotion/cache';
 import { CacheProvider } from '@emotion/react';
+import * as Sentry from '@sentry/react';
 import { selectMainTheme } from 'app/store/slices/settingsSlice';
 import { selectUser } from 'app/store/userSlice';
 import { SnackbarProvider } from 'notistack';
@@ -16,6 +17,20 @@ const emotionCacheOption = {
   stylisPlugins: [],
   insertionPoint: document.getElementById('emotion-insertion-point') ?? undefined,
 };
+
+Sentry.init({
+  dsn: 'https://f6e8bdeaf50c44b7a6d27f1f6fd81cc9@o1303420.ingest.sentry.io/4505583993094144',
+  integrations: [
+    new Sentry.BrowserTracing({
+      tracePropagationTargets: ['api.monitoringpro.sk', /^https?:\/\/(.*\.)?firebase\.com$/],
+    }),
+    new Sentry.Replay(),
+  ],
+  tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
+  enabled: process.env.NODE_ENV !== 'development',
+});
 
 const App = () => {
   const user: any = useSelector(selectUser);
