@@ -20,9 +20,10 @@ const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const { data: user } = useSelector(selectUser);
+
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const isAdmin = user?.role === 'admin';
-  const isStaff = user?.role === 'staff';
+  const isStaff = user?.role === 'staff' || user?.role === 'instalater';
   const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
 
   useEffect(() => {
