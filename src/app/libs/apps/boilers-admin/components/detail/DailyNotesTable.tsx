@@ -199,7 +199,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = blobUrl;
-      link.download = `Výpis z Kotolne ${boiler?.id}.pdf`;
+      link.download = `Výpis z Kotolne ${boiler?.id} (2 z 3).pdf`;
       link.click();
     } catch (error) {
       Sentry.captureException(error);
