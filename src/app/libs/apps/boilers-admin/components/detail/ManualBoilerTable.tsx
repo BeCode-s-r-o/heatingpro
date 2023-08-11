@@ -76,11 +76,9 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
     setColumns(boiler?.monthTable.columns || []);
   }, [boiler]);
 
-  // helper function
   const hasPropertiesAndNotDash = (a, b, key) =>
     a.hasOwnProperty(key) && b.hasOwnProperty(key) && a[key] !== '-' && b[key] !== '-';
 
-  // abstract computation to function
   const computeEfficiency = (row, prevRow, monthlyEffectivityConstant) => {
     let sumOfDiffs = 0;
 
@@ -108,14 +106,13 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
   useEffect(() => {
     const sortedRows = [...defaultRows].sort((a, b) => a.id - b.id);
-    const momentDate = moment();
-    const year = momentDate.year();
-    const month = momentDate.month();
-
-    const monthlyEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
 
     const rowsWithEfficiency = sortedRows.map((row, index) => {
       const prevRow = sortedRows[index - 1];
+      const year = moment(row.date, 'DD.MM.YYYY').year();
+      const month = moment(row.date, 'DD.MM.YYYY').month();
+      const monthlyEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
+
       if (!prevRow || !monthlyEffectivityConstant) return { ...row, ucinnost: '-' };
 
       return computeEfficiency(row, prevRow, monthlyEffectivityConstant);
@@ -144,6 +141,16 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
   const handleRowChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'date') {
+      const momentDate = moment(value, 'DD.MM.YYYY');
+      const newId = momentDate.isValid() ? momentDate.valueOf() : rowForEdit.id;
+
+      //@ts-ignore
+      setRowForEdit((prev) => {
+        return { ...prev, date: value, oldId: prev.id, id: newId };
+      });
+      return;
+    }
 
     setRowForEdit((prev) => ({
       ...prev,
@@ -187,7 +194,18 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
   const saveEditedRow = (e) => {
     e.preventDefault();
     const boilerRef = doc(db, 'boilers', id);
-    const updatedRows = rows.map((row) => (row.id === rowForEdit.id ? { ...rowForEdit } : row));
+
+    const updatedRows = rows.map((row) => {
+      console.log(row, rowForEdit);
+      //@ts-ignore
+      if (row.id === rowForEdit.oldId) {
+        //@ts-ignore
+        const { oldId, ...restOfRowForEdit } = rowForEdit;
+        return { ...restOfRowForEdit };
+      }
+      return row;
+    });
+
     try {
       updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
     } catch (error) {
@@ -281,9 +299,11 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
         </div>
       </div>
       <Box className="w-full lg:w-[50%] max-h-25vh overflow-scroll">
-        <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate ">
-          <strong>Vysvetlivky k stĺpcom:</strong>
-        </Typography>
+        {columns.length ? (
+          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate ">
+            <strong>Vysvetlivky k stĺpcom:</strong>
+          </Typography>
+        ) : null}
         <Box className="grid grid-cols-1 sm:grid-cols-2">
           {columns?.length > 0 &&
             columns.map((column, i) => (
@@ -431,23 +451,27 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
         <form onSubmit={saveEditedRow}>
           <DialogContent>
             {Object.keys(rowForEdit).reduce<any>((acc, key) => {
-              if (key !== 'ucinnost' && key !== 'date' && key !== 'id') {
-                return [
-                  ...acc,
-                  <TextField
-                    key={key}
-                    label={key}
-                    name={key}
-                    value={rowForEdit[key]}
-                    onChange={handleRowChange}
-                    fullWidth
-                    margin="normal"
-                    InputProps={{
-                      endAdornment: <Typography>{columns.find((item) => item.headerName === key)?.unit}</Typography>,
-                    }}
-                  />,
-                ];
+              const textFieldElement = (
+                <TextField
+                  key={key}
+                  label={key === 'date' ? 'Dátum' : key}
+                  name={key}
+                  value={rowForEdit[key]}
+                  onChange={handleRowChange}
+                  fullWidth
+                  margin="normal"
+                  InputProps={{
+                    endAdornment: <Typography>{columns.find((item) => item.headerName === key)?.unit}</Typography>,
+                  }}
+                />
+              );
+
+              if (key === 'date') {
+                return [textFieldElement, ...acc];
+              } else if (key !== 'ucinnost' && key !== 'id' && key !== 'oldId') {
+                return [...acc, textFieldElement];
               }
+
               return acc;
             }, [])}
           </DialogContent>
