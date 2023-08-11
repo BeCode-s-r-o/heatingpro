@@ -1,16 +1,15 @@
-import React from 'react';
+import { TContact } from '@app/types/TContact';
+import Divider from '@mui/material/Divider';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import { selectUser } from 'app/store/userSlice';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
-import Typography from '@mui/material/Typography';
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import ContactListItem from './ContactListItem';
 import {
   selectFilteredContacts,
   selectGroupedFilteredContacts,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
-import { selectUser } from 'app/store/userSlice';
-import { TContact } from '@app/types/TContact';
+import ContactListItem from './ContactListItem';
 
 const ContactsList = () => {
   const filteredData: TContact[] = useSelector(selectFilteredContacts);

@@ -1,6 +1,6 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
-import { Switch, Typography } from '@mui/material';
+import { MenuItem, Select, Switch, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -15,9 +15,10 @@ import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
 import 'firebase/firestore';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
+import { getContacts, selectAllContacts } from '../../../../../../../app/layout/shared/chatPanel/store/contactsSlice';
 import { getBoiler } from '../../../store/boilersSlice';
 import { getCurrentDate } from '../functions/datesOperations';
 interface Props {
@@ -33,10 +34,17 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
   const [boilerAddress, setBoilerAddress] = useState(boilerData.address);
   const { data: user } = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
+  const allContacts: any = useSelector(selectAllContacts);
+
+  useEffect(() => {
+    dispatch(getContacts());
+  }, []);
+
+  const kurici = allContacts.filter((i) => i.role === 'staff' && i.heaters.includes(boilerData.id));
 
   const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
-
+    console.log(name, value);
     setState((prev) => ({
       ...prev,
       [name]: value,
@@ -307,26 +315,50 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             />
           </ListItem>
           <ListItem>
-            <TextField
+            <Select
+              labelId="choice-label-1"
+              id="choice-1"
               className="w-full"
-              type="text"
               label="Kurič 1, Meno + tel. číslo"
-              value={headerData.staff1}
               name="staff1"
+              value={headerData.staff1}
               onChange={handleChange}
+              defaultValue={''}
               disabled={user?.role === 'user' && headerData.withService}
-            />
+            >
+              {kurici.map((i) => (
+                <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
+              ))}
+            </Select>
           </ListItem>
           <ListItem>
-            <TextField
-              className="w-full"
-              type="text"
-              label="Kurič 2, Meno + tel. číslo"
-              value={headerData.staff2}
-              name="staff2"
-              onChange={handleChange}
-              disabled={user?.role === 'user' && headerData.withService}
-            />
+            {kurici.length > 1 ? (
+              <Select
+                labelId="choice-label-2"
+                id="choice-2"
+                className="w-full"
+                label="Kurič 2, Meno + tel. číslo"
+                name="staff2"
+                value={headerData.staff2}
+                onChange={handleChange}
+                defaultValue={''}
+                disabled={user?.role === 'user' && headerData.withService}
+              >
+                {kurici.map((i) => (
+                  <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
+                ))}
+              </Select>
+            ) : (
+              <TextField
+                className="w-full"
+                type="text"
+                label="Kurič 2, Meno + tel. číslo"
+                value={headerData.staff2}
+                name="staff2"
+                onChange={handleChange}
+                disabled={user?.role === 'user' && headerData.withService}
+              />
+            )}
           </ListItem>
           <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
             <Button
