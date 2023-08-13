@@ -1,13 +1,5 @@
 import { TBoiler } from '@app/types/TBoilers';
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Typography,
-} from '@mui/material';
+import { Dialog, DialogContent, DialogContentText, DialogTitle, Typography } from '@mui/material';
 import { AppDispatch, RootState } from 'app/store/index';
 import { selectUser } from 'app/store/userSlice';
 import withReducer from 'app/store/withReducer';
@@ -28,9 +20,10 @@ const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const { data: user } = useSelector(selectUser);
+
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const isAdmin = user?.role === 'admin';
-  const isStaff = user?.role === 'staff';
+  const isStaff = user?.role === 'staff' || user?.role === 'instalater';
   const [showMissingPaymentModal, setShowMissingPaymentModal] = useState(false);
 
   useEffect(() => {
@@ -87,26 +80,28 @@ const BoilersDetail = () => {
           )
         }
       />{' '}
-      <Dialog
-        open={showMissingPaymentModal}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title" color="error">
-          Pozor
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
-            <p className="mb-10">
-              Pre vaše konto <strong>neevidujeme</strong> v našom systéme úspešnú platbu, pre pokračovanie prosím
-              uhradte čo najkôr faktúrú a pošlite nám potvrdenie mailom na:{' '}
-              <a href="mailto:info@monitoringpro.sk" style={{ background: '#fff', color: 'red' }}>
-                info@monitoringpro.sk
-              </a>
-            </p>
-          </DialogContentText>
-        </DialogContent>
-      </Dialog>
+      {user?.role === 'user' ? (
+        <Dialog
+          open={showMissingPaymentModal}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title" color="error">
+            Pozor
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText style={{ whiteSpace: 'pre-line' }} id="alert-dialog-description">
+              <p className="mb-10">
+                Pre vaše konto <strong>neevidujeme</strong> v našom systéme úhradu za služby, pre pokračovanie prosím
+                uhraďte faktúru čo najskôr a zašlite nám potvrdenie mailom na:{' '}
+                <a href="mailto:info@monitoringpro.sk" style={{ background: '#fff', color: 'red' }}>
+                  info@monitoringpro.sk
+                </a>
+              </p>
+            </DialogContentText>
+          </DialogContent>
+        </Dialog>
+      ) : null}
     </>
   );
 };

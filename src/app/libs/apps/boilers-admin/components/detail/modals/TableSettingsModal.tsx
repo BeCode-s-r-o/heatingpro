@@ -68,6 +68,10 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   };
 
   const handleChange = useCallback((columnID, attribute, value) => {
+    if ((attribute === 'min' && value < 1) || (attribute === 'max' && value > 99)) {
+      return;
+    }
+
     setTableColumns((prevColumns) =>
       prevColumns.map((column) =>
         String(column.accessor) === columnID

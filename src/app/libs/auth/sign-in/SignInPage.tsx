@@ -5,13 +5,11 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { authInstance } from 'src/app/auth/jwtService';
 import * as yup from 'yup';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { useDispatch } from 'react-redux';
-import { useState } from 'react';
 
 const schema = yup.object().shape({
   email: yup.string().email('Musíte zadať platný e-mail').required('Musíte zadať e-mail'),
@@ -25,12 +23,12 @@ const defaultValues = {
 };
 
 function SignInPage() {
-  const { control, formState, handleSubmit, setError, setValue } = useForm({
+  const { control, formState, handleSubmit } = useForm({
     mode: 'onChange',
     defaultValues,
     resolver: yupResolver(schema),
   });
-  const dispatch = useDispatch();
+
   const { isValid, dirtyFields, errors } = formState;
   const [showLoginErrorMessage, setshowLoginErrorMessage] = useState(false);
 

@@ -34,8 +34,6 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
 
   const infSms = boiler?.infSMS?.body || '';
 
-  console.log('infSms', infSms);
-
   const infSmsData = infSms
     ? `${infSms.alarmy ? 'Alarmy: ' + infSms.alarmy : ''}
     ${infSms.cisloZariadenia ? 'ID zariadenia: ' + infSms.cisloZariadenia : ''}

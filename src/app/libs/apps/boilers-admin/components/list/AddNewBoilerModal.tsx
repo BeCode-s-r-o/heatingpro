@@ -59,6 +59,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const [header, setHeader] = useState(initialHeaderState);
   const [address, setAddress] = useState(initialAddressState);
   const [newBoiler, setNewBoiler] = useState(initialNewBoilerState);
+  const [errors, setErrors] = useState({ id: '' });
 
   const resetForm = () => {
     setHeader(initialHeaderState);
@@ -77,8 +78,17 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
 
     return true;
   };
+
+  const uniqueIDs = boilers.map((i) => i.id);
+
   const handleChange = (setValue) => (e) => {
     const { name, value } = e.target;
+
+    if ((name === 'id' && value === '0000') || uniqueIDs.includes(value)) {
+      setErrors((prev) => ({ ...prev, id: value === '0000' ? 'ID nemôže byť 0000' : 'ID musí byť unikátne' }));
+      return;
+    }
+    setErrors({ ...errors, id: '' });
     setValue((prev) => ({
       ...prev,
       [name]: value,
@@ -208,7 +218,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="ID  *"
+              label={errors.id || 'ID  *'}
               value={newBoiler.id}
               name="id"
               onChange={handleBoilerChange}
