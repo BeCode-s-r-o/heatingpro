@@ -28,6 +28,7 @@ import { getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
+import moment from 'moment';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -35,8 +36,11 @@ interface Props {
 export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [newPeriod, setNewPeriod] = useState<string>();
+  const [newSmsLimit, setNewSmsLimit] = useState<any>();
   const [showConfirmModalPeriodChange, setShowConfirmModalChange] = useState(false);
+  const [showConfirmModalSmsLimitChange, setShowConfirmModalSmsLimitChange] = useState(false);
   const [showPeriodSetting, setShowPeriodSetting] = useState(false);
+  const [showSmsLimitSettings, setShowSmsLimitSettings] = useState(false);
   const [countDown, setCountDown] = useState(30);
   const [isTimerActive, setIstimerActive] = useState(false);
   const [isInfSmsTimerActive, setIsInfSmsTimerActive] = useState(false);
@@ -117,6 +121,28 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     updateDoc(boilerRef, { requestedSMS: [{ dateOfRequest: today }, ...newArrayOfRequestedSMS] });
   };
 
+  const sendSmsToChangeSmsLimit = async () => {
+    const data = {
+      phoneNumber: boiler?.phoneNumber,
+      boilerId: boiler?.id,
+      smsLimit: newSmsLimit,
+    };
+    try {
+      await axios.post('https://api.monitoringpro.sk/change-sms-limit', data);
+      const boilerRef = doc(db, 'boilers', boiler?.id || '');
+      updateDoc(boilerRef, { smsLimit: newSmsLimit });
+      dispatch(showMessage({ message: 'SMS limit bol úspešne zmenený' }));
+      //zmenit limit na BE + redux
+    } catch (error) {
+      Sentry.captureException(error);
+      dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    } finally {
+      dispatch(getBoiler(boiler?.id));
+      setShowConfirmModalSmsLimitChange(false);
+      setShowSmsLimitSettings(false);
+    }
+  };
+
   const sendSmsToChangePeriod = async () => {
     const data = {
       phoneNumber: boiler?.phoneNumber,
@@ -144,6 +170,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     setNewPeriod(periodOptions.find((option) => option.value === value)?.period);
   };
 
+  const handleSmsLimitChange = (e) => {
+    const { value } = e.target;
+    setNewSmsLimit(smsLimitOptions.find((option) => option.value === value)?.value);
+  };
+
   const periodOptions = [
     { value: 1, period: '24', smsPerDay: 1 },
     { value: 2, period: '12', smsPerDay: 2 },
@@ -156,6 +187,20 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     { value: 9, period: '0.5', smsPerDay: '288 (každých 5 minút)' },
     { value: 0, period: '0', smsPerDay: 0 },
   ];
+
+  const smsLimitOptions = [
+    { value: 0, smsPerPeriod: 'vypnute zasielania' },
+    { value: 1, smsPerPeriod: 10 },
+    { value: 2, smsPerPeriod: 20 },
+    { value: 3, smsPerPeriod: 30 },
+    { value: 4, smsPerPeriod: 40 },
+    { value: 5, smsPerPeriod: 50 },
+    { value: 6, smsPerPeriod: 60 },
+    { value: 7, smsPerPeriod: 70 },
+    { value: 8, smsPerPeriod: 80 },
+    { value: 9, smsPerPeriod: 'vypnutie limitov' },
+  ];
+
   const today = getCurrentDate();
   const numberOfDailySMS = boiler?.requestedSMS?.filter((item) => item.dateOfRequest === today).length;
   return (
@@ -199,6 +244,26 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                       </FuseSvgIcon>
                     )}
                   </Typography>
+                  <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                    Limit SMS: {boiler?.smsLimit} (
+                    <small className="mt-0 sm:mt-[4px]">
+                      {smsLimitOptions.find((option) => option.value === boiler?.smsLimit)?.smsPerPeriod} SMS/perióda
+                    </small>
+                    )
+                    {user?.role === 'admin' && (
+                      <FuseSvgIcon
+                        className="text-48 cursor-pointer "
+                        size={24}
+                        color="action"
+                        style={{ marginTop: '4px' }}
+                        onClick={() => {
+                          setShowSmsLimitSettings(true);
+                        }}
+                      >
+                        material-outline:settings
+                      </FuseSvgIcon>
+                    )}
+                  </Typography>
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Počet vyžiadaných SMS: {numberOfDailySMS}
                     /3 za deň
@@ -206,6 +271,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Verzia softvéru: {boiler?.header.softwareVersion}
                   </Typography>
+                  {boiler?.lastReset ? (
+                    <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                      Posledný reset: {moment(boiler?.lastReset).format('DD.MM.YYYY HH:mm')}
+                    </Typography>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -279,6 +349,58 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       </div>
       <Dialog
         onClose={() => {
+          setShowSmsLimitSettings(false);
+        }}
+        open={showSmsLimitSettings}
+      >
+        <DialogTitle>Nastavenie limitov odoslaných SMS</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description" className="mt-8">
+            <strong>Hodnota: </strong>
+            {smsLimitOptions.find((option) => option.value === newSmsLimit)?.value}
+          </DialogContentText>
+          <Box id="alert-dialog-description" className="mt-8 flex gap-12 items-center">
+            <InputLabel id="demo-simple-select-label">
+              <strong>SMS za periódu:</strong>
+            </InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select-2" //@ts-ignore
+              value={smsLimitOptions.find((option) => option.value === newSmsLimit)?.smsPerPeriod}
+              className="h-20"
+              onChange={handleSmsLimitChange}
+            >
+              {smsLimitOptions.map((option, i) => (
+                <MenuItem key={i} value={option.value}>
+                  {option.smsPerPeriod}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+          <DialogActions className="mt-20">
+            <Button
+              className="whitespace-nowrap w-fit mb-2 mr-4"
+              variant="contained"
+              color="primary"
+              onClick={() => setShowConfirmModalSmsLimitChange(true)}
+            >
+              Zmeniť limit
+            </Button>
+            <Button
+              className="whitespace-nowrap w-fit mb-2 mr-8"
+              variant="contained"
+              color="secondary"
+              onClick={() => {
+                setShowSmsLimitSettings(false);
+              }}
+            >
+              Zrušiť
+            </Button>
+          </DialogActions>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        onClose={() => {
           setShowPeriodSetting(false);
         }}
         open={showPeriodSetting}
@@ -336,6 +458,15 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
         onConfirm={sendSmsToChangePeriod}
         title={'Zmena periódy'}
         message={'Naozaj si želáte zmeniť periódu?'}
+        confirmText={'Zmeniť'}
+        cancelText={'Zrušiť'}
+      />
+      <ConfirmModal
+        open={showConfirmModalSmsLimitChange}
+        onClose={() => setShowConfirmModalSmsLimitChange(false)}
+        onConfirm={sendSmsToChangeSmsLimit}
+        title={'Zmena SMS limitu'}
+        message={'Naozaj si želáte zmeniť SMS limit?'}
         confirmText={'Zmeniť'}
         cancelText={'Zrušiť'}
       />

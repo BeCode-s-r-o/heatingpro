@@ -8,12 +8,14 @@ export type TBoiler = {
   columns: TBoilerColumn[];
   lastUpdate: string;
   sms: TSms[];
+  smsLimit?: number;
   header: TBoilerInfo;
   notes: TBoilerNote[];
   requestedSMS: { dateOfRequest: string }[];
   monthTable: { columns: any; rows: any };
   contactsForNotification: TContactForNotification[];
   disabled?: boolean;
+  lastReset?: number;
   effectivityConstant?: number;
   infSMS?: {
     body: {
