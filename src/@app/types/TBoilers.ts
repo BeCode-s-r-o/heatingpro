@@ -19,12 +19,15 @@ export type TBoiler = {
   effectivityConstant?: number;
   infSMS?: {
     body: {
+      pocetSms?: {
+        sent: number;
+        total: number;
+      };
       cisloZariadenia: string;
       pin: string;
       verziaSw: string;
       gate1: string;
       perioda: number;
-      pocetSms: number;
       alarmy: string;
       'seq.': string;
       set: string;

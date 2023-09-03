@@ -276,6 +276,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                       Posledný reset: {moment(boiler?.lastReset).format('DD.MM.YYYY HH:mm')}
                     </Typography>
                   ) : null}
+                  {boiler?.infSMS?.body?.pocetSms ? (
+                    <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                      Odoslaných: {boiler?.infSMS.body.pocetSms.sent} z {boiler?.infSMS.body.pocetSms.total}
+                    </Typography>
+                  ) : null}
                 </div>
               </div>
             </div>
