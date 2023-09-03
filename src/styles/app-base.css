@@ -167,4 +167,13 @@ input:-webkit-autofill:active {
   color: #ff0000 !important;
 }
 
+@media screen and (min-width: 1007px) {
+  #infsmsbutton{
+   margin-right: 0;
+  }
+}
+  
+
+
+
 

@@ -203,6 +203,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
 
   const today = getCurrentDate();
   const numberOfDailySMS = boiler?.requestedSMS?.filter((item) => item.dateOfRequest === today).length;
+  const currentSmsLimit = smsLimitOptions.find((option) => option.value === boiler?.smsLimit)?.smsPerPeriod;
   return (
     <>
       <div className="flex flex-col w-full px-24 sm:px-32">
@@ -245,11 +246,14 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                     )}
                   </Typography>
                   <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                    Limit SMS: {boiler?.smsLimit} (
+                    Limit SMS: {boiler?.smsLimit || 'Nenastavený'}
                     <small className="mt-0 sm:mt-[4px]">
-                      {smsLimitOptions.find((option) => option.value === boiler?.smsLimit)?.smsPerPeriod} SMS/perióda
+                      {boiler?.smsLimit
+                        ? `(${
+                            typeof currentSmsLimit === 'string' ? currentSmsLimit : currentSmsLimit + ' SMS/perióda'
+                          })`
+                        : ''}
                     </small>
-                    )
                     {user?.role === 'admin' && (
                       <FuseSvgIcon
                         className="text-48 cursor-pointer "
@@ -271,7 +275,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                   <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                     Verzia softvéru: {boiler?.header.softwareVersion}
                   </Typography>
-                  {boiler?.lastReset ? (
+                  {moment(boiler?.lastReset).isValid() ? (
                     <Typography className="text-md flex gap-6 md:text-xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
                       Posledný reset: {moment(boiler?.lastReset).format('DD.MM.YYYY HH:mm')}
                     </Typography>
@@ -290,6 +294,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
               color="primary"
+              id="infsmsbutton"
               startIcon={
                 <FuseSvgIcon className="text-48 text-white " size={24}>
                   heroicons-outline:tag
@@ -298,7 +303,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               onClick={sendSMSToGetInf}
               disabled={isInfSmsTimerActive}
             >
-              {isInfSmsTimerActive ? `INF SMS vyžiadaná` : 'Vyžiadať INF SMS'}
+              {isInfSmsTimerActive ? `INF SMS vyžiadaná` : 'INF SMS'}
             </Button>
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"
