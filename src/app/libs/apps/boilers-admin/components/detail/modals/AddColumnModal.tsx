@@ -40,22 +40,26 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
     }
   }, [columns]);
   const columnOptions = [
-    { name: 'VO1', desc: 'Merač tepla (VO1)' },
-    { name: 'VO2', desc: 'Merač tepla (VO2)' },
-    { name: 'VO3', desc: 'Merač tepla (VO3)' },
-    { name: 'VO4', desc: 'Merač tepla (VO4)' },
-    { name: 'VO5', desc: 'Merač tepla (VO5)' },
-    { name: 'VO6', desc: 'Merač tepla (VO6)' },
-    { name: 'VO7', desc: 'Merač tepla (VO7)' },
-    { name: 'VO8', desc: 'Merač tepla (VO8)' },
-    { name: 'MT TUV', desc: 'Merač tepla pre TUV' },
-    { name: 'vpv TUV', desc: 'Vodomer pre výrobu TUV' },
-    { name: 'VnDVS', desc: 'Vodomer na dopúťanie vykurovacieho systému' },
-    { name: 'VCH', desc: 'Vodomer chladenia' },
-    { name: 'VpZ', desc: 'Vodomer pre záhradu' },
-    { name: 'MT VZT', desc: 'Merač tepla VZT' },
-    { name: 'Elektro', desc: 'Elektromer' },
-    { name: 'Plyn', desc: 'Plynomer' },
+    { name: 'VO1', desc: 'Merač tepla (VO1)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO2', desc: 'Merač tepla (VO2)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO3', desc: 'Merač tepla (VO3)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO4', desc: 'Merač tepla (VO4)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO5', desc: 'Merač tepla (VO5)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO6', desc: 'Merač tepla (VO6)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO7', desc: 'Merač tepla (VO7)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'VO8', desc: 'Merač tepla (VO8)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    {
+      name: 'MT TUV',
+      desc: 'Merač tepla pre TUV',
+      units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'],
+    },
+    { name: 'vpv TUV', desc: 'Vodomer pre výrobu TUV', units: ['m3'] },
+    { name: 'VnDVS', desc: 'Vodomer na dopúťanie vykurovacieho systému', units: ['m3'] },
+    { name: 'VCH', desc: 'Vodomer chladenia', units: ['m3'] },
+    { name: 'VpZ', desc: 'Vodomer pre záhradu', units: ['m3'] },
+    { name: 'MT VZT', desc: 'Merač tepla VZT', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
+    { name: 'Elektro', desc: 'Elektromer', units: ['kWh'] },
+    { name: 'Plyn', desc: 'Plynomer', units: ['m3', 'kWh'] },
   ];
 
   const hanldeChange = (event, index) => {
@@ -161,7 +165,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
               const actualColumnOption = columnOptions.find((item) => item.name === field.name) || {
                 name: field.name,
                 desc: 'todo',
-                unit: field.unit,
+                units: null,
               };
               return (
                 <ListItem key={index}>
@@ -198,10 +202,17 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
                       value={field.unit}
                       onChange={(e) => handleUnitChange(e)}
                     >
-                      <MenuItem value="mwh">MWh</MenuItem>
-                      <MenuItem value="kwh">kWh</MenuItem>
-                      <MenuItem value="gj">GJ</MenuItem>
-                      <MenuItem value="m3">m³</MenuItem>
+                      {actualColumnOption?.units ? (
+                        actualColumnOption?.units?.map((unit) => <MenuItem value={unit.toLowerCase()}>{unit}</MenuItem>)
+                      ) : (
+                        <>
+                          {' '}
+                          <MenuItem value="mwh">MWh</MenuItem>
+                          <MenuItem value="kwh">kWh</MenuItem>
+                          <MenuItem value="gj">GJ</MenuItem>
+                          <MenuItem value="m3">m³</MenuItem>
+                        </>
+                      )}
                     </Select>
                   </FormControl>
 
