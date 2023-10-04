@@ -55,7 +55,7 @@ const SettingsModalColumn = memo(
         <TextField
           type="number"
           label="Min."
-          value={item.min || undefined}
+          value={item.min}
           name={item.accessor}
           onChange={(e) => handleChange(e, 'min', Number(e.target.value))}
           className="w-[70px] pr-6"
@@ -63,7 +63,7 @@ const SettingsModalColumn = memo(
         <TextField
           type="number"
           label="Max."
-          value={item.max || undefined}
+          value={item.max}
           name={item.accessor}
           onChange={(e) => handleChange(e, 'max', Number(e.target.value))}
           className="w-[70px]"

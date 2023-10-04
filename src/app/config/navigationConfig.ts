@@ -44,23 +44,23 @@ const navigationConfig = [
       },
     ],
   },
-  {
-    id: 'settings',
-    title: 'Nastavenia',
-    subtitle: 'Nastavenia aplikácie',
-    type: 'group',
-    auth: authRoles.admin,
-    icon: 'heroicons-outline:document',
-    children: [
-      {
-        id: 'pages.activities',
-        title: 'Nastavenia',
-        type: 'item',
-        icon: 'heroicons-outline:cog',
-        url: '/nastavenia',
-      },
-    ],
-  },
+  // {
+  //   id: 'settings',
+  //   title: 'Nastavenia',
+  //   subtitle: 'Nastavenia aplikácie',
+  //   type: 'group',
+  //   auth: authRoles.admin,
+  //   icon: 'heroicons-outline:document',
+  //   children: [
+  //     {
+  //       id: 'pages.activities',
+  //       title: 'Nastavenia',
+  //       type: 'item',
+  //       icon: 'heroicons-outline:cog',
+  //       url: '/nastavenia',
+  //     },
+  //   ],
+  // },
 ];
 
 export default navigationConfig;
