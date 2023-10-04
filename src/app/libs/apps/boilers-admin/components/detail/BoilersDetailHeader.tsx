@@ -367,7 +367,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description" className="mt-8">
             <strong>Hodnota: </strong>
-            {smsLimitOptions.find((option) => option.value === newSmsLimit)?.value}
+            {smsLimitOptions.find((option) => option.value === newSmsLimit)?.value || 'Nenastavená'}
           </DialogContentText>
           <Box id="alert-dialog-description" className="mt-8 flex gap-12 items-center">
             <InputLabel id="demo-simple-select-label">
