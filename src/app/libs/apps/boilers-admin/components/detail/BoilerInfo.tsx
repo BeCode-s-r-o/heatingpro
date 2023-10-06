@@ -40,7 +40,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
     ${infSms.gate1 ? 'GSM brána: ' + infSms.gate1 : ''}
     ${infSms.perioda ? 'Perióda: ' + infSms.perioda : ''}
     ${infSms.pin ? 'Pin: ' + infSms.pin : ''}
-    ${infSms.pocetSms ? 'Počet SMS: ' + infSms.pocetSms : ''}
+    ${infSms.pocetSms ? 'Počet SMS: ' + infSms.pocetSms.sent + ' z ' + infSms.pocetSms.total : ''}
     ${infSms.verziaSw ? 'Verzia sotfvéru: ' + infSms.verziaSw : ''}
     ${infSms.set ? 'Set: ' + infSms.set : ''}
     ${infSms['seq.'] ? 'SEQ: ' + infSms['seq.'] : ''}`
