@@ -141,16 +141,6 @@ export const BoilersListHeader = () => {
               </Button>
             </DialogActions>
           </Dialog>
-          <Link to="/nastavenia">
-            <Button
-              className="whitespace-nowrap"
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon size={20}>heroicons-solid:cog</FuseSvgIcon>}
-            >
-              Nastavenia
-            </Button>
-          </Link>
         </div>
       </div>
     </div>
