@@ -44,7 +44,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
 
   const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
-    console.log(name, value);
+
     setState((prev) => ({
       ...prev,
       [name]: value,

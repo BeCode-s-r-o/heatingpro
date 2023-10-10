@@ -196,7 +196,6 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
     const boilerRef = doc(db, 'boilers', id);
 
     const updatedRows = rows.map((row) => {
-      console.log(row, rowForEdit);
       //@ts-ignore
       if (row.id === rowForEdit.oldId) {
         //@ts-ignore

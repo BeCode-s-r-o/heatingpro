@@ -187,6 +187,29 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     setShowConfirmModal(false);
   };
 
+  const columnsValues = [...(sortedSMS[0]?.body?.inputData || []), ...(sortedSMS[0]?.body?.digitalInput || [])];
+
+  const fixedBoilerColumns =
+    boiler?.columns.length === columnsValues.length
+      ? boiler?.columns
+      : [
+          ...(boiler?.columns || []),
+          ...columnsValues.slice(boiler?.columns?.length).map((column, index) => {
+            return {
+              unit: '',
+              max: 99,
+              value: column,
+              hide: true,
+              accessor: String(index + (boiler?.columns?.length || 0)),
+              columnName: '',
+              order: index + (boiler?.columns?.length || 0),
+              name: '',
+              min: 0,
+              desc: '',
+            };
+          }),
+        ];
+
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
@@ -327,12 +350,13 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
               />
             ) : (
               <TableSettingsModal
-                boiler={boiler}
+                //@ts-ignore
+                boiler={{ ...boiler, columns: fixedBoilerColumns }}
                 isOpen={isSettingsModalOpen}
                 toggleOpen={() => {
                   setIsSettingsModalOpen((prev) => !prev);
                 }}
-                columnsValues={[...(sortedSMS[0]?.body?.inputData || []), ...(sortedSMS[0]?.body?.digitalInput || [])]}
+                columnsValues={columnsValues}
               />
             )}
           </>

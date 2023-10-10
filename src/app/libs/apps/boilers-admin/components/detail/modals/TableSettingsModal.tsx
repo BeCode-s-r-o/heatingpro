@@ -9,7 +9,7 @@ import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import axios from 'axios';
 import { doc, updateDoc } from 'firebase/firestore';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../../store/boilersSlice';
@@ -27,6 +27,11 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
   const dragItem = useRef<any>(null);
   const dragOverItem = useRef<any>(null);
+
+  useEffect(() => {
+    setTableColumns(boiler?.columns || []);
+  }, [boiler.columns.length]);
+
   const columnOptions = [
     { name: 'K1', desc: 'Kotol 1', unit: '0/1' },
     { name: 'K2', desc: 'Kotol 2', unit: '0/1' },
@@ -138,26 +143,28 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
           <ListItem>
             <ListItemText
               primary="Nastavenie stĺpcov"
-              secondary=" Pri nastavovaní limitov (minimum a maximum) je technicky možné nastaviť maximálne 15 stĺpcov naraz, teda 15
+              secondary="Pri nastavovaní limitov (minimum a maximum) je technicky možné nastaviť maximálne 15 stĺpcov naraz, teda 15
             riadkom viete nastaviť zvlášť 15 minimum a 15 maximum hodnôt. V prípade, že nastavujete viac ako 15tim
             riadkom limity naraz, po zmene prvých 15 kliknite na uložiť a potom pristúpte k nastaveniu ďalších
             znovukliknutím na tlačidlo Nastaviť stĺpce."
             />
           </ListItem>
 
-          {tableColumns?.map((column, index) => (
-            <DragNDropColumn
-              columnOptions={columnOptions}
-              valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
-              key={index}
-              column={column}
-              index={index}
-              onChange={handleChange}
-              onDragStart={() => (dragItem.current = index)}
-              onDragEnter={() => (dragOverItem.current = index)}
-              onDragEnd={handleSort}
-            />
-          ))}
+          {tableColumns?.map((column, index) => {
+            return (
+              <DragNDropColumn
+                columnOptions={columnOptions}
+                valueFromPlaceInSms={columnsValues?.[Number(column.accessor)]}
+                key={index}
+                column={column}
+                index={index}
+                onChange={handleChange}
+                onDragStart={() => (dragItem.current = index)}
+                onDragEnter={() => (dragOverItem.current = index)}
+                onDragEnd={handleSort}
+              />
+            );
+          })}
 
           <div className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white ">
             <Button
