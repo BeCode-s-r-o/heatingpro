@@ -36,9 +36,10 @@ interface Props {
 export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [newPeriod, setNewPeriod] = useState<string>();
-  const [newSmsLimit, setNewSmsLimit] = useState<any>();
+  const [newSmsLimit, setNewSmsLimit] = useState<any>(boiler?.smsLimit);
   const [showConfirmModalPeriodChange, setShowConfirmModalChange] = useState(false);
   const [showConfirmModalSmsLimitChange, setShowConfirmModalSmsLimitChange] = useState(false);
+  const [showConfirmReset, setShowConfirmReset] = useState(false);
   const [showPeriodSetting, setShowPeriodSetting] = useState(false);
   const [showSmsLimitSettings, setShowSmsLimitSettings] = useState(false);
   const [countDown, setCountDown] = useState(30);
@@ -66,6 +67,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   });
 
   const onBoilerReset = async () => {
+    setShowConfirmReset(true);
     const data = {
       phoneNumber: boiler?.phoneNumber,
       boilerId: boiler?.id,
@@ -78,6 +80,9 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       Sentry.captureException(error);
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
+    setTimeout(() => {
+      setShowConfirmReset(false);
+    }, 3000);
   };
 
   const sendSMSToGetData = async () => {
@@ -204,6 +209,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   const today = getCurrentDate();
   const numberOfDailySMS = boiler?.requestedSMS?.filter((item) => item.dateOfRequest === today).length;
   const currentSmsLimit = smsLimitOptions.find((option) => option.value === boiler?.smsLimit)?.smsPerPeriod;
+
   return (
     <>
       <div className="flex flex-col w-full px-24 sm:px-32">
@@ -322,6 +328,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"
               variant="contained"
+              disabled={showConfirmReset}
               color="secondary"
               startIcon={
                 <FuseSvgIcon className="text-48 text-white" size={24}>
@@ -330,7 +337,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               }
               onClick={onBoilerReset}
             >
-              Reset Kotolne
+              {showConfirmReset ? 'Resetujem...' : 'Resetovať'}
             </Button>
             {boiler && (
               <>
@@ -376,9 +383,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select-2" //@ts-ignore
-              value={smsLimitOptions.find((option) => option.value === newSmsLimit)?.smsPerPeriod}
-              className="h-20"
+              value={smsLimitOptions.find((option) => option.value === newSmsLimit)?.value}
+              className="h-20 w-100"
               onChange={handleSmsLimitChange}
+              style={{ minWidth: '100px' }}
             >
               {smsLimitOptions.map((option, i) => (
                 <MenuItem key={i} value={option.value}>
