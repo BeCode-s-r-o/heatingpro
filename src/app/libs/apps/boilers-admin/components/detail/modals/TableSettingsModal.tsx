@@ -73,7 +73,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   };
 
   const handleChange = useCallback((columnID, attribute, value) => {
-    if ((attribute === 'min' && value < 1) || (attribute === 'max' && value > 99)) {
+    if ((attribute === 'min' && value < 0) || (attribute === 'max' && value > 99)) {
       return;
     }
 
