@@ -72,6 +72,13 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
     getEffectivityConstant();
   }, []);
 
+  const toFloatWithDot = (value) => {
+    if (typeof value === 'string') {
+      value = value.replace(',', '.');
+    }
+    return parseFloat(value);
+  };
+
   useEffect(() => {
     setColumns(boiler?.monthTable.columns || []);
   }, [boiler]);
@@ -86,15 +93,15 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
       const voKey = `VO${i}`;
 
       if (hasPropertiesAndNotDash(row, prevRow, voKey)) {
-        sumOfDiffs += row[voKey] - prevRow[voKey];
+        sumOfDiffs += toFloatWithDot(row[voKey]) - toFloatWithDot(prevRow[voKey]);
       }
     }
 
     if (hasPropertiesAndNotDash(row, prevRow, 'MT TUV')) {
-      sumOfDiffs += row['MT TUV'] - prevRow['MT TUV'];
+      sumOfDiffs += toFloatWithDot(row['MT TUV']) - toFloatWithDot(prevRow['MT TUV']);
     }
 
-    const gasDiff = row['Plyn'] - prevRow['Plyn'];
+    const gasDiff = toFloatWithDot(row['Plyn']) - toFloatWithDot(prevRow['Plyn']);
 
     const voDiffInKwh = sumOfDiffs * 277.778; // 1GJ = 277.778 kWh
     const gasDiffInKwh = gasDiff * 10.55; // 1m3 = 10.55 kWh

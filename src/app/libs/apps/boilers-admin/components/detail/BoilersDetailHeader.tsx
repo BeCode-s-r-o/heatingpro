@@ -74,7 +74,12 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     };
     try {
       await axios.post('https://api.monitoringpro.sk/reset-boiler', data);
-      dispatch(showMessage({ message: 'Kotolňa bola úspešne resetovaná.' }));
+      dispatch(
+        showMessage({
+          message:
+            'Odoslaná požiadavka na reset kotolne. Reset bude potvrdený zmenou dátumu v hlavičke v sekcii Posledný reset',
+        })
+      );
       dispatch(getBoiler(boiler?.id || ''));
     } catch (error) {
       Sentry.captureException(error);

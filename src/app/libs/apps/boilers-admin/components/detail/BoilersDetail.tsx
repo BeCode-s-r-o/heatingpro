@@ -20,6 +20,7 @@ const BoilersDetail = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const { data: user } = useSelector(selectUser);
+  const [loading, setLoading] = useState(false);
 
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const isAdmin = user?.role === 'admin';
@@ -34,6 +35,7 @@ const BoilersDetail = () => {
 
   useEffect(() => {
     if (isAdmin || isStaff) {
+      setLoading(true);
       dispatch(getBoilers());
     }
   }, [dispatch]);
@@ -75,7 +77,7 @@ const BoilersDetail = () => {
               style={{ textAlign: 'center', width: '100%', marginTop: '25%' }}
               className="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate"
             >
-              Kotolňa neexistuje
+              {loading ? 'Načítavam' : 'Kotolňa neexistuje'}
             </Typography>
           )
         }

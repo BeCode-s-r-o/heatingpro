@@ -67,8 +67,23 @@ function ActivitiesPage() {
 
   const handleSaveEffectivityConstant = async () => {
     const effectivityRef = collection(getFirestore(), 'effectivityConstant');
+
+    // Convert the value to float with decimal dot
+    const toFloatWithDot = (value) => {
+      if (typeof value === 'string') {
+        value = value.replace(',', '.');
+      }
+      return parseFloat(value);
+    };
+
     Object.entries(effectivityConstant).forEach(async ([year, months]) => {
-      await setDoc(doc(effectivityRef, year), months);
+      // Convert months to float with decimal dot
+      const convertedMonths = {};
+      Object.entries(months).forEach(([key, val]) => {
+        convertedMonths[key] = toFloatWithDot(val);
+      });
+
+      await setDoc(doc(effectivityRef, year), convertedMonths);
     });
     dispatch(showMessage({ message: 'Spalné teplo zemného plynu bolo uložené' }));
   };
@@ -97,7 +112,6 @@ function ActivitiesPage() {
                           <ListItem key={`${year}-${monthIndex}`}>
                             <TextField
                               className={`w-full ${!value ? 'red-color' : ''}`}
-                              type="number"
                               label={`Spalné teplo zemného plynu - ${moment
                                 .months()
                                 [parseInt(monthIndex, 10)].toUpperCase()} ${year}`}
@@ -106,8 +120,7 @@ function ActivitiesPage() {
                               disabled={isPast && user?.role !== 'admin'}
                               onChange={({ target: { value: val } }) => {
                                 const newEffectivityConstant = { ...effectivityConstant };
-                                const parsedFloat = parseFloat(val);
-                                newEffectivityConstant[year][monthIndex] = parsedFloat;
+                                newEffectivityConstant[year][monthIndex] = val;
                                 setEffectivityConstant(newEffectivityConstant);
                               }}
                             />

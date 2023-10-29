@@ -58,14 +58,16 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   });
   const [rows, setRows] = useState<TBoilerNote[]>([]);
 
-  const [newRecord, setNewRecord] = useState({
+  const defaultNewRecord = {
     date: todayDate,
     note: '',
     createdBy: user.data.name,
     confirmedBy: '',
     signatureImgURL: null,
     id: self.crypto.randomUUID(),
-  });
+  };
+
+  const [newRecord, setNewRecord] = useState(defaultNewRecord);
   const handleClickOpen = () => {
     setShowDeleteRowsConfirmModal(true);
   };
@@ -82,13 +84,14 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   const addNewRecord = () => {
     let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
     let newRecordRef = doc(db, 'boilers', id);
-    let updatedRows = [...rows, createdRecord];
+    let updatedRows = [createdRecord, ...rows];
 
     try {
       updateDoc(newRecordRef, { notes: updatedRows });
       setShowNewNoteModal(false);
       setRows(updatedRows);
       dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
+      setNewRecord(defaultNewRecord);
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
@@ -174,7 +177,11 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     },
   ];
   const handleCleanCalendar = () => {
-    setRows(defaultRows);
+    const newRows = boiler?.notes || [];
+    const sortedByDate = [...newRows].sort(
+      (a, b) => moment(b.date, 'DD.MM.YYYY').valueOf() - moment(a.date, 'DD.MM.YYYY').valueOf()
+    );
+    setRows(sortedByDate);
     setFilterDate(undefined);
   };
 
@@ -188,7 +195,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       boilerID: boiler?.id,
       user: user,
       date: getCurrentDate(),
-      dateForFilter: filterDate ? filterDate : 'all',
+      dateForFilter: filterDate ? `${filterDate}` : 'all',
     };
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
