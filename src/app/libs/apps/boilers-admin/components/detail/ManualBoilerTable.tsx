@@ -244,7 +244,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
         const color = params.value > 0.8 ? 'green' : params.value > 0.7 ? 'orange' : 'red';
         return (
           <Typography fontWeight="bold" color={color}>
-            {params.value !== '-' ? `${params.value * 100}%` : '-'}
+            {params.value !== '-' ? `${Number(params.value * 100).toFixed(2)}%` : '-'}
           </Typography>
         );
       },
