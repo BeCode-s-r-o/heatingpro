@@ -95,6 +95,21 @@ function ActivitiesPage() {
           <>
             <div className="flex flex-col flex-auto px-24 py-40 sm:px-64 sm:pt-72 sm:pb-80">
               <Typography className="text-4xl font-extrabold tracking-tight leading-none">Nastavenia</Typography>
+              <Typography className="mt-3 mb-5 text-2xl font-extrabold tracking-tight leading-none">
+                Spalné teplo zemného plynu
+              </Typography>
+              <Typography className="tracking-tight leading-none">
+                Zaznamenanie hodnôt o Spalnom teple zemného plynu.
+                <br /> Informácie o aktuálnych hodnotách Spalného tepla zemného plynu nájdete na linku tu:
+                <br />
+                <a
+                  href="https://www.spp-distribucia.sk/dodavatelia/informacie/zlozenie-zemneho-plynu-a-emisny-faktor/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Zloženie zemného plynu a emisný faktor - SPP Distribúcia
+                </a>
+              </Typography>
               <List className="mt-32">
                 {Object.entries(effectivityConstant)
                   .reverse()

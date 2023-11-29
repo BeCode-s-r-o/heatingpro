@@ -1,6 +1,7 @@
 import { lazy } from 'react';
 
 const ActivitiesPage = lazy(() => import('./ActivitiesPage'));
+const ContactView = lazy(() => import('../contacts/contact/ContactView'));
 
 const activitiesPageConfig = {
   settings: {
@@ -12,6 +13,10 @@ const activitiesPageConfig = {
     {
       path: '/nastavenia',
       element: <ActivitiesPage />,
+    },
+    {
+      path: '/kontakt',
+      element: <ContactView />,
     },
   ],
 };

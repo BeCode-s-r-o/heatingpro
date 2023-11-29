@@ -61,6 +61,23 @@ const navigationConfig = [
       },
     ],
   },
+  {
+    id: 'contact',
+    title: 'Kontakt',
+    subtitle: 'V prípade problémov nás kontaktujte',
+    type: 'group',
+    auth: authRoles.allRoles,
+    icon: 'heroicons-outline:phone',
+    children: [
+      {
+        id: 'pages.contact',
+        title: 'Kontakt',
+        type: 'item',
+        icon: 'heroicons-outline:information-circle',
+        url: '/kontakt',
+      },
+    ],
+  },
 ];
 
 export default navigationConfig;
