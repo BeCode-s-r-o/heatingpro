@@ -47,6 +47,24 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   const [isInfSmsTimerActive, setIsInfSmsTimerActive] = useState(false);
   const user = useSelector(selectUser);
   const dispatch = useDispatch<AppDispatch>();
+  const [canReloadPage, setCanReloadPage] = useState({ reload: false, time: 30 });
+  const [startCountdown, setStartCountdown] = useState(false);
+
+  useEffect(() => {
+    let interval: any = null;
+
+    if (startCountdown && canReloadPage.time > 0) {
+      interval = setInterval(() => {
+        setCanReloadPage((prevState) => ({ ...prevState, time: prevState.time - 1 }));
+      }, 1000);
+    } else if (canReloadPage.time === 0) {
+      clearInterval(interval);
+      window.location.reload();
+      setCanReloadPage({ reload: true, time: 0 });
+    }
+
+    return () => clearInterval(interval);
+  }, [canReloadPage.time, startCountdown]);
 
   useEffect(() => {
     setNewPeriod(boiler?.period);
@@ -112,6 +130,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
   };
 
   const sendSMSToGetInf = async () => {
+    setStartCountdown(true);
     const data = {
       phoneNumber: boiler?.phoneNumber,
       boilerId: boiler?.id,
@@ -125,6 +144,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
   };
+
   const increaseNumberOfSendDailySMS = () => {
     const boilerRef = doc(db, 'boilers', boiler?.id || '');
     const newArrayOfRequestedSMS = boiler?.requestedSMS.filter((item) => item.dateOfRequest === today) || [];
@@ -314,7 +334,11 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               onClick={sendSMSToGetInf}
               disabled={isInfSmsTimerActive}
             >
-              {isInfSmsTimerActive ? `INF SMS vyžiadaná` : 'INF SMS'}
+              {isInfSmsTimerActive
+                ? canReloadPage.time <= 25
+                  ? `Refresh stránky o ${canReloadPage.time}`
+                  : `INF SMS vyžiadaná`
+                : 'INF SMS'}
             </Button>
             <Button
               className="whitespace-nowrap w-full mx-20 sm:w-fit"

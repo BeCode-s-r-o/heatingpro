@@ -27,6 +27,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
 
   const getMinutesString = () => {
     const minutes = moment().diff(moment(boiler?.infSMS?.lastUpdate), 'minutes');
+    if (minutes < 0) return 'pred menej ako minútou';
     if (minutes === 1) return 'pred 1 minútou';
     if (minutes > 1 && minutes < 5) return 'pred ' + minutes + ' minútami';
     else return '';
@@ -182,7 +183,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
             Informácie o kotolni{' '}
             {boiler?.infSMS?.lastUpdate &&
             moment().diff(moment(boiler.infSMS.lastUpdate), 'minutes') < 5 &&
-            moment().diff(moment(boiler.infSMS.lastUpdate), 'minutes') > 0
+            moment().diff(moment(boiler.infSMS.lastUpdate), 'minutes') >= 0
               ? `- nové dáta (${getMinutesString()})`
               : ''}
           </Button>
