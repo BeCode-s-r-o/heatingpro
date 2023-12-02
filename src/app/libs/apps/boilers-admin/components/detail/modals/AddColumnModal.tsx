@@ -158,7 +158,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
       <div className="max-w-[98vw] overflow-x-scroll min-h-full">
         <List className="w-[550px]">
           <ListItem>
-            <ListItemText primary="Upravovanie stĺpcov" />
+            <ListItemText primary="Nastavenie stĺpcov" />
           </ListItem>
           <form onSubmit={submit}>
             {formFields.map((field, index) => {
