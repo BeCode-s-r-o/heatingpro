@@ -119,7 +119,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
           if (column && column.unit === 'bar') {
             const min = parseFloat(column.min.replaceAll(',', '.')) * 10;
             const max = parseFloat(column.max.replaceAll(',', '.')) * 10;
-            console.log(min, max);
+
             const limit = `${min}${max}`;
             return {
               columnAccessor: column.accessor,
