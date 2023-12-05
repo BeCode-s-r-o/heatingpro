@@ -84,25 +84,31 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         className="w-[80px] px-6"
       />
       <TextField
-        type="number"
+        type={column.unit === 'bar' ? 'text' : 'number'}
         label="Min."
-        inputProps={{
-          step: column.unit === 'bar' ? '0.1' : '1',
-        }}
         value={column.min}
         name={column.accessor}
-        onChange={(e) => onChange(column.accessor, 'min', Number(e.target.value))}
+        onChange={(e) =>
+          onChange(
+            column.accessor,
+            'min',
+            column.unit === 'bar' ? e.target.value.replaceAll(',', '.') : Number(e.target.value)
+          )
+        }
         className="w-[70px] pr-6"
       />
       <TextField
-        type="number"
+        type={column.unit === 'bar' ? 'text' : 'number'}
         label="Max."
-        inputProps={{
-          step: column.unit === 'bar' ? '0.1' : '1',
-        }}
         value={column.max}
         name={column.accessor}
-        onChange={(e) => onChange(column.accessor, 'max', Number(e.target.value))}
+        onChange={(e) =>
+          onChange(
+            column.accessor,
+            'max',
+            column.unit === 'bar' ? e.target.value.replaceAll(',', '.') : Number(e.target.value)
+          )
+        }
         className="w-[70px]"
       />
       <Switch

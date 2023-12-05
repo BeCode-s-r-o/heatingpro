@@ -117,8 +117,9 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
         const arrayOfLimitsForSms = arrayOfLimits.map((accessor) => {
           const column = tableColumns.find((column) => column.accessor === accessor);
           if (column && column.unit === 'bar') {
-            const min = column.min * 10;
-            const max = column.max * 10;
+            const min = parseFloat(column.min.replaceAll(',', '.')) * 10;
+            const max = parseFloat(column.max.replaceAll(',', '.')) * 10;
+            console.log(min, max);
             const limit = `${min}${max}`;
             return {
               columnAccessor: column.accessor,
