@@ -168,11 +168,15 @@ input:-webkit-autofill:active {
 }
 
 @media screen and (min-width: 1007px) {
-  #infsmsbutton{
+  #infsmsbutton,#reload-btn{
    margin-right: 0;
+  }
+  #header-buttons{
+    gap:0;
   }
 }
   
+
 
 
 

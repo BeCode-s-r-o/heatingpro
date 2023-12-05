@@ -1,5 +1,6 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
+import { IoReload } from 'react-icons/io5';
 import {
   Avatar,
   Dialog,
@@ -320,7 +321,20 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               </div>
             </div>
           </div>
-          <div className="flex items-center flex-wrap md:flex-nowrap gap-12 mt-24 sm:mt-0 sm:mx-8 md:space-x-12">
+          <div
+            className="flex items-center flex-wrap md:flex-nowrap gap-12 mt-24 sm:mt-0 sm:mx-8 md:space-x-12"
+            id="header-buttons"
+          >
+            <Button
+              className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
+              variant="outlined"
+              color="primary"
+              id="reload-btn"
+              startIcon={<IoReload />}
+              onClick={() => window.location.reload()}
+            >
+              Refresh
+            </Button>
             <Button
               className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
@@ -341,7 +355,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                 : 'INF SMS'}
             </Button>
             <Button
-              className="whitespace-nowrap w-full mx-20 sm:w-fit"
+              className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
               color="primary"
               startIcon={
@@ -355,7 +369,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
               {isTimerActive ? `Dáta vyžiadané` : 'Vyžiadať data'}
             </Button>
             <Button
-              className="whitespace-nowrap w-full mx-20 sm:w-fit"
+              className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
               disabled={showConfirmReset}
               color="secondary"
