@@ -32,6 +32,9 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
   const [error, setError] = useState<string>('');
   const initialHeaderState = {
     serialNumber: '',
+    serialNumberAj: '',
+    serialNumberEj: '',
+    serialNumberEj2: '',
     instalationDate: '',
     avatar: '',
     name: '',
@@ -186,9 +189,42 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
             <TextField
               className="w-[500px]"
               type="text"
-              label="Sériové číslo"
+              label="Sériové číslo MJ"
               value={header.serialNumber}
-              placeholder="Sériové číslo"
+              placeholder="Sériové číslo MJ"
+              name="serialNumber"
+              onChange={handleHeaderChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Sériové číslo AJ"
+              value={header.serialNumberAj}
+              placeholder="Sériové číslo AJ"
+              name="serialNumber"
+              onChange={handleHeaderChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Sériové číslo EJ"
+              value={header.serialNumberEj}
+              placeholder="Sériové číslo EJ"
+              name="serialNumber"
+              onChange={handleHeaderChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-[500px]"
+              type="text"
+              label="Sériové číslo EJ 2"
+              value={header.serialNumberEj2}
+              placeholder="Sériové číslo EJ 2"
               name="serialNumber"
               onChange={handleHeaderChange}
             />

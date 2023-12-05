@@ -86,9 +86,26 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
               {boiler?.header.isPaid ? 'Zaplatené' : 'Nezaplatené'}
             </strong>
           </Typography>
-          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-            <strong className="font-semibold">Sériové číslo:</strong> {boiler?.header.serialNumber}
-          </Typography>
+          {boiler?.header.serialNumber && (
+            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+              <strong className="font-semibold">Sériové číslo MJ:</strong> {boiler?.header.serialNumber}
+            </Typography>
+          )}
+          {boiler?.header.serialNumberAj && (
+            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+              <strong className="font-semibold">Sériové číslo AJ:</strong> {boiler?.header.serialNumberAj}
+            </Typography>
+          )}
+          {boiler?.header.serialNumberEj && (
+            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+              <strong className="font-semibold">Sériové číslo EJ:</strong> {boiler?.header.serialNumberEj}
+            </Typography>
+          )}
+          {boiler?.header.serialNumberEj2 && (
+            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+              <strong className="font-semibold">Sériové číslo EJ 2:</strong> {boiler?.header.serialNumberEj2}
+            </Typography>
+          )}
 
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Dátum inštalácie:</strong> {boiler?.header.instalationDate}

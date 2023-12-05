@@ -75,7 +75,10 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   };
 
   const handleChange = useCallback((columnID, attribute, value) => {
-    if ((attribute === 'min' && value < 0) || (attribute === 'max' && value > 99)) {
+    const col = tableColumns.find((column) => column.accessor === columnID);
+    const isVT = col?.columnName === 'VT';
+
+    if ((attribute === 'min' && value < 0 && !isVT) || (attribute === 'max' && value > 99)) {
       return;
     }
 
@@ -127,8 +130,8 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
             };
           }
           if (column) {
-            const min = column.min < 10 ? `0${column.min}` : column.min;
-            const max = column.max < 10 ? `0${column.max}` : column.max;
+            const min = column.min < 10 && column.min > -10 ? `0${column.min}` : column.min;
+            const max = column.max < 10 && column.max > -10 ? `0${column.max}` : column.max;
             const limit = `${min}${max}`;
             return {
               columnAccessor: column.accessor,

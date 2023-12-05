@@ -98,6 +98,9 @@ export interface TBoilerInfo {
   avatar: string;
   withService: boolean;
   isPaid: boolean;
+  serialNumberAj: string;
+  serialNumberEj: string;
+  serialNumberEj2: string;
 }
 
 interface Body {

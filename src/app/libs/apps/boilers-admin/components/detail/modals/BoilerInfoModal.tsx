@@ -216,8 +216,41 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
             <TextField
               className="w-full"
               type="text"
-              label="Sériové číslo"
+              label="Sériové číslo MJ"
               value={headerData.serialNumber}
+              name="serialNumber"
+              onChange={handleChange}
+              disabled={user?.role === 'obsluha' || user?.role === 'user'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Sériové číslo AJ"
+              value={headerData.serialNumberAj}
+              name="serialNumber"
+              onChange={handleChange}
+              disabled={user?.role === 'obsluha' || user?.role === 'user'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Sériové číslo EJ"
+              value={headerData.serialNumberEj}
+              name="serialNumber"
+              onChange={handleChange}
+              disabled={user?.role === 'obsluha' || user?.role === 'user'}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Sériové číslo EJ 2"
+              value={headerData.serialNumberEj2}
               name="serialNumber"
               onChange={handleChange}
               disabled={user?.role === 'obsluha' || user?.role === 'user'}
