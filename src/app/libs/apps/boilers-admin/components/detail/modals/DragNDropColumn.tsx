@@ -46,9 +46,13 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       onDragOver={(e) => e.preventDefault()}
       className="cursor-move"
     >
-      <Typography className="text-lg font-bold mr-8">
-        {valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
-      </Typography>
+      <TextField
+        type="text"
+        label="Hodnota"
+        value={valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
+        disabled
+        className="w-[85px] "
+      />
       <Autocomplete
         className="w-[165px] "
         disablePortal
