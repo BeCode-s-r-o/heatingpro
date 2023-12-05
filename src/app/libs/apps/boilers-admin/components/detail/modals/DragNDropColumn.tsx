@@ -86,6 +86,9 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       <TextField
         type="number"
         label="Min."
+        inputProps={{
+          step: column.unit === 'bar' ? '0.1' : '1',
+        }}
         value={column.min}
         name={column.accessor}
         onChange={(e) => onChange(column.accessor, 'min', Number(e.target.value))}
@@ -94,6 +97,9 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       <TextField
         type="number"
         label="Max."
+        inputProps={{
+          step: column.unit === 'bar' ? '0.1' : '1',
+        }}
         value={column.max}
         name={column.accessor}
         onChange={(e) => onChange(column.accessor, 'max', Number(e.target.value))}

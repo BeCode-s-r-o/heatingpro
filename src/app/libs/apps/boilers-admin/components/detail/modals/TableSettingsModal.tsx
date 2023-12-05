@@ -97,6 +97,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   }, []);
 
   const sendSmsToChangeLimits = async (limits) => {
+    console.log(limits);
     const data = {
       phoneNumber: boiler?.phoneNumber,
       boilerId: boiler?.id,
