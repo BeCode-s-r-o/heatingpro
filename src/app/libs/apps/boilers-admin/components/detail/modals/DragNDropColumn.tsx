@@ -84,7 +84,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         className="w-[80px] px-6"
       />
       <TextField
-        type={column.unit === 'bar' ? 'text' : 'number'}
+        type={column.unit === 'bar' || column.unit === 'bary' ? 'text' : 'number'}
         label="Min."
         value={column.min}
         name={column.accessor}
@@ -92,13 +92,15 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
           onChange(
             column.accessor,
             'min',
-            column.unit === 'bar' ? e.target.value.replaceAll(',', '.') : Number(e.target.value)
+            column.unit === 'bar' || column.unit === 'bary'
+              ? e.target.value.replaceAll(',', '.')
+              : Number(e.target.value)
           )
         }
         className="w-[70px] pr-6"
       />
       <TextField
-        type={column.unit === 'bar' ? 'text' : 'number'}
+        type={column.unit === 'bar' || column.unit === 'bary' ? 'text' : 'number'}
         label="Max."
         value={column.max}
         name={column.accessor}
@@ -106,7 +108,9 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
           onChange(
             column.accessor,
             'max',
-            column.unit === 'bar' ? e.target.value.replaceAll(',', '.') : Number(e.target.value)
+            column.unit === 'bar' || column.unit === 'bary'
+              ? e.target.value.replaceAll(',', '.')
+              : Number(e.target.value)
           )
         }
         className="w-[70px]"
