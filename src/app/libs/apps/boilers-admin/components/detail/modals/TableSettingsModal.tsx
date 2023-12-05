@@ -115,6 +115,15 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
       if (arrayOfLimits.length > 0) {
         const arrayOfLimitsForSms = arrayOfLimits.map((accessor) => {
           const column = tableColumns.find((column) => column.accessor === accessor);
+          if (column && column.unit === 'bar') {
+            const min = column.min * 10;
+            const max = column.max * 10;
+            const limit = `${min}${max}`;
+            return {
+              columnAccessor: column.accessor,
+              limit: limit,
+            };
+          }
           if (column) {
             const min = column.min < 10 ? `0${column.min}` : column.min;
             const max = column.max < 10 ? `0${column.max}` : column.max;
@@ -141,7 +150,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   return (
     <Drawer anchor="right" open={isOpen} onClose={toggleOpen}>
       <div className="max-w-[98vw] overflow-x-scroll">
-        <List className="w-[750px]">
+        <List className="w-[850px]">
           <ListItem>
             <ListItemText
               primary="Nastavenie stĺpcov"
