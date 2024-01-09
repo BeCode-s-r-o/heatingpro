@@ -1,5 +1,6 @@
 PARAMETRE UŽÍVATEĽSKÉHO ROZHRANIA
 
+
 1. PARAMETRE SYSTEMU
 (Vstupné požiadavky pre funkcie systému vyhodnocovania)
 Systém by mal ideálne prímať SMS cez softwérovu SMS bránu s požadovanou kapacitov pre príjem SMS a mal by byť na to optimalizovaný s možnosťou použitia aj hardwarovej brány.
