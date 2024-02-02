@@ -203,7 +203,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Sériové číslo AJ"
               value={header.serialNumberAj}
               placeholder="Sériové číslo AJ"
-              name="serialNumber"
+              name="serialNumberAj"
               onChange={handleHeaderChange}
             />
           </ListItem>
@@ -214,7 +214,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Sériové číslo EJ"
               value={header.serialNumberEj}
               placeholder="Sériové číslo EJ"
-              name="serialNumber"
+              name="serialNumberEj"
               onChange={handleHeaderChange}
             />
           </ListItem>
@@ -225,7 +225,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               label="Sériové číslo EJ 2"
               value={header.serialNumberEj2}
               placeholder="Sériové číslo EJ 2"
-              name="serialNumber"
+              name="serialNumberEj2"
               onChange={handleHeaderChange}
             />
           </ListItem>
