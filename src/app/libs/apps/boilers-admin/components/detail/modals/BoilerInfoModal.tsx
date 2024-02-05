@@ -347,52 +347,56 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               disabled={user?.role === 'obsluha' || user?.role === 'user'}
             />
           </ListItem>
-          <ListItem>
-            <Select
-              labelId="choice-label-1"
-              id="choice-1"
-              className="w-full"
-              label="Kurič 1, Meno + tel. číslo"
-              name="staff1"
-              value={headerData.staff1}
-              onChange={handleChange}
-              defaultValue={''}
-              disabled={user?.role === 'user' && headerData.withService}
-            >
-              {kurici.map((i) => (
-                <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
-              ))}
-            </Select>
-          </ListItem>
-          <ListItem>
-            {kurici.length > 1 ? (
+          {headerData.withService || (
+            <ListItem>
               <Select
-                labelId="choice-label-2"
-                id="choice-2"
+                labelId="choice-label-1"
+                id="choice-1"
                 className="w-full"
-                label="Kurič 2, Meno + tel. číslo"
-                name="staff2"
-                value={headerData.staff2}
+                label="Kurič 1, Meno + tel. číslo"
+                name="staff1"
+                value={headerData.staff1}
                 onChange={handleChange}
                 defaultValue={''}
-                disabled={user?.role === 'user' && headerData.withService}
+                disabled={user?.role === 'user' || headerData.withService}
               >
                 {kurici.map((i) => (
                   <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
                 ))}
               </Select>
-            ) : (
-              <TextField
-                className="w-full"
-                type="text"
-                label="Kurič 2, Meno + tel. číslo"
-                value={headerData.staff2}
-                name="staff2"
-                onChange={handleChange}
-                disabled={user?.role === 'user' && headerData.withService}
-              />
-            )}
-          </ListItem>
+            </ListItem>
+          )}
+          {headerData.withService || (
+            <ListItem>
+              {kurici.length > 1 ? (
+                <Select
+                  labelId="choice-label-2"
+                  id="choice-2"
+                  className="w-full"
+                  label="Kurič 2, Meno + tel. číslo"
+                  name="staff2"
+                  value={headerData.staff2}
+                  onChange={handleChange}
+                  defaultValue={''}
+                  disabled={user?.role === 'user' && headerData.withService}
+                >
+                  {kurici.map((i) => (
+                    <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
+                  ))}
+                </Select>
+              ) : (
+                <TextField
+                  className="w-full"
+                  type="text"
+                  label="Kurič 2, Meno + tel. číslo"
+                  value={headerData.staff2}
+                  name="staff2"
+                  onChange={handleChange}
+                  disabled={user?.role === 'user' && headerData.withService}
+                />
+              )}
+            </ListItem>
+          )}
           <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
             <Button
               className="whitespace-nowrap"
