@@ -119,7 +119,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           </Typography>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Adresa:</strong>{' '}
-            {boiler?.address.street + ', ' + boiler?.address.city + ', ' + boiler?.address.zip}
+            {boiler?.address?.street + ', ' + boiler?.address?.city + ', ' + boiler?.address.zip}
           </Typography>
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Umiestnenie v objekte:</strong> {boiler?.header.location}

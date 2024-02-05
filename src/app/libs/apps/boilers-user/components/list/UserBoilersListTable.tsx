@@ -57,7 +57,7 @@ export const BoilersListTable = ({ data }: Props) => {
                 </TableCell>
                 <TableCell>
                   <Typography color="text.secondary" className="font-semibold text-12 whitespace-nowrap">
-                    {row.address.street + ', ' + row.address.city}
+                    {row.address?.street + ', ' + row.address?.city}
                   </Typography>
                 </TableCell>
                 <TableCell>

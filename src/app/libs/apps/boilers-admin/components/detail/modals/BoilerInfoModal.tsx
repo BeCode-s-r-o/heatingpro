@@ -273,7 +273,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               className="w-full"
               type="text"
               label="Mesto"
-              value={boilerAddress.city}
+              value={boilerAddress?.city}
               name="city"
               onChange={handleAddressChange}
               disabled={user?.role !== 'admin'}
@@ -284,7 +284,7 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               className="w-full"
               type="text"
               label="Ulica"
-              value={boilerAddress.street}
+              value={boilerAddress?.street}
               name="street"
               onChange={handleAddressChange}
               disabled={user?.role !== 'admin'}

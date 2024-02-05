@@ -266,7 +266,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               type="text"
               label="Ulica  *"
               placeholder="Ulica + číslo"
-              value={address.street}
+              value={address?.street}
               name="street"
               onChange={handleAddressChange}
             />
@@ -276,7 +276,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
               className="w-[500px]"
               type="text"
               label="Mesto  *"
-              value={address.city}
+              value={address?.city}
               name="city"
               onChange={handleAddressChange}
             />
