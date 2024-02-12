@@ -1,11 +1,11 @@
 import { Button, List, ListItem, TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import FuseSvgIcon from '../../../../../@app/core/SvgIcon/FuseSvgIcon';
-import { useState } from 'react';
-import axios from 'axios';
-import { useDispatch } from 'react-redux';
 import { showMessage } from 'app/store/slices/messageSlice';
+import axios from 'axios';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import FuseSvgIcon from '../../../../../@app/core/SvgIcon/FuseSvgIcon';
 
 const defaultValues = {
   name: '',
@@ -80,7 +80,7 @@ const ContactView = () => {
               <FuseSvgIcon>heroicons-outline:phone</FuseSvgIcon>
               <div className="min-w-0 space-y-4">
                 <div className="flex items-center leading-6">
-                  <div className="ml-10">+421 903 162 711</div>
+                  <div className="ml-10">+421 915 373 143</div>
                 </div>
               </div>
             </div>
