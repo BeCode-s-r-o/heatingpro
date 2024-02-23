@@ -76,7 +76,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
         const isCreatedDailyNotes = wasCreatedDailyNote(boiler?.notes, params.value.slice(0, 10));
         return (
           <Tooltip
-            title={isCreatedDailyNotes ? 'V daný deň bol vykonaný zápis' : 'V daný deň nebol vykonaný zápis'}
+            title={isCreatedDailyNotes ? 'V daný deň bol vykonaný záznam' : 'V daný deň nebol vykonaný záznam'}
             placement="top"
           >
             <div className="flex gap-8">
@@ -130,7 +130,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       const reduce = mergedData.reduce(
         (acc, curr, idx) => ({
           lastUpdate: moment(i.timestamp.unix).format('DD.MM.YYYY HH:mm:ss'),
-          id: i.messageID,
+          id: i.id,
           ...acc,
           [String(idx)]: curr ?? '-',
         }),
@@ -170,21 +170,27 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     }
   };
   const defaultRows: any = useMemo(() => generateRows(sortedSMS), [sortedSMS]);
+
   const columns = useMemo(() => generateColumns([...(boiler?.columns || [])]), [boiler]);
 
-  const deleteSelectedRows = () => {
-    const deleteQuery = query(collection(db, 'sms'), where('messageID', 'in', selectedRowsIds));
+  const deleteSelectedRows = async () => {
+    const deleteQuery = query(collection(db, 'sms'), where('id', 'in', selectedRowsIds));
 
     try {
-      getDocs(deleteQuery).then((querySnapshot) => {
-        querySnapshot.forEach((doc) => deleteDoc(doc.ref));
-      });
+      const querySnapshot = await getDocs(deleteQuery);
+
+      // Await all delete operations to complete
+      await Promise.all(querySnapshot.docs.map((doc) => deleteDoc(doc.ref)));
+
+      // After successful deletion
+      dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+      //@ts-ignore
+      setRows((prev) => prev.filter((row) => !selectedRowsIds.includes(row.id)));
+      setShowConfirmModal(false);
     } catch (error) {
+      // Handle errors from the deletion process
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
-    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' })); //@ts-ignore
-    setRows((prev) => prev.filter((row) => !selectedRowsIds.includes(row.id)));
-    setShowConfirmModal(false);
   };
 
   const columnsValues = [...(sortedSMS[0]?.body?.inputData || []), ...(sortedSMS[0]?.body?.digitalInput || [])];
@@ -238,7 +244,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           rows={rows}
           columns={columns}
           disableColumnMenu
-          getRowId={(row) => (row as any).lastUpdate}
+          getRowId={(row) => (row as any).id}
           pageSize={15}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {

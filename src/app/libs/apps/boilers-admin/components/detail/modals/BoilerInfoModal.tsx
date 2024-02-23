@@ -1,6 +1,6 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler, TBoilerInfo } from '@app/types/TBoilers';
-import { MenuItem, Select, Switch, Typography } from '@mui/material';
+import { Switch, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -347,54 +347,28 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               disabled={user?.role === 'obsluha' || user?.role === 'user'}
             />
           </ListItem>
-          {headerData.withService || (
+          {user?.role === 'admin' && (
             <ListItem>
-              <Select
-                labelId="choice-label-1"
-                id="choice-1"
+              <TextField
                 className="w-full"
+                type="text"
                 label="Kurič 1, Meno + tel. číslo"
+                value={headerData.staff2}
                 name="staff1"
-                value={headerData.staff1}
                 onChange={handleChange}
-                defaultValue={''}
-                disabled={user?.role === 'user' || headerData.withService}
-              >
-                {kurici.map((i) => (
-                  <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
-                ))}
-              </Select>
+              />
             </ListItem>
           )}
-          {headerData.withService || (
+          {user?.role === 'admin' && (
             <ListItem>
-              {kurici.length > 1 ? (
-                <Select
-                  labelId="choice-label-2"
-                  id="choice-2"
-                  className="w-full"
-                  label="Kurič 2, Meno + tel. číslo"
-                  name="staff2"
-                  value={headerData.staff2}
-                  onChange={handleChange}
-                  defaultValue={''}
-                  disabled={user?.role === 'user' && headerData.withService}
-                >
-                  {kurici.map((i) => (
-                    <MenuItem value={`${i.name} ${i.phone}`}>{`${i.name} ${i.phone}`}</MenuItem>
-                  ))}
-                </Select>
-              ) : (
-                <TextField
-                  className="w-full"
-                  type="text"
-                  label="Kurič 2, Meno + tel. číslo"
-                  value={headerData.staff2}
-                  name="staff2"
-                  onChange={handleChange}
-                  disabled={user?.role === 'user' && headerData.withService}
-                />
-              )}
+              <TextField
+                className="w-full"
+                type="text"
+                label="Kurič 2, Meno + tel. číslo"
+                value={headerData.staff2}
+                name="staff2"
+                onChange={handleChange}
+              />
             </ListItem>
           )}
           <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">

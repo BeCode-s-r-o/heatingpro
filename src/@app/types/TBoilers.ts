@@ -68,6 +68,7 @@ export type TBoilerColumn = {
 };
 
 export interface TSms {
+  id?: string;
   deviceID: string;
   fromPhoneNumber: string;
   messageID: string;

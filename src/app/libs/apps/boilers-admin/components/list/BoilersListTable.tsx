@@ -9,8 +9,9 @@ import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
 import { selectUser } from 'app/store/userSlice';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { TBoilers } from 'src/@app/types/TBoilers';
+
 interface Props {
   data: TBoilers;
 }
@@ -19,18 +20,13 @@ export const BoilersListTable = ({ data }: Props) => {
   const user = useSelector(selectUser);
   const rolesEnabledSeePhone = ['admin', 'instalater'];
   let columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
-
+  const navigate = useNavigate();
   if (!rolesEnabledSeePhone.includes(user.role)) {
     columns = columns.filter((column) => column !== 'Telefónne číslo SIM');
   }
 
   const rows: any = data;
-  const selectBoilerState = (boiler) => {
-    if (boiler.columns.length === 0) {
-      return 'bg-yellow';
-    }
-    return 'bg-green';
-  };
+
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate">Zoznam systémov</Typography>
@@ -51,7 +47,13 @@ export const BoilersListTable = ({ data }: Props) => {
 
           <TableBody>
             {rows?.map((row, index) => (
-              <TableRow key={index}>
+              <TableRow
+                key={index}
+                style={{ cursor: 'pointer' }}
+                onClick={() => {
+                  navigate(`/systemy/${row.id}`);
+                }}
+              >
                 <TableCell>
                   <Typography
                     color="text.secondary"

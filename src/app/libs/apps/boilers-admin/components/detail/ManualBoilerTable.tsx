@@ -204,10 +204,13 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
     const updatedRows = rows.map((row) => {
       //@ts-ignore
-      if (row.id === rowForEdit.oldId) {
+      if (rowForEdit.oldId && row.id === rowForEdit.oldId) {
         //@ts-ignore
         const { oldId, ...restOfRowForEdit } = rowForEdit;
         return { ...restOfRowForEdit };
+      }
+      if (row.id === rowForEdit.id) {
+        return { ...rowForEdit };
       }
       return row;
     });

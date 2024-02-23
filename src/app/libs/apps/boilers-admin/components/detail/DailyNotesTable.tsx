@@ -217,7 +217,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden" ref={componentRef}>
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
-        Zápisy z dňa {id}
+        Prevádzkové záznamy kotolne {id}
       </Typography>
       {user.role !== 'staff' && (
         <div className="relative my-16">
@@ -367,7 +367,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
             <strong>Pridal</strong>: {record.createdBy}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description" className="mt-8">
-            <strong>Potvrdil</strong>: {record.confirmedBy}
+            <strong>Kompetentná osoba</strong>: {record.confirmedBy}
           </DialogContentText>
           <DialogContentText id="alert-dialog-description" className="mt-8">
             <strong>Záznam</strong>: {record.note}
