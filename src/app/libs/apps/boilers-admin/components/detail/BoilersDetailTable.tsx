@@ -244,7 +244,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
           rows={rows}
           columns={columns}
           disableColumnMenu
-          getRowId={(row) => (row as any).id}
+          getRowId={(row) => (row as any).id || (row as any).lastUpdate}
           pageSize={15}
           checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
