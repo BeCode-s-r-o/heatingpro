@@ -127,9 +127,11 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
           <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
             <strong className="font-semibold">Prevádzkovateľ:</strong> {boiler?.header.operator}
           </Typography>
-          <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
-            <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.provider}
-          </Typography>
+          {boiler?.header.provider && (
+            <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
+              <strong className="font-semibold">Obsluha kotolne:</strong> {boiler?.header.provider}
+            </Typography>
+          )}
           {boiler?.header.staff1 && (
             <Typography className="text-xl pt-7 font-light tracking-tight leading-6 truncate">
               <strong className="font-semibold">Kurič 1:</strong> {boiler?.header.staff1}
