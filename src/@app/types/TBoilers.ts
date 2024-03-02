@@ -102,6 +102,12 @@ export interface TBoilerInfo {
   serialNumberAj: string;
   serialNumberEj: string;
   serialNumberEj2: string;
+  companyDetails?: {
+    name: string;
+    ico: string;
+    email: string;
+    phone: string;
+  };
 }
 
 interface Body {

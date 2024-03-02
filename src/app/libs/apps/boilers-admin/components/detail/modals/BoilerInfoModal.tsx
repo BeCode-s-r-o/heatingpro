@@ -40,11 +40,19 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
     dispatch(getContacts());
   }, []);
 
-  const kurici = allContacts.filter((i) => i.role === 'staff' && i.heaters.includes(boilerData.id));
-
   const handleInputChange = (e, setState) => {
     const { name, value } = e.target;
-
+    if (name.includes('.')) {
+      const [first, second] = name.split('.');
+      setState((prev) => ({
+        ...prev,
+        [first]: {
+          ...prev[first],
+          [second]: value,
+        },
+      }));
+      return;
+    }
     setState((prev) => ({
       ...prev,
       [name]: value,
@@ -371,6 +379,49 @@ function ChangeHeaderInfoModal({ boilerInfo, boilerData, isOpen, toggleOpen }: P
               />
             </ListItem>
           )}
+          <ListItem>
+            <Typography>Firemné údaje</Typography>
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Názov firmy"
+              value={headerData.companyDetails?.name || ''}
+              name="companyDetails.name"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="IČO"
+              value={headerData.companyDetails?.ico || ''}
+              name="companyDetails.ico"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="E-mail"
+              value={headerData.companyDetails?.email || ''}
+              name="companyDetails.email"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <TextField
+              className="w-full"
+              type="text"
+              label="Telefón"
+              value={headerData.companyDetails?.phone || ''}
+              name="companyDetails.phone"
+              onChange={handleChange}
+            />
+          </ListItem>
           <ListItem className="flex justify-end gap-12 sticky bottom-0 z-50 bg-white">
             <Button
               className="whitespace-nowrap"
