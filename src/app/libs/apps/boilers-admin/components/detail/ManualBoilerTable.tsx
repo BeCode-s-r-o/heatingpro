@@ -19,6 +19,7 @@ import { selectUser } from 'app/store/userSlice';
 import axios from 'axios';
 import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
+import { computeEfficiency } from 'monitoringpro-utils';
 import React, { useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -72,44 +73,9 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
     getEffectivityConstant();
   }, []);
 
-  const toFloatWithDot = (value) => {
-    if (typeof value === 'string') {
-      value = value.replace(',', '.');
-    }
-    return parseFloat(value);
-  };
-
   useEffect(() => {
     setColumns(boiler?.monthTable.columns || []);
   }, [boiler]);
-
-  const hasPropertiesAndNotDash = (a, b, key) =>
-    a.hasOwnProperty(key) && b.hasOwnProperty(key) && a[key] !== '-' && b[key] !== '-';
-
-  const computeEfficiency = (row, prevRow, monthlyEffectivityConstant) => {
-    let sumOfDiffs = 0;
-
-    for (let i = 1; i <= 8; i++) {
-      const voKey = `VO${i}`;
-
-      if (hasPropertiesAndNotDash(row, prevRow, voKey)) {
-        sumOfDiffs += toFloatWithDot(row[voKey]) - toFloatWithDot(prevRow[voKey]);
-      }
-    }
-
-    if (hasPropertiesAndNotDash(row, prevRow, 'MT TUV')) {
-      sumOfDiffs += toFloatWithDot(row['MT TUV']) - toFloatWithDot(prevRow['MT TUV']);
-    }
-
-    const gasDiff = toFloatWithDot(row['Plyn']) - toFloatWithDot(prevRow['Plyn']);
-
-    const voDiffInKwh = sumOfDiffs * 277.778; // 1GJ = 277.778 kWh
-    const gasDiffInKwh = gasDiff * 10.55; // 1m3 = 10.55 kWh
-
-    const efficiency = Number((voDiffInKwh / (gasDiffInKwh * monthlyEffectivityConstant)) * 10).toFixed(4);
-
-    return { ...row, ucinnost: efficiency };
-  };
 
   useEffect(() => {
     const sortedRows = [...defaultRows].sort((a, b) => a.id - b.id);
@@ -121,7 +87,6 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
       const monthlyEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
 
       if (!prevRow || !monthlyEffectivityConstant) return { ...row, ucinnost: '-' };
-
       return computeEfficiency(row, prevRow, monthlyEffectivityConstant);
     });
 
