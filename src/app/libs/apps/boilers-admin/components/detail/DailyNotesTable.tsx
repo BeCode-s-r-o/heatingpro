@@ -67,6 +67,37 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     id: self.crypto.randomUUID(),
   };
 
+  const renderCellWithOnclick = (params, whatToRender?: any) => {
+    const onClick = (e) => {
+      e.stopPropagation(); // don't select this row after clicking
+
+      const api = params.api;
+      const thisRow = {};
+
+      api
+        .getAllColumns()
+        .filter((c) => c.field !== '__check__' && !!c)
+        .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
+      //@ts-ignore
+      setRecord(thisRow);
+      setShowDetailNote(true);
+    };
+
+    if (!whatToRender) {
+      return (
+        <span onClick={onClick} style={{ cursor: 'pointer' }}>
+          <Typography>{params.formattedValue || ''}</Typography>
+        </span>
+      );
+    }
+
+    return (
+      <span onClick={onClick} style={{ cursor: 'pointer' }}>
+        {whatToRender}
+      </span>
+    );
+  };
+
   const [newRecord, setNewRecord] = useState(defaultNewRecord);
   const handleClickOpen = () => {
     setShowDeleteRowsConfirmModal(true);
@@ -121,6 +152,9 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       minWidth: 100,
       flex: 0,
       sortable: false,
+      renderCell: (params) => {
+        return renderCellWithOnclick(params);
+      },
     },
     {
       field: 'note',
@@ -128,6 +162,9 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       flex: 2,
       minWidth: 200,
       sortable: false,
+      renderCell: (params) => {
+        return renderCellWithOnclick(params);
+      },
     },
     {
       field: 'createdBy',
@@ -135,6 +172,9 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       flex: 1,
       minWidth: 150,
       sortable: false,
+      renderCell: (params) => {
+        return renderCellWithOnclick(params);
+      },
     },
     {
       field: 'confirmedBy',
@@ -142,6 +182,9 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       flex: 1,
       minWidth: 150,
       sortable: false,
+      renderCell: (params) => {
+        return renderCellWithOnclick(params);
+      },
     },
 
     { field: 'signatureImgURL', hide: true },
@@ -150,30 +193,13 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       headerName: 'Detail',
       flex: 0,
       sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation(); // don't select this row after clicking
-
-          const api = params.api;
-          const thisRow = {};
-
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== '__check__' && !!c)
-            .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
-          //@ts-ignore
-          setRecord(thisRow);
-          setShowDetailNote(true);
-        };
-
-        return (
-          <>
-            <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
-              heroicons-outline:search
-            </FuseSvgIcon>
-          </>
-        );
-      },
+      renderCell: (params) =>
+        renderCellWithOnclick(
+          params,
+          <FuseSvgIcon o color="action" className="cursor-pointer dont-print">
+            heroicons-outline:search
+          </FuseSvgIcon>
+        ),
     },
   ];
   const handleCleanCalendar = () => {

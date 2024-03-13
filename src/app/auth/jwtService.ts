@@ -60,6 +60,16 @@ export class JwtService extends FuseUtils.EventEmitter {
       const user = auth.currentUser;
       if (user) {
         const userData = await fetchUserData(user.uid);
+        if (userData) {
+          await localStorage.setItem(
+            'monitoringpro-auth',
+            JSON.stringify({
+              name: userData.name,
+              id: userData.id,
+              role: userData.role,
+            })
+          );
+        }
         resolve(userData);
       } else {
         this.logout();
@@ -79,6 +89,7 @@ export class JwtService extends FuseUtils.EventEmitter {
 
   logout = () => {
     auth.signOut();
+    localStorage.removeItem('monitoringpro-auth');
     this.emit('onLogout');
   };
 }
