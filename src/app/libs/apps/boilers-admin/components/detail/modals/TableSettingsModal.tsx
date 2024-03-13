@@ -12,7 +12,6 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
-import { getBoiler } from '../../../store/boilersSlice';
 import { DragNDropColumn } from './DragNDropColumn';
 
 interface Props {
@@ -26,11 +25,12 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   const [arrayOfLimits, setArrayOfLimits] = useState<any[]>([]);
   const [tableColumns, setTableColumns] = useState(boiler?.columns || []);
   const dragItem = useRef<any>(null);
+  const [changedColumnIds, setChangedColumnIds] = useState<string[]>([]);
   const dragOverItem = useRef<any>(null);
 
   useEffect(() => {
     setTableColumns(boiler?.columns || []);
-  }, [boiler.columns.length]);
+  }, [boiler.columns]);
 
   const columnOptions = [
     { name: 'K1P', desc: 'Kotol 1 prívod', unit: '°C' },
@@ -67,45 +67,85 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     const draggedItemContent = _tableColums.splice(dragItem.current, 1)[0];
 
     _tableColums.splice(dragOverItem.current, 0, draggedItemContent);
+    let changedOrderIds: string[] = [];
 
+    const changedOrders = _tableColums.map((i, idx) => {
+      changedOrderIds.push(i.id);
+      if (i.order < Number(dragOverItem.current)) {
+        return { ...i, order: idx };
+      }
+      if (i.order == Number(dragItem.current)) {
+        return { ...i, order: Number(dragOverItem.current) };
+      }
+      if (i.order >= Number(dragOverItem.current)) {
+        return { ...i, order: idx };
+      }
+      return i;
+    });
+    changedOrderIds.push(draggedItemContent.id);
+    setChangedColumnIds((prev) => {
+      return Array(...new Set([...prev, ...changedOrderIds]));
+    });
+
+    setTableColumns(changedOrders);
     dragItem.current = null;
     dragOverItem.current = null;
-
-    setTableColumns(_tableColums);
   };
 
-  const handleChange = useCallback((columnID, attribute, value) => {
-    const col = tableColumns.find((column) => column.accessor === columnID);
-    const isVT = col?.columnName === 'VT';
+  const handleChange = useCallback(
+    (columnAccessor, attribute, value) => {
+      const col = tableColumns.find((column) => column.accessor === columnAccessor);
+      setChangedColumnIds((prev) => {
+        if (col) {
+          //@ts-ignore
+          return prev.includes(col.id) ? prev : [...prev, col.id];
+        }
+        return prev;
+      });
+      const isVT = col?.columnName === 'VT';
 
-    if ((attribute === 'min' && value < 0 && !isVT) || (attribute === 'max' && value > 99)) {
-      return;
-    }
+      if ((attribute === 'min' && value < 0 && !isVT) || (attribute === 'max' && value > 99)) {
+        return;
+      }
 
-    setTableColumns((prevColumns) =>
-      prevColumns.map((column) =>
-        String(column.accessor) === columnID
-          ? {
+      setTableColumns((prevColumns) =>
+        prevColumns.map((column) => {
+          if (column.accessor == columnAccessor) {
+            if (attribute === 'columnName') {
+              const constantAttributes = columnOptions.find((option) => option.name === value);
+              return {
+                ...column,
+                [attribute]: value,
+                ...constantAttributes,
+                headerName: `${constantAttributes?.name}`,
+              };
+            }
+
+            return {
               ...column,
               [attribute]: value,
-              ...(attribute === 'columnName' && columnOptions.find((option) => option.name === value)),
-            }
-          : column
-      )
-    );
+            };
+          }
+          return column;
+        })
+      );
 
-    if (attribute === 'min' || attribute === 'max') {
-      setArrayOfLimits((prevLimits) => (prevLimits.includes(columnID) ? prevLimits : [...prevLimits, columnID]));
-    }
-  }, []);
+      if (attribute === 'min' || attribute === 'max') {
+        setArrayOfLimits((prevLimits) =>
+          prevLimits.includes(columnAccessor) ? prevLimits : [...prevLimits, columnAccessor]
+        );
+      }
+    },
+    [tableColumns]
+  );
 
   const sendSmsToChangeLimits = async (limits) => {
-    console.log(limits);
     const data = {
       phoneNumber: boiler?.phoneNumber,
       boilerId: boiler?.id,
       limits: limits,
     };
+
     try {
       await axiosInstance.post('change-limits', data);
     } catch (error) {
@@ -114,12 +154,12 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
     }
   };
 
-  const saveColumnsForBoilerInFirebase = (columns) => {
+  const saveColumnsForBoilerInFirebase = async () => {
     try {
       if (arrayOfLimits.length > 0) {
         const arrayOfLimitsForSms = arrayOfLimits.map((accessor) => {
           const column = tableColumns.find((column) => column.accessor === accessor);
-          if (column && (column.unit === 'bar' || column.unit === 'bary')) {
+          if (column && (column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary')) {
             const min = parseFloat(column.min.replaceAll(',', '.')) * 10;
             const max = parseFloat(column.max.replaceAll(',', '.')) * 10;
 
@@ -139,12 +179,20 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
             };
           }
         });
+
         sendSmsToChangeLimits(arrayOfLimitsForSms);
       }
-      const orderedColumns = columns.map((column, index) => ({ ...column, order: index }));
-      const boilerRef = doc(db, 'boilers', boiler.id);
-      updateDoc(boilerRef, { columns: orderedColumns });
-      dispatch(getBoiler(boiler?.id || ''));
+      const promises = changedColumnIds.map(async (colId) => {
+        //@ts-ignore
+        const changedCol = tableColumns.find((i) => i.id === colId);
+        if (changedCol) {
+          const ref = doc(db, 'dailyTableColumns', changedCol.id);
+          return await updateDoc(ref, changedCol);
+        }
+      });
+
+      await Promise.all(promises);
+
       toggleOpen();
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
@@ -187,7 +235,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
               className="whitespace-nowrap"
               variant="contained"
               color="primary"
-              onClick={() => saveColumnsForBoilerInFirebase(tableColumns)}
+              onClick={saveColumnsForBoilerInFirebase}
             >
               Uložiť
             </Button>

@@ -159,25 +159,22 @@ input:-webkit-autofill:active {
   height: 1px !important;
 }
 
-.muiltr-1pqm26d-MuiAvatar-img, #avatar-header>img{
+.muiltr-1pqm26d-MuiAvatar-img,
+#avatar-header > img {
   object-fit: contain !important;
 }
 
-.red-color input, .red-color label{
+.red-color input,
+.red-color label {
   color: #ff0000 !important;
 }
 
 @media screen and (min-width: 1007px) {
-  #infsmsbutton,#reload-btn{
-   margin-right: 0;
+  #infsmsbutton,
+  #reload-btn {
+    margin-right: 0;
   }
-  #header-buttons{
-    gap:0;
+  #header-buttons {
+    gap: 0;
   }
 }
-  
-
-
-
-
-

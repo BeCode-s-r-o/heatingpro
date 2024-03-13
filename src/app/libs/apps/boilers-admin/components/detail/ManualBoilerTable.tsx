@@ -10,24 +10,22 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Stack } from '@mui/system';
-import { DataGrid, GridRowId } from '@mui/x-data-grid';
-import * as Sentry from '@sentry/react';
-import axiosInstance from 'app/config/axiosConfig';
+import { GridRowId } from '@mui/x-data-grid';
+import { DataTable } from 'app/shared/DataTable';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
-import { computeEfficiency } from 'monitoringpro-utils';
-import React, { useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
+import { useFetchPaginated } from 'src/app/hooks/useFetchPaginated';
+import { getPDFVykonnost } from 'src/app/utils/pdfUtils';
 import { db } from 'src/firebase-config';
-import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDatesYears, getCurrentDate } from './functions/datesOperations';
+import { selectBoilerById } from '../../store/boilersSlice';
 import AddColumnModal from './modals/AddColumnModal';
 import AddRowModal from './modals/AddRowModal';
 import ConfirmModal from './modals/ConfirmModal';
@@ -50,79 +48,58 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
   const [showAddColumn, setShowAddColumn] = React.useState(false);
   const [showAddRow, setShowAddRow] = React.useState(false);
   const [showEditRow, setShowEditRow] = React.useState(false);
-  const [rowForEdit, setRowForEdit] = React.useState({ id: '' });
-  const [rows, setRows] = React.useState<any[]>([]);
+  const [rowForEdit, setRowForEdit] = React.useState<any>({ id: '' });
 
-  const [effectivityConstant, setEffectivityConstant] = React.useState({});
+  const [page, setPage] = useState(0);
 
-  useEffect(() => {
-    const getEffectivityConstant = async () => {
-      const docSnap = await getDocs(collection(getFirestore(), 'effectivityConstant'));
-
-      let data = {};
-      docSnap.forEach((document) => {
-        data = {
-          ...data,
-          [document.id]: document.data(),
-        };
-      });
-
-      setEffectivityConstant(data);
-    };
-
-    getEffectivityConstant();
-  }, []);
-
-  useEffect(() => {
-    setColumns(boiler?.monthTable.columns || []);
-  }, [boiler]);
-
-  useEffect(() => {
-    const sortedRows = [...defaultRows].sort((a, b) => a.id - b.id);
-
-    const rowsWithEfficiency = sortedRows.map((row, index) => {
-      const prevRow = sortedRows[index - 1];
-      const year = moment(row.date, 'DD.MM.YYYY').year();
-      const month = moment(row.date, 'DD.MM.YYYY').month();
-      const monthlyEffectivityConstant = effectivityConstant[year]?.[month] ?? 0;
-
-      if (!prevRow || !monthlyEffectivityConstant) return { ...row, ucinnost: '-' };
-      return computeEfficiency(row, prevRow, monthlyEffectivityConstant);
-    });
-
-    setRows(rowsWithEfficiency.sort((a, b) => a.id - b.id));
-  }, [boiler, effectivityConstant]);
+  const options = useMemo(() => ({ id, page: page + 1, date: filterDate }), [id, page, filterDate]);
+  const { data, rowCount, hasMorePages, isLoading, refetch } = useFetchPaginated('third-table-data', options, {
+    rows: [],
+    columns: [],
+  });
 
   const handleClickOpen = () => {
     setShowConfirmModal(true);
   };
 
-  const deleteSelectedRows = () => {
-    const boilerRef = doc(db, 'boilers', id);
-    const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
+  const deleteSelectedRows = async () => {
     try {
-      updateDoc(boilerRef, { monthTable: { columns: columns, rows: filteredRows } });
+      const promises = selectedRowsIds.map(async (selectedId) => {
+        const ref = doc(db, 'monthTableValues', selectedId as string);
+        await deleteDoc(ref);
+      });
+      await Promise.all(promises);
+      refetch();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
       return;
     }
-    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
-    dispatch(getBoiler(id || ''));
+    dispatch(showMessage({ message: 'Záznamy úspešné zmazané' }));
     setShowConfirmModal(false);
+  };
+
+  const getEffectivityColor = (params) => {
+    const { value } = params;
+    if (!value) {
+      return '';
+    }
+
+    const effNumber = Number(value.replace('%', ''));
+    if (!effNumber) {
+      return '';
+    }
+    if (effNumber > 80) {
+      return 'ucinnost-green';
+    }
+    if (effNumber > 70) {
+      return 'ucinnost-yellow';
+    }
+
+    return 'ucinnost-red';
   };
 
   const handleRowChange = (e) => {
     const { name, value } = e.target;
-    if (name === 'date') {
-      const momentDate = moment(value, 'DD.MM.YYYY');
-      const newId = momentDate.isValid() ? momentDate.valueOf() : rowForEdit.id;
-
-      //@ts-ignore
-      setRowForEdit((prev) => {
-        return { ...prev, date: value, oldId: prev.id, id: newId };
-      });
-      return;
-    }
 
     setRowForEdit((prev) => ({
       ...prev,
@@ -132,122 +109,83 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
   const filterRowsByDate = (date) => {
     setFilterDate(date);
-
-    !date ? setRows(defaultRows) : setRows(defaultRows.filter((row) => compareDatesYears(date, row.date)));
+    setPage(0);
   };
   const handleCleanCalendar = () => {
-    setRows(defaultRows);
     setFilterDate(undefined);
-  };
-  const getPDF = async () => {
-    let data = {
-      boilerID: boiler?.id,
-      user: user,
-      date: getCurrentDate(),
-      dateForFilter: filterDate ? filterDate : 'last12months',
-    };
-
-    dispatch(showMessage({ message: 'PDF sa generuje...' }));
-    try {
-      const response = await axiosInstance.post('pdf-vykonnost', data, {
-        responseType: 'blob',
-      });
-      const blobUrl = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement('a');
-      link.href = blobUrl;
-      link.download = `Mesačné odpisy stavu spotreby ${boiler?.id} (3 z 3).pdf`;
-      link.click();
-    } catch (error) {
-      Sentry.captureException(error);
-      dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
-    }
+    setPage(0);
   };
 
-  const saveEditedRow = (e) => {
+  const saveEditedRow = async (e) => {
     e.preventDefault();
-    const boilerRef = doc(db, 'boilers', id);
 
-    const updatedRows = rows.map((row) => {
-      //@ts-ignore
-      if (rowForEdit.oldId && row.id === rowForEdit.oldId) {
-        //@ts-ignore
-        const { oldId, ...restOfRowForEdit } = rowForEdit;
-        return { ...restOfRowForEdit };
-      }
-      if (row.id === rowForEdit.id) {
-        return { ...rowForEdit };
-      }
-      return row;
+    const { id, date, ucinnost, boilerId, oldId, ...edited } = rowForEdit;
+
+    const newDate = moment(date, 'DD.MM.YYYY').valueOf();
+
+    let values = {};
+    Object.entries(edited).forEach((element: any) => {
+      values[element[0]] = typeof element[1] === 'string' ? Number(element[1].replaceAll(',', '.')) : element[1];
     });
 
+    const objectToSave = {
+      ...values,
+      date: newDate,
+    };
+
     try {
-      updateDoc(boilerRef, { monthTable: { columns: columns, rows: updatedRows } });
+      const ref = doc(db, 'monthTableValues', id);
+      await updateDoc(ref, objectToSave);
+      dispatch(showMessage({ message: 'Záznam úspešné uložený' }));
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
-
       setShowEditRow(false);
       return;
+    } finally {
+      setShowEditRow(false);
     }
-    setShowEditRow(false);
-    setRows(updatedRows);
-    dispatch(showMessage({ message: 'Záznam úspešné uložený' }));
-    dispatch(getBoiler(id || ''));
   };
 
-  const formatNumberWithSpaces = (num) => (num ? num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') : '');
-
-  const cols = [
-    { field: 'date', headerName: 'Dátum', minWidth: 100, sortable: false },
-    ...columns.map((column) => ({
-      ...column,
-      sortable: false,
-      renderCell: (params) => formatNumberWithSpaces(params.value),
-    })),
-    {
-      field: 'ucinnost',
-      headerName: 'Účinnosť kotolne',
-      id: 'asdasd',
-      sortable: false,
-      renderCell: (params) => {
-        const color = params.value > 0.8 ? 'green' : params.value > 0.7 ? 'orange' : 'red';
-        return (
-          <Typography fontWeight="bold" color={color}>
-            {params.value !== '-' ? `${Number(params.value * 100).toFixed(2)}%` : '-'}
-          </Typography>
-        );
+  const columnsWithEditIcon = useMemo(
+    () => [
+      ...data.columns.filter((i) => i.field !== 'ucinnost'),
+      {
+        ...data.columns.find((i) => i.field === 'ucinnost'),
+        cellClassName: getEffectivityColor,
       },
-    },
-    rolesEnabledEdit.includes(user.role) && {
-      field: 'id',
-      headerName: 'Upraviť',
-      id: 'ahskjahsf',
-      sortable: false,
-      renderCell: (params) => {
-        const onClick = (e) => {
-          e.stopPropagation();
+      rolesEnabledEdit.includes(user.role) && {
+        field: 'id',
+        headerName: 'Upraviť',
+        id: 'ahskjahsf',
+        sortable: false,
+        renderCell: (params) => {
+          const onClick = (e) => {
+            e.stopPropagation();
 
-          const api = params.api;
-          const thisRow = {};
+            const api = params.api;
+            const thisRow = {};
 
-          api
-            .getAllColumns()
-            .filter((c) => c.field !== '__check__' && !!c)
-            .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
-          setShowEditRow(true);
-          setRowForEdit(
-            //@ts-ignore
-            rows.find((row) => row.id === thisRow.id)
+            api
+              .getAllColumns()
+              .filter((c) => c.field !== '__check__' && !!c)
+              .forEach((c) => (thisRow[c.field] = params.getValue(params.id, c.field)));
+            setShowEditRow(true);
+            setRowForEdit(
+              //@ts-ignore
+              data.rows.find((row) => row.id === thisRow.id)
+            );
+          };
+
+          return (
+            <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
+              material-outline:edit
+            </FuseSvgIcon>
           );
-        };
-
-        return (
-          <FuseSvgIcon onClick={onClick} color="action" className="cursor-pointer dont-print">
-            material-outline:edit
-          </FuseSvgIcon>
-        );
+        },
       },
-    },
-  ].map((i) => ({ ...i, flex: 1 }));
+    ],
+    [data.columns]
+  );
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -291,33 +229,22 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
         </Box>
       </Box>
       <div style={{ height: 400, width: '100%' }}>
-        <DataGrid
-          rows={rows}
-          columns={cols}
-          pageSize={12}
-          disableColumnMenu
-          checkboxSelection={isEditRows}
+        <DataTable
+          rows={data.rows}
+          columns={columnsWithEditIcon}
+          rowCount={rowCount}
+          isEditRows={isEditRows}
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
-          initialState={{
-            sorting: {
-              sortModel: [{ field: 'id', sort: 'desc' }],
-            },
+          page={page}
+          onPageChange={(newPage) => {
+            if (hasMorePages || newPage < page) {
+              setPage(newPage);
+            }
           }}
-          localeText={{
-            MuiTablePagination: {
-              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
-            },
-          }}
-          rowsPerPageOptions={[12]}
-          components={{
-            NoRowsOverlay: () => (
-              <Stack height="100%" alignItems="center" justifyContent="center">
-                Žiadne dáta
-              </Stack>
-            ),
-          }}
+          isLoading={isLoading}
+          getRowId={(row) => (row as any).id || (row as any).id}
         />
       </div>
       <div className="flex gap-16 mt-20 flex-wrap md:flex-nowrap">
@@ -371,7 +298,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
           isOpen={showAddColumn}
           close={() => setShowAddColumn(false)}
           columns={columns}
-          rows={rows}
+          rows={data.rows}
           deviceID={id}
           setColumns={setColumns}
         />
@@ -394,7 +321,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
           isOpen={showAddRow}
           close={() => setShowAddRow(false)}
           columns={columns}
-          existingRows={rows}
+          existingRows={data.rows}
           deviceID={id}
         />
         {rolesEnabledExportAndPrint.includes(user.role) && (
@@ -403,7 +330,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
               className="whitespace-nowrap  w-full sm:w-fit mb-2 dont-print"
               variant="contained"
               color="primary"
-              onClick={getPDF} //TODO call api to create pdf
+              onClick={() => getPDFVykonnost(boiler, user, filterDate, dispatch)}
               startIcon={
                 <FuseSvgIcon className="text-48 text-white " size={24} color="action">
                   material-outline:picture_as_pdf
@@ -442,7 +369,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
               if (key === 'date') {
                 return [textFieldElement, ...acc];
-              } else if (key !== 'ucinnost' && key !== 'id' && key !== 'oldId') {
+              } else if (!['ucinnost', 'id', 'oldId', 'boilerId'].includes(key)) {
                 return [...acc, textFieldElement];
               }
 

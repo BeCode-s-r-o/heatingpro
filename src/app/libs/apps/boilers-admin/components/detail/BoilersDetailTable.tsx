@@ -2,23 +2,23 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { Button, Tooltip } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/system';
-import { DataGrid, GridRowId } from '@mui/x-data-grid';
+import { GridRowId } from '@mui/x-data-grid';
 import * as Sentry from '@sentry/react';
 import axiosInstance from 'app/config/axiosConfig';
+import { DataTable } from 'app/shared/DataTable';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
-import moment from 'moment';
-import React, { useEffect, useMemo, useState } from 'react';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler } from 'src/@app/types/TBoilers';
+import { useFetchPaginated } from 'src/app/hooks/useFetchPaginated';
 import { db } from 'src/firebase-config';
 import { getBoiler, selectBoilerById } from '../../store/boilersSlice';
-import { compareDates, getCurrentDate } from './functions/datesOperations';
+import { getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
@@ -28,11 +28,12 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
   const [filterDate, setFilterDate] = useState<Date>();
-  const [isEditRows, setIsEditRows] = React.useState(false);
+  const [isEditRows, setIsEditRows] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
-  const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
-  const [showConfirmModal, setShowConfirmModal] = React.useState(false);
-  const [rows, setRows] = React.useState([]);
+  const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowId[]>([]);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showHidden, setShowHidden] = useState(false);
+  const [page, setPage] = useState(0);
 
   const rolesEnableDelete = ['admin', 'instalater'];
   const rolesEnableEditColumns = ['admin', 'instalater'];
@@ -42,29 +43,40 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
     dispatch(getBoiler(id || ''));
   }, [id, dispatch]);
 
-  useEffect(() => {
-    setRows(defaultRows);
-  }, [boiler]);
+  const options = useMemo(
+    () => ({ id, page: page + 1, date: filterDate, showHidden }),
+    [id, page, filterDate, showHidden]
+  );
+  const { data, rowCount, hasMorePages, isLoading, refetch } = useFetchPaginated('first-table-data', options, {
+    rows: [],
+    columns: [],
+  });
 
   const wasCreatedDailyNote = (notes, date) => {
     return notes.some((note) => note.date === date);
   };
 
   const filterRowsByDate = (date) => {
+    setPage(0);
     setFilterDate(date);
-
-    !date ? setRows(defaultRows) : setRows(defaultRows.filter((sms) => compareDates(date, sms.lastUpdate)));
   };
+
   const handleCleanCalendar = () => {
-    setRows(defaultRows);
+    setPage(0);
     setFilterDate(undefined);
   };
   const nubmerIsInInterval = (min, max, number) => {
     return number >= min && number <= max;
   };
 
-  const generateColumns = (data: TBoiler['columns']) => {
-    const sortedData = data.sort((i) => i.order);
+  const generateColumns = (columnsData: TBoiler['columns']) => {
+    const prefix = {
+      field: 'prefix',
+      sortable: false,
+      flex: 1,
+      minWidth: 70,
+      headerName: 'Typ',
+    };
 
     const lastUpdate = {
       field: 'lastUpdate',
@@ -87,64 +99,23 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
         );
       },
     };
-    const prefix = {
-      field: 'prefix',
-      sortable: false,
-      flex: 1,
-      minWidth: 70,
-      headerName: 'Typ',
-    };
 
-    const generatedColumns = sortedData.map((item) => {
-      return {
-        field: item.accessor,
-        headerName: `${item.columnName} (${item.unit})`,
-        hide: item.hide,
-        flex: 1,
-        sortable: false,
-        minWidth: 90,
-        renderCell: (params) => {
-          return (
-            <Tooltip title={item.desc === '' ? 'Bez popisu' : item.desc} placement="top">
-              <p className={nubmerIsInInterval(item.min, item.max, params.value) ? 'text-green' : 'text-red'}>
-                {params.value}
-              </p>
-            </Tooltip>
-          );
-        },
-      };
-    });
+    const cellsWithColors = columnsData.map((i: any) => ({
+      ...i,
+      renderCell: (params) => {
+        if (i.field === 'prefix') {
+          return params.value;
+        }
+        return (
+          <Tooltip title={i.desc === '' ? 'Bez popisu' : i.desc} placement="top">
+            <p className={nubmerIsInInterval(i.min, i.max, params.value) ? 'text-green' : 'text-red'}>{params.value}</p>
+          </Tooltip>
+        );
+      },
+    }));
 
-    const allRows =
-      defaultRows[0]?.prefix !== '-' ? [lastUpdate, prefix, ...generatedColumns] : [lastUpdate, ...generatedColumns];
-
-    return allRows;
+    return [lastUpdate, prefix, ...cellsWithColors];
   };
-
-  const generateRows = (data: TBoiler['sms']) => {
-    return data?.map((i) => {
-      const inputData = i.body?.inputData || [];
-      const digitalInput = i.body?.digitalInput || [];
-      const prefix = i.body?.prefix || null;
-      const mergedData = [...inputData, ...digitalInput];
-      const reduce = mergedData.reduce(
-        (acc, curr, idx) => ({
-          lastUpdate: moment(i.timestamp.unix).format('DD.MM.YYYY HH:mm:ss'),
-          id: i.id,
-          ...acc,
-          [String(idx)]: curr ?? '-',
-        }),
-        {}
-      );
-
-      return { prefix: prefix ? prefix : '-', ...reduce };
-    });
-  };
-
-  const sortedSMS = useMemo(
-    () => [...(boiler?.sms || [])].sort((a, b) => b.timestamp.unix - a.timestamp.unix),
-    [boiler]
-  );
 
   const getPDF = async () => {
     let data = {
@@ -169,52 +140,29 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       dispatch(showMessage({ message: 'Vyskytla sa chyba pri generovaní PDF' }));
     }
   };
-  const defaultRows: any = useMemo(() => generateRows(sortedSMS), [sortedSMS]);
 
-  const columns = useMemo(() => generateColumns([...(boiler?.columns || [])]), [boiler]);
+  const columns = useMemo(() => generateColumns(data.columns), [data.columns]);
 
   const deleteSelectedRows = async () => {
-    const deleteQuery = query(collection(db, 'sms'), where('id', 'in', selectedRowsIds));
-
     try {
-      const querySnapshot = await getDocs(deleteQuery);
+      const promises = selectedRowsIds.map(async (selectedId) => {
+        const ref = doc(db, 'sms', selectedId as string);
+        await deleteDoc(ref);
+      });
+      await Promise.all(promises);
 
-      // Await all delete operations to complete
-      await Promise.all(querySnapshot.docs.map((doc) => deleteDoc(doc.ref)));
-
-      // After successful deletion
+      refetch();
       dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
-      //@ts-ignore
-      setRows((prev) => prev.filter((row) => !selectedRowsIds.includes(row.id)));
-      setShowConfirmModal(false);
     } catch (error) {
-      // Handle errors from the deletion process
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    } finally {
+      setShowConfirmModal(false);
     }
   };
 
-  const columnsValues = [...(sortedSMS[0]?.body?.inputData || []), ...(sortedSMS[0]?.body?.digitalInput || [])];
-
-  const fixedBoilerColumns =
-    boiler?.columns.length === columnsValues.length
-      ? boiler?.columns
-      : [
-          ...(boiler?.columns || []),
-          ...columnsValues.slice(boiler?.columns?.length).map((column, index) => {
-            return {
-              unit: '',
-              max: 99,
-              value: column,
-              hide: true,
-              accessor: String(index + (boiler?.columns?.length || 0)),
-              columnName: '',
-              order: index + (boiler?.columns?.length || 0),
-              name: '',
-              min: 0,
-              desc: '',
-            };
-          }),
-        ];
+  useEffect(() => {
+    setShowHidden(isSettingsModalOpen);
+  }, [isSettingsModalOpen]);
 
   return (
     <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -240,29 +188,22 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
         </div>
       )}
       <div style={{ height: 650, width: '100%' }}>
-        <DataGrid
-          rows={rows}
+        <DataTable
+          rowCount={rowCount}
+          rows={data.rows}
+          isEditRows={isEditRows}
           columns={columns}
-          disableColumnMenu
-          getRowId={(row) => (row as any).id || (row as any).lastUpdate}
-          pageSize={15}
-          checkboxSelection={isEditRows}
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
-          rowsPerPageOptions={[15]}
-          localeText={{
-            MuiTablePagination: {
-              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
-            },
+          page={page}
+          onPageChange={(newPage) => {
+            if (hasMorePages || newPage < page) {
+              setPage(newPage);
+            }
           }}
-          components={{
-            NoRowsOverlay: () => (
-              <Stack height="100%" alignItems="center" justifyContent="center">
-                Žiadne dáta
-              </Stack>
-            ),
-          }}
+          isLoading={isLoading}
+          getRowId={(row) => (row as any).id || (row as any).lastUpdate}
         />
       </div>
       <div className="flex gap-16 mt-20 flex-wrap dont-print">
@@ -328,20 +269,9 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
             >
               <FuseSvgIcon className="text-48 mr-6 text-white" size={24}>
                 material-outline:picture_as_pdf
-              </FuseSvgIcon>{' '}
+              </FuseSvgIcon>
               Export
             </Button>
-            {/*             <Button
-              className="whitespace-nowrap w-fit mb-2 dont-print"
-              variant="contained"
-              color="primary"
-              onClick={printTable}
-            >
-              <FuseSvgIcon className="text-48 text-white mr-6" size={24} color="action">
-                material-outline:local_printshop
-              </FuseSvgIcon>
-              Tlač
-            </Button> */}
           </>
         )}
         {boiler && (
@@ -355,14 +285,14 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
                 }}
               />
             ) : (
-              <TableSettingsModal
+              <TableSettingsModal //existing boiler
                 //@ts-ignore
-                boiler={{ ...boiler, columns: fixedBoilerColumns }}
+                boiler={{ ...boiler, columns: data.columns }}
                 isOpen={isSettingsModalOpen}
                 toggleOpen={() => {
                   setIsSettingsModalOpen((prev) => !prev);
                 }}
-                columnsValues={columnsValues}
+                columnsValues={data.columns}
               />
             )}
           </>

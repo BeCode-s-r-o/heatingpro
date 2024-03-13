@@ -278,7 +278,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
                     )}
                   </Typography>
                   <Typography className="text-xl flex gap-6 md:text-3xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
-                    Limit SMS: {boiler?.smsLimit || 'Nenastavený'}
+                    Limit SMS: {boiler?.smsLimit ?? 'Nenastavený'}
                     <small className="mt-0 sm:mt-[4px]">
                       {boiler?.smsLimit
                         ? `(${
@@ -335,25 +335,27 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
             >
               Refresh
             </Button>
-            <Button
-              className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
-              variant="contained"
-              color="primary"
-              id="infsmsbutton"
-              startIcon={
-                <FuseSvgIcon className="text-48 text-white " size={24}>
-                  heroicons-outline:tag
-                </FuseSvgIcon>
-              }
-              onClick={sendSMSToGetInf}
-              disabled={isInfSmsTimerActive}
-            >
-              {isInfSmsTimerActive
-                ? canReloadPage.time <= 25
-                  ? `Refresh stránky o ${canReloadPage.time}`
-                  : `INF SMS vyžiadaná`
-                : 'INF SMS'}
-            </Button>
+            {user.role !== 'user' && (
+              <Button
+                className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
+                variant="contained"
+                color="primary"
+                id="infsmsbutton"
+                startIcon={
+                  <FuseSvgIcon className="text-48 text-white " size={24}>
+                    heroicons-outline:tag
+                  </FuseSvgIcon>
+                }
+                onClick={sendSMSToGetInf}
+                disabled={isInfSmsTimerActive}
+              >
+                {isInfSmsTimerActive
+                  ? canReloadPage.time <= 25
+                    ? `Refresh stránky o ${canReloadPage.time}`
+                    : `INF SMS vyžiadaná`
+                  : 'INF SMS'}
+              </Button>
+            )}
             <Button
               className="whitespace-nowrap w-full sm:mx-20 sm:w-fit"
               variant="contained"
@@ -417,7 +419,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
         <DialogContent>
           <DialogContentText id="alert-dialog-description" className="mt-8">
             <strong>Hodnota: </strong>
-            {smsLimitOptions.find((option) => option.value === newSmsLimit)?.value || 'Nenastavená'}
+            {smsLimitOptions.find((option) => option.value === newSmsLimit)?.value ?? 'Nenastavená'}
           </DialogContentText>
           <Box id="alert-dialog-description" className="mt-8 flex gap-12 items-center">
             <InputLabel id="demo-simple-select-label">

@@ -29,7 +29,6 @@ const ContactView = () => {
   const handleSendEmail = () => {
     setLoading(true);
     axiosInstance.post('contact-form', values).then((e) => {
-      console.log(e);
       dispatch(showMessage({ message: 'Správa bola úspešne odoslaná' }));
       setValues(defaultValues);
       setLoading(false);

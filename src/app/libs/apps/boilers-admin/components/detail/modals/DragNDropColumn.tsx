@@ -46,13 +46,13 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
       onDragOver={(e) => e.preventDefault()}
       className="cursor-move"
     >
-      <TextField
+      {/* <TextField
         type="text"
         label="Hodnota"
         value={valueFromPlaceInSms !== null ? valueFromPlaceInSms : '-'}
         disabled
         className="w-[85px] "
-      />
+      /> */}
       <Autocomplete
         className="w-[165px] "
         disablePortal
@@ -84,7 +84,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         className="w-[80px] px-6"
       />
       <TextField
-        type={column.unit === 'bar' || column.unit === 'bary' ? 'text' : 'number'}
+        type={column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary' ? 'text' : 'number'}
         label="Min."
         value={column.min}
         name={column.accessor}
@@ -92,7 +92,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
           onChange(
             column.accessor,
             'min',
-            column.unit === 'bar' || column.unit === 'bary'
+            column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary'
               ? e.target.value.replaceAll(',', '.')
               : Number(e.target.value)
           )
@@ -100,7 +100,7 @@ export const DragNDropColumn = React.memo(function SettingsColumn({
         className="w-[70px] pr-6"
       />
       <TextField
-        type={column.unit === 'bar' || column.unit === 'bary' ? 'text' : 'number'}
+        type={column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary' ? 'text' : 'number'}
         label="Max."
         value={column.max}
         name={column.accessor}

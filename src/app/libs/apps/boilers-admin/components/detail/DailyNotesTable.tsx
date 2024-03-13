@@ -16,23 +16,25 @@ import {
 } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { Stack } from '@mui/system';
-import { DataGrid, GridRowId } from '@mui/x-data-grid';
+import { GridRowId } from '@mui/x-data-grid';
 import * as Sentry from '@sentry/react';
 import axiosInstance from 'app/config/axiosConfig';
+import { DataTable } from 'app/shared/DataTable';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import moment from 'moment';
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { TBoiler, TBoilerNote } from 'src/@app/types/TBoilers';
+import { useFetchPaginated } from 'src/app/hooks/useFetchPaginated';
 import { db } from 'src/firebase-config';
+import { v4 } from 'uuid';
 import { selectBoilerById } from '../../store/boilersSlice';
-import { compareDates, formatDateToSK, getCurrentDate } from './functions/datesOperations';
+import { formatDateToSK, getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import HandleSignature from './modals/HandleSignature';
 
@@ -56,7 +58,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     confirmedBy: '',
     signatureImgURL: null,
   });
-  const [rows, setRows] = useState<TBoilerNote[]>([]);
+  const [page, setPage] = useState(0);
 
   const defaultNewRecord = {
     date: todayDate,
@@ -65,6 +67,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     confirmedBy: '',
     signatureImgURL: null,
     id: self.crypto.randomUUID(),
+    time: moment().format('HH:mm'),
   };
 
   const renderCellWithOnclick = (params, whatToRender?: any) => {
@@ -102,44 +105,45 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   const handleClickOpen = () => {
     setShowDeleteRowsConfirmModal(true);
   };
-  const defaultRows = boiler?.notes || [];
 
-  useEffect(
-    () =>
-      setRows(
-        [...defaultRows].sort((a, b) => moment(b.date, 'DD.MM.YYYY').valueOf() - moment(a.date, 'DD.MM.YYYY').valueOf())
-      ),
-    [boiler]
-  );
+  const options = useMemo(() => ({ id }), [id]);
+  const { data, rowCount, hasMorePages, isLoading, refetch } = useFetchPaginated('second-table-data', options, {
+    rows: [],
+  });
 
-  const addNewRecord = () => {
-    let createdRecord = { ...newRecord, date: formatDateToSK(newRecord.date) };
-    let newRecordRef = doc(db, 'boilers', id);
-    let updatedRows = [createdRecord, ...rows];
+  const addNewRecord = async () => {
+    const recordId = v4();
+
+    const recordDate = moment(`${newRecord.date} ${newRecord.time}`, 'YYYY-MM-DD HH:mm').valueOf();
+    let createdRecord = { ...newRecord, date: recordDate, id: recordId, boilerId: id };
 
     try {
-      updateDoc(newRecordRef, { notes: updatedRows });
-      setShowNewNoteModal(false);
-      setRows(updatedRows);
+      let ref = doc(db, 'notes', recordId);
+      await setDoc(ref, createdRecord);
       dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
       setNewRecord(defaultNewRecord);
+      refetch();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
+    } finally {
+      setShowNewNoteModal(false);
     }
   };
 
-  const deleteSelectedRows = () => {
-    const boilerRef = doc(db, 'boilers', id);
-    const filteredRows = rows.filter((row) => !selectedRowsIds.includes(row.id));
+  const deleteSelectedRows = async () => {
     try {
-      updateDoc(boilerRef, { notes: filteredRows });
+      const promises = selectedRowsIds.map(async (selectedId) => {
+        const ref = doc(db, 'notes', selectedId as string);
+        await deleteDoc(ref);
+      });
+      await Promise.all(promises);
+      dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
+      refetch();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
-      return;
+    } finally {
+      setShowDeleteRowsConfirmModal(false);
     }
-    dispatch(showMessage({ message: 'Záznam úspešné zmazaný' }));
-    setShowDeleteRowsConfirmModal(false);
-    setRows(filteredRows);
   };
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -149,7 +153,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     {
       field: 'date',
       headerName: `Dátum`,
-      minWidth: 100,
+      minWidth: 150,
       flex: 0,
       sortable: false,
       renderCell: (params) => {
@@ -203,19 +207,15 @@ export const DailyNotesTable = ({ id, componentRef }) => {
     },
   ];
   const handleCleanCalendar = () => {
-    const newRows = boiler?.notes || [];
-    const sortedByDate = [...newRows].sort(
-      (a, b) => moment(b.date, 'DD.MM.YYYY').valueOf() - moment(a.date, 'DD.MM.YYYY').valueOf()
-    );
-    setRows(sortedByDate);
     setFilterDate(undefined);
+    setPage(0);
   };
 
   const filterRowsByDate = (date) => {
     setFilterDate(date);
-
-    !date ? setRows(defaultRows) : setRows(defaultRows.filter((row) => compareDates(date, row.date)));
+    setPage(0);
   };
+
   const getPDF = async () => {
     let data = {
       boilerID: boiler?.id,
@@ -265,27 +265,23 @@ export const DailyNotesTable = ({ id, componentRef }) => {
       )}
 
       <div style={{ height: 300, width: '100%' }}>
-        <DataGrid
-          rows={rows}
+        <DataTable
+          rowCount={rowCount}
+          rows={data.rows}
+          isEditRows={isEditRows}
           columns={columns}
-          pageSize={10}
-          checkboxSelection={isEditRows}
-          disableColumnMenu
           onSelectionModelChange={(ids) => {
             setSelectedRowsIds(ids);
           }}
-          localeText={{
-            MuiTablePagination: {
-              labelDisplayedRows: ({ from, to, count: totalCount }) => `${from}-${to} z ${totalCount}`,
-            },
+          page={page}
+          onPageChange={(newPage) => {
+            if (hasMorePages || newPage < page) {
+              setPage(newPage);
+            }
           }}
-          rowsPerPageOptions={[10]}
-          components={{
-            NoRowsOverlay: () => (
-              <Stack height="100%" alignItems="center" justifyContent="center">
-                Žiadne dáta
-              </Stack>
-            ),
+          isLoading={isLoading}
+          getRowId={(row) => {
+            return row.id;
           }}
         />
       </div>
@@ -422,6 +418,14 @@ export const DailyNotesTable = ({ id, componentRef }) => {
                 inputProps={{ min: '2018-01-01', max: todayDate }}
                 onChange={handleChange}
               />
+              <Input
+                type="time"
+                id="timeForNote"
+                name="time"
+                readOnly={user.role !== 'admin'}
+                value={newRecord.time}
+                onChange={handleChange}
+              />
             </ListItem>
 
             <ListItem className="w-full">
@@ -494,9 +498,9 @@ export const DailyNotesTable = ({ id, componentRef }) => {
         onClose={() => setShowRecordConfirmModal(false)}
         onConfirm={addNewRecord}
         title="Želáte si pridať nový záznam?"
-        message={`Dátum: ${formatDateToSK(newRecord.date)}<br/> Poznámka: ${newRecord.note} <br/> Pridal: ${
-          newRecord.confirmedBy
-        }`}
+        message={`Dátum: ${formatDateToSK(newRecord.date)} ${newRecord.time}<br/> Poznámka: ${
+          newRecord.note
+        } <br/> Pridal: ${newRecord.confirmedBy}`}
         confirmText="Pridať"
         cancelText="Zrušiť"
       />

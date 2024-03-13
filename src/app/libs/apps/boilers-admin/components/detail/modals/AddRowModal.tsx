@@ -1,12 +1,13 @@
-import { Drawer, List, ListItem, ListItemText, TextField, Button, Typography } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { doc, updateDoc } from 'firebase/firestore';
-import { db } from 'src/firebase-config';
-import { useDispatch } from 'react-redux';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { getBoiler } from '../../../store/boilersSlice';
+import { Button, Drawer, List, ListItem, ListItemText, TextField, Typography } from '@mui/material';
 import { AppDispatch } from 'app/store/index';
-import { getCurrentDate } from '../functions/datesOperations';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { doc, setDoc } from 'firebase/firestore';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { db } from 'src/firebase-config';
+import { v4 } from 'uuid';
+
 function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
   const [newRow, setNewRow] = useState<any>();
   const dispatch = useDispatch<AppDispatch>();
@@ -20,31 +21,37 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
     setNewRow((prev) => prev.map((i) => (i.name === e.target.name ? { ...i, [name]: value } : i)));
   };
   function convertRowFromArrayToObject(arr) {
-    //new row must contain the key atribute which is also column name
-    const row = { id: Date.now() };
+    const row = {};
     for (let i = 0; i < arr.length; i++) {
       const obj = arr[i];
       for (let key in obj) {
-        if (key !== 'name') {
-          row[key] = obj[key];
+        if (key !== 'name' && key !== 'unit') {
+          row[key] = obj[key] ? Number(obj[key].replaceAll(',', '.')) : 0;
         }
       }
     }
-    return { ...row, date: getCurrentDate() };
+    return row;
   }
 
   const submit = (e) => {
     e.preventDefault();
     const createdRow = convertRowFromArrayToObject(newRow);
+    const newRowData = {
+      ...createdRow,
+      boilerId: deviceID,
+      date: moment().valueOf(),
+      id: v4(),
+    };
+
     try {
-      const boilerRef = doc(db, 'boilers', deviceID);
-      updateDoc(boilerRef, { monthTable: { rows: [...existingRows, createdRow], columns: columns } });
+      const ref = doc(db, 'monthTableValues', newRowData.id);
+      setDoc(ref, newRowData);
+
       close();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
     dispatch(showMessage({ message: 'Záznam úspešné pridaný' }));
-    dispatch(getBoiler(deviceID || ''));
   };
 
   return (

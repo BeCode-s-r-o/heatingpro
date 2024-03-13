@@ -63,6 +63,7 @@ export type TBoilerColumn = {
   hide?: boolean;
   order: number;
   desc?: string;
+  id: string;
   max: any | null;
   min: any | null;
 };
