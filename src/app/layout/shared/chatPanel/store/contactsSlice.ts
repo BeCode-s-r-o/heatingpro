@@ -1,18 +1,17 @@
 import { TContact } from '@app/types/TContact';
-import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityAdapter } from '@reduxjs/toolkit';
-import { RootState } from 'app/store/index';
-import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
+import FuseUtils from '@app/utils/FuseUtils';
 import history from '@history';
+import { createAsyncThunk, createEntityAdapter, createSelector, createSlice, EntityAdapter } from '@reduxjs/toolkit';
+import axiosInstance from 'app/config/axiosConfig';
+import { RootState } from 'app/store/index';
 import {
   createUserWithEmailAndPassword,
+  fetchSignInMethodsForEmail,
   getAuth,
   sendPasswordResetEmail,
-  fetchSignInMethodsForEmail,
 } from 'firebase/auth';
+import { collection, deleteDoc, doc, getDoc, getDocs, getFirestore, setDoc } from 'firebase/firestore';
 import { secondaryApp } from 'src/firebase-config';
-import FuseUtils from '@app/utils/FuseUtils';
-import { showMessage } from 'app/store/slices/messageSlice';
-import axios from 'axios';
 export const selectSearchText = (state: RootState) => state.contacts.searchText;
 
 export const getContacts = createAsyncThunk('contacts/getContacts', async () => {
@@ -63,7 +62,7 @@ export const removeContact = createAsyncThunk('contactsApp/contacts/removeContac
   const contactRef = doc(getFirestore(), 'users', id);
   const data = { uid: id };
   try {
-    await axios.delete('https://api.monitoringpro.sk/delete-user', { data });
+    await axiosInstance.delete('delete-user', { data });
     await deleteDoc(contactRef);
     return Promise.resolve();
   } catch (error) {

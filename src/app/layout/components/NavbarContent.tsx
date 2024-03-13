@@ -1,5 +1,4 @@
 import FuseScrollbars from '@app/core/Scrollbars';
-import { Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import clsx from 'clsx';
 import { memo } from 'react';
@@ -68,10 +67,6 @@ const NavbarContent = (props) => {
         <UserNavbarHeader />
 
         <Navigation layout="vertical" />
-
-        <div className="flex flex-0 items-center justify-center py-48 opacity-10">
-          <img className="w-full w-160" src="assets/images/logo/logo.png" alt="footer logo" />
-        </div>
       </StyledContent>
     </Root>
   );

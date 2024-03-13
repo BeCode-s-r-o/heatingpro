@@ -5,10 +5,10 @@ import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import * as Sentry from '@sentry/react';
+import axiosInstance from 'app/config/axiosConfig';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import axios from 'axios';
 import { collection, deleteDoc, getDocs, query, where } from 'firebase/firestore';
 import moment from 'moment';
 import React, { useEffect, useMemo, useState } from 'react';
@@ -156,7 +156,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
     try {
-      const response = await axios.post('https://api.monitoringpro.sk/pdf-dennik', data, {
+      const response = await axiosInstance.post('pdf-dennik', data, {
         responseType: 'blob',
       });
       const blobUrl = window.URL.createObjectURL(new Blob([response.data]));

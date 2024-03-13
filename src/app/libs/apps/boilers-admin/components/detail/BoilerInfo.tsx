@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import * as Sentry from '@sentry/react';
+import axiosInstance from 'app/config/axiosConfig';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
-import axios from 'axios';
 import { doc, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import { useState } from 'react';
@@ -56,7 +56,7 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
       period: '0',
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/delete-boiler', data);
+      await axiosInstance.post('delete-boiler', data);
       dispatch(showMessage({ message: 'Kotolňa bola vymazaná.' }));
       const boilerRef = doc(getFirestore(), 'boilers', boiler?.id || '');
       updateDoc(boilerRef, { disabled: true });

@@ -10,10 +10,10 @@ import ListItemText from '@mui/material/ListItemText';
 import TextField from '@mui/material/TextField';
 import { Box } from '@mui/system';
 import * as Sentry from '@sentry/react';
+import axiosInstance from 'app/config/axiosConfig';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import axios from 'axios';
 import { doc, getFirestore, setDoc, updateDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -368,7 +368,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       boilerId: boilerID,
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/config-boiler', data);
+      await axiosInstance.post('config-boiler', data);
     } catch (error) {
       Sentry.captureException(error);
       dispatch(showMessage({ message: 'Vyskytla sa chyba pri vytváraní kotolne!' }));

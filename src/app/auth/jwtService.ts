@@ -40,7 +40,15 @@ export class JwtService extends FuseUtils.EventEmitter {
   signInWithEmailAndPassword = async (email, password) => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = await fetchUserData(userCredential.user.uid);
+      const user: any = await fetchUserData(userCredential.user.uid);
+      await localStorage.setItem(
+        'monitoringpro-auth',
+        JSON.stringify({
+          name: user.name,
+          id: user.id,
+          role: user.role,
+        })
+      );
       return this.emit('onLogin', user);
     } catch (error) {
       throw error;

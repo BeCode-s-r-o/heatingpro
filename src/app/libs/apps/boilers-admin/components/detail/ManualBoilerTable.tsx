@@ -13,10 +13,10 @@ import {
 import { Stack } from '@mui/system';
 import { DataGrid, GridRowId } from '@mui/x-data-grid';
 import * as Sentry from '@sentry/react';
+import axiosInstance from 'app/config/axiosConfig';
 import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import axios from 'axios';
 import { collection, doc, getDocs, getFirestore, updateDoc } from 'firebase/firestore';
 import moment from 'moment';
 import { computeEfficiency } from 'monitoringpro-utils';
@@ -149,7 +149,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
 
     dispatch(showMessage({ message: 'PDF sa generuje...' }));
     try {
-      const response = await axios.post('https://api.monitoringpro.sk/pdf-vykonnost', data, {
+      const response = await axiosInstance.post('pdf-vykonnost', data, {
         responseType: 'blob',
       });
       const blobUrl = window.URL.createObjectURL(new Blob([response.data]));

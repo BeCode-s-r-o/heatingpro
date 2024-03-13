@@ -1,6 +1,5 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { TBoiler } from '@app/types/TBoilers';
-import { IoReload } from 'react-icons/io5';
 import {
   Avatar,
   Dialog,
@@ -16,12 +15,14 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/system';
 import * as Sentry from '@sentry/react';
+import axiosInstance from 'app/config/axiosConfig';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
-import axios from 'axios';
 import { doc, updateDoc } from 'firebase/firestore';
+import moment from 'moment';
 import { useEffect, useState } from 'react';
+import { IoReload } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { getBoiler } from '../../store/boilersSlice';
@@ -29,7 +30,6 @@ import { getCurrentDate } from './functions/datesOperations';
 import ConfirmModal from './modals/ConfirmModal';
 import NewBoilerSettingsModal from './modals/NewBoilerSettingsModal';
 import TableSettingsModal from './modals/TableSettingsModal';
-import moment from 'moment';
 interface Props {
   boiler: TBoiler | undefined;
 }
@@ -92,7 +92,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       boilerId: boiler?.id,
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/reset-boiler', data);
+      await axiosInstance.post('reset-boiler', data);
       dispatch(
         showMessage({
           message:
@@ -120,7 +120,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
     } else {
       try {
         !(user.role === 'admin' || user.role === 'instalater') && increaseNumberOfSendDailySMS();
-        await axios.post('https://api.monitoringpro.sk/get-data', data);
+        await axiosInstance.post('get-data', data);
         dispatch(showMessage({ message: 'Dáta boli úspešne vyžiadané, zobrazia sa do 30 sekúnd.' }));
         setIstimerActive(true);
       } catch (error) {
@@ -137,7 +137,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       boilerId: boiler?.id,
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/boiler-info', data);
+      await axiosInstance.post('boiler-info', data);
       dispatch(showMessage({ message: 'Informačná SMS bola úspešne vyžiadaná, zobrazí sa do 30 sekúnd.' }));
       setIsInfSmsTimerActive(true);
     } catch (error) {
@@ -159,7 +159,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       smsLimit: newSmsLimit,
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/change-sms-limit', data);
+      await axiosInstance.post('change-sms-limit', data);
       const boilerRef = doc(db, 'boilers', boiler?.id || '');
       updateDoc(boilerRef, { smsLimit: newSmsLimit });
       dispatch(showMessage({ message: 'SMS limit bol úspešne zmenený' }));
@@ -181,7 +181,7 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
       period: periodOptions.find((option) => option.period === newPeriod)?.value,
     };
     try {
-      await axios.post('https://api.monitoringpro.sk/change-period', data);
+      await axiosInstance.post('change-period', data);
       const boilerRef = doc(db, 'boilers', boiler?.id || '');
       updateDoc(boilerRef, { period: newPeriod });
       dispatch(showMessage({ message: 'Perióda bola úspešne zmenená' }));

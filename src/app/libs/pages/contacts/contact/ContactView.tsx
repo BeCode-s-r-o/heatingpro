@@ -1,8 +1,8 @@
 import { Button, List, ListItem, TextField } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import axiosInstance from 'app/config/axiosConfig';
 import { showMessage } from 'app/store/slices/messageSlice';
-import axios from 'axios';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import FuseSvgIcon from '../../../../../@app/core/SvgIcon/FuseSvgIcon';
@@ -28,7 +28,7 @@ const ContactView = () => {
 
   const handleSendEmail = () => {
     setLoading(true);
-    axios.post('https://api.monitoringpro.sk/contact-form', values).then((e) => {
+    axiosInstance.post('contact-form', values).then((e) => {
       console.log(e);
       dispatch(showMessage({ message: 'Správa bola úspešne odoslaná' }));
       setValues(defaultValues);
