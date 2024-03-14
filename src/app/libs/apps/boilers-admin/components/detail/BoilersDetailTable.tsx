@@ -10,6 +10,7 @@ import { AppDispatch, RootState } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
 import { selectUser } from 'app/store/userSlice';
 import { deleteDoc, doc } from 'firebase/firestore';
+import moment from 'moment';
 import { useEffect, useMemo, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -27,7 +28,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user = useSelector(selectUser);
-  const [filterDate, setFilterDate] = useState<Date>();
+  const [filterDate, setFilterDate] = useState<any>(new Date(moment().startOf('month').valueOf()));
   const [isEditRows, setIsEditRows] = useState(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowId[]>([]);

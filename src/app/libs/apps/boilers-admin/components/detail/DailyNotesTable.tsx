@@ -43,7 +43,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   const dispatch = useDispatch<AppDispatch>();
   const boiler = useSelector<RootState, TBoiler | undefined>((state) => selectBoilerById(state, id || ''));
   const user: any = useSelector(selectUser);
-  const [filterDate, setFilterDate] = useState<Date>();
+  const [filterDate, setFilterDate] = useState<any>(new Date(moment().startOf('month').valueOf()));
   const [isEditRows, setIsEditRows] = useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = useState<GridRowId[]>([]);
   const [showDeletRowsConfirmModal, setShowDeleteRowsConfirmModal] = useState(false);

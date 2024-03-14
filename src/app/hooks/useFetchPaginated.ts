@@ -9,6 +9,7 @@ export const useFetchPaginated = (endpoint: string, options: any, initial?: any)
   const [refetchIndex, setRefetchIndex] = useState(0);
 
   const getData = useCallback(async () => {
+    setIsLoading(true);
     const {
       data: { isAll, totalLength, ...dataFromBe },
     } = await axiosInstance.post(endpoint, options);

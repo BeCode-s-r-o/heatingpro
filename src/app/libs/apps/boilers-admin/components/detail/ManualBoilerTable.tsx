@@ -41,7 +41,7 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
   const rolesEnabledAddRecord = ['admin', 'staff'];
   const rolesEnabledExportAndPrint = ['admin', 'instalater', 'user'];
   const [columns, setColumns] = React.useState(boiler?.monthTable.columns || []);
-  const [filterDate, setFilterDate] = React.useState<Date>();
+  const [filterDate, setFilterDate] = useState<any>(new Date(moment().startOf('month').valueOf()));
   const [isEditRows, setIsEditRows] = React.useState(false);
   const [selectedRowsIds, setSelectedRowsIds] = React.useState<GridRowId[]>([]);
   const [showConfirmModal, setShowConfirmModal] = React.useState(false);
