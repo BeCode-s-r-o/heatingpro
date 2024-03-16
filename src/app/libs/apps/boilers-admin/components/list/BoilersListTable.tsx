@@ -7,25 +7,43 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
+import axiosInstance from 'app/config/axiosConfig';
 import { selectUser } from 'app/store/userSlice';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { TBoilers } from 'src/@app/types/TBoilers';
 
-interface Props {
-  data: TBoilers;
-}
-
-export const BoilersListTable = ({ data }: Props) => {
+export const BoilersListTable = () => {
   const user = useSelector(selectUser);
+  const [rows, setRows] = useState({});
+  const [loading, setLoading] = useState(true);
   const rolesEnabledSeePhone = ['admin', 'instalater'];
-  let columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
+  const columns = ['Názov kotolne', 'Adresa kotolne', 'ID kotolne', 'Telefónne číslo SIM'];
   const navigate = useNavigate();
-  if (!rolesEnabledSeePhone.includes(user.role)) {
-    columns = columns.filter((column) => column !== 'Telefónne číslo SIM');
-  }
 
-  const rows: any = data;
+  const getData = async () => {
+    setLoading(true);
+    const response = await axiosInstance.get('/get-boilers');
+    setRows(response);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const rowsData: TBoilers = Object.values(rows);
+
+  if (loading) {
+    return (
+      <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+        <Typography className="text-lg font-medium tracking-tight leading-6 truncate text-center">
+          Načítavam dáta...
+        </Typography>
+      </Paper>
+    );
+  }
 
   return (
     <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
@@ -46,7 +64,7 @@ export const BoilersListTable = ({ data }: Props) => {
           </TableHead>
 
           <TableBody>
-            {rows?.map((row, index) => (
+            {rowsData?.map((row, index) => (
               <TableRow
                 key={index}
                 style={{ cursor: 'pointer' }}
