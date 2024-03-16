@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const isDev = false;
+const isDev = true;
 
 const axiosInstance = axios.create({
   baseURL: isDev ? 'http://localhost:5500/' : 'https://api.monitoringpro.sk/',

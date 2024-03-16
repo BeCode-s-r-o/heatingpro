@@ -1,20 +1,8 @@
 import { ISingleRouteConfig } from 'src/@app/types/TRoutes';
-import BoilersConfig from './boilers-admin/BoilersConfig';
-import UserBoilersConfig from './boilers-user/UserBoilersConfig';
-import CalendarAppConfig from './calendar/CalendarAppConfig';
-import ContactsAppConfig from './contacts/ContactsAppConfig';
-import ProfileAppConfig from './profile/ProfileAppConfig';
-import UserAlarmsConfig from './alarms-user/UserAlarmsConfig';
-import AdminAlarmConfig from './alarms-admin/UserAlarmsConfig';
+import BoilersConfig from './boilers/BoilersConfig';
 
-const appsConfigs: ISingleRouteConfig[] = [
-  ContactsAppConfig,
-  CalendarAppConfig,
-  ProfileAppConfig,
-  BoilersConfig,
-  UserBoilersConfig,
-  UserAlarmsConfig,
-  AdminAlarmConfig,
-];
+import ContactsAppConfig from './contacts/ContactsAppConfig';
+
+const appsConfigs: ISingleRouteConfig[] = [ContactsAppConfig, BoilersConfig];
 
 export default appsConfigs;

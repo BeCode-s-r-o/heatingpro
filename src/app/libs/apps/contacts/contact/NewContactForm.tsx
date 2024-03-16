@@ -1,7 +1,7 @@
 import FuseLoading from '@app/core/Loading';
 import NavLinkAdapter from '@app/core/NavLinkAdapter';
 import FuseSvgIcon from '@app/core/SvgIcon';
-import { TUserRoles } from '@app/types/TContact';
+import { useDeepCompareEffect } from '@app/hooks';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
@@ -15,17 +15,16 @@ import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
 import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
+import withReducer from 'app/store/withReducer';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 import { addContact, getContacts, selectAllContacts } from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import { boilersSlice, getBoilers } from '../../boilers/store/boilersSlice';
 import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
-import { boilersSlice, getBoilers } from '../../boilers-admin/store/boilersSlice';
-import withReducer from 'app/store/withReducer';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { selectUser } from 'app/store/userSlice';
-import { useDeepCompareEffect } from '@app/hooks';
 
 import { contactsReducers } from '../../../../layout/shared/chatPanel/store';
 

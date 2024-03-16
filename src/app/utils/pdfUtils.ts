@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/react';
 import axiosInstance from 'app/config/axiosConfig';
 import { showMessage } from 'app/store/slices/messageSlice';
-import { getCurrentDate } from '../libs/apps/boilers-admin/components/detail/functions/datesOperations';
+import { getCurrentDate } from '../libs/apps/boilers/components/detail/functions/datesOperations';
 
 export const getPDFVykonnost = async (boiler, user, filterDate, dispatch) => {
   let data = {

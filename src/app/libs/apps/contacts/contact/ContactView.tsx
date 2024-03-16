@@ -4,6 +4,7 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { TContact } from '@app/types/TContact';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { Tooltip } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -11,14 +12,12 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/system/Box';
 import { AppDispatch, RootState } from 'app/store/index';
-import { useEffect, useState } from 'react';
+import { selectUser } from 'app/store/userSlice';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getContact, selectContactById } from '../../../../layout/shared/chatPanel/store/contactsSlice';
-import { getBoilers, selectAllBoilers, userAssignedHeaters } from '../../boilers-admin/store/boilersSlice';
-import { TBoiler } from '@app/types/TBoilers';
-import { selectUser } from 'app/store/userSlice';
-import { Tooltip } from '@mui/material';
+import { selectContactById } from '../../../../layout/shared/chatPanel/store/contactsSlice';
+import { getBoilers, selectAllBoilers, userAssignedHeaters } from '../../boilers/store/boilersSlice';
 
 const ContactView = () => {
   const { id } = useParams();

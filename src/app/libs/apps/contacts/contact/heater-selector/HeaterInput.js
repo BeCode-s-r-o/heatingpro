@@ -1,15 +1,15 @@
 import FuseSvgIcon from '@app/core/SvgIcon';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
+import { Tooltip } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete/Autocomplete';
 import IconButton from '@mui/material/IconButton';
 import TextField from '@mui/material/TextField';
+import { selectUser } from 'app/store/userSlice';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { selectUser } from 'app/store/userSlice';
-import { Tooltip } from '@mui/material';
-import { getBoilers, selectAllBoilers } from '../../../boilers-admin/store/boilersSlice';
+import { getBoilers, selectAllBoilers } from '../../../boilers/store/boilersSlice';
 
 const schema = yup.object().shape({
   heater: yup.string().required('Pridajte id kotla'),

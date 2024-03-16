@@ -4,8 +4,8 @@ import FuseSvgIcon from '@app/core/SvgIcon';
 import { TContact } from '@app/types/TContact';
 import { yupResolver } from '@hookform/resolvers/yup/dist/yup';
 import _ from '@lodash';
-import { showMessage } from 'app/store/slices/messageSlice';
 import PermDeviceInformationIcon from '@mui/icons-material/PermDeviceInformation';
+import { Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -15,8 +15,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/system/Box';
-import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 import { AppDispatch, RootState } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { selectUser } from 'app/store/userSlice';
+import withReducer from 'app/store/withReducer';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,10 +34,8 @@ import {
   selectContactById,
   updateContact,
 } from '../../../../layout/shared/chatPanel/store/contactsSlice';
-import ConfirmModal from '../../boilers-admin/components/detail/modals/ConfirmModal';
-import { selectUser } from 'app/store/userSlice';
-import { Switch, Typography } from '@mui/material';
-import withReducer from 'app/store/withReducer';
+import ConfirmModal from '../../boilers/components/detail/modals/ConfirmModal';
+import ContactHeaterSelector from './heater-selector/ContactHeaterSelector';
 
 const schema = yup.object().shape({
   name: yup.string().required('Zadajte prosím meno'),
