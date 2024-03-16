@@ -45,6 +45,7 @@ export class JwtService extends FuseUtils.EventEmitter {
         name: user.name,
         id: user.id,
         role: user.role,
+        allowedBoilers: user.heaters,
       });
       const hashed = btoa(mpAuth);
       await localStorage.setItem('mp-auth', hashed);
@@ -64,6 +65,7 @@ export class JwtService extends FuseUtils.EventEmitter {
             name: userData.name,
             id: userData.id,
             role: userData.role,
+            allowedBoilers: userData.heaters,
           });
           const hashed = btoa(mpAuth);
           await localStorage.setItem('mp-auth', hashed);
