@@ -41,14 +41,13 @@ export class JwtService extends FuseUtils.EventEmitter {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user: any = await fetchUserData(userCredential.user.uid);
-      await localStorage.setItem(
-        'monitoringpro-auth',
-        JSON.stringify({
-          name: user.name,
-          id: user.id,
-          role: user.role,
-        })
-      );
+      const mpAuth = JSON.stringify({
+        name: user.name,
+        id: user.id,
+        role: user.role,
+      });
+      const hashed = btoa(mpAuth);
+      await localStorage.setItem('mp-auth', hashed);
       return this.emit('onLogin', user);
     } catch (error) {
       throw error;
@@ -61,14 +60,13 @@ export class JwtService extends FuseUtils.EventEmitter {
       if (user) {
         const userData = await fetchUserData(user.uid);
         if (userData) {
-          await localStorage.setItem(
-            'monitoringpro-auth',
-            JSON.stringify({
-              name: userData.name,
-              id: userData.id,
-              role: userData.role,
-            })
-          );
+          const mpAuth = JSON.stringify({
+            name: userData.name,
+            id: userData.id,
+            role: userData.role,
+          });
+          const hashed = btoa(mpAuth);
+          await localStorage.setItem('mp-auth', hashed);
         }
         resolve(userData);
       } else {
