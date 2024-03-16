@@ -27,6 +27,7 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   const dragItem = useRef<any>(null);
   const [changedColumnIds, setChangedColumnIds] = useState<string[]>([]);
   const dragOverItem = useRef<any>(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTableColumns(boiler?.columns || []);
@@ -155,33 +156,38 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
   };
 
   const saveColumnsForBoilerInFirebase = async () => {
+    setLoading(true);
     try {
       if (arrayOfLimits.length > 0) {
         const arrayOfLimitsForSms = arrayOfLimits.map((accessor) => {
-          const column = tableColumns.find((column) => column.accessor === accessor);
-          if (column && (column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary')) {
-            const min = parseFloat(column.min.replaceAll(',', '.')) * 10;
-            const max = parseFloat(column.max.replaceAll(',', '.')) * 10;
+          const column = tableColumns.find((col) => col.accessor === accessor);
 
-            const limit = `${min}${max}`;
-            return {
-              columnAccessor: column.accessor,
-              limit: limit,
-            };
+          if (!column) return; // Early return if column not found
+
+          let min: string | number = String(column.min).replaceAll(',', '.');
+          let max: string | number = String(column.max).replaceAll(',', '.');
+
+          if (column.unit.toLowerCase() === 'bar' || column.unit.toLowerCase() === 'bary') {
+            min = parseFloat(min) * 10;
+            max = parseFloat(max) * 10;
+          } else {
+            // Ensure single digit numbers are prefixed with '0'
+            min = +min < 10 && +min > -10 ? `0${min}` : min;
+            max = +max < 10 && +max > -10 ? `0${max}` : max;
           }
-          if (column) {
-            const min = column.min < 10 && column.min > -10 ? `0${column.min}` : column.min;
-            const max = column.max < 10 && column.max > -10 ? `0${column.max}` : column.max;
-            const limit = `${min}${max}`;
-            return {
-              columnAccessor: column.accessor,
-              limit: limit,
-            };
-          }
+
+          // Construct the limit string directly to avoid redundant code
+          const limit = `${min}${max}`;
+
+          return {
+            columnAccessor: column.accessor,
+            limit,
+          };
         });
 
-        sendSmsToChangeLimits(arrayOfLimitsForSms);
+        await sendSmsToChangeLimits(arrayOfLimitsForSms);
       }
+
       const promises = changedColumnIds.map(async (colId) => {
         //@ts-ignore
         const changedCol = tableColumns.find((i) => i.id === colId);
@@ -192,10 +198,11 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
       });
 
       await Promise.all(promises);
-
+      setLoading(false);
       toggleOpen();
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {
+      setLoading(false);
       dispatch(showMessage({ message: 'Vyskytol sa nejaký problém' }));
     }
   };
@@ -235,9 +242,10 @@ function SettingsModal({ boiler, isOpen, toggleOpen, columnsValues }: Props) {
               className="whitespace-nowrap"
               variant="contained"
               color="primary"
+              disabled={loading}
               onClick={saveColumnsForBoilerInFirebase}
             >
-              Uložiť
+              {loading ? 'Ukladám...' : 'Uložiť'}
             </Button>
             <Button className="whitespace-nowrap" variant="contained" color="secondary" onClick={toggleOpen}>
               Zrušiť

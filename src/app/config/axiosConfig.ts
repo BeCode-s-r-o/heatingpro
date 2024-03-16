@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+const isDev = false;
+
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5500/', //'https://api.monitoringpro.sk/',
+  baseURL: isDev ? 'http://localhost:5500/' : 'https://api.monitoringpro.sk/',
   headers: {
     'mp-auth': localStorage.getItem('mp-auth') || '',
   },
