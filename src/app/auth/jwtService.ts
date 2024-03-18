@@ -7,6 +7,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebase-config';
+import { encodeStr } from '../utils/stringUtils';
 /* eslint-disable camelcase */
 
 const fetchUserData = async (id) => {
@@ -47,7 +48,7 @@ export class JwtService extends FuseUtils.EventEmitter {
         role: user.role,
         allowedBoilers: user.heaters,
       });
-      const hashed = btoa(mpAuth);
+      const hashed = encodeStr(mpAuth);
       await localStorage.setItem('mp-auth', hashed);
       return this.emit('onLogin', user);
     } catch (error) {
@@ -67,7 +68,7 @@ export class JwtService extends FuseUtils.EventEmitter {
             role: userData.role,
             allowedBoilers: userData.heaters,
           });
-          const hashed = btoa(mpAuth);
+          const hashed = encodeStr(mpAuth);
           await localStorage.setItem('mp-auth', hashed);
         }
         resolve(userData);
