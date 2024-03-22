@@ -55,7 +55,7 @@ const ContactView = () => {
       <Box
         className="relative w-full h-160 sm:h-192 px-32 sm:px-48 flex justify-center items-center"
         sx={{
-          backgroundColor: '#111827',
+          backgroundColor: '#010034',
         }}
       >
         {' '}

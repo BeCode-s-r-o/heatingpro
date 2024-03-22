@@ -25,7 +25,7 @@ const themesConfig = {
       },
       primary: {
         light: '#64748b',
-        main: '#1e293b',
+        main: '#010034',
         dark: '#0f172a',
         contrastText: darkPaletteText.primary,
       },
@@ -71,8 +71,8 @@ const themesConfig = {
         contrastText: darkPaletteText.primary,
       },
       background: {
-        paper: '#1e293b',
-        default: '#111827',
+        paper: '#010034',
+        default: '#010034',
       },
       error: {
         light: '#ffcdd2',
