@@ -396,7 +396,7 @@ export const DailyNotesTable = ({ id, componentRef }) => {
           </DialogContentText>
           <DialogContentText className="mt-8">
             <strong>Podpis</strong>:
-            {record.signatureImgURL !== null && <img className="mt-24" src={record.signatureImgURL} />}
+            {record.signatureImgURL !== null ? <img className="mt-24" src={record.signatureImgURL} /> : ' Neobsahuje'}
           </DialogContentText>
         </DialogContent>
       </Dialog>

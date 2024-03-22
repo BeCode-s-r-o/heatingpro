@@ -112,7 +112,9 @@ const ContactView = () => {
             {contact.email && (
               <div className="flex items-center">
                 <FuseSvgIcon size={20}>heroicons-solid:mail</FuseSvgIcon>
-                <div className="ml-24 leading-6">{contact.email}</div>
+                <div className="ml-24 leading-6">
+                  <a href={`mailto:${contact.email}`}>{contact.email}</a>
+                </div>
               </div>
             )}
 

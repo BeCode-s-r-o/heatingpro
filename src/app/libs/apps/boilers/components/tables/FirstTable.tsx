@@ -103,10 +103,12 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
 
     const cellsWithColors = columnsData.map((i: any) => ({
       ...i,
+      headerName: i.columnName,
       renderCell: (params) => {
         if (i.field === 'prefix') {
           return params.value;
         }
+
         return (
           <Tooltip title={i.desc === '' ? 'Bez popisu' : i.desc} placement="top">
             <p className={nubmerIsInInterval(i.min, i.max, params.value) ? 'text-green' : 'text-red'}>{params.value}</p>
