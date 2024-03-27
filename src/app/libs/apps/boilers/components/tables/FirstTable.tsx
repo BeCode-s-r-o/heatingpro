@@ -86,7 +86,7 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
       minWidth: 170,
       headerName: 'Dátum',
       renderCell: (params) => {
-        const isCreatedDailyNotes = wasCreatedDailyNote(boiler?.notes, params.value.slice(0, 10));
+        const isCreatedDailyNotes = params.row.hasNote;
         return (
           <Tooltip
             title={isCreatedDailyNotes ? 'V daný deň bol vykonaný záznam' : 'V daný deň nebol vykonaný záznam'}
