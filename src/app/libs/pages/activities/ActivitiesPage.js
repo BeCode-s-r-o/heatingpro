@@ -93,7 +93,10 @@ function ActivitiesPage() {
       <FusePageSimple
         content={
           <>
-            <div className="flex flex-col flex-auto px-24 py-40 sm:px-64 sm:pt-72 sm:pb-80">
+            <div
+              style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+              className="flex flex-col flex-auto px-24 py-40 sm:px-64 sm:pt-72 sm:pb-80"
+            >
               <Typography className="text-4xl font-extrabold tracking-tight leading-none">Nastavenia</Typography>
               <Typography className="mt-3 mb-5 text-2xl font-extrabold tracking-tight leading-none">
                 Spalné teplo zemného plynu

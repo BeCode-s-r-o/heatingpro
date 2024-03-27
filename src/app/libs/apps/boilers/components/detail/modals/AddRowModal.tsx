@@ -8,7 +8,7 @@ import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
 import { v4 } from 'uuid';
 
-function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
+function AddRowModal({ isOpen, close, existingRows, deviceID, columns, refetch }) {
   const [newRow, setNewRow] = useState<any>();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -33,7 +33,7 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
     return row;
   }
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     const createdRow = convertRowFromArrayToObject(newRow);
     const newRowData = {
@@ -45,8 +45,8 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
 
     try {
       const ref = doc(db, 'monthTableValues', newRowData.id);
-      setDoc(ref, newRowData);
-
+      await setDoc(ref, newRowData);
+      refetch();
       close();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
@@ -65,23 +65,25 @@ function AddRowModal({ isOpen, close, existingRows, deviceID, columns }) {
           </ListItem>
           {newRow && (
             <form onSubmit={submit}>
-              {newRow.map((column, index) => {
-                return (
-                  <ListItem key={index}>
-                    <TextField
-                      className="w-full"
-                      name={column.name}
-                      label={column.name}
-                      onChange={handleChange}
-                      value={column[column.name]}
-                      required
-                      InputProps={{
-                        endAdornment: <Typography>{column.unit}</Typography>,
-                      }}
-                    />
-                  </ListItem>
-                );
-              })}
+              {newRow
+                .filter((i) => i.name !== 'ucinnost' && i.name !== 'date')
+                .map((column, index) => {
+                  return (
+                    <ListItem key={index}>
+                      <TextField
+                        className="w-full"
+                        name={column.name}
+                        label={column.name}
+                        onChange={handleChange}
+                        value={column[column.name]}
+                        required
+                        InputProps={{
+                          endAdornment: <Typography>{column.unit}</Typography>,
+                        }}
+                      />
+                    </ListItem>
+                  );
+                })}
             </form>
           )}
 

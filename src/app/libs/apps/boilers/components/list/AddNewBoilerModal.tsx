@@ -405,7 +405,7 @@ const AddNewBoilerModal = ({ isOpen, toggleOpen }: Props) => {
       setDoc(boilerHeaderHistoryRef, { history: [] });
       createBoilerOnBackend(newBoiler.phoneNumber, newBoiler.id);
       toggleOpen();
-      dispatch(showMessage({ message: 'Boiler bol úspšene pridaný' }));
+      dispatch(showMessage({ message: 'Kotolňa bola úspšene pridaná' }));
       resetForm();
       dispatch(getBoilers());
     } catch (error) {

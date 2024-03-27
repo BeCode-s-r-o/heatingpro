@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { useWindowSize } from 'react-use';
 import { authInstance } from 'src/app/auth/jwtService';
 import * as yup from 'yup';
 
@@ -43,13 +44,31 @@ function SignInPage() {
     }
   }
 
+  const { width } = useWindowSize();
+  const isPhone = width <= 600;
+
   return (
     <div className="flex flex-col sm:flex-row items-center md:items-start sm:justify-center md:justify-start flex-1 min-w-0">
-      <Paper className="h-full sm:h-auto md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1">
+      <Paper
+        style={{
+          backgroundImage: isPhone ? 'url(/assets/images/backgrounds/pozadie-mobil.webp)' : undefined,
+          backgroundSize: 'cover',
+        }}
+        className="h-full sm:h-auto md:flex md:items-center md:justify-end w-full sm:w-auto md:h-full md:w-1/2 py-8 px-16 sm:p-48 md:p-64 sm:rounded-2xl md:rounded-none sm:shadow md:shadow-none ltr:border-r-1 rtl:border-l-1"
+      >
         <div className="w-full max-w-320 sm:w-320 mx-auto sm:mx-0">
-          <img className="w-380" src="assets/images/logo/logo.png" alt="logo" />
+          <img
+            className="w-380"
+            src={isPhone ? '/assets/images/logo/white.png' : '/assets/images/logo/logo.png'}
+            alt="logo"
+          />
 
-          <Typography className="mt-32 text-4xl font-extrabold tracking-tight leading-tight">Prihlásiť sa</Typography>
+          <Typography
+            style={{ color: isPhone ? 'white' : 'black' }}
+            className="mt-32 text-4xl font-extrabold tracking-tight leading-tight"
+          >
+            Prihlásiť sa
+          </Typography>
 
           <form
             name="loginForm"
@@ -66,6 +85,7 @@ function SignInPage() {
                   className="mb-24"
                   label="E-mail"
                   autoFocus
+                  style={{ backgroundColor: 'white' }}
                   type="email"
                   error={!!errors.email}
                   helperText={errors?.email?.message}
@@ -85,6 +105,7 @@ function SignInPage() {
                   className="mb-12"
                   label="Heslo"
                   type="password"
+                  style={{ backgroundColor: 'white' }}
                   error={!!errors.password}
                   helperText={errors?.password?.message}
                   variant="outlined"
@@ -123,7 +144,7 @@ function SignInPage() {
 
       <Box
         className="relative hidden md:flex flex-auto items-center justify-center h-full p-64 lg:px-112 overflow-hidden"
-        sx={{ backgroundImage: 'url(assets/images/backgrounds/signin.jpg)' }}
+        sx={{ backgroundImage: 'url(/assets/images/backgrounds/signin.jpg)' }}
       >
         <div className="z-10 relative w-full max-w-2xl">
           <div className="text-7xl font-bold leading-none text-gray-100">

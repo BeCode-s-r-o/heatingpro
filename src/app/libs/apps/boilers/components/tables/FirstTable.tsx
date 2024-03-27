@@ -168,7 +168,11 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
   }, [isSettingsModalOpen]);
 
   return (
-    <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper
+      style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+      ref={componentRef}
+      className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden"
+    >
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Prevádzkový denník {id}
       </Typography>
@@ -277,29 +281,28 @@ export const BoilersDetailTable = ({ id, componentRef }) => {
             </Button>
           </>
         )}
-        {boiler && (
-          <>
-            {boiler.columns.length === 0 ? ( //initializing new boiler
-              <NewBoilerSettingsModal
-                boiler={boiler}
-                isOpen={isSettingsModalOpen}
-                toggleOpen={() => {
-                  setIsSettingsModalOpen((prev) => !prev);
-                }}
-              />
-            ) : (
-              <TableSettingsModal //existing boiler
-                //@ts-ignore
-                boiler={{ ...boiler, columns: data.columns }}
-                isOpen={isSettingsModalOpen}
-                toggleOpen={() => {
-                  setIsSettingsModalOpen((prev) => !prev);
-                }}
-                columnsValues={data.columns}
-              />
-            )}
-          </>
-        )}
+
+        <>
+          {columns.length === 0 ? ( //initializing new boiler
+            <NewBoilerSettingsModal
+              boiler={boiler as any}
+              isOpen={isSettingsModalOpen}
+              toggleOpen={() => {
+                setIsSettingsModalOpen((prev) => !prev);
+              }}
+            />
+          ) : (
+            <TableSettingsModal //existing boiler
+              //@ts-ignore
+              boiler={{ ...boiler, columns: data.columns }}
+              isOpen={isSettingsModalOpen}
+              toggleOpen={() => {
+                setIsSettingsModalOpen((prev) => !prev);
+              }}
+              columnsValues={data.columns}
+            />
+          )}
+        </>
       </div>
 
       <ConfirmModal

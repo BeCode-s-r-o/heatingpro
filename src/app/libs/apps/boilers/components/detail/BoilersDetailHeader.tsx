@@ -238,7 +238,10 @@ export const BoilersDetailHeader = ({ boiler }: Props) => {
 
   return (
     <>
-      <div className="flex flex-col w-full px-24 sm:px-32">
+      <div
+        style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+        className="flex flex-col w-full px-24 sm:px-32"
+      >
         <div className="flex flex-col md:flex-row gap-20 lg:gap-0 flex-auto flex-wrap lg:flex-nowrap md:items-center min-w-0 my-32 sm:my-48">
           <div className="flex flex-auto items-center min-w-0">
             <div className="flex flex-col min-w-0 mx-16">

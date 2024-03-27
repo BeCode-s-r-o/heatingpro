@@ -66,6 +66,7 @@ const ContactsList = () => {
       initial={{ y: 20, opacity: 0 }}
       animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
       className="flex flex-col flex-auto w-full max-h-full"
+      style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
     >
       {filteredContacts.map(({ key, data }) => (
         <div key={key} className="relative">

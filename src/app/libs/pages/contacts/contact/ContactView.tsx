@@ -37,7 +37,10 @@ const ContactView = () => {
 
   return (
     <>
-      <div className="relative flex flex-col flex-auto items-center p-24 pt-0 sm:p-48 sm:pt-0 pb-0">
+      <div
+        style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+        className="relative flex flex-col flex-auto items-center p-24 pt-0 sm:p-48 sm:pt-0 pb-0"
+      >
         <div className="w-full max-w-3xl">
           <Typography className="mt-12 text-4xl font-bold truncate">Kontaktné údaje</Typography>
 

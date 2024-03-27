@@ -14,11 +14,12 @@ import {
 } from '@mui/material';
 import { AppDispatch } from 'app/store/index';
 import { showMessage } from 'app/store/slices/messageSlice';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { doc, setDoc } from 'firebase/firestore';
+import { useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useFetchPaginated } from 'src/app/hooks/useFetchPaginated';
 import { db } from 'src/firebase-config';
-import { getBoiler } from '../../../store/boilersSlice';
+import { v4 } from 'uuid';
 interface Props {
   isOpen: boolean;
   close: () => void;
@@ -34,11 +35,21 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
   ]);
   const dispatch = useDispatch<AppDispatch>();
 
+  const options = useMemo(() => ({ id: deviceID }), [deviceID]);
+  const { data } = useFetchPaginated('third-table-data', options, {
+    rows: [],
+    columns: [],
+  });
+
   useEffect(() => {
-    if (columns.length > 0) {
-      setFormFields(columns.map((column) => ({ ...column, name: column.headerName, unit: column.unit })));
+    if (data.columns.length > 0) {
+      const necessaryColumns = data.columns.filter((i) => {
+        return i.field !== 'id' && i.field !== 'date' && i.field !== 'ucinnost';
+      });
+      setFormFields(necessaryColumns.map((column) => ({ ...column, name: column.headerName, unit: column.unit })));
     }
-  }, [columns]);
+  }, [data.columns]);
+
   const columnOptions = [
     { name: 'VO1', desc: 'Merač tepla (VO1)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
     { name: 'VO2', desc: 'Merač tepla (VO2)', units: ['kJ', 'MJ', 'GJ', 'kWh', 'MWh', 'GWh', 'kcal', 'Mcal', 'Gcal'] },
@@ -88,27 +99,28 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
   const submit = (e) => {
     e.preventDefault();
 
-    const newColumns = formFields.map((column) => ({
-      id: column.id,
+    const newColumns = formFields.map((column, index) => ({
+      id: column.id || v4(),
       field: column.name,
       headerName: column.name,
       unit: column.unit,
       desc: column.desc,
+      boilerId: deviceID,
+      order: index,
     }));
-    if (existDuplicateColumn(newColumns)) {
-      dispatch(showMessage({ message: 'Vyskytol sa duplicitný stĺpec' }));
-      return;
-    }
+
     try {
-      const boilerRef = doc(db, 'boilers', deviceID);
-      const updatedColumnsArray = [...newColumns];
-      updateDoc(boilerRef, { monthTable: { columns: updatedColumnsArray, rows: addEmptyValueForRows() } });
-      setColumns(updatedColumnsArray);
+      newColumns.forEach((column) => {
+        const columnRef = doc(db, 'monthTableColumns', column.id);
+
+        setDoc(columnRef, column);
+      });
+
       close();
     } catch (error) {
       dispatch(showMessage({ message: 'Ups, vyskytla sa chyba ' + error }));
     }
-    dispatch(getBoiler(deviceID || ''));
+
     dispatch(showMessage({ message: 'Zmeny boli úspešne uložené' }));
   };
 
@@ -153,6 +165,7 @@ function AddColumnModal({ isOpen, close, columns, deviceID, rows, setColumns }: 
     }
     return false;
   };
+
   return (
     <Drawer anchor="right" open={isOpen} onClose={close}>
       <div className="max-w-[98vw] overflow-x-scroll min-h-full">

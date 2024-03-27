@@ -188,7 +188,11 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
   );
 
   return (
-    <Paper ref={componentRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper
+      style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+      ref={componentRef}
+      className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden"
+    >
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Mesačné odpisy stavu spotreby {id}
       </Typography>
@@ -318,9 +322,10 @@ export const ManualBoilerTable = ({ id, componentRef }) => {
           </Button>
         )}
         <AddRowModal
+          refetch={refetch}
           isOpen={showAddRow}
           close={() => setShowAddRow(false)}
-          columns={columns}
+          columns={data.columns}
           existingRows={data.rows}
           deviceID={id}
         />

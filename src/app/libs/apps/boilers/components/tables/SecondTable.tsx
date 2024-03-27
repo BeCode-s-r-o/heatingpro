@@ -241,7 +241,11 @@ export const DailyNotesTable = ({ id, componentRef }) => {
   };
   const rolesEnabledEdit = ['admin'];
   return (
-    <Paper className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden" ref={componentRef}>
+    <Paper
+      style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+      className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden"
+      ref={componentRef}
+    >
       <Typography className="text-lg font-medium tracking-tight leading-6 truncate mx-auto">
         Prevádzkové záznamy kotolne {id}
       </Typography>

@@ -1,18 +1,17 @@
+import { TBoiler } from '@app/types/TBoilers';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
-import { showMessage } from 'app/store/slices/messageSlice';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-
-import { TBoiler } from '@app/types/TBoilers';
 import { AppDispatch } from 'app/store/index';
+import { showMessage } from 'app/store/slices/messageSlice';
+import { doc, setDoc } from 'firebase/firestore';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { db } from 'src/firebase-config';
-import { getBoiler } from '../../../store/boilersSlice';
+import { v4 } from 'uuid';
 import SettingsModalColumn from './SettingsModalColumn';
 
 interface Props {
@@ -63,7 +62,7 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
 
   const initializeNewColumns = useMemo(
     () => (data) => {
-      const emptyColumn = { columnName: '', desc: '', hide: false, max: 99, min: 0, unit: '' };
+      const emptyColumn = { columnName: '', desc: '', hide: true, max: 99, min: 0, unit: '' };
       return data.map((value, index) => ({
         ...emptyColumn,
         accessor: self.crypto.randomUUID(),
@@ -93,10 +92,19 @@ function NewBoilerSettingsModal({ boiler, isOpen, toggleOpen }: Props) {
     try {
       const orderedColumns = columns.map((column, index) => ({ ...column, order: index, accessor: String(index) }));
 
-      const boilerRef = doc(db, 'boilers', boiler.id);
+      orderedColumns.forEach(async (column) => {
+        const columnid = v4();
+        const columnRef = doc(db, 'dailyTableColumns', columnid);
+        const columnData = {
+          ...column,
+          boilerId: boiler.id,
+          headerName: column.columnName,
+          id: columnid,
+          field: column.order,
+        };
 
-      updateDoc(boilerRef, { columns: orderedColumns });
-      dispatch(getBoiler(boiler.id || ''));
+        await setDoc(columnRef, columnData);
+      });
       toggleOpen();
       dispatch(showMessage({ message: 'Zmeny boli uložené' }));
     } catch (error) {

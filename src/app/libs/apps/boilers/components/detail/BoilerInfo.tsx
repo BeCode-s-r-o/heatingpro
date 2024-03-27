@@ -75,7 +75,11 @@ const BoilerInfo = ({ boiler, headerRef, user }: { boiler: TBoiler; headerRef: a
   }, []);
 
   return (
-    <Paper ref={headerRef} className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden">
+    <Paper
+      style={{ background: 'url(/assets/images/backgrounds/white.jpg)', backgroundSize: 'cover' }}
+      ref={headerRef}
+      className="flex flex-col flex-auto p-24 shadow rounded-2xl overflow-hidden"
+    >
       <Box
         className="flex jusitfy-between flex-wrap gap-20 lg:gap-0 overflow-x-scroll"
         style={{ width: '100%', justifyContent: 'space-between' }}
